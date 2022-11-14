@@ -1,11 +1,14 @@
 package com.ilchinjo.mainproject.domain.exercise.entity;
 
 import com.ilchinjo.mainproject.domain.address.entity.Address;
+import com.ilchinjo.mainproject.domain.comment.entity.Comment;
 import com.ilchinjo.mainproject.domain.member.entity.Member;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -16,7 +19,7 @@ import java.time.LocalDateTime;
 public class Exercise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long exercise_id;
+    private Long exerciseId;
 
     private String title;
 
@@ -43,4 +46,8 @@ public class Exercise {
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "exercise")
+    private List<Comment> comments = new ArrayList<>();
 }
