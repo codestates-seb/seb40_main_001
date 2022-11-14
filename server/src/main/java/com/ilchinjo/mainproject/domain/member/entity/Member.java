@@ -18,13 +18,15 @@ public class Member extends AuditingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
 
+    @Column(unique = true, nullable = false)
     private String email;
 
     private String password;
 
+    @Column(unique = true, nullable = false)
     private String nickname;
 
-    private String gender;
+    private Gender gender;
 
     private LocalDateTime birthday;
 
