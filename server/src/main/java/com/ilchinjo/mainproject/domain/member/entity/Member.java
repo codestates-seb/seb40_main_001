@@ -1,11 +1,15 @@
 package com.ilchinjo.mainproject.domain.member.entity;
 
 import com.ilchinjo.mainproject.domain.address.entity.Address;
+import com.ilchinjo.mainproject.domain.comment.entity.Comment;
+import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
 import com.ilchinjo.mainproject.global.audit.AuditingEntity;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -33,4 +37,12 @@ public class Member extends AuditingEntity {
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "host")
+    private List<Exercise> hostedExercises = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "participant")
+    private List<Exercise> participatedExercises = new ArrayList<>();
 }
