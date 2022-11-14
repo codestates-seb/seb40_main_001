@@ -29,4 +29,8 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "comment")
+    private List<Reply> replies = new ArrayList<>();
 }
