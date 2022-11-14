@@ -4,6 +4,7 @@ import com.ilchinjo.mainproject.domain.address.entity.Address;
 import com.ilchinjo.mainproject.domain.comment.entity.Comment;
 import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
 import com.ilchinjo.mainproject.domain.reply.entity.Reply;
+import com.ilchinjo.mainproject.domain.review.entity.Review;
 import com.ilchinjo.mainproject.global.audit.AuditingEntity;
 import lombok.*;
 
@@ -52,4 +53,8 @@ public class Member extends AuditingEntity {
     @Builder.Default
     @OneToMany(mappedBy = "author")
     private List<Reply> replies = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "destMember")
+    private List<Review> receivedReviews = new ArrayList<>();
 }
