@@ -45,4 +45,8 @@ public class Member extends AuditingEntity {
     @Builder.Default
     @OneToMany(mappedBy = "participant")
     private List<Exercise> participatedExercises = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "author")
+    private List<Comment> comments = new ArrayList<>();
 }
