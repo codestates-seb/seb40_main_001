@@ -3,6 +3,7 @@ package com.ilchinjo.mainproject.domain.exercise.entity;
 import com.ilchinjo.mainproject.domain.address.entity.Address;
 import com.ilchinjo.mainproject.domain.comment.entity.Comment;
 import com.ilchinjo.mainproject.domain.member.entity.Member;
+import com.ilchinjo.mainproject.domain.proposal.entity.Proposal;
 import lombok.*;
 
 import javax.persistence.*;
@@ -50,4 +51,8 @@ public class Exercise {
     @Builder.Default
     @OneToMany(mappedBy = "exercise")
     private List<Comment> comments = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "exercise")
+    private List<Proposal> proposals = new ArrayList<>();
 }
