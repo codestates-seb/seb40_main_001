@@ -33,8 +33,6 @@ public class Member extends AuditingEntity {
 
     private Gender gender;
 
-    private LocalDateTime birthday;
-
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
