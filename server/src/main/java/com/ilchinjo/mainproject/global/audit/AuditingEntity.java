@@ -1,4 +1,4 @@
-package com.ilchinjo.mainproject.audit;
+package com.ilchinjo.mainproject.global.audit;
 
 import lombok.Getter;
 import lombok.Setter;

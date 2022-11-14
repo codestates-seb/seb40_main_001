@@ -1,4 +1,4 @@
-package com.ilchinjo.mainproject.dto;
+package com.ilchinjo.mainproject.global.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

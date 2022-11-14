@@ -1,7 +1,7 @@
-package com.ilchinjo.mainproject.advice;
+package com.ilchinjo.mainproject.global.advice;
 
-import com.ilchinjo.mainproject.exception.BusinessLogicException;
-import com.ilchinjo.mainproject.response.ErrorResponse;
+import com.ilchinjo.mainproject.global.exception.BusinessLogicException;
+import com.ilchinjo.mainproject.global.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

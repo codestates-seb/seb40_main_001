@@ -1,4 +1,4 @@
-package com.ilchinjo.mainproject.config;
+package com.ilchinjo.mainproject.global.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

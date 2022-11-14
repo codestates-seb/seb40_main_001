@@ -1,4 +1,4 @@
-package com.ilchinjo.mainproject.exception;
+package com.ilchinjo.mainproject.global.exception;
 
 import lombok.Getter;
 

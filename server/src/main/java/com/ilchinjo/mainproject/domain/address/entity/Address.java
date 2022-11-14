@@ -1,4 +1,4 @@
-package com.ilchinjo.mainproject.Address.entity;
+package com.ilchinjo.mainproject.domain.address.entity;
 
 import lombok.*;
 

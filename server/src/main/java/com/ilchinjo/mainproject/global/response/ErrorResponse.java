@@ -1,6 +1,6 @@
-package com.ilchinjo.mainproject.response;
+package com.ilchinjo.mainproject.global.response;
 
-import com.ilchinjo.mainproject.exception.ExceptionCode;
+import com.ilchinjo.mainproject.global.exception.ExceptionCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

@@ -1,7 +1,7 @@
-package com.ilchinjo.mainproject.member.entity;
+package com.ilchinjo.mainproject.domain.member.entity;
 
-import com.ilchinjo.mainproject.Address.entity.Address;
-import com.ilchinjo.mainproject.audit.AuditingEntity;
+import com.ilchinjo.mainproject.domain.address.entity.Address;
+import com.ilchinjo.mainproject.global.audit.AuditingEntity;
 import lombok.*;
 
 import javax.persistence.*;
