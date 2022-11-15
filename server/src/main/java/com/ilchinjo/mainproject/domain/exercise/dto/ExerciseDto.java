@@ -12,25 +12,22 @@ import java.time.LocalDateTime;
 public class ExerciseDto {
 
     public static class Post {
-        @NotBlank
+        @NotBlank(message = "제목은 공백이 아니어야 합니다.")
         private String title;
 
-        @NotBlank
+        @NotBlank(message = "본문은 공백이 아니어야 합니다.")
         private String content;
 
-        @NotBlank
+        @NotBlank(message = "운동 시작시점는 공백이 아니어야 합니다.")
         private LocalDateTime exerciseAt;
 
-        @NotBlank
+        @NotBlank(message = "운동 종료시점은 공백이 아니어야 합니다.")
         private LocalDateTime endAt;
 
-        @NotBlank
+        @NotBlank(message = "성별 타입은 공백이 아니어야 합니다.")
         private GenderType genderType;
 
-        @NotBlank
-        private Address address;
-
-        @NotBlank
+        @NotBlank(message = "카테고리는 공백이 아니어야 합니다.")
         private Category category;
     }
 }
