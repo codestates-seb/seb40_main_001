@@ -14,7 +14,6 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
@@ -31,11 +30,15 @@ public class Exercise extends AuditingEntity {
 
     private LocalDateTime endAt;
 
+    @Enumerated(EnumType.STRING)
     private GenderType genderType;
 
+    @Enumerated(EnumType.STRING)
     private Category category;
 
-    private ExerciseStatus exerciseStatus;
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    private ExerciseStatus exerciseStatus = ExerciseStatus.ACTIVE;
 
     @ManyToOne
     @JoinColumn(name = "host_id")
@@ -56,4 +59,17 @@ public class Exercise extends AuditingEntity {
     @Builder.Default
     @OneToMany(mappedBy = "exercise")
     private List<Proposal> proposals = new ArrayList<>();
+
+    public static Exercise createExercise(Exercise exercise) {
+        Exercise createdExercise = Exercise.builder()
+                .title(exercise.title)
+                .content(exercise.content)
+                .exerciseAt(exercise.exerciseAt)
+                .endAt(exercise.endAt)
+                .genderType(exercise.genderType)
+                .category(exercise.category)
+                .build();
+
+        return createdExercise;
+    }
 }
