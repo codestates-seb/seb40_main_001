@@ -22,4 +22,11 @@ public class ExerciseController {
 
         return exerciseService.saveExercise(postDto);
     }
+
+    @DeleteMapping("/{exercise-id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteExercise(@PathVariable(name = "exercise-id") Long exerciseId) {
+
+        exerciseService.deleteExercise(exerciseId);
+    }
 }
