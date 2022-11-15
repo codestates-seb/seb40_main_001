@@ -12,7 +12,6 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@Validated
 @RequestMapping("/exercises")
 public class ExerciseController {
     private final ExerciseService exerciseService;

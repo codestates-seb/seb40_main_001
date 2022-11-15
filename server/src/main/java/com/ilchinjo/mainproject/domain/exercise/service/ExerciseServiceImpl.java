@@ -7,9 +7,11 @@ import com.ilchinjo.mainproject.domain.exercise.mapper.ExerciseMapper;
 import com.ilchinjo.mainproject.domain.exercise.repository.ExerciseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ExerciseServiceImpl implements ExerciseService {
 
     private final ExerciseRepository exerciseRepository;
