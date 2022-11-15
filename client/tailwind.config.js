@@ -16,7 +16,7 @@ module.exports = {
       exercise: '#7FD1AE',
     },
     colors: {
-      primary: {
+      main: {
         DEFAULT: '#2BAE66',
         week: '#7FD1AE',
         red: '#FF7B8E',
