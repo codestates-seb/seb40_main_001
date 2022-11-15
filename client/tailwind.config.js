@@ -33,6 +33,7 @@ module.exports = {
       orange: '#FF8A00',
       border_color: '#F2F2F2',
       green: '#7ACE82',
+      babyPink: '#FCF6F5',
     },
     extend: {},
   },
