@@ -1,8 +1,9 @@
 package com.ilchinjo.mainproject.domain.exercise.service;
 
-import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
+import com.ilchinjo.mainproject.domain.exercise.dto.ExercisePostDto;
+import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseResponseDto;
 
 public interface ExerciseService {
 
-    Exercise saveExercise(Exercise exercise);
+    ExerciseResponseDto saveExercise(ExercisePostDto postDto);
 }

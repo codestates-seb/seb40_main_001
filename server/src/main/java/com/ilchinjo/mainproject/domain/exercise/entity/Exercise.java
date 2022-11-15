@@ -68,7 +68,6 @@ public class Exercise extends AuditingEntity {
                 .endAt(exercise.endAt)
                 .genderType(exercise.genderType)
                 .category(exercise.category)
-                .exerciseStatus(ExerciseStatus.ACTIVE)
                 .build();
 
         return createdExercise;
