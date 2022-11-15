@@ -7,10 +7,9 @@ import com.ilchinjo.mainproject.domain.exercise.service.ExerciseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,7 +21,7 @@ public class ExerciseController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public String postExercise(ExerciseDto.Post postDto) {
+    public String postExercise(@RequestBody @Valid ExerciseDto.Post postDto) {
         Exercise exercise = exerciseMapper.postDtoToEntity(postDto);
         Exercise savedExercise = exerciseService.saveExercise(exercise);
 

@@ -30,11 +30,15 @@ public class Exercise extends AuditingEntity {
 
     private LocalDateTime endAt;
 
+    @Enumerated(EnumType.STRING)
     private GenderType genderType;
 
+    @Enumerated(EnumType.STRING)
     private Category category;
 
-    private ExerciseStatus exerciseStatus;
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    private ExerciseStatus exerciseStatus = ExerciseStatus.ACTIVE;
 
     @ManyToOne
     @JoinColumn(name = "host_id")
