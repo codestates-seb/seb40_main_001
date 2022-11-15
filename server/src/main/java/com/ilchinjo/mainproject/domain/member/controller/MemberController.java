@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/members")
 @Validated
@@ -23,11 +25,11 @@ public class MemberController {
     private final MemberMapper mapper;
 
     @PostMapping
-    public ResponseEntity postMember(@RequestBody MemberDto.Post requestBody) {
+    public ResponseEntity postMember(@RequestBody @Valid MemberDto.Post postDto) {
 
-        Member member = mapper.memberPostDtoToMember(requestBody);
+        Member member = mapper.postDtoToEntity(postDto);
         Member createMember = memberService.saveMember(member);
-        MemberDto.Response response = mapper.memberToMemberResponse(createMember);
+        MemberDto.Response response = mapper.entityToResponseDto(createMember);
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
