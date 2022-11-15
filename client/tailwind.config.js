@@ -2,6 +2,38 @@
 module.exports = {
   content: ['./src/**/*.{jsx,js}'],
   theme: {
+    fontSize: {
+      100: '10px',
+      200: '13px',
+      300: '16px',
+      400: '19px',
+    },
+    textColor: {
+      DEFAULT: '#000000',
+      low: '#8D8D8D',
+      light: '#BBBBBB',
+      err: '#FF0000',
+      exercise: '#7FD1AE',
+    },
+    colors: {
+      primary: {
+        DEFAULT: '#2BAE66',
+        week: '#7FD1AE',
+        red: '#FF7B8E',
+      },
+      text: {
+        disabled: '#BBBBBB',
+        DEFAULT: '#2D2D2D',
+        sub: '#8D8D8D',
+      },
+      gray: '#F8F8F8',
+      blue: '#466BED',
+      yellow: '#FFE500',
+      red: '#FF2E00',
+      orange: '#FF8A00',
+      border_color: '#F2F2F2',
+      green: '#7ACE82',
+    },
     extend: {},
   },
   /* eslint-disable global-require */
