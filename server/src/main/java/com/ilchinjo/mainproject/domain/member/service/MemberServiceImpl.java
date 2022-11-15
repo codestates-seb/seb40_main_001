@@ -1,6 +1,9 @@
 package com.ilchinjo.mainproject.domain.member.service;
 
+import com.ilchinjo.mainproject.domain.member.dto.MemberPostDto;
+import com.ilchinjo.mainproject.domain.member.dto.MemberResponseDto;
 import com.ilchinjo.mainproject.domain.member.entity.Member;
+import com.ilchinjo.mainproject.domain.member.mapper.MemberMapper;
 import com.ilchinjo.mainproject.domain.member.repository.MemberRepository;
 import com.ilchinjo.mainproject.global.exception.BusinessLogicException;
 import com.ilchinjo.mainproject.global.exception.ExceptionCode;
@@ -16,13 +19,17 @@ import java.util.Optional;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
+    private final MemberMapper memberMapper;
 
     @Override
-    public Member saveMember(Member member) {
+    public MemberResponseDto saveMember(MemberPostDto postDto) {
 
+        Member member = memberMapper.postDtoToEntity(postDto);
         verifyExistsEmail(member.getEmail());
 
-        return memberRepository.save(member);
+        memberRepository.save(member);
+
+        return memberMapper.entityToResponseDto(member);
     }
 
     private void verifyExistsEmail(String email) {

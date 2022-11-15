@@ -1,8 +1,9 @@
 package com.ilchinjo.mainproject.domain.member.service;
 
-import com.ilchinjo.mainproject.domain.member.entity.Member;
+import com.ilchinjo.mainproject.domain.member.dto.MemberPostDto;
+import com.ilchinjo.mainproject.domain.member.dto.MemberResponseDto;
 
 public interface MemberService {
 
-    Member saveMember(Member member);
+    MemberResponseDto saveMember(MemberPostDto postDto);
 }
