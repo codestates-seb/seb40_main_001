@@ -1,6 +1,7 @@
 package com.ilchinjo.mainproject.domain.exercise.mapper;
 
 import com.ilchinjo.mainproject.domain.exercise.dto.ExercisePostDto;
+import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseResponseDto;
 import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
 import org.mapstruct.Mapper;
 
@@ -8,4 +9,6 @@ import org.mapstruct.Mapper;
 public interface ExerciseMapper {
 
     Exercise postDtoToEntity(ExercisePostDto postDto);
+
+    ExerciseResponseDto entityToResponseDto(Exercise exercise);
 }
