@@ -1,6 +1,6 @@
 package com.ilchinjo.mainproject.domain.exercise.controller;
 
-import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseDto;
+import com.ilchinjo.mainproject.domain.exercise.dto.ExercisePostDto;
 import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
 import com.ilchinjo.mainproject.domain.exercise.mapper.ExerciseMapper;
 import com.ilchinjo.mainproject.domain.exercise.service.ExerciseService;
@@ -21,7 +21,7 @@ public class ExerciseController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public String postExercise(@RequestBody @Valid ExerciseDto.Post postDto) {
+    public String postExercise(@RequestBody @Valid ExercisePostDto postDto) {
         Exercise exercise = exerciseMapper.postDtoToEntity(postDto);
         Exercise savedExercise = exerciseService.saveExercise(exercise);
 
