@@ -55,4 +55,18 @@ public class Exercise extends AuditingEntity {
     @Builder.Default
     @OneToMany(mappedBy = "exercise")
     private List<Proposal> proposals = new ArrayList<>();
+
+    public static Exercise createExercise(Exercise exercise) {
+        Exercise createdExercise = Exercise.builder()
+                .title(exercise.title)
+                .content(exercise.content)
+                .exerciseAt(exercise.exerciseAt)
+                .endAt(exercise.endAt)
+                .genderType(exercise.genderType)
+                .category(exercise.category)
+                .exerciseStatus(ExerciseStatus.ACTIVE)
+                .build();
+
+        return createdExercise;
+    }
 }
