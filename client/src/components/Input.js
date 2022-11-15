@@ -6,7 +6,7 @@ const InputArea = () => {
     <input
       type="text"
       placeholder={`${target}를 입력해주세요`}
-      className="input w-full max-w-xs focus:outline-main"
+      className=" input w-[338px] h-[59px] rounded-[7px] focus:outline-main "
     />
   );
 };
