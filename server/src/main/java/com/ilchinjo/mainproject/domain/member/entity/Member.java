@@ -61,7 +61,6 @@ public class Member extends AuditingEntity {
 
     public void update(MemberPatchDto patchDto) {
 
-        Optional.ofNullable(patchDto.getNickname())
-                .ifPresent(nickname -> this.nickname = nickname);
+        this.nickname = patchDto.getNickname();
     }
 }
