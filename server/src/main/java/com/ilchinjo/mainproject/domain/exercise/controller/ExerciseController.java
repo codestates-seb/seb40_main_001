@@ -44,8 +44,9 @@ public class ExerciseController {
 
     @DeleteMapping("/{exercise-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteExercise(@PathVariable(name = "exercise-id") Long exerciseId) {
+    public void deleteExercise(@PathVariable(name = "exercise-id") Long exerciseId,
+                               @RequestHeader(name = "Member-Id") Long memberId) {
 
-        exerciseService.deleteExercise(exerciseId);
+        exerciseService.deleteExercise(exerciseId, memberId);
     }
 }

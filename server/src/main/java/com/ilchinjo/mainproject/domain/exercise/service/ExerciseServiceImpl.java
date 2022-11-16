@@ -36,7 +36,7 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
-    public ExerciseResponseDto updateExercise(Long exerciseId, ExercisePatchDto patchDto) {
+    public ExerciseResponseDto updateExercise(Long exerciseId, ExercisePatchDto patchDto, Long memberId) {
         Exercise findExercise = findVerifiedExercise(exerciseId);
         isAuthorized(findExercise, memberId);
 
@@ -53,8 +53,9 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
-    public void deleteExercise(Long exerciseId) {
+    public void deleteExercise(Long exerciseId, Long memberId) {
         Exercise findExercise = findVerifiedExercise(exerciseId);
+        isAuthorized(findExercise, memberId);
 
         exerciseRepository.delete(findExercise);
     }
