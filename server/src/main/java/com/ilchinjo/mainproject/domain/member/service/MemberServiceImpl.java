@@ -38,7 +38,7 @@ public class MemberServiceImpl implements MemberService {
         Optional<Member> member = memberRepository.findByEmail(email);
 
         if (member.isPresent()) {
-            throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
+            throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
         }
     }
 
@@ -47,7 +47,7 @@ public class MemberServiceImpl implements MemberService {
         Optional<Member> member = memberRepository.findByNickname(nickname);
 
         if (member.isPresent()) {
-            throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
+            throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
         }
     }
 }
