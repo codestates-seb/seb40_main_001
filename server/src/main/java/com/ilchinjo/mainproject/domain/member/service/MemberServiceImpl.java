@@ -54,6 +54,7 @@ public class MemberServiceImpl implements MemberService {
         return memberMapper.entityToDetailResponseDto(findMember);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public Member findVerifiedMember(Long memberId) {
 

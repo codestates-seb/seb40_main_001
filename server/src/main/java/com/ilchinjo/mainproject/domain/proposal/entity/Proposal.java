@@ -24,4 +24,11 @@ public class Proposal extends AuditingEntity {
     @ManyToOne
     @JoinColumn(name = "participant_id")
     private Member participant;
+
+    public static Proposal createProposal(Exercise exercise, Member participant) {
+        return Proposal.builder()
+                .exercise(exercise)
+                .participant(participant)
+                .build();
+    }
 }
