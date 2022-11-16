@@ -34,7 +34,11 @@ module.exports = {
       border_color: '#F2F2F2',
       green: '#7ACE82',
     },
-    extend: {},
+    extend: {
+      dropShadow: {
+        DEFAULT: '0 4px 4px rgba(0, 0, 0, 0.25)',
+      },
+    },
   },
   /* eslint-disable global-require */
   plugins: [require('daisyui')],
