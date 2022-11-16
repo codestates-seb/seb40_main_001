@@ -19,7 +19,7 @@ public class AddressServiceImpl implements AddressService{
 
     @Override
     @Transactional(readOnly = true)
-    public List<AddressResponseDto> findAllAddress() {
+    public List<AddressResponseDto> findAddresses() {
         return mapper.entitiesToResponseDtoList(addressRepository.findAll());
     }
 }

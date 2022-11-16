@@ -6,5 +6,5 @@ import com.ilchinjo.mainproject.domain.address.entity.Address;
 import java.util.List;
 
 public interface AddressService {
-    List<AddressResponseDto> findAllAddress();
+    List<AddressResponseDto> findAddresses();
 }
