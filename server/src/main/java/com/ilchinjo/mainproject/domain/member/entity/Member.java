@@ -3,6 +3,7 @@ package com.ilchinjo.mainproject.domain.member.entity;
 import com.ilchinjo.mainproject.domain.address.entity.Address;
 import com.ilchinjo.mainproject.domain.comment.entity.Comment;
 import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
+import com.ilchinjo.mainproject.domain.member.dto.MemberPatchDto;
 import com.ilchinjo.mainproject.domain.reply.entity.Reply;
 import com.ilchinjo.mainproject.domain.review.entity.Review;
 import com.ilchinjo.mainproject.global.audit.AuditingEntity;
@@ -11,6 +12,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Getter
@@ -56,4 +58,9 @@ public class Member extends AuditingEntity {
     @Builder.Default
     @OneToMany(mappedBy = "destMember")
     private List<Review> receivedReviews = new ArrayList<>();
+
+    public void update(MemberPatchDto patchDto) {
+
+        this.nickname = patchDto.getNickname();
+    }
 }
