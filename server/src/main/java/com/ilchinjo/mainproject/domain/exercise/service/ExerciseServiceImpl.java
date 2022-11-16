@@ -1,5 +1,6 @@
 package com.ilchinjo.mainproject.domain.exercise.service;
 
+import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseDetailResponseDto;
 import com.ilchinjo.mainproject.domain.exercise.dto.ExercisePatchDto;
 import com.ilchinjo.mainproject.domain.exercise.dto.ExercisePostDto;
 import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseResponseDto;
@@ -31,7 +32,7 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
-    public ExerciseResponseDto updateExercise(long exerciseId, ExercisePatchDto patchDto) {
+    public ExerciseResponseDto updateExercise(Long exerciseId, ExercisePatchDto patchDto) {
         Exercise findExercise = findVerifiedExercise(exerciseId);
 
         findExercise.update(patchDto);
@@ -40,13 +41,20 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
-    public void deleteExercise(long exerciseId) {
+    public ExerciseDetailResponseDto findExercise(Long exerciseId) {
+        Exercise findExercise = findVerifiedExercise(exerciseId);
+
+        return exerciseMapper.entityToDetailResponseDto(findExercise);
+    }
+
+    @Override
+    public void deleteExercise(Long exerciseId) {
         Exercise findExercise = findVerifiedExercise(exerciseId);
 
         exerciseRepository.delete(findExercise);
     }
 
-    private Exercise findVerifiedExercise(long exerciseId) {
+    private Exercise findVerifiedExercise(Long exerciseId) {
         Exercise exercise = exerciseRepository.findById(exerciseId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.EXERCISE_NOT_FOUND));
 
