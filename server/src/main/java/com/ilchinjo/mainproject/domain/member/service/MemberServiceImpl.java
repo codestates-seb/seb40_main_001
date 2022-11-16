@@ -26,6 +26,7 @@ public class MemberServiceImpl implements MemberService {
 
         Member member = memberMapper.postDtoToEntity(postDto);
         verifyExistsEmail(member.getEmail());
+        verifyExistsNickname(member.getNickname());
 
         memberRepository.save(member);
 
@@ -35,6 +36,15 @@ public class MemberServiceImpl implements MemberService {
     private void verifyExistsEmail(String email) {
 
         Optional<Member> member = memberRepository.findByEmail(email);
+
+        if (member.isPresent()) {
+            throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
+        }
+    }
+
+    private void verifyExistsNickname(String nickname) {
+
+        Optional<Member> member = memberRepository.findByNickname(nickname);
 
         if (member.isPresent()) {
             throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
