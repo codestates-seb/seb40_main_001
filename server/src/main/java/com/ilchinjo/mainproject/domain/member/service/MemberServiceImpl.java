@@ -1,5 +1,6 @@
 package com.ilchinjo.mainproject.domain.member.service;
 
+import com.ilchinjo.mainproject.domain.member.dto.MemberPatchDto;
 import com.ilchinjo.mainproject.domain.member.dto.MemberPostDto;
 import com.ilchinjo.mainproject.domain.member.dto.MemberResponseDto;
 import com.ilchinjo.mainproject.domain.member.entity.Member;
@@ -31,6 +32,25 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.save(member);
 
         return memberMapper.entityToResponseDto(member);
+    }
+
+    @Override
+    public MemberResponseDto updateMember(Long memberId, MemberPatchDto patchDto) {
+
+        Member findmember = findVerifiedMember(memberId);
+
+        findmember.update(patchDto);
+
+        return memberMapper.entityToResponseDto(findmember);
+    }
+
+    @Transactional(readOnly = true)
+    public Member findVerifiedMember(Long memberId) {
+
+        Optional<Member> optionalMember = memberRepository.findById(memberId);
+        Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+
+        return findMember;
     }
 
     private void verifyExistsEmail(String email) {
