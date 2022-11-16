@@ -7,7 +7,7 @@ import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseResponseDto;
 
 public interface ExerciseService {
 
-    ExerciseResponseDto saveExercise(ExercisePostDto postDto);
+    ExerciseResponseDto saveExercise(ExercisePostDto postDto, Long memberId);
 
     ExerciseResponseDto updateExercise(Long exerciseId, ExercisePatchDto patchDto);
 

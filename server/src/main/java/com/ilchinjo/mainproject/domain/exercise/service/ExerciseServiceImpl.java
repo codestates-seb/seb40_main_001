@@ -19,13 +19,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class ExerciseServiceImpl implements ExerciseService {
 
     private final ExerciseRepository exerciseRepository;
+    private final MemberRepository memberRepository;
     private final ExerciseMapper exerciseMapper;
 
     @Override
-    public ExerciseResponseDto saveExercise(ExercisePostDto postDto) {
+    public ExerciseResponseDto saveExercise(ExercisePostDto postDto, Long memberId) {
         Exercise exercise = exerciseMapper.postDtoToEntity(postDto);
+        Member findMember = findVerifiedMember(memberId);
 
-        Exercise createdExercise = Exercise.createExercise(exercise);
+        Exercise createdExercise = Exercise.createExercise(exercise, findMember);
         exerciseRepository.save(createdExercise);
 
         return exerciseMapper.entityToResponseDto(createdExercise);
@@ -59,6 +61,13 @@ public class ExerciseServiceImpl implements ExerciseService {
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.EXERCISE_NOT_FOUND));
 
         return exercise;
+    }
+
+    private Member findVerifiedMember(Long memberId) {
+        Member findMember = memberRepository.findById(memberId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+
+        return findMember;
     }
 
 

@@ -70,6 +70,7 @@ public class Exercise extends AuditingEntity {
                 .endAt(exercise.endAt)
                 .genderType(exercise.genderType)
                 .category(exercise.category)
+                .host(host)
                 .build();
 
         return createdExercise;

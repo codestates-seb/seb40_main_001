@@ -20,9 +20,10 @@ public class ExerciseController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ExerciseResponseDto postExercise(@RequestBody @Valid ExercisePostDto postDto) {
+    public ExerciseResponseDto postExercise(@RequestBody @Valid ExercisePostDto postDto,
+                                            @RequestHeader(name = "Member-Id") Long memberId) {
 
-        return exerciseService.saveExercise(postDto);
+        return exerciseService.saveExercise(postDto, memberId);
     }
 
     @PatchMapping("/{exercise-id}")
