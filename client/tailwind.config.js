@@ -7,6 +7,8 @@ module.exports = {
       200: '13px',
       300: '16px',
       400: '19px',
+      500: '21px',
+      600: '24px',
     },
     textColor: {
       DEFAULT: '#000000',
@@ -14,6 +16,7 @@ module.exports = {
       light: '#BBBBBB',
       err: '#FF0000',
       exercise: '#7FD1AE',
+      white: '#FFFFFF',
     },
     colors: {
       main: {
@@ -34,8 +37,14 @@ module.exports = {
       border_color: '#F2F2F2',
       green: '#7ACE82',
       babyPink: '#FCF6F5',
+      white: '#FFFFFF',
+      black: '#000000',
     },
-    extend: {},
+    extend: {
+      dropShadow: {
+        DEFAULT: '0 4px 4px rgba(0, 0, 0, 0.25)',
+      },
+    },
   },
   /* eslint-disable global-require */
   plugins: [require('daisyui')],

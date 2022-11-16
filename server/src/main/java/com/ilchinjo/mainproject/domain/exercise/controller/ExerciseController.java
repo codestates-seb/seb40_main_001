@@ -20,17 +20,19 @@ public class ExerciseController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ExerciseResponseDto postExercise(@RequestBody @Valid ExercisePostDto postDto) {
+    public ExerciseResponseDto postExercise(@RequestBody @Valid ExercisePostDto postDto,
+                                            @RequestHeader(name = "Member-Id") Long memberId) {
 
-        return exerciseService.saveExercise(postDto);
+        return exerciseService.saveExercise(postDto, memberId);
     }
 
     @PatchMapping("/{exercise-id}")
     @ResponseStatus(HttpStatus.OK)
     public ExerciseResponseDto patchExercise(@PathVariable(name = "exercise-id") Long exerciseId,
-                                             @RequestBody @Valid ExercisePatchDto patchDto) {
+                                             @RequestBody @Valid ExercisePatchDto patchDto,
+                                             @RequestHeader(name = "Member-Id") Long memberId) {
 
-        return exerciseService.updateExercise(exerciseId, patchDto);
+        return exerciseService.updateExercise(exerciseId, patchDto, memberId);
     }
 
     @GetMapping("/{exercise-id}")
@@ -42,8 +44,9 @@ public class ExerciseController {
 
     @DeleteMapping("/{exercise-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteExercise(@PathVariable(name = "exercise-id") Long exerciseId) {
+    public void deleteExercise(@PathVariable(name = "exercise-id") Long exerciseId,
+                               @RequestHeader(name = "Member-Id") Long memberId) {
 
-        exerciseService.deleteExercise(exerciseId);
+        exerciseService.deleteExercise(exerciseId, memberId);
     }
 }

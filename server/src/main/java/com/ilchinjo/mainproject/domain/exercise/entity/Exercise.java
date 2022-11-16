@@ -62,7 +62,7 @@ public class Exercise extends AuditingEntity {
     @OneToMany(mappedBy = "exercise", cascade = CascadeType.REMOVE)
     private List<Proposal> proposals = new ArrayList<>();
 
-    public static Exercise createExercise(Exercise exercise) {
+    public static Exercise createExercise(Exercise exercise, Member host) {
         Exercise createdExercise = Exercise.builder()
                 .title(exercise.title)
                 .content(exercise.content)
@@ -70,6 +70,7 @@ public class Exercise extends AuditingEntity {
                 .endAt(exercise.endAt)
                 .genderType(exercise.genderType)
                 .category(exercise.category)
+                .host(host)
                 .build();
 
         return createdExercise;
