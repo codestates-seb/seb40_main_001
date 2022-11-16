@@ -8,7 +8,7 @@ const IdInput = () => {
       <label htmlFor="ID" className="text text-[15px] mb-[5px]">
         아이디
       </label>
-      <InputArea target={target} />
+      <InputArea target={target} type={'text'} id={'ID'} />
     </div>
   );
 };
