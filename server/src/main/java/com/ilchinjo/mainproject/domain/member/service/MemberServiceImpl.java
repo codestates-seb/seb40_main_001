@@ -38,6 +38,7 @@ public class MemberServiceImpl implements MemberService {
     public MemberResponseDto updateMember(Long memberId, MemberPatchDto patchDto) {
 
         Member findmember = findVerifiedMember(memberId);
+        verifyExistsNickname(patchDto.getNickname());
 
         findmember.update(patchDto);
 
