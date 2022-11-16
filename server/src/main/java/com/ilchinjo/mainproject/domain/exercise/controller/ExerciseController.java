@@ -1,5 +1,6 @@
 package com.ilchinjo.mainproject.domain.exercise.controller;
 
+import com.ilchinjo.mainproject.domain.exercise.dto.ExercisePatchDto;
 import com.ilchinjo.mainproject.domain.exercise.dto.ExercisePostDto;
 import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseResponseDto;
 import com.ilchinjo.mainproject.domain.exercise.service.ExerciseService;
@@ -21,6 +22,13 @@ public class ExerciseController {
     public ExerciseResponseDto postExercise(@RequestBody @Valid ExercisePostDto postDto) {
 
         return exerciseService.saveExercise(postDto);
+    }
+
+    @PatchMapping("/{exercise-id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ExerciseResponseDto patchExercise(@PathVariable(name = "exercise-id") Long exerciseId,
+                                             @RequestBody @Valid ExercisePatchDto patchDto) {
+        return exerciseService.updateExercise(exerciseId, patchDto);
     }
 
     @DeleteMapping("/{exercise-id}")
