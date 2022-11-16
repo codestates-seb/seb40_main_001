@@ -7,6 +7,8 @@ module.exports = {
       200: '13px',
       300: '16px',
       400: '19px',
+      500: '21px',
+      600: '24px',
     },
     textColor: {
       DEFAULT: '#000000',
