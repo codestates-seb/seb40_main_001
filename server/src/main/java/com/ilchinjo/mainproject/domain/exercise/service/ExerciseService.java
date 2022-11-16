@@ -6,4 +6,6 @@ import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseResponseDto;
 public interface ExerciseService {
 
     ExerciseResponseDto saveExercise(ExercisePostDto postDto);
+
+    void deleteExercise(long exerciseId);
 }

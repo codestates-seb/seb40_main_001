@@ -5,6 +5,7 @@ import lombok.Getter;
 @Getter
 public enum ExceptionCode {
     MEMBER_NOT_FOUND(404, "Member not found"),
+    EXERCISE_NOT_FOUND(404, "Exercise not found"),
     ;
 
     private final int status;
