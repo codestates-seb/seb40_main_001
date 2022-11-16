@@ -9,7 +9,6 @@ import com.ilchinjo.mainproject.global.audit.AuditingEntity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +30,7 @@ public class Member extends AuditingEntity {
     @Column(unique = true, nullable = false)
     private String nickname;
 
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @ManyToOne
