@@ -2,6 +2,7 @@ package com.ilchinjo.mainproject.domain.exercise.entity;
 
 import com.ilchinjo.mainproject.domain.address.entity.Address;
 import com.ilchinjo.mainproject.domain.comment.entity.Comment;
+import com.ilchinjo.mainproject.domain.exercise.dto.ExercisePatchDto;
 import com.ilchinjo.mainproject.domain.member.entity.Member;
 import com.ilchinjo.mainproject.domain.proposal.entity.Proposal;
 import com.ilchinjo.mainproject.global.audit.AuditingEntity;
@@ -53,11 +54,11 @@ public class Exercise extends AuditingEntity {
     private Address address;
 
     @Builder.Default
-    @OneToMany(mappedBy = "exercise")
+    @OneToMany(mappedBy = "exercise", cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "exercise")
+    @OneToMany(mappedBy = "exercise", cascade = CascadeType.REMOVE)
     private List<Proposal> proposals = new ArrayList<>();
 
     public static Exercise createExercise(Exercise exercise) {
@@ -71,5 +72,14 @@ public class Exercise extends AuditingEntity {
                 .build();
 
         return createdExercise;
+    }
+
+    public void update(ExercisePatchDto patchDto) {
+        this.title = patchDto.getTitle();
+        this.content = patchDto.getContent();
+        this.exerciseAt = patchDto.getExerciseAt();
+        this.endAt = patchDto.getEndAt();
+        this.genderType = patchDto.getGenderType();
+        this.category = patchDto.getCategory();
     }
 }
