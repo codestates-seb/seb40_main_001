@@ -9,7 +9,7 @@ public interface ExerciseService {
 
     ExerciseResponseDto saveExercise(ExercisePostDto postDto, Long memberId);
 
-    ExerciseResponseDto updateExercise(Long exerciseId, ExercisePatchDto patchDto);
+    ExerciseResponseDto updateExercise(Long exerciseId, ExercisePatchDto patchDto, Long memberId);
 
     ExerciseDetailResponseDto findExercise(Long exerciseId);
 

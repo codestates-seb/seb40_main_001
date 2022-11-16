@@ -7,6 +7,8 @@ import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseResponseDto;
 import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
 import com.ilchinjo.mainproject.domain.exercise.mapper.ExerciseMapper;
 import com.ilchinjo.mainproject.domain.exercise.repository.ExerciseRepository;
+import com.ilchinjo.mainproject.domain.member.entity.Member;
+import com.ilchinjo.mainproject.domain.member.repository.MemberRepository;
 import com.ilchinjo.mainproject.global.exception.BusinessLogicException;
 import com.ilchinjo.mainproject.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +38,7 @@ public class ExerciseServiceImpl implements ExerciseService {
     @Override
     public ExerciseResponseDto updateExercise(Long exerciseId, ExercisePatchDto patchDto) {
         Exercise findExercise = findVerifiedExercise(exerciseId);
+        isAuthorized(findExercise, memberId);
 
         findExercise.update(patchDto);
 

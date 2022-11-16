@@ -29,9 +29,10 @@ public class ExerciseController {
     @PatchMapping("/{exercise-id}")
     @ResponseStatus(HttpStatus.OK)
     public ExerciseResponseDto patchExercise(@PathVariable(name = "exercise-id") Long exerciseId,
-                                             @RequestBody @Valid ExercisePatchDto patchDto) {
+                                             @RequestBody @Valid ExercisePatchDto patchDto,
+                                             @RequestHeader(name = "Member-Id") Long memberId) {
 
-        return exerciseService.updateExercise(exerciseId, patchDto);
+        return exerciseService.updateExercise(exerciseId, patchDto, memberId);
     }
 
     @GetMapping("/{exercise-id}")
