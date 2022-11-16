@@ -1,11 +1,10 @@
 import React from 'react';
 
-const Drawer = () => {
-  const target = 'D';
+const Drawer = ({ target }) => {
   return (
     <div className="avatar placeholder">
       <div className="bg-gray border-none text-neutral-content rounded-full w-[50px] h-[50px]">
-        <span className="text-xs">{`${target}`}</span>
+        <img src={target} className="" />
       </div>
     </div>
   );

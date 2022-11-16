@@ -1,7 +1,6 @@
 import { React } from 'react';
 
-const InputArea = () => {
-  const target = '아이디';
+const InputArea = ({ target }) => {
   return (
     <input
       type="text"
