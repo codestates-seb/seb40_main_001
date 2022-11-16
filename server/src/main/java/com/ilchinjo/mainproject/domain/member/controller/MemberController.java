@@ -5,14 +5,12 @@ import com.ilchinjo.mainproject.domain.member.dto.MemberResponseDto;
 import com.ilchinjo.mainproject.domain.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/members")
-@Validated
 @RequiredArgsConstructor
 public class MemberController {
 
