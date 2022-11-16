@@ -1,5 +1,6 @@
 package com.ilchinjo.mainproject.domain.member.controller;
 
+import com.ilchinjo.mainproject.domain.member.dto.MemberPatchDto;
 import com.ilchinjo.mainproject.domain.member.dto.MemberPostDto;
 import com.ilchinjo.mainproject.domain.member.dto.MemberResponseDto;
 import com.ilchinjo.mainproject.domain.member.service.MemberService;
@@ -21,5 +22,13 @@ public class MemberController {
     public MemberResponseDto postMember(@RequestBody @Valid MemberPostDto postDto) {
 
         return memberService.saveMember(postDto);
+    }
+
+    @PatchMapping("/{member-id}")
+    @ResponseStatus(HttpStatus.OK)
+    public MemberResponseDto patchMember(@PathVariable("member-id") Long memberId,
+                                         @RequestBody MemberPatchDto patchDto) {
+
+        return memberService.updateMember(memberId, patchDto);
     }
 }
