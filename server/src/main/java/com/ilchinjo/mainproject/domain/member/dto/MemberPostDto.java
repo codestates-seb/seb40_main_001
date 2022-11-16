@@ -19,7 +19,7 @@ public class MemberPostDto {
     @NotBlank(message = "이메일을 입력해 주세요.")
     private String email;
 
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()\\-_=+~])[A-Za-z\\d!@#$%^&*()-_=+~]{8,}$",
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()\\-_=+~])[A-Za-z\\d!@#$%^&*()\\-_=+~]{8,}$",
             message = "비밀번호는 영문 대문자와 소문자, 숫자 및 특수문자를 포함하여 8자리 이상이어야 합니다.")
     @NotBlank(message = "비밀번호를 입력해 주세요.")
     private String password;
