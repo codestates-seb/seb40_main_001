@@ -60,7 +60,8 @@ public class ExerciseServiceImpl implements ExerciseService {
         exerciseRepository.delete(findExercise);
     }
 
-    private Exercise findVerifiedExercise(Long exerciseId) {
+    @Override
+    public Exercise findVerifiedExercise(Long exerciseId) {
         Exercise exercise = exerciseRepository.findById(exerciseId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.EXERCISE_NOT_FOUND));
 
