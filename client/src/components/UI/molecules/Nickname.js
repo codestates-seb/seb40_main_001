@@ -5,7 +5,7 @@ const NickNameInput = () => {
   const target = '닉네임을';
   return (
     <div className="display.flex">
-      <div className="text text-[15px] mb-[5px]">{'닉네임'}</div>
+      <div className="text text-[15px] mb-[5px]">닉네임</div>
       <InputArea target={target} />
     </div>
   );

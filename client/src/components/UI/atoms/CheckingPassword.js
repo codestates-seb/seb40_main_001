@@ -1,10 +1,11 @@
 import { React } from 'react';
 
-const CheckingPassword = ({ target }) => {
+const CheckingPassword = ({ id }) => {
   return (
     <input
-      type="text"
-      placeholder={`${target}`}
+      id={id}
+      type="password"
+      placeholder="비밀번호 확인"
       className="bg-gray input w-[338px] h-[59px] rounded-[7px] focus:outline-main "
     />
   );

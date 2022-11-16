@@ -5,7 +5,9 @@ const CheckPasswordInput = () => {
   const target = '비밀번호 확인';
   return (
     <div className="display.flex">
-      <div className="text text-[15px] mb-[5px]">{'비밀번호 확인'}</div>
+      <label htmlFor="PasswordCheck" className="text text-[15px] mb-[5px]">
+        {'비밀번호 확인'}
+      </label>
       <CheckingPassword target={target} />
     </div>
   );
