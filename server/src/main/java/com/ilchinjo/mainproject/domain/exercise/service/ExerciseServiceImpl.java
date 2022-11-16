@@ -70,5 +70,11 @@ public class ExerciseServiceImpl implements ExerciseService {
         return findMember;
     }
 
+    private void isAuthorized(Exercise exercise, Long memberId) {
+        if (!exercise.getHost().getMemberId().equals(memberId)) {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
+        }
+    }
+
 
 }
