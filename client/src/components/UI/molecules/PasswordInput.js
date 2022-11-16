@@ -8,7 +8,7 @@ const PasswordInput = () => {
       <label htmlFor="PasswordCheck" className="text text-[15px] mb-[5px]">
         비밀번호
       </label>
-      <InputArea target={target} />
+      <InputArea target={target} id={id} type={type} />
     </div>
   );
 };

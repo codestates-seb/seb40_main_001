@@ -7,7 +7,7 @@ const CheckPasswordInput = () => {
       <label htmlFor="PasswordCheck" className="text text-[15px] mb-[5px]">
         비밀번호 확인
       </label>
-      <CheckingPassword />
+      <CheckingPassword id={id} />
     </div>
   );
 };
