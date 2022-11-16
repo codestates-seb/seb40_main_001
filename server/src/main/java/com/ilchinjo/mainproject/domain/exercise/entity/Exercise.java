@@ -12,6 +12,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Getter
@@ -75,11 +76,18 @@ public class Exercise extends AuditingEntity {
     }
 
     public void update(ExercisePatchDto patchDto) {
-        this.title = patchDto.getTitle();
-        this.content = patchDto.getContent();
-        this.exerciseAt = patchDto.getExerciseAt();
-        this.endAt = patchDto.getEndAt();
-        this.genderType = patchDto.getGenderType();
-        this.category = patchDto.getCategory();
+        Optional.ofNullable(patchDto.getTitle())
+                .ifPresent(title -> this.title = title);
+        Optional.ofNullable(patchDto.getContent())
+                .ifPresent(content -> this.content = content);
+        Optional.ofNullable(patchDto.getExerciseAt())
+                .ifPresent(exerciseAt -> this.exerciseAt = exerciseAt);
+        Optional.ofNullable(patchDto.getEndAt())
+                .ifPresent(endAt -> this.endAt = endAt);
+        Optional.ofNullable(patchDto.getGenderType())
+                .ifPresent(genderType -> this.genderType = genderType);
+        Optional.ofNullable(patchDto.getCategory())
+                .ifPresent(category -> this.category = category);
+
     }
 }
