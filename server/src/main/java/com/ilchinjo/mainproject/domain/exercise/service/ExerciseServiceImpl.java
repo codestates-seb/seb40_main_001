@@ -38,7 +38,7 @@ public class ExerciseServiceImpl implements ExerciseService {
     @Override
     public ExerciseResponseDto updateExercise(Long exerciseId, ExercisePatchDto patchDto, Long memberId) {
         Exercise findExercise = findVerifiedExercise(exerciseId);
-        isAuthorized(findExercise, memberId);
+        checkAuthorization(findExercise, memberId);
 
         findExercise.update(patchDto);
 
@@ -55,7 +55,7 @@ public class ExerciseServiceImpl implements ExerciseService {
     @Override
     public void deleteExercise(Long exerciseId, Long memberId) {
         Exercise findExercise = findVerifiedExercise(exerciseId);
-        isAuthorized(findExercise, memberId);
+        checkAuthorization(findExercise, memberId);
 
         exerciseRepository.delete(findExercise);
     }
@@ -74,7 +74,7 @@ public class ExerciseServiceImpl implements ExerciseService {
         return findMember;
     }
 
-    private void isAuthorized(Exercise exercise, Long memberId) {
+    private void checkAuthorization(Exercise exercise, Long memberId) {
         if (!exercise.getHost().getMemberId().equals(memberId)) {
             throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
         }
