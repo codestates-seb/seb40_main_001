@@ -7,11 +7,11 @@ import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseResponseDto;
 
 public interface ExerciseService {
 
-    ExerciseResponseDto saveExercise(ExercisePostDto postDto);
+    ExerciseResponseDto saveExercise(ExercisePostDto postDto, Long memberId);
 
-    ExerciseResponseDto updateExercise(Long exerciseId, ExercisePatchDto patchDto);
+    ExerciseResponseDto updateExercise(Long exerciseId, ExercisePatchDto patchDto, Long memberId);
 
     ExerciseDetailResponseDto findExercise(Long exerciseId);
 
-    void deleteExercise(Long exerciseId);
+    void deleteExercise(Long exerciseId, Long memberId);
 }

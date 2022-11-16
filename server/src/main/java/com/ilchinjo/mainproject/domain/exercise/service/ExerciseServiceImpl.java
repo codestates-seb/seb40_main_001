@@ -7,6 +7,8 @@ import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseResponseDto;
 import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
 import com.ilchinjo.mainproject.domain.exercise.mapper.ExerciseMapper;
 import com.ilchinjo.mainproject.domain.exercise.repository.ExerciseRepository;
+import com.ilchinjo.mainproject.domain.member.entity.Member;
+import com.ilchinjo.mainproject.domain.member.repository.MemberRepository;
 import com.ilchinjo.mainproject.global.exception.BusinessLogicException;
 import com.ilchinjo.mainproject.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
@@ -19,21 +21,24 @@ import org.springframework.transaction.annotation.Transactional;
 public class ExerciseServiceImpl implements ExerciseService {
 
     private final ExerciseRepository exerciseRepository;
+    private final MemberRepository memberRepository;
     private final ExerciseMapper exerciseMapper;
 
     @Override
-    public ExerciseResponseDto saveExercise(ExercisePostDto postDto) {
+    public ExerciseResponseDto saveExercise(ExercisePostDto postDto, Long memberId) {
         Exercise exercise = exerciseMapper.postDtoToEntity(postDto);
+        Member findMember = findVerifiedMember(memberId);
 
-        Exercise createdExercise = Exercise.createExercise(exercise);
+        Exercise createdExercise = Exercise.createExercise(exercise, findMember);
         exerciseRepository.save(createdExercise);
 
         return exerciseMapper.entityToResponseDto(createdExercise);
     }
 
     @Override
-    public ExerciseResponseDto updateExercise(Long exerciseId, ExercisePatchDto patchDto) {
+    public ExerciseResponseDto updateExercise(Long exerciseId, ExercisePatchDto patchDto, Long memberId) {
         Exercise findExercise = findVerifiedExercise(exerciseId);
+        checkAuthorization(findExercise, memberId);
 
         findExercise.update(patchDto);
 
@@ -48,8 +53,9 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
-    public void deleteExercise(Long exerciseId) {
+    public void deleteExercise(Long exerciseId, Long memberId) {
         Exercise findExercise = findVerifiedExercise(exerciseId);
+        checkAuthorization(findExercise, memberId);
 
         exerciseRepository.delete(findExercise);
     }
@@ -59,6 +65,19 @@ public class ExerciseServiceImpl implements ExerciseService {
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.EXERCISE_NOT_FOUND));
 
         return exercise;
+    }
+
+    private Member findVerifiedMember(Long memberId) {
+        Member findMember = memberRepository.findById(memberId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+
+        return findMember;
+    }
+
+    private void checkAuthorization(Exercise exercise, Long memberId) {
+        if (!exercise.getHost().getMemberId().equals(memberId)) {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
+        }
     }
 
 
