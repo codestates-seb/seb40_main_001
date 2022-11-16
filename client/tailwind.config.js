@@ -14,6 +14,7 @@ module.exports = {
       light: '#BBBBBB',
       err: '#FF0000',
       exercise: '#7FD1AE',
+      white: '#FFFFFF',
     },
     colors: {
       main: {
@@ -34,6 +35,8 @@ module.exports = {
       border_color: '#F2F2F2',
       green: '#7ACE82',
       babyPink: '#FCF6F5',
+      white: '#FFFFFF',
+      black: '#000000',
     },
     extend: {
       dropShadow: {
