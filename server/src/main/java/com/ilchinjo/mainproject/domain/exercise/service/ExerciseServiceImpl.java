@@ -1,5 +1,6 @@
 package com.ilchinjo.mainproject.domain.exercise.service;
 
+import com.ilchinjo.mainproject.domain.exercise.dto.ExercisePatchDto;
 import com.ilchinjo.mainproject.domain.exercise.dto.ExercisePostDto;
 import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseResponseDto;
 import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
@@ -27,6 +28,15 @@ public class ExerciseServiceImpl implements ExerciseService {
         exerciseRepository.save(createdExercise);
 
         return exerciseMapper.entityToResponseDto(createdExercise);
+    }
+
+    @Override
+    public ExerciseResponseDto updateExercise(long exerciseId, ExercisePatchDto patchDto) {
+        Exercise findExercise = findVerifiedExercise(exerciseId);
+
+        findExercise.update(patchDto);
+
+        return exerciseMapper.entityToResponseDto(findExercise);
     }
 
     @Override
