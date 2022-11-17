@@ -15,13 +15,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class ReviewServiceImpl implements ReviewService{
+public class ReviewServiceImpl implements ReviewService {
 
     private final ReviewMapper reviewMapper;
     private final ReviewRepository reviewRepository;
@@ -32,8 +33,10 @@ public class ReviewServiceImpl implements ReviewService{
     public ReviewResponseDto saveReview(ReviewPostDto postDto, Long memberId, Long exerciseId) {
 
         Member findSrcMember = memberService.findVerifiedMember(memberId);
-        Member findDestMember = memberService.findVerifiedMember(postDto.getDestMember().getMemberId());
+        Member findDestMember = memberService.findVerifiedMember(postDto.getDestMemberId());
         Exercise findExercise = exerciseService.findVerifiedExercise(exerciseId);
+        // 리뷰 작성 가능 시간 확인
+        checkValidWritingTime(findExercise);
         // 권한 확인
         checkAuthorization(findExercise, findSrcMember, findDestMember);
         // 리뷰 중복 체크
@@ -44,6 +47,12 @@ public class ReviewServiceImpl implements ReviewService{
         reviewRepository.save(createdReview);
 
         return reviewMapper.entityToResponseDto(createdReview);
+    }
+
+    private void checkValidWritingTime(Exercise exercise) {
+        if (LocalDateTime.now().isBefore(exercise.getEndAt())) {
+            throw new BusinessLogicException(ExceptionCode.END_TIME_IS_NOT_PASSED);
+        }
     }
 
     private void checkAuthorization(Exercise exercise, Member srcMember, Member destMember) {
