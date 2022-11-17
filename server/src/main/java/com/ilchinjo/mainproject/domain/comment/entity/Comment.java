@@ -33,4 +33,15 @@ public class Comment extends AuditingEntity {
     @Builder.Default
     @OneToMany(mappedBy = "comment")
     private List<Reply> replies = new ArrayList<>();
+
+    public static Comment createComment(Comment comment, Member author, Exercise exercise) {
+
+        Comment createdComment = Comment.builder()
+                .content(comment.content)
+                .author(author)
+                .exercise(exercise)
+                .build();
+
+        return createdComment;
+    }
 }
