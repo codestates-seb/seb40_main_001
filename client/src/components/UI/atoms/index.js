@@ -9,6 +9,10 @@ import MiniBtn from './MiniBtn';
 import ShortBtn from './ShortBtn';
 import CarouselBtn from './CarouselBtn';
 
+// DatePicker
+import Datepicker from './Datepicker';
+
+// Buttons
 export {
   ChooseBtn,
   CommentBtn,
@@ -20,3 +24,6 @@ export {
   ShortBtn,
   CarouselBtn,
 };
+
+// DatePicker
+export { Datepicker };
