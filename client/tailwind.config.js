@@ -17,6 +17,7 @@ module.exports = {
       err: '#FF0000',
       exercise: '#7FD1AE',
       white: '#FFFFFF',
+      red: '#FF7B8E',
     },
     colors: {
       main: {
