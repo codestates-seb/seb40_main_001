@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ShortBtn = ({ txt, disabled, pink }) => {
+const ShortBtn = ({ txt, disabled, pink, handleClick }) => {
   let style =
     'text-[#FFF] text-200 btn w-[92px] h-[46px] rounded-[5px] border-0';
 
@@ -12,7 +12,11 @@ const ShortBtn = ({ txt, disabled, pink }) => {
     style += ' bg-main hover:bg-main';
   }
 
-  return <button className={style}>{txt}</button>;
+  return (
+    <button className={style} onClick={handleClick}>
+      {txt}
+    </button>
+  );
 };
 
 export default ShortBtn;

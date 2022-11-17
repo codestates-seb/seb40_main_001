@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LongBtn = ({ txt, disabled }) => {
+const LongBtn = ({ txt, disabled, handleClick }) => {
   let style =
     'text-[#FFF] btn w-[340px] h-[60px] rounded-[7px] px-[148px] py-[22px] border-0';
 
@@ -10,7 +10,11 @@ const LongBtn = ({ txt, disabled }) => {
     style += ' bg-main hover:bg-main';
   }
 
-  return <button className={style}>{txt}</button>;
+  return (
+    <button className={style} onClick={handleClick}>
+      {txt}
+    </button>
+  );
 };
 
 export default LongBtn;
