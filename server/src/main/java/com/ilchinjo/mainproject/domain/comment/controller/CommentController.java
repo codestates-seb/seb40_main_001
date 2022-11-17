@@ -23,4 +23,12 @@ public class CommentController {
 
         return commentService.saveComment(exerciseId, memberId, postDto);
     }
+
+    @DeleteMapping("/comments/{comment-id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteComment(@PathVariable("comment-id") Long commentId,
+                              @RequestHeader("Authorization") Long memberId) {
+
+        commentService.deleteComment(commentId, memberId);
+    }
 }
