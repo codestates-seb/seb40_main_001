@@ -8,6 +8,9 @@ public enum ExceptionCode {
     MEMBER_EXISTS(409, "Member exists"),
     MEMBER_UNAUTHORIZED(403, "Member unauthorized"),
     EXERCISE_NOT_FOUND(404, "Exercise not found"),
+    COMMENT_NOT_FOUND(404, "Comment not found"),
+    CANT_PROPOSE_MYSELF(422, "Cant propose myself"),
+    START_TIME_IS_PASSED(422, "Start time is passed"),
     ;
 
     private final int status;
