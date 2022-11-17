@@ -10,13 +10,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/exercises")
 @RequiredArgsConstructor
 public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping("/{exercise-id}/comment")
+    @PostMapping("/exercises/{exercise-id}/comment")
     @ResponseStatus(HttpStatus.CREATED)
     public CommentResponseDto postComment(@PathVariable("exercise-id") Long exerciseId,
                                           @RequestHeader("Authorization") Long memberId,
