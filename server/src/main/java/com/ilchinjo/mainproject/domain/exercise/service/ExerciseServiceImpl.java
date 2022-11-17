@@ -1,10 +1,8 @@
 package com.ilchinjo.mainproject.domain.exercise.service;
 
-import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseDetailResponseDto;
-import com.ilchinjo.mainproject.domain.exercise.dto.ExercisePatchDto;
-import com.ilchinjo.mainproject.domain.exercise.dto.ExercisePostDto;
-import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseResponseDto;
+import com.ilchinjo.mainproject.domain.exercise.dto.*;
 import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
+import com.ilchinjo.mainproject.domain.exercise.entity.GenderType;
 import com.ilchinjo.mainproject.domain.exercise.mapper.ExerciseMapper;
 import com.ilchinjo.mainproject.domain.exercise.repository.ExerciseRepository;
 import com.ilchinjo.mainproject.domain.member.entity.Member;
@@ -12,8 +10,13 @@ import com.ilchinjo.mainproject.domain.member.repository.MemberRepository;
 import com.ilchinjo.mainproject.global.exception.BusinessLogicException;
 import com.ilchinjo.mainproject.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -50,6 +53,26 @@ public class ExerciseServiceImpl implements ExerciseService {
         Exercise findExercise = findVerifiedExercise(exerciseId);
 
         return exerciseMapper.entityToDetailResponseDto(findExercise);
+    }
+
+    @Override
+    public List<ExerciseResponseDto> findExercises(String address, String genderType, String category, Long memberId) {
+
+        List<Exercise> exerciseList = exerciseRepository.findAll(Sort.by("exerciseId").descending());
+        Stream<Exercise> stream = exerciseList.stream();
+//                .filter(exercise -> exercise.getAddress().getSigungu().equals(address));
+        Member findMember = findVerifiedMember(memberId);
+        if (genderType.equals("ALL")) {
+            stream = stream.filter(exercise -> exercise.getHost().getGender().equals(findMember.getGender()) ||
+                            exercise.getGenderType().equals(GenderType.ALL));
+        } else if (genderType.equals("SAME")){
+            stream = stream.filter(exercise -> exercise.getHost().getGender().equals(findMember.getGender()));
+        }
+        if (!category.equals("ALL")) {
+            stream = stream.filter(exercise -> exercise.getCategory().toString().equals(category));
+        }
+
+        return exerciseMapper.entitiesToResponseDtoList(stream.collect(Collectors.toList()));
     }
 
     @Override
