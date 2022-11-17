@@ -4,6 +4,7 @@ import com.ilchinjo.mainproject.domain.member.dto.MemberSimpleDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotNull;
 
@@ -13,11 +14,13 @@ import javax.validation.constraints.NotNull;
 public class ReviewPostDto {
 
     @NotNull
-    private MemberSimpleDto destMember;
+    private Long destMemberId;
 
     @NotNull
+    @Range(min = -2, max = 2)
     private int publicEvaluation;
 
     @NotNull
+    @Range(min = -2, max = 2)
     private int privateEvaluation;
 }
