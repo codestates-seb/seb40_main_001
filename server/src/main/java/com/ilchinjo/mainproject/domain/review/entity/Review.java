@@ -35,4 +35,16 @@ public class Review extends AuditingEntity {
     @ManyToOne
     @JoinColumn(name = "dest_member_id")
     private Member destMember;
+
+    public static Review createReview(Review review, Member srcMember, Member destMember, Exercise exercise) {
+        Review createReview = Review.builder()
+                .publicEvaluation(review.getPublicEvaluation())
+                .privateEvaluation(review.getPrivateEvaluation())
+                .exercise(exercise)
+                .srcMember(srcMember)
+                .destMember(destMember)
+                .build();
+
+        return createReview;
+    }
 }
