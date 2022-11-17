@@ -1,5 +1,6 @@
 package com.ilchinjo.mainproject.domain.review.dto;
 
+import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseResponseDto;
 import com.ilchinjo.mainproject.domain.member.dto.MemberResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,11 +15,11 @@ public class ReviewResponseDto {
 
     private Long reviewId;
 
-    private Long srcMember;
+    private MemberResponseDto srcMember;
 
-    private Long destMember;
+    private MemberResponseDto destMember;
 
-    private Long exercise;
+    private ExerciseResponseDto exercise;
 
     private int publicEvaluation;
 

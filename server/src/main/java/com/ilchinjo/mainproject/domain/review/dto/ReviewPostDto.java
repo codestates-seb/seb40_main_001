@@ -1,5 +1,6 @@
 package com.ilchinjo.mainproject.domain.review.dto;
 
+import com.ilchinjo.mainproject.domain.member.dto.MemberSimpleDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import javax.validation.constraints.NotNull;
 public class ReviewPostDto {
 
     @NotNull
-    private int destMemberId;
+    private MemberSimpleDto destMember;
 
     @NotNull
     private int publicEvaluation;
