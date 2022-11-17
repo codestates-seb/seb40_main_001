@@ -6,6 +6,8 @@ import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseResponseDto;
 import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface ExerciseMapper {
 
@@ -14,4 +16,6 @@ public interface ExerciseMapper {
     ExerciseResponseDto entityToResponseDto(Exercise exercise);
 
     ExerciseDetailResponseDto entityToDetailResponseDto(Exercise exercise);
+
+    List<ExerciseResponseDto> entitiesToResponseDtoList(List<Exercise> exercises);
 }
