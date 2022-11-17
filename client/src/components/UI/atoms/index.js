@@ -7,6 +7,7 @@ import LightBtn from './LightBtn';
 import LongBtn from './LongBtn';
 import MiniBtn from './MiniBtn';
 import ShortBtn from './ShortBtn';
+import CarouselBtn from './CarouselBtn';
 
 export {
   ChooseBtn,
@@ -17,4 +18,5 @@ export {
   LongBtn,
   MiniBtn,
   ShortBtn,
+  CarouselBtn,
 };
