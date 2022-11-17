@@ -12,7 +12,7 @@ const ExerciseBtn = ({ exercise, handleClick }) => {
     switch (exercise) {
       case 'all':
         return <All />;
-      case 'runnung':
+      case 'running':
         return <Running />;
       case 'yoga':
         return <Yoga />;
