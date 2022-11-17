@@ -1,11 +1,11 @@
 package com.ilchinjo.mainproject.domain.proposal.service;
 
 import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
-import com.ilchinjo.mainproject.domain.exercise.entity.ExerciseStatus;
 import com.ilchinjo.mainproject.domain.exercise.service.ExerciseService;
 import com.ilchinjo.mainproject.domain.member.entity.Member;
 import com.ilchinjo.mainproject.domain.member.service.MemberService;
 import com.ilchinjo.mainproject.domain.proposal.dto.ProposalResponseDto;
+import com.ilchinjo.mainproject.domain.proposal.dto.ProposalSimpleResponseDto;
 import com.ilchinjo.mainproject.domain.proposal.entity.Proposal;
 import com.ilchinjo.mainproject.domain.proposal.mapper.ProposalMapper;
 import com.ilchinjo.mainproject.domain.proposal.repository.ProposalRepository;
@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -37,6 +38,13 @@ public class ProposalServiceImpl implements ProposalService {
         return mapper.entityToResponseDto(
                 proposalRepository.save(Proposal.createProposal(findExercise, findParticipant))
         );
+    }
+
+    @Override
+    public List<ProposalSimpleResponseDto> findProposals(Long exerciseId) {
+        Exercise findExercise = exerciseService.findVerifiedExercise(exerciseId);
+
+        return mapper.entitiesToSimpleResponseDtoList(findExercise.getProposals());
     }
 
     public void checkSelfPropose(Exercise exercise, Long memberId) {
