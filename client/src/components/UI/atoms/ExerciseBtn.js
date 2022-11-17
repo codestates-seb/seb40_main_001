@@ -7,7 +7,7 @@ import { ReactComponent as Swim } from '../../../assets/img/icons/swim.svg';
 import { ReactComponent as Weight } from '../../../assets/img/icons/weight.svg';
 import { ReactComponent as Basketball } from '../../../assets/img/icons/basketball.svg';
 
-const ExerciseBtn = ({ exercise }) => {
+const ExerciseBtn = ({ exercise, handleClick }) => {
   const getIcon = () => {
     switch (exercise) {
       case 'all':
@@ -32,7 +32,10 @@ const ExerciseBtn = ({ exercise }) => {
   const icon = getIcon();
 
   return (
-    <button className="w-[55px] h-[55px] btn btn-circle hover:bg-main bg-main-week">
+    <button
+      onClick={handleClick}
+      className="w-[55px] h-[55px] btn btn-circle hover:bg-main bg-main-week"
+    >
       <div>{icon}</div>
     </button>
   );
