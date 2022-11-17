@@ -1,8 +1,7 @@
 import React from 'react';
 
-const MiniBtn = ({ txt, disabled, handleClick }) => {
-  let style =
-    'text-[#FFF] text-200 btn w-[80px] h-[35px] rounded-[5px] border-0';
+const MiniBtn = ({ disabled, handleClick }) => {
+  let style = 'text-white text-200 w-[80px] h-[35px] rounded-[5px] border-0';
 
   if (disabled) {
     style += ' bg-main-week hover:bg-main-week';
@@ -12,7 +11,7 @@ const MiniBtn = ({ txt, disabled, handleClick }) => {
 
   return (
     <button className={style} onClick={handleClick}>
-      {txt}
+      확인
     </button>
   );
 };
