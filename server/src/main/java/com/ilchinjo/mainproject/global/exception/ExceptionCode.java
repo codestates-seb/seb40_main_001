@@ -10,6 +10,7 @@ public enum ExceptionCode {
     EXERCISE_NOT_FOUND(404, "Exercise not found"),
     CANT_PROPOSE_MYSELF(422, "Cant propose myself"),
     START_TIME_IS_PASSED(422, "Start time is passed"),
+    REVIEW_EXISTS(409, "Review exists"),
     ;
 
     private final int status;
