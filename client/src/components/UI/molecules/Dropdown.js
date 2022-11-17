@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ReactComponent as DownArrow } from '../../../assets/img/icons/downArrow.svg';
 
-const Dropdown = () => {
+const Dropdown = ({ city, setCity }) => {
   // state, cities 나중에 props로 받아도록 수정
-  const [city, setCity] = useState('강남구');
   const cities = ['강남구', '관악구', '광진구'];
 
   const handleClick = e => {
