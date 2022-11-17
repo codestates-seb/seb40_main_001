@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/exercises")
 @RequiredArgsConstructor
@@ -18,7 +20,7 @@ public class CommentController {
     @ResponseStatus(HttpStatus.CREATED)
     public CommentResponseDto postComment(@PathVariable("exercise-id") Long exerciseId,
                                           @RequestHeader("Authorization") Long memberId,
-                                          @RequestBody CommentPostDto postDto) {
+                                          @RequestBody @Valid CommentPostDto postDto) {
 
         return commentService.saveComment(exerciseId, memberId, postDto);
     }
