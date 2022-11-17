@@ -1,18 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ReactComponent as Light } from '../../../assets/img/icons/light.svg';
 
-const LightBtn = ({ props }) => {
-  const [color, setColor] = useState('white');
-
-  const changeColor = () => {
-    if (color === props) {
-      setColor('white');
-    } else {
-      setColor(props);
-    }
-  };
-
-  return <Light onClick={changeColor} fill={color} />;
+const LightBtn = ({ color, changeColor, index }) => {
+  return <Light onClick={() => changeColor(index)} fill={color} />;
 };
 
 export default LightBtn;
