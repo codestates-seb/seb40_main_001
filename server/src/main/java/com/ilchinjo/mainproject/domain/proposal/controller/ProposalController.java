@@ -26,4 +26,11 @@ public class ProposalController {
     public MultiResponseDto<ProposalSimpleResponseDto> getProposals(@PathVariable("exercise-id") Long exerciseId) {
         return MultiResponseDto.of(proposalService.findProposals(exerciseId));
     }
+
+    @PostMapping("/proposals/{proposal-id}/approval")
+    @ResponseStatus(HttpStatus.OK)
+    public ProposalResponseDto approvalProposal(@PathVariable("proposal-id") Long proposalId,
+                                                @RequestHeader("Authorization") Long hostId) {
+        return proposalService.approvalProposal(proposalId, hostId);
+    }
 }
