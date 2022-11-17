@@ -91,4 +91,9 @@ public class Exercise extends AuditingEntity {
                 .ifPresent(category -> this.category = category);
 
     }
+
+    public void choiceProposal(Proposal proposal) {
+        this.participant = proposal.getParticipant();
+        this.exerciseStatus = ExerciseStatus.CLOSED;
+    }
 }
