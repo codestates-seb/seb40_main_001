@@ -75,7 +75,7 @@ public class ProposalServiceImpl implements ProposalService {
         }
 
         if (exercise.getExerciseStatus() == ExerciseStatus.CLOSED ||
-                exercise.getParticipant() == null) {
+                exercise.getParticipant() != null) {
             throw new BusinessLogicException(ExceptionCode.EXERCISE_IS_CLOSED);
         }
     }
