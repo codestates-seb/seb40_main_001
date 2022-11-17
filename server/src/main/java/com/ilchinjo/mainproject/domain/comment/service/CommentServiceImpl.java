@@ -9,9 +9,13 @@ import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
 import com.ilchinjo.mainproject.domain.exercise.service.ExerciseService;
 import com.ilchinjo.mainproject.domain.member.entity.Member;
 import com.ilchinjo.mainproject.domain.member.service.MemberService;
+import com.ilchinjo.mainproject.global.exception.BusinessLogicException;
+import com.ilchinjo.mainproject.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -35,5 +39,29 @@ public class CommentServiceImpl implements CommentService {
         commentRepository.save(createdComment);
 
         return commentMapper.entityToResponseDto(createdComment);
+    }
+
+    @Override
+    public void deleteComment(Long commentId, Long memberId) {
+
+        Comment findComment = findVerifiedComment(commentId);
+        checkAuthorization(findComment, memberId);
+
+        commentRepository.delete(findComment);
+    }
+
+    @Override
+    public Comment findVerifiedComment(Long commentId) {
+
+        Optional<Comment> optionalComment = commentRepository.findById(commentId);
+        Comment findComment = optionalComment.orElseThrow(() -> new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));
+
+        return findComment;
+    }
+
+    private void checkAuthorization(Comment comment, Long memberId) {
+        if (!comment.getAuthor().getMemberId().equals(memberId)) {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
+        }
     }
 }
