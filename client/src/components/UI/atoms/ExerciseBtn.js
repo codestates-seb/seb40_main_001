@@ -33,7 +33,7 @@ const ExerciseBtn = ({ exercise, handleClick }) => {
 
   return (
     <button
-      onClick={handleClick}
+      onClick={() => handleClick(exercise)}
       className="w-[55px] h-[55px] btn btn-circle hover:bg-main bg-main-week"
     >
       <div>{icon}</div>
