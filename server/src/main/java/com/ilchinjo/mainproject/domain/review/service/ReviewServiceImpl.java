@@ -43,6 +43,8 @@ public class ReviewServiceImpl implements ReviewService {
 
         Review review = reviewMapper.postDtoToEntity(postDto);
         Review createdReview = Review.createReview(review, findSrcMember, findDestMember, findExercise);
+
+        findDestMember.updatePublicEvaluation();
         reviewRepository.save(createdReview);
 
         return reviewMapper.entityToResponseDto(createdReview);

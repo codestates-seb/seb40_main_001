@@ -44,6 +44,7 @@ public class Review extends AuditingEntity {
                 .srcMember(srcMember)
                 .destMember(destMember)
                 .build();
+        destMember.getReceivedReviews().add(createReview);
 
         return createReview;
     }
