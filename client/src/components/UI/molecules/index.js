@@ -3,6 +3,7 @@ import Carousel from './Carousel';
 import CheckPasswordinput from './CheckPasswordInput';
 import ViewrCLX from './CommentViewer_X';
 import ViewrCL from './CommentViewer';
+import DrawerInfo from './DrawerInfo';
 import Dropdown from './Dropdown';
 import ExerciseCarousel from './ExerciseCarousel';
 import ExerciseCategory from './ExerciseCategory';
@@ -28,6 +29,7 @@ export {
   CheckPasswordinput,
   ViewrCLX,
   ViewrCL,
+  DrawerInfo,
   Dropdown,
   ExerciseCarousel,
   ExerciseCategory,
