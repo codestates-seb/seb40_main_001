@@ -1,7 +1,7 @@
 import React from 'react';
 import CommentLayout from '../atoms/CommentLayout';
 
-const ViewrSource = ({ nickname, contents, handler }) => {
+const ViewerSource = ({ nickname, contents, handler, id }) => {
   return (
     <div className="m-[15px]">
       <div className="flex flex-row items-center">
@@ -14,7 +14,7 @@ const ViewrSource = ({ nickname, contents, handler }) => {
         text-low
         text-[11px]
         "
-          onClick={handler}
+          onClick={() => handler(id)}
         >
           답글
         </button>
@@ -24,18 +24,19 @@ const ViewrSource = ({ nickname, contents, handler }) => {
   );
 };
 
-const ViewrCL = ({ nickname, contents, handler }) => {
+const ViewerCL = ({ nickname, contents, handler, id }) => {
   return (
     <CommentLayout
       source={
-        <ViewrSource
+        <ViewerSource
           nickname={nickname}
           contents={contents}
           handler={handler}
+          id={id}
         />
       }
     />
   );
 };
 
-export default ViewrCL;
+export default ViewerCL;
