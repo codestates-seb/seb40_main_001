@@ -12,6 +12,7 @@ public enum ExceptionCode {
     CANT_PROPOSE_MYSELF(422, "Cant propose myself"),
     START_TIME_IS_PASSED(422, "Start time is passed"),
     PROPOSAL_NOT_FOUND(404, "Proposal not found"),
+    REPLY_NOT_FOUND(404, "Reply not found"),
     EXERCISE_IS_CLOSED(422, "Exercise is closed"),
     ;
 
