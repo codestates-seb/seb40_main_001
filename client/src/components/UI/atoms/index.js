@@ -12,6 +12,9 @@ import CarouselBtn from './CarouselBtn';
 // DatePicker
 import Datepicker from './Datepicker';
 
+// battery
+import BatteryCase from './BatteryCase';
+
 // Buttons
 export {
   ChooseBtn,
@@ -27,3 +30,6 @@ export {
 
 // DatePicker
 export { Datepicker };
+
+// Battery
+export { BatteryCase };
