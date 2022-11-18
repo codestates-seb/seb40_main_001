@@ -44,10 +44,14 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void deleteComment(Long commentId, Long memberId) {
 
-        Comment findComment = findVerifiedComment(commentId);
-        checkAuthorization(findComment, memberId);
+        Optional<Comment> optionalComment = commentRepository.findById(commentId);
 
-        commentRepository.delete(findComment);
+        if (optionalComment.isPresent()) {
+            Comment findComment = optionalComment.get();
+            checkAuthorization(findComment, memberId);
+
+            commentRepository.delete(findComment);
+        }
     }
 
     @Override

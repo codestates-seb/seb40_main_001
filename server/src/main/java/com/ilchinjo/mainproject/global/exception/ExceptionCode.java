@@ -14,7 +14,7 @@ public enum ExceptionCode {
     END_TIME_IS_NOT_PASSED(422, "End time is not passed"),
     REVIEW_EXISTS(409, "Review exists"),
     PROPOSAL_NOT_FOUND(404, "Proposal not found"),
-
+    EXERCISE_IS_CLOSED(422, "Exercise is closed"),
     ;
 
     private final int status;
