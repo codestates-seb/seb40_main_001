@@ -4,8 +4,7 @@ import { ko } from 'date-fns/locale';
 import { format } from 'date-fns';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const DatepickerModule = () => {
-  const [startDate, setStartDate] = useState(new Date());
+const DatepickerModule = ({ startDate, setStartDate }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleChange = e => {
@@ -19,7 +18,7 @@ const DatepickerModule = () => {
   };
 
   return (
-    <>
+    <div className="flex flex-col items-end">
       <button
         className="bg-white rounded-[7px] w-[130px] h-[30px] text text-200 border border-main"
         onClick={handleClick}
@@ -38,7 +37,7 @@ const DatepickerModule = () => {
           inline
         />
       )}
-    </>
+    </div>
   );
 };
 
