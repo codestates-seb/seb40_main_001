@@ -70,13 +70,11 @@ const Comments = () => {
   1. 답글을 눌렀을 때 input 창이 나와야한다. (답글 => handler props 통일)
   2. 글쓴이 인지 뷰어인지 id 값을 확인한 다음 창이 바뀌어서 달려야한다.
   3. 아래 화살표와 함께 달려야한다.
-  filter 사용 해야 할 거고..
   */
   const writeReply = idx => {
     const replyInput = new Array(dummyData.length).fill(false);
     replyInput[idx] = true;
     setReply(replyInput);
-    console.log(reply, idx);
   };
 
   return (
