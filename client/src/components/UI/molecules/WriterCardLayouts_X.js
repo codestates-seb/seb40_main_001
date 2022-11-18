@@ -1,24 +1,10 @@
 import React from 'react';
 import CommentDeleteBtn from '../atoms/CommentDeleteBtn';
+import WriterCL from '../atoms/WriterCommentLayout';
 
-const WriterCLX = ({ nickname, contents, handler, deleteHandler }) => {
+const Source = ({ nickname, contents, handler, deleteHandler }) => {
   return (
-    <div
-      className="
-    card 
-    flex 
-    flex-row 
-    w-[319px] 
-    h-[70px] 
-    bg-babyPink 
-    card-bordered 
-    border-[1px] 
-    border-main-red 
-    rounded-[5px] 
-    drop-shadow-lg
-    justify-between
-    "
-    >
+    <>
       <div className="flex flex-col m-[15px]">
         <div className="flex flex-row">
           <div className="font-bold mr-[10px] text-200 text-red">{`${nickname}`}</div>
@@ -31,8 +17,23 @@ const WriterCLX = ({ nickname, contents, handler, deleteHandler }) => {
       <div className="m-[5px]">
         <CommentDeleteBtn onClick={deleteHandler} />
       </div>
-    </div>
+    </>
   );
 };
 
-export default WriterCLX;
+const WriterCardX = ({ nickname, contents, handler, deleteHandler }) => {
+  return (
+    <WriterCL
+      source={
+        <Source
+          nickname={nickname}
+          contents={contents}
+          handler={handler}
+          deleteHandler={deleteHandler}
+        />
+      }
+    />
+  );
+};
+
+export default WriterCardX;
