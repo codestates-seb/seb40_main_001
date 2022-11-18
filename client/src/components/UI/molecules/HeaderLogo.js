@@ -2,12 +2,9 @@ import React from 'react';
 import { ReactComponent as Logo } from '../../../assets/img/icons/logo.svg';
 import { ReactComponent as Menu } from '../../../assets/img/icons/menu.svg';
 
-const HeaderLogo = ({ txt }) => {
+const HeaderLogo = ({ txt, menuHandler }) => {
   const logoHandler = () => {
     console.log('logo');
-  };
-  const menuHandler = () => {
-    console.log('menu');
   };
 
   return (
