@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ExerciseBtn } from '../atoms';
 
-const ExerciseCarousel = ({ arr }) => {
+const ExerciseCarousel = ({ arr, handler }) => {
+  const [isSelect, setIsSelect] = useState('');
   const handleClick = e => {
     // e === exercise name
-    // 선택된 버튼이 bg-main으로 유지되도록 하는 로직 추가 필요
-    console.log(e);
+    setIsSelect(e);
+    handler('exercise', isSelect);
   };
 
   return (
     <div className="carousel overflow-x-scroll w-[390px] h-[86px] flex items-center">
       {arr.map(el => (
         <div className="px-2.5 carousel-item" key={el}>
-          <ExerciseBtn exercise={el} handleClick={handleClick} />
+          <ExerciseBtn
+            exercise={el}
+            handleClick={handleClick}
+            selected={isSelect}
+          />
         </div>
       ))}
     </div>
