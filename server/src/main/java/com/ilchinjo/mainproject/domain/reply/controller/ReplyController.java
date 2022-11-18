@@ -23,4 +23,12 @@ public class ReplyController {
 
         return replyService.saveReply(commentId, memberId, postDto);
     }
+
+    @DeleteMapping("/replies/{reply-id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteReply(@PathVariable("reply-id") Long replyId,
+                            @RequestHeader("Authorization") Long memberId) {
+
+        replyService.deleteReply(replyId, memberId);
+    }
 }
