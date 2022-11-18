@@ -6,7 +6,7 @@ spring:
     password: 1234
   jpa:
     hibernate:
-      ddl-auto: create # DB 스키마 자동 생성
+      ddl-auto: update # DB 스키마 자동 생성
     properties:
       hibernate:
         format_sql: true # SQL 쿼리 pretty print
