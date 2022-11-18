@@ -44,20 +44,14 @@ public class ReplyServiceImpl implements ReplyService {
     @Override
     public void deleteReply(Long replyId, Long memberId) {
 
-        Reply findReply = findVerifiedReply(replyId);
-        checkAuthorization(findReply, memberId);
-
-        replyRepository.delete(findReply);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Reply findVerifiedReply(Long replyId) {
-
         Optional<Reply> optionalReply = replyRepository.findById(replyId);
-        Reply findReply = optionalReply.orElseThrow(() -> new BusinessLogicException(ExceptionCode.REPLY_NOT_FOUND));
 
-        return findReply;
+        if (optionalReply.isPresent()) {
+            Reply findReply = optionalReply.get();
+            checkAuthorization(findReply, memberId);
+
+            replyRepository.delete(findReply);
+        }
     }
 
     private void checkAuthorization(Reply reply, Long memberId) {
