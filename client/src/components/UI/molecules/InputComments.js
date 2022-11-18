@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import TextInputArea from '../atoms/TextInput';
 import { CommentBtn } from '../atoms';
 
-const InputComments = () => {
+const InputComments = ({ handler, id }) => {
   const [writeComments, setWriteComments] = useState('');
   const commentsHandler = e => {
     setWriteComments(e.target.value);
@@ -17,7 +17,7 @@ const InputComments = () => {
           onChange={commentsHandler}
         />
       </div>
-      <CommentBtn />
+      <CommentBtn id={id} handler={handler} />
     </div>
   );
 };

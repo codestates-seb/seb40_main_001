@@ -2,13 +2,13 @@ import React from 'react';
 import CommentDeleteBtn from '../atoms/CommentDeleteBtn';
 import CommentLayout from '../atoms/CommentLayout';
 
-const ViewrSource = ({ nickname, contents, handler, deleteHandler }) => {
+const ViewerSource = ({ nickname, contents, handler, deleteHandler, id }) => {
   return (
-    <>
+    <div className="flex flex row justify-between">
       <div className="flex flex-col m-[15px]">
         <div className="flex flex-row">
           <div className="font-bold mr-[10px] text-200">{`${nickname}`}</div>
-          <button className="text-low text-[11px]" onClick={handler}>
+          <button className="text-low text-[11px]" onClick={() => handler(id)}>
             답글
           </button>
         </div>
@@ -17,23 +17,24 @@ const ViewrSource = ({ nickname, contents, handler, deleteHandler }) => {
       <div className="m-[5px]">
         <CommentDeleteBtn onClick={deleteHandler} />
       </div>
-    </>
+    </div>
   );
 };
 
-const ViewrCLX = ({ nickname, contents, handler, deleteHandler }) => {
+const ViewerCLX = ({ nickname, contents, handler, deleteHandler, id }) => {
   return (
     <CommentLayout
       source={
-        <ViewrSource
+        <ViewerSource
           nickname={nickname}
           contents={contents}
           handler={handler}
           deleteHandler={deleteHandler}
+          id={id}
         />
       }
     />
   );
 };
 
-export default ViewrCLX;
+export default ViewerCLX;
