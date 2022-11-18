@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -65,13 +64,8 @@ public class ReviewServiceImpl implements ReviewService {
 
     private void checkDuplicatedReview(Exercise exercise, Member srcMember) {
 
-        List<Review> reviewList = reviewRepository.findByExercise(exercise);
+        List<Review> reviewList = reviewRepository.findByExerciseAndSrcMember(exercise, srcMember);
         if (reviewList.isEmpty()) return;
-        if (reviewList.size() == 1) {
-            ArrayList<Review> reviewArrayList = (ArrayList<Review>) reviewList;
-            Member findSrcMember = reviewArrayList.get(0).getSrcMember();
-            if (!srcMember.equals(findSrcMember)) return;
-        }
 
         throw new BusinessLogicException(ExceptionCode.REVIEW_EXISTS);
     }
