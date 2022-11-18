@@ -58,8 +58,23 @@ public class Member extends AuditingEntity {
     @OneToMany(mappedBy = "destMember")
     private List<Review> receivedReviews = new ArrayList<>();
 
+    @Builder.Default
+    private int publicEvaluation = 20;
+
     public void update(MemberPatchDto patchDto) {
 
         this.nickname = patchDto.getNickname();
+    }
+
+    public void updatePublicEvaluation() {
+        int initialValue = 20;
+        List<Review> reviewList = this.getReceivedReviews();
+
+        int sum = reviewList.stream()
+                .mapToInt(Review::getPublicEvaluation)
+                .sum();
+
+        this.publicEvaluation = initialValue + sum;
+
     }
 }

@@ -1,6 +1,7 @@
 package com.ilchinjo.mainproject.domain.proposal.service;
 
 import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
+import com.ilchinjo.mainproject.domain.exercise.entity.ExerciseStatus;
 import com.ilchinjo.mainproject.domain.exercise.service.ExerciseService;
 import com.ilchinjo.mainproject.domain.member.entity.Member;
 import com.ilchinjo.mainproject.domain.member.service.MemberService;
@@ -71,6 +72,11 @@ public class ProposalServiceImpl implements ProposalService {
     public void checkExerciseValid(Exercise exercise) {
         if (LocalDateTime.now().isAfter(exercise.getExerciseAt())) {
             throw new BusinessLogicException(ExceptionCode.START_TIME_IS_PASSED);
+        }
+
+        if (exercise.getExerciseStatus() == ExerciseStatus.CLOSED ||
+                exercise.getParticipant() != null) {
+            throw new BusinessLogicException(ExceptionCode.EXERCISE_IS_CLOSED);
         }
     }
 
