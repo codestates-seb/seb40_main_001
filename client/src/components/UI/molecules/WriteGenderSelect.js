@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChooseBtn } from '../atoms';
 
-const WriteGenderSelect = () => {
+const WriteGenderSelect = ({ handler }) => {
   const [isSelect, setIsSelect] = useState(false);
   // isSelect[0] === true
-  // 남성
+  // 무관
   // isSelect[1] === true
-  // 여성
+  // 동성
 
-  // width는 상위 컴포넌트에서 잡을 것
+  useEffect(() => {
+    const gender = isSelect[0] ? '무관' : '동성';
+    handler('gender', gender);
+  }, [isSelect]);
 
   return (
     <div className="flex flex-row justify-between">

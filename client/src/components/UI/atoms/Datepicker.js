@@ -4,16 +4,19 @@ import { ko } from 'date-fns/locale';
 import { format } from 'date-fns';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const DatepickerModule = ({ startDate, setStartDate }) => {
+const DatepickerModule = ({ start, handler }) => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const handleChange = e => {
-    setIsOpen(!isOpen);
-    setStartDate(e);
-  };
+  const [startDate, setStartDate] = useState(new Date());
 
   const handleClick = e => {
     e.preventDefault();
+    setIsOpen(!isOpen);
+  };
+
+  const handleChange = e => {
+    const name = start ? 'startTime' : 'endTime';
+    handler(name, e);
+    setStartDate(e);
     setIsOpen(!isOpen);
   };
 
