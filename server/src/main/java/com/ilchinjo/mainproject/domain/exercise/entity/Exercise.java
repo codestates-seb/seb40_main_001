@@ -62,7 +62,8 @@ public class Exercise extends AuditingEntity {
     private List<Proposal> proposals = new ArrayList<>();
 
     public static Exercise createExercise(Exercise exercise, Member host) {
-        Exercise createdExercise = Exercise.builder()
+
+        return Exercise.builder()
                 .title(exercise.title)
                 .content(exercise.content)
                 .exerciseAt(exercise.exerciseAt)
@@ -70,9 +71,8 @@ public class Exercise extends AuditingEntity {
                 .genderType(exercise.genderType)
                 .category(exercise.category)
                 .host(host)
+                .address(host.getAddress())
                 .build();
-
-        return createdExercise;
     }
 
     public void update(Exercise exercise, Address address) {
