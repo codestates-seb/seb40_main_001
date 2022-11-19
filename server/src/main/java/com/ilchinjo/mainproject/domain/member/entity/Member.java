@@ -77,4 +77,13 @@ public class Member extends AuditingEntity {
         this.publicEvaluation = initialValue + sum;
 
     }
+
+    public static Member createMember(Member member, Address address) {
+        return Member.builder()
+                .email(member.getEmail())
+                .nickname(member.getNickname())
+                .gender(member.getGender())
+                .address(address)
+                .build();
+    }
 }
