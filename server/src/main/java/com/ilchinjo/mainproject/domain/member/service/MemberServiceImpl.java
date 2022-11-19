@@ -42,12 +42,14 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public MemberResponseDto updateMember(Long memberId, MemberPatchDto patchDto) {
 
-        Member findmember = findVerifiedMember(memberId);
+        Member findMember = findVerifiedMember(memberId);
         verifyExistsNickname(patchDto.getNickname());
+        Member patchMember = memberMapper.patchDtoToEntity(patchDto);
+        Address findAddress = addressService.findVerifiedAddress(patchDto.getAddressId());
 
-        findmember.update(patchDto);
+        findMember.update(patchMember, findAddress);
 
-        return memberMapper.entityToResponseDto(findmember);
+        return memberMapper.entityToResponseDto(findMember);
     }
 
     @Override
