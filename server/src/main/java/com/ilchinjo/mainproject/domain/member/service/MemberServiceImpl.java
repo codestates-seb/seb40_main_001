@@ -1,5 +1,7 @@
 package com.ilchinjo.mainproject.domain.member.service;
 
+import com.ilchinjo.mainproject.domain.address.entity.Address;
+import com.ilchinjo.mainproject.domain.address.service.AddressService;
 import com.ilchinjo.mainproject.domain.member.dto.MemberDetailResponseDto;
 import com.ilchinjo.mainproject.domain.member.dto.MemberPatchDto;
 import com.ilchinjo.mainproject.domain.member.dto.MemberPostDto;
@@ -22,6 +24,7 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
     private final MemberMapper memberMapper;
+    private final AddressService addressService;
 
     @Override
     public MemberResponseDto saveMember(MemberPostDto postDto) {
@@ -29,10 +32,11 @@ public class MemberServiceImpl implements MemberService {
         Member member = memberMapper.postDtoToEntity(postDto);
         verifyExistsEmail(member.getEmail());
         verifyExistsNickname(member.getNickname());
+        Address findAddress = addressService.findVerifiedAddress(postDto.getAddressId());
 
-        memberRepository.save(member);
+        Member createdMember = Member.createMember(member, findAddress);
 
-        return memberMapper.entityToResponseDto(member);
+        return memberMapper.entityToResponseDto(memberRepository.save(createdMember));
     }
 
     @Override
