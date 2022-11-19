@@ -15,4 +15,6 @@ public class MemberPatchDto {
 
     @NotBlank
     private String nickname;
+
+    private Long addressId;
 }
