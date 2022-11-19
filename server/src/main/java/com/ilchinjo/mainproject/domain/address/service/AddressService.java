@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface AddressService {
     List<AddressResponseDto> findAddresses();
+
+    Address findVerifiedAddress(Long addressId);
 }
