@@ -12,6 +12,10 @@ spring:
         format_sql: true # SQL 쿼리 pretty print
     show-sql: true # SQL 쿼리 출력
     open-in-view: true
+    defer-datasource-initialization: true # hibernate의 auto schema creation(ddl-auto) 이후에 schema.sql, data.sql실행
+  sql:
+    init:
+      mode: always # embedded database(ex h2) 이외에도 항상 sql을 실해하도록 설정
   profiles:
     include: database
 logging:
