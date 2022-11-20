@@ -34,4 +34,8 @@ public class Proposal extends AuditingEntity {
                 .participant(participant)
                 .build();
     }
+
+    public void approve() {
+        this.status = ProposalStatus.APPROVED;
+    }
 }
