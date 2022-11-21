@@ -2,7 +2,6 @@ package com.ilchinjo.mainproject.domain.exercise.entity;
 
 import com.ilchinjo.mainproject.domain.address.entity.Address;
 import com.ilchinjo.mainproject.domain.comment.entity.Comment;
-import com.ilchinjo.mainproject.domain.exercise.dto.ExercisePatchDto;
 import com.ilchinjo.mainproject.domain.member.entity.Member;
 import com.ilchinjo.mainproject.domain.proposal.entity.Proposal;
 import com.ilchinjo.mainproject.global.audit.AuditingEntity;
@@ -63,7 +62,8 @@ public class Exercise extends AuditingEntity {
     private List<Proposal> proposals = new ArrayList<>();
 
     public static Exercise createExercise(Exercise exercise, Member host) {
-        Exercise createdExercise = Exercise.builder()
+
+        return Exercise.builder()
                 .title(exercise.title)
                 .content(exercise.content)
                 .exerciseAt(exercise.exerciseAt)
@@ -71,24 +71,24 @@ public class Exercise extends AuditingEntity {
                 .genderType(exercise.genderType)
                 .category(exercise.category)
                 .host(host)
+                .address(host.getAddress())
                 .build();
-
-        return createdExercise;
     }
 
-    public void update(ExercisePatchDto patchDto) {
-        Optional.ofNullable(patchDto.getTitle())
+    public void update(Exercise exercise, Address address) {
+        Optional.ofNullable(exercise.getTitle())
                 .ifPresent(title -> this.title = title);
-        Optional.ofNullable(patchDto.getContent())
+        Optional.ofNullable(exercise.getContent())
                 .ifPresent(content -> this.content = content);
-        Optional.ofNullable(patchDto.getExerciseAt())
+        Optional.ofNullable(exercise.getExerciseAt())
                 .ifPresent(exerciseAt -> this.exerciseAt = exerciseAt);
-        Optional.ofNullable(patchDto.getEndAt())
+        Optional.ofNullable(exercise.getEndAt())
                 .ifPresent(endAt -> this.endAt = endAt);
-        Optional.ofNullable(patchDto.getGenderType())
+        Optional.ofNullable(exercise.getGenderType())
                 .ifPresent(genderType -> this.genderType = genderType);
-        Optional.ofNullable(patchDto.getCategory())
+        Optional.ofNullable(exercise.getCategory())
                 .ifPresent(category -> this.category = category);
+        this.address = address;
 
     }
 
