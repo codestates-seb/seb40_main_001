@@ -69,7 +69,7 @@
         <appender-ref ref="WARN_LOG" />
     </logger>
 
-    <logger name="org.hibernate.SQL" additivity="false">
+    <logger name="p6spy" additivity="false">
         <level value = "DEBUG" />
         <appender-ref ref="INFO_LOG" />
         <appender-ref ref="STDOUT"/>
@@ -82,4 +82,11 @@
         <appender-ref ref="WARN_LOG" />
     </logger>
 
+    <!-- 추후 변경 될 수 있음
+    <logger name="org.hibernate.SQL" additivity="false">
+        <level value = "DEBUG" />
+        <appender-ref ref="INFO_LOG" />
+        <appender-ref ref="STDOUT"/>
+    </logger>
+    -->
 </configuration>
