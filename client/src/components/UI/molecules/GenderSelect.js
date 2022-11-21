@@ -10,7 +10,6 @@ const GenderSelect = () => {
 
   return (
     <div>
-      <div className="text font-bold text-300 mb-1">성별</div>
       <ChooseBtn
         isSelect={isSelect}
         setIsSelect={setIsSelect}
