@@ -16,6 +16,9 @@ import Datepicker from './Datepicker';
 // battery
 import BatteryCase from './BatteryCase';
 
+// Toggles
+import Toggle from './Toggle';
+
 // Buttons
 export {
   ChooseBtn,
@@ -35,3 +38,6 @@ export { Datepicker };
 
 // Battery
 export { BatteryCase };
+
+// Toggles
+export { Toggle };
