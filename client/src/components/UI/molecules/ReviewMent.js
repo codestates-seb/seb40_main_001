@@ -1,16 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ReactComponent as Question } from '../../../assets/img/icons/reviewMark.svg';
 import { LightBtn } from '../atoms';
 
-const ReviewMent = ({ ment }) => {
-  const [color, setColor] = useState([
-    'white',
-    'white',
-    'white',
-    'white',
-    'white',
-  ]);
-
+const ReviewMent = ({ color, setColor, ment }) => {
   const lightColors = ['#FF7B8E', '#FF8A00', '#FFE500', '#7FD1AE', '#7ACE82'];
 
   const changeColor = idx => {

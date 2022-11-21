@@ -7,8 +7,16 @@ import LightBtn from './LightBtn';
 import LongBtn from './LongBtn';
 import MiniBtn from './MiniBtn';
 import ShortBtn from './ShortBtn';
+import LogoutBtn from './LogoutBtn';
 import CarouselBtn from './CarouselBtn';
 
+// DatePicker
+import Datepicker from './Datepicker';
+
+// battery
+import BatteryCase from './BatteryCase';
+
+// Buttons
 export {
   ChooseBtn,
   CommentBtn,
@@ -18,5 +26,12 @@ export {
   LongBtn,
   MiniBtn,
   ShortBtn,
+  LogoutBtn,
   CarouselBtn,
 };
+
+// DatePicker
+export { Datepicker };
+
+// Battery
+export { BatteryCase };

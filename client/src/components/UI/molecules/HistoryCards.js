@@ -8,7 +8,7 @@ import { ReactComponent as Weight } from '../../../assets/img/icons/weight.svg';
 import { ReactComponent as Basketball } from '../../../assets/img/icons/basketball.svg';
 import { ShortBtn } from '../atoms';
 
-const HistoryCL = ({ target, nickname, exercise, krExercise }) => {
+const HistoryCL = ({ target, date, nickname, exercise, krExercise }) => {
   const [review, setReview] = useState(false);
   const [reviewed, setReviewed] = useState(false);
   const reviewHandler = () => {
@@ -20,7 +20,7 @@ const HistoryCL = ({ target, nickname, exercise, krExercise }) => {
   };
   const getIcon = () => {
     switch (exercise) {
-      case 'runnung':
+      case 'running':
         return <Running fill={'#7FD1AE'} />;
       case 'yoga':
         return <Yoga fill={'#7FD1AE'} />;
@@ -57,7 +57,11 @@ const HistoryCL = ({ target, nickname, exercise, krExercise }) => {
       <div className="ml-[20px] flex flex-row">
         <HNM target={target} />
         <div className="flex flex-col ml-[15px] text-300">
-          <div>{`${nickname}`}</div>
+          <div className="flex flex-row items-end">
+            <div className="text-300 text-default mr-[10px] max-w-[70px] truncate">{`${nickname}`}</div>
+            <div className="text-200 text-low">{`${date}`}</div>
+          </div>
+
           <div className="flex flex-row items-center">
             <div>{icon}</div>
             <div className="text-200 text-exercise">{`${krExercise}`}</div>
