@@ -15,6 +15,8 @@ public interface ExerciseService {
 
     List<ExerciseResponseDto> findExercises(String address, String genderType, String category, Long memberId);
 
+    List<ExerciseResponseDto> findExercisesDynamicQuery(String address, String genderType, String category, Long memberId);
+
     Exercise findVerifiedExercise(Long exerciseId);
 
     void deleteExercise(Long exerciseId, Long memberId);

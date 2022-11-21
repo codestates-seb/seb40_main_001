@@ -76,6 +76,15 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
+    public List<ExerciseResponseDto> findExercisesDynamicQuery(String address, String genderType, String category, Long memberId) {
+
+        Member findMember = findVerifiedMember(memberId);
+        List<Exercise> exerciseList = exerciseRepository.findExercises(address, genderType, category, findMember);
+
+        return exerciseMapper.entitiesToResponseDtoList(exerciseList);
+    }
+
+    @Override
     public void deleteExercise(Long exerciseId, Long memberId) {
         Exercise findExercise = findVerifiedExercise(exerciseId);
         checkAuthorization(findExercise, memberId);
