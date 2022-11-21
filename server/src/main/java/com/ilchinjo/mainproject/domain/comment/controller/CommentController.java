@@ -3,9 +3,8 @@ package com.ilchinjo.mainproject.domain.comment.controller;
 import com.ilchinjo.mainproject.domain.comment.dto.CommentPostDto;
 import com.ilchinjo.mainproject.domain.comment.dto.CommentResponseDto;
 import com.ilchinjo.mainproject.domain.comment.service.CommentService;
-import com.ilchinjo.mainproject.global.dto.MultiResponseDto;
+import com.ilchinjo.mainproject.global.dto.CursorResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +13,6 @@ import javax.validation.Valid;
 @RestController
 @RequiredArgsConstructor
 public class CommentController {
-
-    private static final int DEFAULT_SIZE = 10;
 
     private final CommentService commentService;
 
@@ -29,15 +26,11 @@ public class CommentController {
     }
 
     @GetMapping("/exercises/{exercise-id}/comments")
-    public MultiResponseDto<CommentResponseDto> getComment(@PathVariable("exercise-id") Long exerciseId,
-                                                           @RequestParam Long cursorId,
-                                                           @RequestParam(required = false) Integer size) {
+    public CursorResponseDto<CommentResponseDto> getComments(@PathVariable("exercise-id") Long exerciseId,
+                                                             @RequestParam Long cursorId,
+                                                             @RequestParam(required = false, defaultValue = "10") Integer size) {
 
-        if (size == null) {
-            size = DEFAULT_SIZE;
-        }
-
-        return commentService.findComment(exerciseId, cursorId, PageRequest.of(0, size));
+        return commentService.findComments(exerciseId, cursorId, size);
     }
 
     @DeleteMapping("/comments/{comment-id}")
