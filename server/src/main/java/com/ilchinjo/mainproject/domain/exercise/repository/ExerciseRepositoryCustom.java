@@ -7,9 +7,5 @@ import java.util.List;
 
 public interface ExerciseRepositoryCustom {
 
-    default List<Exercise> findExercises(String address, String genderType, String category, Member member) {
-        return findExercises(address, genderType, category, member);
-    }
-
-    List<Exercise> findExercises(String address, String genderType, String category, Member member, int start, int size);
+    List<Exercise> findExercises(String address, String genderType, String category, Member member);
 }
