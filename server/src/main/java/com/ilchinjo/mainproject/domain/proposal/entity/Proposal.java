@@ -25,10 +25,17 @@ public class Proposal extends AuditingEntity {
     @JoinColumn(name = "participant_id")
     private Member participant;
 
+    @Builder.Default
+    private ProposalStatus status = ProposalStatus.UNAPPROVED;
+
     public static Proposal createProposal(Exercise exercise, Member participant) {
         return Proposal.builder()
                 .exercise(exercise)
                 .participant(participant)
                 .build();
+    }
+
+    public void approve() {
+        this.status = ProposalStatus.APPROVED;
     }
 }

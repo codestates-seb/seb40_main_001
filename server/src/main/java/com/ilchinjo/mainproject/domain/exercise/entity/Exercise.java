@@ -95,5 +95,6 @@ public class Exercise extends AuditingEntity {
     public void choiceProposal(Proposal proposal) {
         this.participant = proposal.getParticipant();
         this.exerciseStatus = ExerciseStatus.CLOSED;
+        proposal.approve();
     }
 }
