@@ -22,6 +22,7 @@ import WriteHNC from './WriteHNC';
 import WriterCLX from './WriterCardLayouts_X';
 import WriterCL from './WriterCardLayouts';
 import WriterDetail from './WriterDetail';
+import HeaderNone from './HeaderNone';
 
 export {
   ArounderReview,
@@ -48,4 +49,5 @@ export {
   WriterCLX,
   WriterCL,
   WriterDetail,
+  HeaderNone,
 };
