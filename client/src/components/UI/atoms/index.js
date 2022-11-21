@@ -9,6 +9,7 @@ import MiniBtn from './MiniBtn';
 import ShortBtn from './ShortBtn';
 import LogoutBtn from './LogoutBtn';
 import CarouselBtn from './CarouselBtn';
+import ImgAddBtn from './ImgAddBtn';
 
 // DatePicker
 import Datepicker from './Datepicker';
@@ -31,6 +32,7 @@ export {
   ShortBtn,
   LogoutBtn,
   CarouselBtn,
+  ImgAddBtn,
 };
 
 // DatePicker
