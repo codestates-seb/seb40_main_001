@@ -9,12 +9,15 @@ import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
 import com.ilchinjo.mainproject.domain.exercise.service.ExerciseService;
 import com.ilchinjo.mainproject.domain.member.entity.Member;
 import com.ilchinjo.mainproject.domain.member.service.MemberService;
+import com.ilchinjo.mainproject.global.dto.MultiResponseDto;
 import com.ilchinjo.mainproject.global.exception.BusinessLogicException;
 import com.ilchinjo.mainproject.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,6 +42,38 @@ public class CommentServiceImpl implements CommentService {
         commentRepository.save(createdComment);
 
         return commentMapper.entityToResponseDto(createdComment);
+    }
+
+    @Override
+    public MultiResponseDto<CommentResponseDto> findComment(Long exerciseId, Long cursorId, Pageable page) {
+
+        Exercise findExercise = exerciseService.findVerifiedExercise(exerciseId);
+
+        List<Comment> commentList = getCommentList(findExercise, cursorId, page);
+        Long lastIdOfList = commentList.isEmpty()
+                ? null
+                : commentList.get(commentList.size() - 1).getCommentId();
+
+        List<CommentResponseDto> commentResponseDtoList = commentMapper.entitiesToResponseDtoList(commentList);
+
+        return MultiResponseDto.of(commentResponseDtoList, hasNext(findExercise, lastIdOfList));
+    }
+
+    private List<Comment> getCommentList(Exercise exercise, Long cursorId, Pageable page) {
+
+        return cursorId == null
+                ? commentRepository.findAllByExerciseOrderByCommentId(exercise, page)
+                : commentRepository.findAllByExerciseAndCommentIdGreaterThanOrderByCommentId(exercise, cursorId, page);
+    }
+
+    // 조회할 데이터가 더 남아 있는지 검사
+    private Boolean hasNext(Exercise exercise, Long lastIdOfList) {
+
+        if (lastIdOfList == null) {
+            return false;
+        }
+
+        return commentRepository.existsByExerciseAndCommentIdGreaterThan(exercise, lastIdOfList);
     }
 
     @Override
