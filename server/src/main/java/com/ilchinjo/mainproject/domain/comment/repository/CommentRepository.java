@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    List<Comment> findAllByExercise(Exercise exercise, Pageable page);
+    List<Comment> findAllByExerciseAndCommentIdGreaterThan(Exercise exercise, Long commentId, Pageable page);
 
     Boolean existsByExerciseAndCommentIdGreaterThan(Exercise exercise, Long id);
 }

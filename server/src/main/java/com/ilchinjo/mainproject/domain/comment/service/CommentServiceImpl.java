@@ -49,7 +49,7 @@ public class CommentServiceImpl implements CommentService {
     public CursorResponseDto<CommentDetailResponseDto> findComments(Long exerciseId, Long cursorId, Integer size) {
 
         Exercise findExercise = exerciseService.findVerifiedExercise(exerciseId);
-        List<Comment> comments = commentRepository.findAllByExercise(findExercise, PageRequest.of(0, size));
+        List<Comment> comments = commentRepository.findAllByExerciseAndCommentIdGreaterThan(findExercise, cursorId, PageRequest.of(0, size));
 
         List<CommentDetailResponseDto> commentResponseDtoList = commentMapper.entitiesToResponseDtoList(comments);
 
