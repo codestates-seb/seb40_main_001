@@ -1,5 +1,6 @@
 package com.ilchinjo.mainproject.domain.comment.mapper;
 
+import com.ilchinjo.mainproject.domain.comment.dto.CommentDetailResponseDto;
 import com.ilchinjo.mainproject.domain.comment.dto.CommentPostDto;
 import com.ilchinjo.mainproject.domain.comment.dto.CommentResponseDto;
 import com.ilchinjo.mainproject.domain.comment.entity.Comment;
@@ -14,5 +15,5 @@ public interface CommentMapper {
 
     CommentResponseDto entityToResponseDto(Comment comment);
 
-    List<CommentResponseDto> entitiesToResponseDtoList(List<Comment> comment);
+    List<CommentDetailResponseDto> entitiesToResponseDtoList(List<Comment> comment);
 }

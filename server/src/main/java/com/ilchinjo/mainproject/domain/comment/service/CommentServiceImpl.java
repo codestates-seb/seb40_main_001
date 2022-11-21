@@ -1,5 +1,6 @@
 package com.ilchinjo.mainproject.domain.comment.service;
 
+import com.ilchinjo.mainproject.domain.comment.dto.CommentDetailResponseDto;
 import com.ilchinjo.mainproject.domain.comment.dto.CommentPostDto;
 import com.ilchinjo.mainproject.domain.comment.dto.CommentResponseDto;
 import com.ilchinjo.mainproject.domain.comment.entity.Comment;
@@ -45,12 +46,12 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CursorResponseDto<CommentResponseDto> findComments(Long exerciseId, Long cursorId, Integer size) {
+    public CursorResponseDto<CommentDetailResponseDto> findComments(Long exerciseId, Long cursorId, Integer size) {
 
         Exercise findExercise = exerciseService.findVerifiedExercise(exerciseId);
         List<Comment> comments = commentRepository.findAllByExercise(findExercise, PageRequest.of(0, size));
 
-        List<CommentResponseDto> commentResponseDtoList = commentMapper.entitiesToResponseDtoList(comments);
+        List<CommentDetailResponseDto> commentResponseDtoList = commentMapper.entitiesToResponseDtoList(comments);
 
         return CursorResponseDto.of(commentResponseDtoList, hasNext(findExercise, comments));
     }

@@ -1,5 +1,6 @@
 package com.ilchinjo.mainproject.domain.comment.controller;
 
+import com.ilchinjo.mainproject.domain.comment.dto.CommentDetailResponseDto;
 import com.ilchinjo.mainproject.domain.comment.dto.CommentPostDto;
 import com.ilchinjo.mainproject.domain.comment.dto.CommentResponseDto;
 import com.ilchinjo.mainproject.domain.comment.service.CommentService;
@@ -26,9 +27,9 @@ public class CommentController {
     }
 
     @GetMapping("/exercises/{exercise-id}/comments")
-    public CursorResponseDto<CommentResponseDto> getComments(@PathVariable("exercise-id") Long exerciseId,
-                                                             @RequestParam Long cursorId,
-                                                             @RequestParam(required = false, defaultValue = "10") Integer size) {
+    public CursorResponseDto<CommentDetailResponseDto> getComments(@PathVariable("exercise-id") Long exerciseId,
+                                                                   @RequestParam Long cursorId,
+                                                                   @RequestParam(required = false, defaultValue = "10") Integer size) {
 
         return commentService.findComments(exerciseId, cursorId, size);
     }

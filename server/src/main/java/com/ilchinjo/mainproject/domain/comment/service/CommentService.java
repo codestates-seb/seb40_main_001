@@ -1,5 +1,6 @@
 package com.ilchinjo.mainproject.domain.comment.service;
 
+import com.ilchinjo.mainproject.domain.comment.dto.CommentDetailResponseDto;
 import com.ilchinjo.mainproject.domain.comment.dto.CommentPostDto;
 import com.ilchinjo.mainproject.domain.comment.dto.CommentResponseDto;
 import com.ilchinjo.mainproject.domain.comment.entity.Comment;
@@ -9,7 +10,7 @@ public interface CommentService {
 
     CommentResponseDto saveComment(Long exerciseId, Long memberId, CommentPostDto postDto);
 
-    CursorResponseDto<CommentResponseDto> findComments(Long exerciseId, Long cursorId, Integer size);
+    CursorResponseDto<CommentDetailResponseDto> findComments(Long exerciseId, Long cursorId, Integer size);
 
     void deleteComment(Long commentId, Long memberId);
 
