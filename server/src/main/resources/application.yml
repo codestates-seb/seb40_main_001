@@ -18,12 +18,15 @@ spring:
       mode: always # embedded database(ex h2) 이외에도 항상 sql을 실해하도록 설정
   profiles:
     include: database
+
 logging:
-  level:
-    org:
-      springframework:
-        orm:
-          jpa: DEBUG # 로그 단계 설정
+  config: classpath:logback-spring.xml
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+
 server:
   servlet:
     encoding:
