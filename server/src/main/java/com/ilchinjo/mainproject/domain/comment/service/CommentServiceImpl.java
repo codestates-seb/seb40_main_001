@@ -53,7 +53,11 @@ public class CommentServiceImpl implements CommentService {
 
         List<CommentDetailResponseDto> commentResponseDtoList = commentMapper.entitiesToResponseDtoList(comments);
 
-        return CursorResponseDto.of(commentResponseDtoList, hasNext(findExercise, comments));
+        Long nextCursorId = comments.isEmpty()
+                ? 0L
+                : comments.get(comments.size() - 1).getCommentId();
+
+        return CursorResponseDto.of(commentResponseDtoList, hasNext(findExercise, comments), nextCursorId);
     }
 
     // 조회할 데이터가 더 남아 있는지 검사
