@@ -35,9 +35,32 @@ public class ImageServiceImpl implements ImageService{
     private String bucket;
 
     @Override
-    public ImageResponseDto uploadImage(MultipartFile multipartFile, Long memberId) throws IOException {
+    public ImageResponseDto saveImage(MultipartFile multipartFile, Long memberId) throws IOException {
         Member findMember = memberService.findVerifiedMember(memberId);
 
+        Image image = uploadImage(multipartFile, findMember);
+
+        return imageMapper.entityToResponseDto(image);
+    }
+
+    @Override
+    public List<ImageResponseDto> saveImages(List<MultipartFile> multipartFiles, Long memberId) throws IOException {
+        Member findMember = memberService.findVerifiedMember(memberId);
+        List<Image> images = new ArrayList<>();
+
+        if (multipartFiles.size() > 3) {
+            throw new BusinessLogicException(ExceptionCode.NUMBER_OF_FILE_EXCEEDED);
+        }
+
+        for (MultipartFile multipartFile : multipartFiles) {
+            Image image = uploadImage(multipartFile, findMember);
+            images.add(image);
+        }
+
+        return imageMapper.entitiesToResponseDtos(images);
+    }
+
+    private Image uploadImage(MultipartFile multipartFile, Member findMember) throws IOException {
         verifiedImage(multipartFile);
         String originalName = multipartFile.getOriginalFilename();
         String storeFileName = getStoreFileName(originalName);
@@ -53,44 +76,9 @@ public class ImageServiceImpl implements ImageService{
         );
 
         Image image = Image.createImage(originalName, storeFileName, filesize, amazonS3Client.getUrl(bucket, storeFileName).toString(), findMember);
-
         imageRepository.save(image);
 
-        return imageMapper.entityToResponseDto(image);
-    }
-
-    @Override
-    public List<ImageResponseDto> uploadImages(List<MultipartFile> multipartFiles, Long memberId) throws IOException {
-        Member findMember = memberService.findVerifiedMember(memberId);
-
-        if (multipartFiles.size() > 3) {
-            throw new BusinessLogicException(ExceptionCode.NUMBER_OF_FILE_EXCEEDED);
-        }
-
-        List<Image> images = new ArrayList<>();
-
-        for (MultipartFile multipartFile : multipartFiles) {
-            verifiedImage(multipartFile);
-            String originalName = multipartFile.getOriginalFilename();
-            String storeFileName = getStoreFileName(originalName);
-
-            Long filesize = multipartFile.getSize();
-            ObjectMetadata objectMetadata = new ObjectMetadata();
-            objectMetadata.setContentType(multipartFile.getContentType());
-            objectMetadata.setContentLength(filesize);
-
-            amazonS3Client.putObject(
-                    new PutObjectRequest(bucket, storeFileName, multipartFile.getInputStream(), objectMetadata)
-                            .withCannedAcl(CannedAccessControlList.PublicRead)
-            );
-
-            Image image = Image.createImage(originalName, storeFileName, filesize, amazonS3Client.getUrl(bucket, storeFileName).toString(), findMember);
-
-            imageRepository.save(image);
-            images.add(image);
-        }
-
-        return imageMapper.entitiesToResponseDtos(images);
+        return image;
     }
 
     private void verifiedImage(MultipartFile multipartFile) {
