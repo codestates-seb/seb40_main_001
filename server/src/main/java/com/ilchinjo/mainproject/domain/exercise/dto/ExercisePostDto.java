@@ -9,6 +9,7 @@ import lombok.Getter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Builder
@@ -32,5 +33,7 @@ public class ExercisePostDto {
 
     @NotNull(message = "카테고리는 공백이 아니어야 합니다.")
     private Category category;
+
+    private List<Long> imageIdList;
 
 }
