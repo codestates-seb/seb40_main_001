@@ -1,14 +1,13 @@
 import React from 'react';
-import HomeCL from '../atoms/HomeCardLayouts';
-import HomeCard from '../atoms/HomeCardImg';
-import HomeSquare from '../atoms/HomeCardSquare';
 import getIcon from '../../../utils/getIcon';
+import { HomeCard, HomeSquare, HomeCL } from '../atoms';
 
-const Contents = ({ profile, nickname, title, contents, img, exercise }) => {
+const Contents = ({ data }) => {
+  const { profile, nickname, title, contents, img, exercise } = data || {};
   const exerciseImg = getIcon(exercise, '#2BAE66');
 
   return (
-    <div className="px-[15px] pt-5 pb-[10px]">
+    <div className="px-[15px] pt-5 pb-[10px] ">
       <div className="flex flex-row justify-between">
         <div className="flex flex-col">
           <div className="flex flex-row">
@@ -17,11 +16,12 @@ const Contents = ({ profile, nickname, title, contents, img, exercise }) => {
               {title}
             </div>
           </div>
-          <div className="text-low text-200 mt-2 whitespace-pre-wrap w-[179px] h-[43px]">
+          <div className="text-left text-low text-200 mt-2 whitespace-pre-wrap w-[179px] h-[43px]">
             {contents.length > 30 ? `${contents.slice(0, 30)}...` : contents}
           </div>
           <div className="flex flex-row mt-[10px] items-end">
             <HomeCard target={profile} />
+
             <div className="flex text-light text-100 ml-[6px] items-center">
               {nickname}
             </div>
@@ -33,28 +33,8 @@ const Contents = ({ profile, nickname, title, contents, img, exercise }) => {
   );
 };
 
-const HomeContents = ({
-  profile,
-  nickname,
-  title,
-  contents,
-  img,
-  exercise,
-}) => {
-  return (
-    <HomeCL
-      source={
-        <Contents
-          profile={profile}
-          nickname={nickname}
-          title={title}
-          contents={contents}
-          img={img}
-          exercise={exercise}
-        />
-      }
-    ></HomeCL>
-  );
+const HomeContents = ({ data }) => {
+  return <HomeCL source={<Contents data={data} />}></HomeCL>;
 };
 
 export default HomeContents;
