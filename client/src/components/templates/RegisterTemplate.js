@@ -1,9 +1,11 @@
 import React from 'react';
-import HeaderLogo from '../molecules/HeaderLogo';
-import { Dropdown, GenderSelect, HeaderNone } from '../molecules';
-import InputArea from '../atoms/Input';
-import { ImgAddBtn, LongBtn } from '../atoms';
-import SignUp from '../atoms/SignupImg';
+import {
+  Dropdown,
+  GenderSelect,
+  HeaderLogo,
+  HeaderNone,
+} from '../UI/molecules';
+import { ImgAddBtn, InputArea, LongBtn, SignUp } from '../UI/atoms';
 
 export const RegisterTemplate = () => {
   return (
