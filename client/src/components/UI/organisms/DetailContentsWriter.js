@@ -1,7 +1,9 @@
 import React from 'react';
 import HomeCard from '../atoms/HomeCardImg';
+import DeleteBtn from '../atoms/DeleteBtn';
+import UpdateBtn from '../atoms/UpdateBtn';
 
-const DetailContents = () => {
+const DetailContentsWriter = () => {
   const dummyData = [
     {
       id: 1,
@@ -20,8 +22,18 @@ const DetailContents = () => {
   return (
     <div className="flex flex-col mt-[30px]">
       <div className="border-b border-main w-[351px]">
-        <div className="text-default text-400 mb-[10px] max-w-[350px] truncate">
-          {dummyData[0].title}
+        <div className="flex flex-row justify-between">
+          <div className="text-default text-400 mb-[10px] max-w-[350px] truncate">
+            {dummyData[0].title}
+          </div>
+          <div className="flex flex-row items-center ">
+            <div className="mr-[10px]">
+              <UpdateBtn />
+            </div>
+            <div className="">
+              <DeleteBtn />
+            </div>
+          </div>
         </div>
         <div className="flex flex-row justify-between items-end">
           <div className="flex flex-row items-center justify-center mb-[15px]">
@@ -41,4 +53,4 @@ const DetailContents = () => {
   );
 };
 
-export default DetailContents;
+export default DetailContentsWriter;
