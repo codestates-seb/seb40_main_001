@@ -1,4 +1,4 @@
-package com.ilchinjo.mainproject.global.auth.dto;
+package com.ilchinjo.mainproject.global.security.dto;
 
 import lombok.Getter;
 

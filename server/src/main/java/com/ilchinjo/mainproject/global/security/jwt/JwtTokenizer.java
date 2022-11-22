@@ -1,4 +1,4 @@
-package com.ilchinjo.mainproject.global.auth.jwt;
+package com.ilchinjo.mainproject.global.security.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;

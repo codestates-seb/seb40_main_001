@@ -9,7 +9,7 @@ import com.ilchinjo.mainproject.domain.member.dto.MemberResponseDto;
 import com.ilchinjo.mainproject.domain.member.entity.Member;
 import com.ilchinjo.mainproject.domain.member.mapper.MemberMapper;
 import com.ilchinjo.mainproject.domain.member.repository.MemberRepository;
-import com.ilchinjo.mainproject.global.auth.utils.CustomAuthorityUtils;
+import com.ilchinjo.mainproject.global.security.utils.CustomAuthorityUtils;
 import com.ilchinjo.mainproject.global.exception.BusinessLogicException;
 import com.ilchinjo.mainproject.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
