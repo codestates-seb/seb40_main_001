@@ -9,6 +9,7 @@ import com.ilchinjo.mainproject.global.audit.AuditingEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +60,9 @@ public class Member extends AuditingEntity {
 
     @Builder.Default
     private int publicEvaluation = 20;
+
+    @Builder.Default
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
     public void update(Member member, Address address) {
 
