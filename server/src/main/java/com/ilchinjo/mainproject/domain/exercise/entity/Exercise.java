@@ -32,6 +32,9 @@ public class Exercise extends AuditingEntity {
 
     private LocalDateTime endAt;
 
+    @Builder.Default
+    private LocalDateTime updatedAt = LocalDateTime.now();
+
     @Enumerated(EnumType.STRING)
     private GenderType genderType;
 
@@ -95,6 +98,7 @@ public class Exercise extends AuditingEntity {
         Optional.ofNullable(exercise.getCategory())
                 .ifPresent(category -> this.category = category);
         this.address = address;
+        this.updatedAt = LocalDateTime.now();
 
     }
 

@@ -12,7 +12,7 @@ const HeaderFind = () => {
   };
 
   return (
-    <div className="flex flex-row justify-between w-[390px] h-[55px] items-center">
+    <div className="flex flex-row justify-between w-[390px] h-[55px] items-center px-5">
       <Logo onClick={logoHandler} />
       <div className="flex flex-row">
         <div className="ml-[60px] text-400">어라운더 찾기</div>

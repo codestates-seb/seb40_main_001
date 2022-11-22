@@ -10,6 +10,7 @@ import com.ilchinjo.mainproject.global.audit.AuditingEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +64,9 @@ public class Member extends AuditingEntity {
 
     @OneToOne(mappedBy = "profiledMember", cascade = CascadeType.REMOVE)
     private Image image;
+
+    @Builder.Default
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
     public void update(Member member, Address address) {
 
