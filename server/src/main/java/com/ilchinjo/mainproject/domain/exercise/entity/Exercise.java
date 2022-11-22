@@ -103,4 +103,8 @@ public class Exercise extends AuditingEntity {
         this.exerciseStatus = ExerciseStatus.CLOSED;
         proposal.approve();
     }
+
+    public void addImages(List<Image> images) {
+        this.images = images;
+    }
 }
