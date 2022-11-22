@@ -25,6 +25,7 @@ public class Member extends AuditingEntity {
     @Column(unique = true, nullable = false)
     private String email;
 
+    @Column(nullable = false)
     private String password;
 
     @Column(unique = true, nullable = false)
@@ -36,6 +37,9 @@ public class Member extends AuditingEntity {
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "host")
@@ -78,12 +82,14 @@ public class Member extends AuditingEntity {
 
     }
 
-    public static Member createMember(Member member, Address address) {
+    public static Member createMember(Member member, String encryptedPassword, Address address, List<String> roles) {
         return Member.builder()
                 .email(member.getEmail())
                 .nickname(member.getNickname())
+                .password(encryptedPassword)
                 .gender(member.getGender())
                 .address(address)
+                .roles(roles)
                 .build();
     }
 }

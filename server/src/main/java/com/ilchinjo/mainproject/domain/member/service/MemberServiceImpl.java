@@ -9,12 +9,15 @@ import com.ilchinjo.mainproject.domain.member.dto.MemberResponseDto;
 import com.ilchinjo.mainproject.domain.member.entity.Member;
 import com.ilchinjo.mainproject.domain.member.mapper.MemberMapper;
 import com.ilchinjo.mainproject.domain.member.repository.MemberRepository;
+import com.ilchinjo.mainproject.global.auth.utils.CustomAuthorityUtils;
 import com.ilchinjo.mainproject.global.exception.BusinessLogicException;
 import com.ilchinjo.mainproject.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,15 +29,21 @@ public class MemberServiceImpl implements MemberService {
     private final MemberMapper memberMapper;
     private final AddressService addressService;
 
+    private final PasswordEncoder passwordEncoder;
+    private final CustomAuthorityUtils authorityUtils;
+
     @Override
     public MemberResponseDto saveMember(MemberPostDto postDto) {
 
         Member member = memberMapper.postDtoToEntity(postDto);
         verifyExistsEmail(member.getEmail());
         verifyExistsNickname(member.getNickname());
-        Address findAddress = addressService.findVerifiedAddress(postDto.getAddressId());
 
-        Member createdMember = Member.createMember(member, findAddress);
+        String encryptedPassword = passwordEncoder.encode(postDto.getPassword());
+        Address findAddress = addressService.findVerifiedAddress(postDto.getAddressId());
+        List<String> roles = authorityUtils.createRoles(postDto.getEmail());
+
+        Member createdMember = Member.createMember(member, encryptedPassword, findAddress, roles);
 
         return memberMapper.entityToResponseDto(memberRepository.save(createdMember));
     }
