@@ -57,6 +57,7 @@ const ArounderRecord = () => {
   ];
   return (
     <div className="flex flex-col justify-center">
+      <div className="font-bold text-300 ml-[5px] mb-8">어라운드 기록</div>
       {dummyData.map((el, idx) => {
         return (
           <>
