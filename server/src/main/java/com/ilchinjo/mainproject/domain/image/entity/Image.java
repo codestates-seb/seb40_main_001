@@ -39,4 +39,15 @@ public class Image extends AuditingEntity {
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
 
+    public static Image createImage(String originalFilename, String filename, Long filesize, String remotePath, Member owner) {
+
+        Image image = new Image();
+        image.originalFilename = originalFilename;
+        image.filename = filename;
+        image.filesize = filesize;
+        image.remotePath = remotePath;
+        image.owner = owner;
+
+        return image;
+    }
 }
