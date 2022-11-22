@@ -29,4 +29,7 @@ public class MemberPostDto {
 
     @NotNull
     private Gender gender;
+
+    @NotNull
+    private Long addressId;
 }

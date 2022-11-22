@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+<!-- 로그 패턴에 색상 적용 %clr(pattern){color} -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+<!-- log 기록 절대 위치 설정 -->
+    <property name="LOGS_ABSOLUTE_PATH" value="./logs"/>
+<!-- log 변수 값 설정 -->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="[%d{yyyy-MM-dd HH:mm:ss}:%-3relative] %clr(%-5level) %clr(${PID:-}){magenta} %clr(---){faint} %clr([%15.15thread]){faint} %clr(%logger{36}){cyan} %clr(:){faint} %msg%n" />
+    <property name="FILE_LOG_PATTERN"
+              value="[%d{yyyy-MM-dd HH:mm:ss}:%-3relative] %-5level ${PID:-} --- [%thread] %logger{36} : %msg%n" />
+
+<!-- 콘솔(STDOUT) log 기록 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>${CONSOLE_LOG_PATTERN}</Pattern>
+        </layout>
+    </appender>
+
+<!-- 파일(FILE) log 기록 -->
+    <appender name="INFO_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_ABSOLUTE_PATH}/info.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch> <!-- 해당 레벨만 기록 -->
+            <onMismatch>DENY</onMismatch> <!-- 다른 수준의 레벨은 기록하지 않음(상위 레벨도 기록하지 않음) -->
+        </filter>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- .gz, .zip 등을 넣으면 자동 일자별 로그파일 압축 -->
+            <fileNamePattern>./was-logs/info.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize> <!-- 한 파일의 최대 용량 -->
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>120</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="WARN_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_ABSOLUTE_PATH}/warn.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>./was-logs/warn.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>120</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+<!-- log root 레벨 설정 (logging.level.root=debug) -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+<!-- 특정 패키지 log 레벨 설정 (org.springframework.web) -->
+    <logger name="org.springframework.web" additivity="false">
+        <level value = "DEBUG" /> <!-- DEBUG 레벨 이상에서만 실행 -->
+        <appender-ref ref="INFO_LOG" />
+        <appender-ref ref="WARN_LOG" />
+    </logger>
+
+    <logger name="p6spy" additivity="false">
+        <level value = "DEBUG" />
+        <appender-ref ref="INFO_LOG" />
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <logger name="org.springframework.orm.jpa" additivity="false">
+        <level value = "DEBUG" /> <!-- DEBUG 레벨 이상에서만 실행 -->
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="INFO_LOG" />
+        <appender-ref ref="WARN_LOG" />
+    </logger>
+
+    <!-- 추후 변경 될 수 있음
+    <logger name="org.hibernate.SQL" additivity="false">
+        <level value = "DEBUG" />
+        <appender-ref ref="INFO_LOG" />
+        <appender-ref ref="STDOUT"/>
+    </logger>
+    -->
+</configuration>

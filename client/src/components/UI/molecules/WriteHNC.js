@@ -2,20 +2,22 @@ import { React, useState } from 'react';
 import TitleInput from '../atoms/WriteTitleInput';
 import ContentsInput from '../atoms/WriteContentsInput';
 
-const WriteHNC = () => {
+const WriteHNC = ({ handler }) => {
   const [writeTitle, setWriteTitle] = useState('');
   const [writeContents, setWriteContents] = useState('');
 
   const titleHandler = e => {
     setWriteTitle(e.target.value);
+    handler('title', writeTitle);
   };
   const contentsHandler = e => {
     setWriteContents(e.target.value);
+    handler('content', e.target.value);
   };
   return (
     <div className="flex flex-col">
-      <TitleInput value={writeTitle} onChange={titleHandler} />
-      <ContentsInput value={writeContents} onChange={contentsHandler} />
+      <TitleInput value={writeTitle} handler={titleHandler} />
+      <ContentsInput value={writeContents} handler={contentsHandler} />
     </div>
   );
 };
