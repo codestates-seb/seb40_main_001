@@ -9,12 +9,17 @@ import { ReactComponent as Weight } from '../../../assets/img/icons/weight.svg';
 import { ReactComponent as Basketball } from '../../../assets/img/icons/basketball.svg';
 import { ShortBtn } from '../atoms';
 
-const HistoryCL = ({ data, modalControl }) => {
+const HistoryCL = ({ data, openModal }) => {
   // 리뷰 완료 여부
   const [reviewed, setReviewed] = useState(false);
   const reviewHandler = () => {
-    setReviewed(!reviewed);
-    modalControl();
+    openModal();
+    // set Reviewed를 여기서 적용하는 대신
+    // data로 체크하거나 모달창에서 처리하거나 해야할듯...
+    // ----사유----
+    // modal에서 X클릭 > not false
+    // modal에서 확인 클릭 > false
+    setReviewed(false);
   };
 
   const reviewing = () => {

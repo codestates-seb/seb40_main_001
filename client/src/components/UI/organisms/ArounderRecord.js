@@ -1,7 +1,7 @@
 import React from 'react';
 import HistoryCL from '../molecules/HistoryCards';
 
-const ArounderRecord = ({ modalControl }) => {
+const ArounderRecord = ({ openModal }) => {
   /*
     target, date, nickname, exercise, krExercise
     runnung,yoga,tennis,swim,weight,basketball
@@ -61,7 +61,7 @@ const ArounderRecord = ({ modalControl }) => {
       {dummyData.map((el, idx) => {
         return (
           <div key={idx} className="mb-[16px]">
-            <HistoryCL key={idx} data={el} modalControl={modalControl} />
+            <HistoryCL key={idx} data={el} openModal={openModal} />
           </div>
         );
       })}
