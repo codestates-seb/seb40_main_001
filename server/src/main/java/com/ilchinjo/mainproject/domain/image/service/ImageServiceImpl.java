@@ -63,6 +63,10 @@ public class ImageServiceImpl implements ImageService{
     public List<ImageResponseDto> uploadImages(List<MultipartFile> multipartFiles, Long memberId) throws IOException {
         Member findMember = memberService.findVerifiedMember(memberId);
 
+        if (multipartFiles.size() > 3) {
+            throw new BusinessLogicException(ExceptionCode.NUMBER_OF_FILE_EXCEEDED);
+        }
+
         List<Image> images = new ArrayList<>();
 
         for (MultipartFile multipartFile : multipartFiles) {
