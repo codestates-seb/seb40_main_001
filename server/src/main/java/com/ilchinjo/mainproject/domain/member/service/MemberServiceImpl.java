@@ -2,6 +2,8 @@ package com.ilchinjo.mainproject.domain.member.service;
 
 import com.ilchinjo.mainproject.domain.address.entity.Address;
 import com.ilchinjo.mainproject.domain.address.service.AddressService;
+import com.ilchinjo.mainproject.domain.image.entity.Image;
+import com.ilchinjo.mainproject.domain.image.repository.ImageRepository;
 import com.ilchinjo.mainproject.domain.member.dto.MemberDetailResponseDto;
 import com.ilchinjo.mainproject.domain.member.dto.MemberPatchDto;
 import com.ilchinjo.mainproject.domain.member.dto.MemberPostDto;
@@ -25,6 +27,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final MemberMapper memberMapper;
     private final AddressService addressService;
+    private final ImageRepository imageRepository;
 
     @Override
     public MemberResponseDto saveMember(MemberPostDto postDto) {
@@ -35,6 +38,11 @@ public class MemberServiceImpl implements MemberService {
         Address findAddress = addressService.findVerifiedAddress(postDto.getAddressId());
 
         Member createdMember = Member.createMember(member, findAddress);
+
+        if (postDto.getImageId() != null) {
+            Image image = findVerifiedImage(postDto.getImageId());
+            createdMember.addImage(image);
+        }
 
         return memberMapper.entityToResponseDto(memberRepository.save(createdMember));
     }
@@ -86,5 +94,13 @@ public class MemberServiceImpl implements MemberService {
         if (member.isPresent()) {
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
         }
+    }
+
+    private Image findVerifiedImage(Long imageId) {
+
+        Image image = imageRepository.findById(imageId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.FILE_NOT_FOUND));
+
+        return image;
     }
 }

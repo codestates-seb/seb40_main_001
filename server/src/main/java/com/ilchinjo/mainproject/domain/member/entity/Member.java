@@ -90,4 +90,8 @@ public class Member extends AuditingEntity {
                 .address(address)
                 .build();
     }
+
+    public void addImage(Image image) {
+        this.image = image;
+    }
 }
