@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${RDS_URL}
+    username: ${RDS_USERNAME}
+    password: ${RDS_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+cloud:
+  aws:
+    credentials:
+      access-key: ${AWS_ACCESS_KEY}
+      secret-key: ${AWS_SECRET_KEY}
+    s3:
+      bucket: ${S3_BUCKET}
+    region:
+      static:
+    stack:
+      auto: false
+
+jwt:
+  key:
+    secret: ${JWT_SECRET_KEY_EXERCISE}
+  access-token-expiration-minutes: 240
+  refresh-token-expiration-minutes: 420
