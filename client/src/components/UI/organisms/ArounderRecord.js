@@ -1,11 +1,14 @@
 import React from 'react';
 import HistoryCL from '../molecules/HistoryCards';
 
-const ArounderRecord = ({ openModal }) => {
+const ArounderRecord = ({ data, openModal }) => {
   /*
     target, date, nickname, exercise, krExercise
     runnung,yoga,tennis,swim,weight,basketball
     */
+  // dummyData === data
+  console.log(data);
+
   const dummyData = [
     {
       target:
