@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,5 +22,13 @@ public class ImageController {
                                       @RequestHeader(name = "Authorization") Long memberId) throws IOException {
 
         return imageService.uploadImage(image, memberId);
+    }
+
+    @PostMapping("/images")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ImageResponseDto> postImage(@RequestPart("image") List<MultipartFile> images,
+                                            @RequestHeader(name = "Authorization") Long memberId) throws IOException {
+
+        return imageService.uploadImages(images, memberId);
     }
 }
