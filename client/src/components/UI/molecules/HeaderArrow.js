@@ -3,7 +3,7 @@ import { ReactComponent as LeftArrow } from '../../../assets/img/icons/leftArrow
 
 const HeaderArrow = ({ txt, arrowHandler }) => {
   return (
-    <div className="flex flex-row justify-between w-[390px] h-[55px] items-center">
+    <div className="flex flex-row justify-between w-[390px] h-[55px] items-center px-5">
       <LeftArrow onClick={arrowHandler} />
       <div className="text-400">{txt}</div>
       <div className="w-[40px]"></div>
