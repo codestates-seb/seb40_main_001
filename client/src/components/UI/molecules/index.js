@@ -22,6 +22,11 @@ import WriteHNC from './WriteHNC';
 import WriterCLX from './WriterCardLayouts_X';
 import WriterCL from './WriterCardLayouts';
 import WriterDetail from './WriterDetail';
+import HeaderArrow from './HeaderArrow';
+import HeaderFind from './HeaderFind';
+import HeaderLogo from './HeaderLogo';
+import TownSelect from './TownSelect';
+import ApplicantSet from './Applicant';
 
 export {
   ArounderReview,
@@ -48,4 +53,10 @@ export {
   WriterCLX,
   WriterCL,
   WriterDetail,
+  GenderSelect,
+  HeaderArrow,
+  HeaderFind,
+  HeaderLogo,
+  TownSelect,
+  ApplicantSet,
 };
