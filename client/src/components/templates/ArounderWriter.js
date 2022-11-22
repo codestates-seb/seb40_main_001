@@ -62,11 +62,23 @@ const ArounderWriter = () => {
     },
   ];
 
+  const updateHandler = () => {
+    console.log('update');
+  };
+
+  const deleteHander = () => {
+    console.log('delete');
+  };
+
   return (
     <div className="flex flex-col justify-center items-center overflow: auto;">
       <HeaderArrow txt={'상세 글 보기'} />
       <Carousel img={img} />
-      <DetailContentsWriter dummyData={dummyData} />
+      <DetailContentsWriter
+        dummyData={dummyData}
+        updateHandler={updateHandler}
+        deleteHander={deleteHander}
+      />
       <ApplicantSet dummyData={dummyData} writer={true} />
       <InputComments target="댓글을" />
       <Comments target="답글을" />

@@ -3,7 +3,7 @@ import HomeCard from '../atoms/HomeCardImg';
 import DeleteBtn from '../atoms/DeleteBtn';
 import UpdateBtn from '../atoms/UpdateBtn';
 
-const DetailContentsWriter = () => {
+const DetailContentsWriter = ({ updateHandler, deleteHander }) => {
   const dummyData = [
     {
       id: 1,
@@ -28,10 +28,10 @@ const DetailContentsWriter = () => {
           </div>
           <div className="flex flex-row items-center ">
             <div className="mr-[10px]">
-              <UpdateBtn />
+              <UpdateBtn handleClick={updateHandler} />
             </div>
             <div className="">
-              <DeleteBtn />
+              <DeleteBtn handleClick={deleteHander} />
             </div>
           </div>
         </div>
