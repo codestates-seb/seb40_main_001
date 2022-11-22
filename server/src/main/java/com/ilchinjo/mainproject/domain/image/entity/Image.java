@@ -31,7 +31,6 @@ public class Image extends AuditingEntity {
     private Member owner;
 
     @OneToOne
-    @Column(unique = true)
     @JoinColumn(name = "profiled_member_id")
     private Member profiledMember;
 
