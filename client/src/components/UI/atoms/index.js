@@ -3,6 +3,7 @@ import ChooseBtn from './ChooseBtn';
 import CommentBtn from './CommentBtn';
 import EditBtn from './EditBtn';
 import ExerciseBtn from './ExerciseBtn';
+import FileDeleteBtn from './FileDeleteBtn';
 import LightBtn from './LightBtn';
 import LongBtn from './LongBtn';
 import MiniBtn from './MiniBtn';
@@ -45,6 +46,7 @@ export {
   CommentBtn,
   EditBtn,
   ExerciseBtn,
+  FileDeleteBtn,
   LightBtn,
   LongBtn,
   MiniBtn,
