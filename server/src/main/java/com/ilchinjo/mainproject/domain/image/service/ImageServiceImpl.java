@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -55,6 +57,36 @@ public class ImageServiceImpl implements ImageService{
         imageRepository.save(image);
 
         return imageMapper.entityToResponseDto(image);
+    }
+
+    @Override
+    public List<ImageResponseDto> uploadImages(List<MultipartFile> multipartFiles, Long memberId) throws IOException {
+        Member findMember = memberService.findVerifiedMember(memberId);
+
+        List<Image> images = new ArrayList<>();
+
+        for (MultipartFile multipartFile : multipartFiles) {
+            verifiedImage(multipartFile);
+            String originalName = multipartFile.getOriginalFilename();
+            String storeFileName = getStoreFileName(originalName);
+
+            Long filesize = multipartFile.getSize();
+            ObjectMetadata objectMetadata = new ObjectMetadata();
+            objectMetadata.setContentType(multipartFile.getContentType());
+            objectMetadata.setContentLength(filesize);
+
+            amazonS3Client.putObject(
+                    new PutObjectRequest(bucket, storeFileName, multipartFile.getInputStream(), objectMetadata)
+                            .withCannedAcl(CannedAccessControlList.PublicRead)
+            );
+
+            Image image = Image.createImage(originalName, storeFileName, filesize, amazonS3Client.getUrl(bucket, storeFileName).toString(), findMember);
+
+            imageRepository.save(image);
+            images.add(image);
+        }
+
+        return imageMapper.entitiesToResponseDtos(images);
     }
 
     private void verifiedImage(MultipartFile multipartFile) {
