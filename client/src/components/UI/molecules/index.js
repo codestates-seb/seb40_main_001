@@ -22,6 +22,7 @@ import WriteHNC from './WriteHNC';
 import WriterCLX from './WriterCardLayouts_X';
 import WriterCL from './WriterCardLayouts';
 import WriterDetail from './WriterDetail';
+import HeaderNone from './HeaderNone';
 import HeaderArrow from './HeaderArrow';
 import HeaderFind from './HeaderFind';
 import HeaderLogo from './HeaderLogo';
@@ -53,7 +54,7 @@ export {
   WriterCLX,
   WriterCL,
   WriterDetail,
-  GenderSelect,
+  HeaderNone,
   HeaderArrow,
   HeaderFind,
   HeaderLogo,
