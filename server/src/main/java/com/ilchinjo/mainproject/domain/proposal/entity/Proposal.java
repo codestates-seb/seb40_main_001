@@ -12,6 +12,11 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
+@Table(
+        uniqueConstraints = {
+                @UniqueConstraint(name = "CantProposeTwice", columnNames = {"exercise_id", "participant_id"})
+        }
+)
 public class Proposal extends AuditingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
