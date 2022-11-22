@@ -15,6 +15,9 @@ import Datepicker from './Datepicker';
 // battery
 import BatteryCase from './BatteryCase';
 
+// Toggles
+import Toggle from './Toggle';
+
 // Card Layouts
 import HomeCL from './HomeCardLayouts';
 import CommentLayout from './CommentLayout';
@@ -53,6 +56,9 @@ export { Datepicker };
 
 // Battery
 export { BatteryCase };
+
+// Toggles
+export { Toggle };
 
 // Card Layouts
 export { HomeCL, CommentLayout, WriterCL };
