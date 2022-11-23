@@ -39,13 +39,6 @@ public class MemberServiceImpl implements MemberService {
 
         Member createdMember = Member.createMember(member, findAddress);
 
-        Optional.ofNullable(postDto.getImageId())
-                .ifPresent(imageId -> {
-                    Image image = findVerifiedImage(imageId);
-                    createdMember.addImage(image);
-                    image.addProfiledMember(createdMember);
-                });
-
         return memberMapper.entityToResponseDto(memberRepository.save(createdMember));
     }
 
@@ -56,6 +49,13 @@ public class MemberServiceImpl implements MemberService {
         verifyExistsNickname(patchDto.getNickname());
         Member patchMember = memberMapper.patchDtoToEntity(patchDto);
         Address findAddress = addressService.findVerifiedAddress(patchDto.getAddressId());
+
+        Optional.ofNullable(patchDto.getImageId())
+                        .ifPresent(imageId -> {
+                            Image image = findVerifiedImage(imageId);
+                            findMember.addImage(image);
+                            image.addProfiledMember(findMember);
+                        });
 
         findMember.update(patchMember, findAddress);
 

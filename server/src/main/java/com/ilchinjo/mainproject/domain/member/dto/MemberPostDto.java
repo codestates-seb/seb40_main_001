@@ -33,5 +33,4 @@ public class MemberPostDto {
     @NotNull
     private Long addressId;
 
-    private Long imageId;
 }
