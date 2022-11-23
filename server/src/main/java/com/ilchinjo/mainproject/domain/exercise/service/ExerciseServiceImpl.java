@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,10 +38,14 @@ public class ExerciseServiceImpl implements ExerciseService {
 
         Exercise createdExercise = Exercise.createExercise(exercise, findMember);
 
-        if (postDto.getImageIdList() != null) {
-            List<Image> images = findVerifiedImages(postDto.getImageIdList());
-            createdExercise.addImages(images);
-        }
+        Optional.ofNullable(postDto.getImageIdList())
+                .ifPresent(imageIdList -> {
+                    List<Image> images = findVerifiedImages(imageIdList);
+                    createdExercise.addImages(images);
+                    for (Image image : images) {
+                        image.addExercise(createdExercise);
+                    }
+                });
 
         exerciseRepository.save(createdExercise);
 

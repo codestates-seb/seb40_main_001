@@ -105,6 +105,6 @@ public class Exercise extends AuditingEntity {
     }
 
     public void addImages(List<Image> images) {
-        this.images = images;
+        this.images.addAll(images);
     }
 }
