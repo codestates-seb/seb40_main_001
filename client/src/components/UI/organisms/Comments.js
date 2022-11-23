@@ -71,6 +71,7 @@ const Comments = ({ target }) => {
   2. 글쓴이 인지 뷰어인지 id 값을 확인한 다음 창이 바뀌어서 달려야한다.
   3. 아래 화살표와 함께 달려야한다.
   */
+
   const writeReply = idx => {
     const replyInput = new Array(dummyData.length).fill(false);
     replyInput[idx] = true;
@@ -154,7 +155,7 @@ const Comments = ({ target }) => {
                   id={idx}
                 />
                 <div className="mt-1 mb-1"></div>
-                <InputComments handler={writeReply} />
+                <InputComments handler={writeReply} target={target} />
               </div>
             ) : (
               <div className="mb-2">
@@ -166,7 +167,7 @@ const Comments = ({ target }) => {
                   id={idx}
                 />
                 <div className="mt-1 mb-1"></div>
-                <InputComments handler={writeReply} />
+                <InputComments handler={writeReply} target={target} />
               </div>
             );
           }
@@ -181,7 +182,7 @@ const Comments = ({ target }) => {
                   id={idx}
                 />
                 <div className="mt-1 mb-1"></div>
-                <InputComments handler={writeReply} />
+                <InputComments handler={writeReply} target={target} />
               </div>
             ) : (
               <div className="mb-2">
@@ -200,17 +201,21 @@ const Comments = ({ target }) => {
           if (x.recomments && x.viewer) {
             return (
               <div className="flex flex-row items-center mb-2">
-                <Recomments />
                 <div className="flex flex-col justify-center">
-                  <ViewerCL
-                    key={idx}
-                    nickname={x.nickname}
-                    contents={x.recontents}
-                    handler={writeReply}
-                    id={idx}
-                  />
+                  <div className="flex flex-row items-center">
+                    <Recomments />
+                    <ViewerCL
+                      key={idx}
+                      nickname={x.nickname}
+                      contents={x.recontents}
+                      handler={writeReply}
+                      id={idx}
+                    />
+                  </div>
                   <div className="mt-1 mb-1"></div>
-                  <InputComments handler={writeReply} target={target} />
+                  <div className="pl-[24px]">
+                    <InputComments handler={writeReply} target={target} />
+                  </div>
                 </div>
               </div>
             );
