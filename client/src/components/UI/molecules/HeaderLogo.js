@@ -8,7 +8,7 @@ const HeaderLogo = ({ txt, menuHandler }) => {
   };
 
   return (
-    <div className="flex flex-row justify-between w-[390px] h-[55px] items-center">
+    <div className="flex flex-row justify-between w-[390px] h-[55px] items-center px-5">
       <Logo onClick={logoHandler} />
       <div className="text-400">{txt}</div>
       <Menu onClick={menuHandler} />
