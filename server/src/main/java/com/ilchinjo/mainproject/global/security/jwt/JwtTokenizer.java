@@ -94,7 +94,7 @@ public class JwtTokenizer {
         return key;
     }
 
-    public Long verifiedMemberId(String jwt) {
+    public Long parseMemberId(String jwt) {
 
         String jws = jwt.replace("Bearer ", "");
         String base64EncodedSecretKey = encodeBase64SecretKey(secretKey);
