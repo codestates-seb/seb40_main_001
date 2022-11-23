@@ -9,7 +9,7 @@ const IdInput = () => {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col text-left">
       <label htmlFor="ID" className="text text-[15px] mb-[5px]">
         아이디
       </label>
