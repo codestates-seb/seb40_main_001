@@ -2,8 +2,9 @@ import React from 'react';
 import HomeCard from '../atoms/HomeCardImg';
 import DeleteBtn from '../atoms/DeleteBtn';
 import UpdateBtn from '../atoms/UpdateBtn';
+import { Carousel } from '../molecules';
 
-const DetailContentsWriter = ({ updateHandler, deleteHander }) => {
+const DetailContentsWriter = ({ updateHandler, deleteHander, img }) => {
   const dummyData = [
     {
       id: 1,
@@ -44,6 +45,9 @@ const DetailContentsWriter = ({ updateHandler, deleteHander }) => {
           </div>
           <div className="text-low text-200">{`${dummyData[0].createDate} ~ ${dummyData[0].endDate}`}</div>
         </div>
+      </div>
+      <div className="mt-[25px] mb-[10px]">
+        <Carousel img={img} />
       </div>
       <div className="text-default text-300 w-[351px] mt-[15px] ">
         {dummyData[0].content}
