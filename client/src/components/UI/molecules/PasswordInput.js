@@ -8,7 +8,7 @@ const PasswordInput = () => {
     setUserPassword(e.target.value);
   };
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col text-left">
       <label htmlFor="PasswordCheck" className="text text-[15px] mb-[5px]">
         비밀번호
       </label>
