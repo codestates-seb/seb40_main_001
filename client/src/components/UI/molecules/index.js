@@ -1,3 +1,4 @@
+import AddFile from './AddFile';
 import ArounderReview from './ArounderReview';
 import Carousel from './Carousel';
 import CheckPasswordinput from './CheckPasswordInput';
@@ -30,6 +31,7 @@ import TownSelect from './TownSelect';
 import ApplicantSet from './Applicant';
 
 export {
+  AddFile,
   ArounderReview,
   Carousel,
   CheckPasswordinput,
