@@ -93,4 +93,15 @@ public class JwtTokenizer {
 
         return key;
     }
+
+    public Long verifiedMemberId(String jwt) {
+
+        String jws = jwt.replace("Bearer ", "");
+        String base64EncodedSecretKey = encodeBase64SecretKey(secretKey);
+
+        Claims claims = getClaims(jws, base64EncodedSecretKey)
+                .getBody();
+
+        return claims.get("memberId", Long.class);
+    }
 }
