@@ -5,14 +5,12 @@ import com.ilchinjo.mainproject.domain.exercise.entity.Category;
 import com.ilchinjo.mainproject.domain.exercise.entity.ExerciseStatus;
 import com.ilchinjo.mainproject.domain.exercise.entity.GenderType;
 import com.ilchinjo.mainproject.domain.member.dto.MemberResponseDto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
