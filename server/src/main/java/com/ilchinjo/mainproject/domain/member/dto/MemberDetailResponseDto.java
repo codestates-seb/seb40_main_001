@@ -11,7 +11,7 @@ import lombok.Getter;
 public class MemberDetailResponseDto {
 
     private Long memberId;
-    private Long email;
+    private String email;
     private String nickname;
     private int publicEvaluation;
     // TODO 운동 친구 기록
