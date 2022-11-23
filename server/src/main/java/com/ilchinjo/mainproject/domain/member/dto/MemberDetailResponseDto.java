@@ -1,9 +1,12 @@
 package com.ilchinjo.mainproject.domain.member.dto;
 
 import com.ilchinjo.mainproject.domain.address.dto.AddressResponseDto;
+import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseRecordDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 @Builder
@@ -14,6 +17,6 @@ public class MemberDetailResponseDto {
     private String email;
     private String nickname;
     private int publicEvaluation;
-    // TODO 운동 친구 기록
     private AddressResponseDto address;
+    private List<ExerciseRecordDto> exerciseRecord;
 }
