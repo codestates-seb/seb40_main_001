@@ -53,7 +53,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberDetailResponseDto findMember(Long memberId) {
+    public MemberDetailResponseDto findDetailedMember(Long memberId) {
 
         Member findMember = findVerifiedMember(memberId);
 
