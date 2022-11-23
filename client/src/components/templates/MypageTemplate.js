@@ -61,9 +61,7 @@ const MypageTemplate = ({ userData, data }) => {
       )}
       {/* 모달창 */}
       {isModal ? (
-        // 모달이 현재 창과 겹치기 위해 absolute 및 top, left값을 지정
-        // 더 좋은 리팩토링 방향이 있으면 코멘트 바랍니다.
-        <div className="absolute z-20 top-[200px] left-[50px]">
+        <div className="fixed top-0 transform translate-x-12 translate-y-64 z-20">
           <Modal handleClose={closeModal} setScore={setScore} />
         </div>
       ) : (
