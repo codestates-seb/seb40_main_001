@@ -1,12 +1,11 @@
 import React from 'react';
 import HeaderArrow from '../UI/molecules/HeaderArrow';
-import Carousel from '../UI/molecules/Carousel';
 import ApplicantSet from '../UI/molecules/Applicant';
 import InputComments from '../UI/molecules/InputComments';
 import Comments from '../UI/organisms/Comments';
 import DetailContentsWriter from '../UI/organisms/DetailContentsWriter';
 
-const ArounderWriter = () => {
+const ArounderWriter = ({ writer }) => {
   const img = [
     {
       src: 'https://www.sisajunior.com/img/play/dica/chat/%EB%B3%B4%EB%85%B8%EB%B3%B4%EB%85%B84.jpg',
@@ -66,20 +65,21 @@ const ArounderWriter = () => {
     console.log('update');
   };
 
-  const deleteHander = () => {
+  const deleteHandler = () => {
     console.log('delete');
   };
 
   return (
     <div className="flex flex-col justify-center items-center overflow: auto;">
       <HeaderArrow txt={'상세 글 보기'} />
-      <Carousel img={img} />
       <DetailContentsWriter
         dummyData={dummyData}
         updateHandler={updateHandler}
-        deleteHander={deleteHander}
+        deleteHandler={deleteHandler}
+        writer={writer}
+        img={img}
       />
-      <ApplicantSet dummyData={dummyData} writer={true} />
+      <ApplicantSet dummyData={dummyData} writer={writer} />
       <InputComments target="댓글을" />
       <Comments target="답글을" />
       {/* Comments 는 데이터 양식을 받아오는 거 보고 많이 뜯어고쳐야 할 것 같습니다.

@@ -1,12 +1,11 @@
 import React from 'react';
 import HeaderArrow from '../UI/molecules/HeaderArrow';
-import Carousel from '../UI/molecules/Carousel';
 import ApplicantSet from '../UI/molecules/Applicant';
 import InputComments from '../UI/molecules/InputComments';
 import Comments from '../UI/organisms/Comments';
 import DetailContents from '../UI/organisms/DetailContents';
 
-const ArounderViewer = () => {
+const ArounderViewer = ({ writer }) => {
   const img = [
     {
       src: 'https://www.sisajunior.com/img/play/dica/chat/%EB%B3%B4%EB%85%B8%EB%B3%B4%EB%85%B84.jpg',
@@ -66,8 +65,8 @@ const ArounderViewer = () => {
     <div className="flex flex-col justify-center items-center overflow: auto;">
       <HeaderArrow txt={'상세 글 보기'} />
       <Carousel img={img} />
-      <DetailContents dummyData={dummyData} />
-      <ApplicantSet dummyData={dummyData} writer={false} />
+      <DetailContents dummyData={dummyData} img={img} />
+      <ApplicantSet dummyData={dummyData} writer={writer} />
       <InputComments target="댓글을" />
       <Comments target="답글을" />
       {/* Comments 는 데이터 양식을 받아오는 거 보고 많이 뜯어고쳐야 할 것 같습니다.
