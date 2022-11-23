@@ -49,4 +49,12 @@ public class Image extends AuditingEntity {
 
         return image;
     }
+
+    public void addProfiledMember(Member profiledMember) {
+        this.profiledMember = profiledMember;
+    }
+
+    public void addExercise(Exercise exercise) {
+        this.exercise = exercise;
+    }
 }
