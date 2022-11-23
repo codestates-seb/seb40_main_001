@@ -14,12 +14,7 @@ const HistoryCL = ({ data, openModal }) => {
   const [reviewed, setReviewed] = useState(false);
   const reviewHandler = () => {
     openModal();
-    // set Reviewed를 여기서 적용하는 대신
-    // data로 체크하거나 모달창에서 처리하거나 해야할듯...
-    // ----사유----
-    // modal에서 X클릭 > not false
-    // modal에서 확인 클릭 > false
-    setReviewed(false);
+    setReviewed(true);
   };
 
   const reviewing = () => {
@@ -67,7 +62,7 @@ const HistoryCL = ({ data, openModal }) => {
         <ShortBtn
           txt={reviewTxt}
           handleClick={reviewHandler}
-          disabled={reviewed}
+          disabled={data.reviewed}
         />
       </div>
     </div>

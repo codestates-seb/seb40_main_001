@@ -6,8 +6,6 @@ const ArounderRecord = ({ data, openModal }) => {
     target, date, nickname, exercise, krExercise
     runnung,yoga,tennis,swim,weight,basketball
     */
-  // dummyData === data
-  console.log(data);
 
   return (
     <div className="flex flex-col justify-center">
