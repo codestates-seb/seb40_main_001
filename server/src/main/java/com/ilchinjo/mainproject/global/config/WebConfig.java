@@ -15,6 +15,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedMethods(
                         HttpMethod.GET.name(), HttpMethod.HEAD.name(), HttpMethod.POST.name(),
                         HttpMethod.PATCH.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name()
-                );
+                )
+                .exposedHeaders("Authorization", "Refresh");
     }
 }
