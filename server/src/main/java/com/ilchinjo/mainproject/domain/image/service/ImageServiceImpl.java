@@ -35,15 +35,6 @@ public class ImageServiceImpl implements ImageService{
     private String bucket;
 
     @Override
-    public ImageResponseDto saveImage(MultipartFile multipartFile, Long memberId) throws IOException {
-        Member findMember = memberService.findVerifiedMember(memberId);
-
-        Image image = uploadImage(multipartFile, findMember);
-
-        return imageMapper.entityToResponseDto(image);
-    }
-
-    @Override
     public List<ImageResponseDto> saveImages(List<MultipartFile> multipartFiles, Long memberId) throws IOException {
         Member findMember = memberService.findVerifiedMember(memberId);
         List<Image> images = new ArrayList<>();

@@ -8,6 +8,5 @@ import java.util.List;
 
 public interface ImageService {
 
-    ImageResponseDto saveImage(MultipartFile multipartFile, Long memberId) throws IOException;
     List<ImageResponseDto> saveImages(List<MultipartFile> multipartFiles, Long memberId) throws IOException;
 }

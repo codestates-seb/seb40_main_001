@@ -18,16 +18,8 @@ public class ImageController {
 
     @PostMapping("/images")
     @ResponseStatus(HttpStatus.OK)
-    public ImageResponseDto postImage(@RequestPart("image") MultipartFile image,
-                                      @RequestHeader(name = "Authorization") Long memberId) throws IOException {
-
-        return imageService.saveImage(image, memberId);
-    }
-
-    @PostMapping("/images")
-    @ResponseStatus(HttpStatus.OK)
-    public List<ImageResponseDto> postImage(@RequestPart("image") List<MultipartFile> images,
-                                            @RequestHeader(name = "Authorization") Long memberId) throws IOException {
+    public List<ImageResponseDto> postImages(@RequestPart("image") List<MultipartFile> images,
+                                             @RequestHeader(name = "Authorization") Long memberId) throws IOException {
 
         return imageService.saveImages(images, memberId);
     }
