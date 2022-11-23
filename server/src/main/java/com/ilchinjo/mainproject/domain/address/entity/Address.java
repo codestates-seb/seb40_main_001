@@ -22,5 +22,5 @@ public class Address extends AuditingEntity {
 
     private String sigungu;
 
-    private String bname;
+    private String eupmyeondong;
 }

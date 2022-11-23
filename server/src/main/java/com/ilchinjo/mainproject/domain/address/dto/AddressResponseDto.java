@@ -13,5 +13,5 @@ public class AddressResponseDto {
     private Long addressId;
     private String sido;
     private String sigungu;
-    private String bname;
+    private String eupmyeondong;
 }

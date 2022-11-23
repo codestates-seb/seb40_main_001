@@ -42,8 +42,10 @@ public class ExerciseServiceImpl implements ExerciseService {
     public ExerciseResponseDto updateExercise(Long exerciseId, ExercisePatchDto patchDto, Long memberId) {
         Exercise findExercise = findVerifiedExercise(exerciseId);
         checkAuthorization(findExercise, memberId);
+        Member findMember = findVerifiedMember(memberId);
+        Exercise patchExercise = exerciseMapper.patchDtoToEntity(patchDto);
 
-        findExercise.update(patchDto);
+        findExercise.update(patchExercise, findMember.getAddress());
 
         return exerciseMapper.entityToResponseDto(findExercise);
     }

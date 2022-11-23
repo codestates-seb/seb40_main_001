@@ -9,8 +9,8 @@ const GenderSelect = () => {
   // 여성
 
   return (
-    <div>
-      <div className="text font-bold text-300 mb-1">성별</div>
+    <div className="flex flex-col text-left py-2">
+      <div className="text font-bold text-200 mb-1">성별</div>
       <ChooseBtn
         isSelect={isSelect}
         setIsSelect={setIsSelect}

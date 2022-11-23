@@ -10,7 +10,7 @@ const MiniBtn = ({ disabled, handleClick }) => {
   }
 
   return (
-    <button className={style} onClick={handleClick}>
+    <button className={style} disabled={disabled} onClick={handleClick}>
       확인
     </button>
   );

@@ -13,7 +13,7 @@ const Dropdown = ({ city, setCity }) => {
     <div className="dropdown dropdown-bottom">
       <label
         tabIndex={0}
-        className="w-[338px] h-[60px] btn m-1 rounded-[7px] border-2 border-main bg-white text text-400 justify-between pl-[22px] pr-[13px] hover:bg-white hover:border-2 hover:border-main"
+        className="w-[333px] h-[60px] btn m-1 rounded-[7px] border-2 border-main bg-white text text-400 justify-between pl-[22px] pr-[13px] hover:bg-white hover:border-2 hover:border-main"
       >
         {city}
         <DownArrow />

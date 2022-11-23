@@ -15,6 +15,7 @@ public enum ExceptionCode {
     REVIEW_EXISTS(409, "Review exists"),
     PROPOSAL_NOT_FOUND(404, "Proposal not found"),
     EXERCISE_IS_CLOSED(422, "Exercise is closed"),
+    ADDRESS_NOT_FOUND(404, "Address not found"),
     ;
 
     private final int status;

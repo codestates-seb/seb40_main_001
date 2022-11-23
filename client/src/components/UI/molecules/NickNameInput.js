@@ -8,8 +8,8 @@ const NickNameInput = () => {
   };
   const target = '닉네임을';
   return (
-    <div className="flex flex-col">
-      <label htmlFor="Nickname" className="text text-[15px] mb-[5px]">
+    <div className="flex flex-col text-left py-2">
+      <label htmlFor="Nickname" className="text font-bold text-200 mb-1">
         닉네임
       </label>
       <InputArea

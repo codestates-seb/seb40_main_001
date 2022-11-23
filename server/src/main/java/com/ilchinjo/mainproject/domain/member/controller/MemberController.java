@@ -33,7 +33,7 @@ public class MemberController {
         return memberService.updateMember(memberId, patchDto);
     }
 
-    @GetMapping("/profile")
+    @GetMapping("/profiles")
     @ResponseStatus(HttpStatus.OK)
     public MemberDetailResponseDto getMember(@RequestHeader(name = "Member-Id") Long memberId) {
 

@@ -30,7 +30,7 @@ const NicknameMypage = ({ nickname }) => {
   return (
     <div className="flex flex-row items-center">
       <div className="flex flex-row text text-300">
-        안녕하세요! <div className="font-bold">{name}</div>님
+        안녕하세요!&nbsp;<div className="font-bold">{name}</div>님
       </div>
       <Edit onClick={handleClick} />
     </div>
