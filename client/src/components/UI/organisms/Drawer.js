@@ -5,7 +5,7 @@ import { ReactComponent as Mypage } from '../../../assets/img/icons/mypage.svg';
 
 const Drawer = ({ img, name }) => {
   return (
-    <div className="w-72 h-screen p-[14px] bg-white">
+    <div className="w-72 h-full p-[14px] bg-white">
       <DrawerInfo img={img} name={name} />
       <div className="border-2 border-gray mt-7"></div>
       <div className="ml-[14px] mt-4">

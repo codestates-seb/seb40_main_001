@@ -1,10 +1,13 @@
 import React from 'react';
+// import { useNavigate } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../../assets/img/icons/logo.svg';
 import { ReactComponent as Menu } from '../../../assets/img/icons/menu.svg';
 
 const HeaderLogo = ({ txt, menuHandler, children }) => {
   const logoHandler = () => {
-    console.log('logo');
+    if (txt) {
+      // navigate('/');
+    }
   };
 
   return (

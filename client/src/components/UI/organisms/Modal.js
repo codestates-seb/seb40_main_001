@@ -31,6 +31,7 @@ const Modal = ({ handleClose, setScore }) => {
 
     // 상위 컴포넌트에서 내려온 score state에 값 담기
     setScore([first, second]);
+    handleClose();
   };
 
   useEffect(() => {
