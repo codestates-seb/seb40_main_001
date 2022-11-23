@@ -64,7 +64,6 @@ const ArounderViewer = ({ writer }) => {
   return (
     <div className="flex flex-col justify-center items-center overflow: auto;">
       <HeaderArrow txt={'상세 글 보기'} />
-      <Carousel img={img} />
       <DetailContents dummyData={dummyData} img={img} />
       <ApplicantSet dummyData={dummyData} writer={writer} />
       <InputComments target="댓글을" />
