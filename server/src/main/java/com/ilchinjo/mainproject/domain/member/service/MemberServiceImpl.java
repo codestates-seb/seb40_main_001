@@ -39,10 +39,12 @@ public class MemberServiceImpl implements MemberService {
 
         Member createdMember = Member.createMember(member, findAddress);
 
-        if (postDto.getImageId() != null) {
-            Image image = findVerifiedImage(postDto.getImageId());
-            createdMember.addImage(image);
-        }
+        Optional.ofNullable(postDto.getImageId())
+                .ifPresent(imageId -> {
+                    Image image = findVerifiedImage(imageId);
+                    createdMember.addImage(image);
+                    image.addProfiledMember(createdMember);
+                });
 
         return memberMapper.entityToResponseDto(memberRepository.save(createdMember));
     }
