@@ -14,7 +14,7 @@ import javax.validation.Valid;
 public class ReviewController {
     private final ReviewService reviewService;
 
-    @PostMapping("/exercises/{exercise-id}/review")
+    @PostMapping("/exercises/{exercise-id}/reviews")
     @ResponseStatus(HttpStatus.CREATED)
     public ReviewResponseDto postReview(@PathVariable(name = "exercise-id") Long exerciseId,
                                         @RequestBody @Valid ReviewPostDto postDto,

@@ -10,9 +10,9 @@ const ExerciseCarousel = ({ arr, handler }) => {
   };
 
   return (
-    <div className="carousel overflow-x-scroll w-[390px] h-[86px] flex items-center">
+    <div className="carousel overflow-x-scroll mx-5 w-[350px] h-[86px] flex items-center">
       {arr.map(el => (
-        <div className="px-2.5 carousel-item" key={el}>
+        <div className="px-2 carousel-item" key={el}>
           <ExerciseBtn
             exercise={el}
             handleClick={handleClick}

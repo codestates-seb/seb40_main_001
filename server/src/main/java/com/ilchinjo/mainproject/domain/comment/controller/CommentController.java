@@ -17,7 +17,7 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping("/exercises/{exercise-id}/comment")
+    @PostMapping("/exercises/{exercise-id}/comments")
     @ResponseStatus(HttpStatus.CREATED)
     public CommentResponseDto postComment(@PathVariable("exercise-id") Long exerciseId,
                                           @RequestHeader("Authorization") Long memberId,

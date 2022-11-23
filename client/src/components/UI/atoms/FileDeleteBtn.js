@@ -1,9 +1,9 @@
 import React from 'react';
 import { ReactComponent as FileDelete } from '../../../assets/img/icons/fileDelete.svg';
 
-const FileDeleteBtn = ({ handleClick }) => {
+const FileDeleteBtn = ({ idx, handler }) => {
   return (
-    <button onClick={handleClick}>
+    <button onClick={() => handler(idx)}>
       <FileDelete />
     </button>
   );
