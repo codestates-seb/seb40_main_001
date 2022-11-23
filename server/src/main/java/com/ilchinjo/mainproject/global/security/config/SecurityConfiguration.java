@@ -3,6 +3,8 @@ package com.ilchinjo.mainproject.global.security.config;
 import com.ilchinjo.mainproject.domain.member.repository.MemberRepository;
 import com.ilchinjo.mainproject.global.security.filter.JwtAuthenticationFilter;
 import com.ilchinjo.mainproject.global.security.filter.JwtVerificationFilter;
+import com.ilchinjo.mainproject.global.security.handler.MemberAccessDeniedHandler;
+import com.ilchinjo.mainproject.global.security.handler.MemberAuthenticationEntryPoint;
 import com.ilchinjo.mainproject.global.security.handler.MemberAuthenticationFailureHandler;
 import com.ilchinjo.mainproject.global.security.handler.MemberAuthenticationSuccessHandler;
 import com.ilchinjo.mainproject.global.security.jwt.JwtTokenizer;
@@ -41,6 +43,10 @@ public class SecurityConfiguration {
                 .and()
                 .formLogin().disable()
                 .httpBasic().disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
+                .accessDeniedHandler(new MemberAccessDeniedHandler())
+                .and()
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeRequests(authorize -> authorize
