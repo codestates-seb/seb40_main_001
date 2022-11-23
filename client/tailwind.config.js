@@ -47,6 +47,9 @@ module.exports = {
       },
     },
   },
+  daisyui: {
+    themes: false,
+  },
   /* eslint-disable global-require */
   plugins: [require('daisyui')],
 };

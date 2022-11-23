@@ -2,7 +2,7 @@ import React from 'react';
 
 const LongBtn = ({ txt, disabled, handleClick }) => {
   let style =
-    'text-[#FFF] btn w-[340px] h-[60px] rounded-[7px] px-[148px] py-[22px] border-0';
+    'text-white text-400 btn w-[340px] h-[60px] rounded-[7px] px-[140px] py-[22px] border-0';
 
   if (disabled) {
     style += ' bg-text-disabled hover:bg-text-disabled';

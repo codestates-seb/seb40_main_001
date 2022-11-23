@@ -13,6 +13,12 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
+@Table(
+        uniqueConstraints = {
+                @UniqueConstraint(name = "CantSendReviewTwice", columnNames = {"exercise_id", "src_member_id"}),
+                @UniqueConstraint(name = "CantReceiveReviewTwice", columnNames = {"exercise_id", "dest_member_id"})
+        }
+)
 public class Review extends AuditingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
