@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactComponent as FileDelete } from '../../../assets/img/icons/fileDelete.svg';
+import { FileDelete } from '../../../assets/img';
 
 const FileDeleteBtn = ({ idx, handler }) => {
   return (

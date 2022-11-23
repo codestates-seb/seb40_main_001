@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactComponent as LeftArrow } from '../../../assets/img/icons/leftArrow.svg';
+import { LeftArrow } from '../../../assets/img';
 
 const HeaderArrow = ({ txt, arrowHandler }) => {
   return (

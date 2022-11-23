@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactComponent as Question } from '../../../assets/img/icons/reviewMark.svg';
+import { Question } from '../../../assets/img';
 import { LightBtn } from '../atoms';
 
 const ReviewMent = ({ color, setColor, ment }) => {

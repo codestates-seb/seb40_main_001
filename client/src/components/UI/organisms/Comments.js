@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import WriterCardX from '../molecules/WriterCardLayouts_X';
-import WriterCard from '../molecules/WriterCardLayouts';
-import ViewerCL from '../molecules/CommentViewer';
-import ViewerCLX from '../molecules/CommentViewer_X';
-import { ReactComponent as Recomments } from '../../../assets/img/icons/recomment.svg';
-import InputComments from '../molecules/InputComments';
+import {
+  WriterCardX,
+  WriterCard,
+  ViewerCL,
+  ViewerCLX,
+  InputComments,
+} from '../molecules';
+import { Recomments } from '../../../assets/img';
 
 const Comments = () => {
   const [reply, setReply] = useState(false);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactComponent as ImgAdd } from '../../../assets/img/icons/imgAdd.svg';
+import { ImgAdd } from '../../../assets/img';
 
 const ImgAddBtn = ({ handleClick }) => {
   return (

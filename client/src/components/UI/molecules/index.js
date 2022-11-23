@@ -2,8 +2,8 @@ import AddFile from './AddFile';
 import ArounderReview from './ArounderReview';
 import Carousel from './Carousel';
 import CheckPasswordInput from './CheckPasswordInput';
-import ViewrCLX from './CommentViewer_X';
-import ViewrCL from './CommentViewer';
+import ViewerCLX from './CommentViewer_X';
+import ViewerCL from './CommentViewer';
 import DrawerInfo from './DrawerInfo';
 import Dropdown from './Dropdown';
 import ExerciseCarousel from './ExerciseCarousel';
@@ -20,8 +20,8 @@ import ReviewMent from './ReviewMent';
 import WriteDate from './WriteDate';
 import WriteGenderSelect from './WriteGenderSelect';
 import WriteHNC from './WriteHNC';
-import WriterCLX from './WriterCardLayouts_X';
-import WriterCL from './WriterCardLayouts';
+import WriterCardX from './WriterCardLayouts_X';
+import WriterCard from './WriterCardLayouts';
 import WriterDetail from './WriterDetail';
 import HeaderNone from './HeaderNone';
 import HeaderArrow from './HeaderArrow';
@@ -35,8 +35,8 @@ export {
   ArounderReview,
   Carousel,
   CheckPasswordInput,
-  ViewrCLX,
-  ViewrCL,
+  ViewerCLX,
+  ViewerCL,
   DrawerInfo,
   Dropdown,
   ExerciseCarousel,
@@ -53,8 +53,8 @@ export {
   WriteDate,
   WriteGenderSelect,
   WriteHNC,
-  WriterCLX,
-  WriterCL,
+  WriterCardX,
+  WriterCard,
   WriterDetail,
   HeaderNone,
   HeaderArrow,

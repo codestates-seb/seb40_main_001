@@ -1,7 +1,6 @@
 import React from 'react';
 import { DrawerInfo } from '../molecules';
-import { ReactComponent as Add } from '../../../assets/img/icons/addPeople.svg';
-import { ReactComponent as Mypage } from '../../../assets/img/icons/mypage.svg';
+import { Add, Mypage } from '../../../assets/img';
 
 const Drawer = ({ img, name }) => {
   return (

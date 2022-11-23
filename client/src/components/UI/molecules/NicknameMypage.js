@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { ReactComponent as Edit } from '../../../assets/img/icons/update.svg';
-import { ReactComponent as Confirm } from '../../../assets/img/icons/confirm.svg';
+import { Confirm, Edit } from '../../../assets/img';
 
 const NicknameMypage = ({ nickname }) => {
   const [isEdit, setIsEdit] = useState(false);

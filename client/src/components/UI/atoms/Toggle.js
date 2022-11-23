@@ -1,7 +1,5 @@
 import React from 'react';
-import { ReactComponent as ToggleAll } from '../../../assets/img/icons/toggleAll.svg';
-import { ReactComponent as Woman } from '../../../assets/img/icons/woman.svg';
-import { ReactComponent as Man } from '../../../assets/img/icons/man.svg';
+import { ToggleAll, Woman, Man } from '../../../assets/img';
 
 const Toggle = ({ gender = true, toggleClick }) => {
   return (

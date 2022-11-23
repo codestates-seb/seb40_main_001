@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactComponent as DownArrow } from '../../../assets/img/icons/downArrow.svg';
+import { DownArrow } from '../../../assets/img';
 
 const Dropdown = ({ city, setCity }) => {
   // state, cities 나중에 props로 받아도록 수정
