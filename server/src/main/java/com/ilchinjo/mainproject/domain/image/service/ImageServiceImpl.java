@@ -1,9 +1,7 @@
 package com.ilchinjo.mainproject.domain.image.service;
 
-import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.ilchinjo.mainproject.domain.image.dto.ImageResponseDto;
 import com.ilchinjo.mainproject.domain.image.entity.Image;
 import com.ilchinjo.mainproject.domain.image.mapper.ImageMapper;
@@ -24,15 +22,16 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class ImageServiceImpl implements ImageService{
+public class ImageServiceImpl implements ImageService {
 
-    private final AmazonS3Client amazonS3Client;
+    private final AmazonS3 amazonS3;
     private final MemberService memberService;
     private final ImageRepository imageRepository;
     private final ImageMapper imageMapper;
-
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
+    @Value("${cloud.aws.s3.dir}")
+    private String folder;
 
     @Override
     public List<ImageResponseDto> saveImages(List<MultipartFile> multipartFiles, Long memberId) throws IOException {
@@ -61,12 +60,9 @@ public class ImageServiceImpl implements ImageService{
         objectMetadata.setContentType(multipartFile.getContentType());
         objectMetadata.setContentLength(filesize);
 
-        amazonS3Client.putObject(
-                new PutObjectRequest(bucket, storeFileName, multipartFile.getInputStream(), objectMetadata)
-                        .withCannedAcl(CannedAccessControlList.PublicRead)
-        );
+        amazonS3.putObject(bucket, folder + "/" + storeFileName, multipartFile.getInputStream(), objectMetadata);
 
-        Image image = Image.createImage(originalName, storeFileName, filesize, amazonS3Client.getUrl(bucket, storeFileName).toString(), findMember);
+        Image image = Image.createImage(originalName, storeFileName, filesize, amazonS3.getUrl(bucket, folder + "/" + storeFileName).toString(), findMember);
         imageRepository.save(image);
 
         return image;
