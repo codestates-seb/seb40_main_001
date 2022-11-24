@@ -49,9 +49,13 @@ const dummyData = [
   },
 ];
 
+// const [userData, setUserData] = useState([]);
+// const [address, setAddress] = useState();
+// const [gender, setGender] = useState();
+// const [category, setCategory] = useState();
+
 const getUserData = async () => {
-  // const response = await client.get(`/api/boards?page=${page}`);
-  // const [userData, setUserData] = useState([]);
+  // const response = await client.get(`/exercises?address=${1}&gender-type=${ALL}&category=${FITNESS}`);
   // setUserData( );
 };
 
