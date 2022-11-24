@@ -13,7 +13,7 @@ public interface ExerciseService {
 
     ExerciseDetailResponseDto findExercise(Long exerciseId);
 
-    List<ExerciseResponseDto> findExercises(String address, String genderType, String category, Long memberId);
+    List<ExerciseResponseDto> findExercises(Long address, String genderType, String category, Long memberId);
 
     List<ExerciseResponseDto> findExercisesDynamicQuery(String address, String genderType, String category, Long memberId);
 

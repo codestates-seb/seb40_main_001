@@ -42,11 +42,11 @@ public class ExerciseController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public MultiResponseDto<ExerciseResponseDto> getExercises(@RequestHeader(name = "Authorization") Long memberId,
-                                                              @RequestParam String address,
+                                                              @RequestParam(name = "address-id") Long addressId,
                                                               @RequestParam String category,
                                                               @RequestParam(name = "gender-type") String genderType) {
 
-        return MultiResponseDto.of(exerciseService.findExercises(address, genderType, category, memberId));
+        return MultiResponseDto.of(exerciseService.findExercises(addressId, genderType, category, memberId));
     }
 
     @DeleteMapping("/{exercise-id}")

@@ -73,7 +73,7 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
-    public List<ExerciseResponseDto> findExercises(String address, String genderType, String category, Long memberId) {
+    public List<ExerciseResponseDto> findExercises(Long address, String genderType, String category, Long memberId) {
 
         List<Exercise> exerciseList = exerciseRepository.findAll(Sort.by("exerciseId").descending());
         Stream<Exercise> stream = exerciseList.stream();
