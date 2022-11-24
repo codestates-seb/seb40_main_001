@@ -11,6 +11,7 @@ import com.ilchinjo.mainproject.global.security.jwt.JwtTokenizer;
 import com.ilchinjo.mainproject.global.security.utils.CustomAuthorityUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -57,31 +58,33 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeRequests(authorize -> authorize
 
-//                        .antMatchers(HttpMethod.POST, "/members").permitAll() // 회원 가입
-//                        .antMatchers(HttpMethod.PATCH, "/members/**").hasAnyRole("USER") // 회원 정보 수정
-//                        .antMatchers(HttpMethod.GET, "/members/profile").hasAnyRole("USER") // 마이페이지 조회
-//
-//                        .antMatchers(HttpMethod.POST, "/exercises").hasAnyRole("USER") // 운동 친구 모집 글 작성
-//                        .antMatchers(HttpMethod.PATCH, "/exercises/**").hasAnyRole("USER") // 운동 친구 모집 글 수정
-//                        .antMatchers(HttpMethod.GET, "/exercises/**").permitAll() // 운동 친구 모집 글 조회
-//                        .antMatchers(HttpMethod.DELETE, "/exercises/**").hasAnyRole("USER", "ADMIN") // 운동 친구 모집 글 삭제
-//
-//                        .antMatchers(HttpMethod.POST, "/*/review").hasAnyRole("USER") // 리뷰 작성
-//
-//                        .antMatchers(HttpMethod.POST, "/exercises/**/comment").hasAnyRole("USER", "ADMIN") // 댓글 생성
-//                        .antMatchers(HttpMethod.GET, "/exercises/**/comments").permitAll() // 댓글 조회
-//                        .antMatchers(HttpMethod.DELETE, "/comments/**").hasAnyRole("USER", "ADMIN") // 댓글 삭제
-//
-//                        .antMatchers(HttpMethod.POST, "/comments/**/replies").hasAnyRole("USER", "ADMIN") // 대댓글 생성
-//                        .antMatchers(HttpMethod.DELETE, "/replies/**").hasAnyRole("USER", "ADMIN") // 대댓글 삭제
-//
-//                        .antMatchers(HttpMethod.GET, "/addresses").hasAnyRole("USER", "ADMIN") // 주소 목록 조회
-//
-//                        .antMatchers(HttpMethod.POST, "/exercises/**/proposals").hasAnyRole("USER") // 운동 모집 신청
-//                        .antMatchers(HttpMethod.GET, "/exercises/**/proposals").permitAll() // 운동 모집 신청자 목록 조회
-//                        .antMatchers(HttpMethod.POST, "/proposals/**/approval").hasAnyRole("USER") // 운동 모집 수락
+                        .antMatchers(HttpMethod.POST, "/members").permitAll() // 회원 가입
+                        .antMatchers(HttpMethod.PATCH, "/members/**").hasRole("USER") // 회원 정보 수정
+                        .antMatchers(HttpMethod.GET, "/members/profile").hasRole("USER") // 마이페이지 조회
 
-                                .anyRequest().permitAll()
+                        .antMatchers(HttpMethod.POST, "/exercises").hasRole("USER") // 운동 친구 모집 글 작성
+                        .antMatchers(HttpMethod.PATCH, "/exercises/**").hasRole("USER") // 운동 친구 모집 글 수정
+                        .antMatchers(HttpMethod.GET, "/exercises/**").permitAll() // 운동 친구 모집 글 조회
+                        .antMatchers(HttpMethod.DELETE, "/exercises/**").hasAnyRole("USER", "ADMIN") // 운동 친구 모집 글 삭제
+
+                        .antMatchers(HttpMethod.POST, "/*/review").hasRole("USER") // 리뷰 작성
+
+                        .antMatchers(HttpMethod.POST, "/exercises/*/comments").hasAnyRole("USER", "ADMIN") // 댓글 생성
+                        .antMatchers(HttpMethod.GET, "/exercises/*/comments").permitAll() // 댓글 조회
+                        .antMatchers(HttpMethod.DELETE, "/comments/**").hasAnyRole("USER", "ADMIN") // 댓글 삭제
+
+                        .antMatchers(HttpMethod.POST, "/comments/*/replies").hasAnyRole("USER", "ADMIN") // 대댓글 생성
+                        .antMatchers(HttpMethod.DELETE, "/replies/**").hasAnyRole("USER", "ADMIN") // 대댓글 삭제
+
+                        .antMatchers(HttpMethod.GET, "/addresses").hasAnyRole("USER", "ADMIN") // 주소 목록 조회
+
+                        .antMatchers(HttpMethod.POST, "/exercises/*/proposals").hasRole("USER") // 운동 모집 신청
+                        .antMatchers(HttpMethod.GET, "/exercises/*/proposals").permitAll() // 운동 모집 신청자 목록 조회
+                        .antMatchers(HttpMethod.POST, "/proposals/*/approval").hasRole("USER") // 운동 모집 수락
+
+                        .antMatchers(HttpMethod.POST, "/images").hasRole("USER") // 이미지 등록
+
+                        .anyRequest().permitAll()
                 );
 
         return http.build();

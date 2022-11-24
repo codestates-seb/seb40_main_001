@@ -5,6 +5,7 @@ import com.ilchinjo.mainproject.domain.member.dto.MemberPatchDto;
 import com.ilchinjo.mainproject.domain.member.dto.MemberPostDto;
 import com.ilchinjo.mainproject.domain.member.dto.MemberResponseDto;
 import com.ilchinjo.mainproject.domain.member.service.MemberService;
+import com.ilchinjo.mainproject.global.security.jwt.JwtTokenizer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import javax.validation.Valid;
 public class MemberController {
 
     private final MemberService memberService;
+    private final JwtTokenizer jwtTokenizer;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -28,6 +30,7 @@ public class MemberController {
     @PatchMapping("/{member-id}")
     @ResponseStatus(HttpStatus.OK)
     public MemberResponseDto patchMember(@PathVariable("member-id") Long memberId,
+                                         @RequestHeader(name = "Authorization") String token,
                                          @RequestBody MemberPatchDto patchDto) {
 
         return memberService.updateMember(memberId, patchDto);
@@ -35,8 +38,9 @@ public class MemberController {
 
     @GetMapping("/profiles")
     @ResponseStatus(HttpStatus.OK)
-    public MemberDetailResponseDto getMember(@RequestHeader(name = "Member-Id") Long memberId) {
+    public MemberDetailResponseDto getMember(@RequestHeader(name = "Authorization") String token) {
 
+        Long memberId = jwtTokenizer.parseMemberId(token);
         return memberService.findDetailedMember(memberId);
     }
 }
