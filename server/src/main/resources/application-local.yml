@@ -5,8 +5,6 @@ spring:
     username: testuser
     password: 1234
   jpa:
-    hibernate:
-      ddl-auto: update # DB 스키마 자동 생성
     properties:
       hibernate:
         format_sql: true # SQL 쿼리 pretty print
@@ -17,11 +15,7 @@ spring:
     init:
       mode: always # embedded database(ex h2) 이외에도 항상 sql을 실해하도록 설정
   profiles:
-    include: database
-  servlet:
-    multipart:
-      max-file-size: 10MB
-      max-request-size: 20MB
+    include: common
 
 logging:
   config: classpath:logback-spring.xml
