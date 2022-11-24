@@ -6,7 +6,7 @@ import {
   ViewerCLX,
   InputComments,
 } from '../molecules';
-import { Recomments } from '../../../assets/img';
+import { Recomment } from '../../../assets/img';
 
 const Comments = () => {
   const [reply, setReply] = useState(false);
@@ -132,7 +132,7 @@ const Comments = () => {
           if (x.recomments && x.viewer) {
             return (
               <div className="flex flex-row items-center mb-2">
-                <Recomments />
+                <Recomment />
                 <ViewerCL
                   key={idx}
                   nickname={x.nickname}
@@ -202,7 +202,7 @@ const Comments = () => {
           if (x.recomments && x.viewer) {
             return (
               <div className="flex flex-row items-center mb-2">
-                <Recomments />
+                <Recomment />
                 <div className="flex flex-col justify-center">
                   <ViewerCL
                     key={idx}

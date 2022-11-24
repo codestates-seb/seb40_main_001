@@ -5,7 +5,7 @@ import CheckPasswordInput from './CheckPasswordInput';
 import ViewerCLX from './CommentViewer_X';
 import ViewerCL from './CommentViewer';
 import DrawerInfo from './DrawerInfo';
-import Dropdown from './Dropdown';
+import DropdownCity from './DropdownCity';
 import ExerciseCarousel from './ExerciseCarousel';
 import ExerciseCategory from './ExerciseCategory';
 import GenderSelect from './GenderSelect';
@@ -38,7 +38,7 @@ export {
   ViewerCLX,
   ViewerCL,
   DrawerInfo,
-  Dropdown,
+  DropdownCity,
   ExerciseCarousel,
   ExerciseCategory,
   GenderSelect,

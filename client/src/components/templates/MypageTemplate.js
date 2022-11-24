@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import { HeaderLogo } from '../UI/molecules';
-import MyInfo from '../UI/organisms/MyInfo';
-import ArounderRecord from '../UI/organisms/ArounderRecord';
-import Modal from '../UI/organisms/Modal';
-import Drawer from '../UI/organisms/Drawer';
+import { HeaderLogo, MyInfo, ArounderRecord, Modal, Drawer } from '../UI';
 
 const MypageTemplate = ({ userData, data }) => {
   const [isDrawer, setIsDrawer] = useState(false);

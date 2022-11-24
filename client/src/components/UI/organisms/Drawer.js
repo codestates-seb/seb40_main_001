@@ -1,6 +1,6 @@
 import React from 'react';
 import { DrawerInfo } from '../molecules';
-import { Add, Mypage } from '../../../assets/img';
+import { AddPeople, Mypage } from '../../../assets/img';
 
 const Drawer = ({ img, name }) => {
   return (
@@ -9,7 +9,7 @@ const Drawer = ({ img, name }) => {
       <div className="border-2 border-gray mt-7"></div>
       <div className="ml-[14px] mt-4">
         <div className="flex flex-row items-center text text-200 mb-[10px]">
-          <Add />
+          <AddPeople />
           <div className="ml-[15px]">어라운더 찾기</div>
         </div>
         <div className="flex flex-row items-center text text-200">

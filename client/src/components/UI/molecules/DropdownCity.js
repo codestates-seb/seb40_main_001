@@ -1,7 +1,7 @@
 import React from 'react';
 import { DownArrow } from '../../../assets/img';
 
-const Dropdown = ({ city, setCity }) => {
+const DropdownCity = ({ city, setCity }) => {
   // state, cities 나중에 props로 받아도록 수정
   const cities = ['강남구', '관악구', '광진구'];
 
@@ -32,4 +32,4 @@ const Dropdown = ({ city, setCity }) => {
   );
 };
 
-export default Dropdown;
+export default DropdownCity;

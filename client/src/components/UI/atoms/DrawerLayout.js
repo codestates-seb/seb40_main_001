@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Drawer = ({ target }) => {
+const DrawerLayout = ({ target }) => {
   return (
     <div className="avatar placeholder drop-shadow">
       <div className="bg-gray border-none text-neutral-content rounded-full w-[50px] h-[50px]">
@@ -10,4 +10,4 @@ const Drawer = ({ target }) => {
   );
 };
 
-export default Drawer;
+export default DrawerLayout;
