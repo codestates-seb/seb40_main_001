@@ -1,4 +1,8 @@
-import React from 'react';
+import React, {
+  useEffect,
+  // useState
+} from 'react';
+
 import {
   HeaderLogo,
   ExerciseCarousel,
@@ -7,6 +11,7 @@ import {
   HomeContents,
 } from '../UI';
 import { Info } from '../../assets/img';
+// import client from '../../client/client';
 
 const dummyData = [
   {
@@ -43,7 +48,18 @@ const dummyData = [
     exercise: 'swim',
   },
 ];
-const MainTemplate = () => {
+
+const getUserData = async () => {
+  // const response = await client.get(`/api/boards?page=${page}`);
+  // const [userData, setUserData] = useState([]);
+  // setUserData( );
+};
+
+useEffect(() => {
+  getUserData();
+}, []);
+
+const Main = () => {
   return (
     <div>
       <HeaderLogo txt="어라운더 찾기">
@@ -80,4 +96,4 @@ const MainTemplate = () => {
   );
 };
 
-export default MainTemplate;
+export default Main;
