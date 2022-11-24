@@ -5,6 +5,7 @@ import com.ilchinjo.mainproject.domain.exercise.dto.ExercisePatchDto;
 import com.ilchinjo.mainproject.domain.exercise.dto.ExercisePostDto;
 import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseResponseDto;
 import com.ilchinjo.mainproject.domain.exercise.service.ExerciseService;
+import com.ilchinjo.mainproject.global.security.jwt.JwtTokenizer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +17,14 @@ import javax.validation.Valid;
 @RequestMapping("/exercises")
 public class ExerciseController {
     private final ExerciseService exerciseService;
+    private final JwtTokenizer jwtTokenizer;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ExerciseResponseDto postExercise(@RequestBody @Valid ExercisePostDto postDto,
-                                            @RequestHeader(name = "Authorization") Long memberId) {
+                                            @RequestHeader(name = "Authorization") String token) {
 
+        Long memberId = jwtTokenizer.parseMemberId(token);
         return exerciseService.saveExercise(postDto, memberId);
     }
 
@@ -29,8 +32,9 @@ public class ExerciseController {
     @ResponseStatus(HttpStatus.OK)
     public ExerciseResponseDto patchExercise(@PathVariable(name = "exercise-id") Long exerciseId,
                                              @RequestBody @Valid ExercisePatchDto patchDto,
-                                             @RequestHeader(name = "Authorization") Long memberId) {
+                                             @RequestHeader(name = "Authorization") String token) {
 
+        Long memberId = jwtTokenizer.parseMemberId(token);
         return exerciseService.updateExercise(exerciseId, patchDto, memberId);
     }
 

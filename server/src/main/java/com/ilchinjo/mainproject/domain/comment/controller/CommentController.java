@@ -5,6 +5,7 @@ import com.ilchinjo.mainproject.domain.comment.dto.CommentPostDto;
 import com.ilchinjo.mainproject.domain.comment.dto.CommentResponseDto;
 import com.ilchinjo.mainproject.domain.comment.service.CommentService;
 import com.ilchinjo.mainproject.global.dto.CursorResponseDto;
+import com.ilchinjo.mainproject.global.security.jwt.JwtTokenizer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +17,15 @@ import javax.validation.Valid;
 public class CommentController {
 
     private final CommentService commentService;
+    private final JwtTokenizer jwtTokenizer;
 
     @PostMapping("/exercises/{exercise-id}/comments")
     @ResponseStatus(HttpStatus.CREATED)
     public CommentResponseDto postComment(@PathVariable("exercise-id") Long exerciseId,
-                                          @RequestHeader("Authorization") Long memberId,
+                                          @RequestHeader("Authorization") String token,
                                           @RequestBody @Valid CommentPostDto postDto) {
 
+        Long memberId = jwtTokenizer.parseMemberId(token);
         return commentService.saveComment(exerciseId, memberId, postDto);
     }
 
@@ -37,8 +40,9 @@ public class CommentController {
     @DeleteMapping("/comments/{comment-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteComment(@PathVariable("comment-id") Long commentId,
-                              @RequestHeader("Authorization") Long memberId) {
+                              @RequestHeader("Authorization") String token) {
 
+        Long memberId = jwtTokenizer.parseMemberId(token);
         commentService.deleteComment(commentId, memberId);
     }
 }
