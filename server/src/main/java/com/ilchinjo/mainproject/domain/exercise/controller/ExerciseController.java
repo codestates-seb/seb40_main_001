@@ -2,6 +2,7 @@ package com.ilchinjo.mainproject.domain.exercise.controller;
 
 import com.ilchinjo.mainproject.domain.exercise.dto.*;
 import com.ilchinjo.mainproject.domain.exercise.service.ExerciseService;
+import com.ilchinjo.mainproject.global.dto.CursorResponseDto;
 import com.ilchinjo.mainproject.global.dto.MultiResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -41,12 +42,15 @@ public class ExerciseController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public MultiResponseDto<ExerciseResponseDto> getExercises(@RequestHeader(name = "Authorization") Long memberId,
-                                                              @RequestParam(name = "address-id") Long addressId,
-                                                              @RequestParam String category,
-                                                              @RequestParam(name = "gender-type") String genderType) {
+    public CursorResponseDto<ExerciseResponseDto>
+    getExercises(@RequestHeader(name = "Authorization") Long memberId,
+                 @RequestParam(name = "address-id") Long addressId,
+                 @RequestParam String category,
+                 @RequestParam(name = "gender-type") String genderType,
+                 @RequestParam(required = false, defaultValue = "0") Long cursorId,
+                 @RequestParam(required = false, defaultValue = "10") Integer size) {
 
-        return MultiResponseDto.of(exerciseService.findExercises(addressId, genderType, category, memberId));
+        return exerciseService.findExercises(addressId, genderType, category, memberId);
     }
 
     @DeleteMapping("/{exercise-id}")
