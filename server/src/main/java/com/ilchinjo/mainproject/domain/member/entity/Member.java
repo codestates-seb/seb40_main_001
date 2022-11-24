@@ -98,4 +98,9 @@ public class Member extends AuditingEntity {
     public void addImage(Image image) {
         this.image = image;
     }
+
+    public void updateNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
 }
