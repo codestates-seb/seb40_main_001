@@ -18,6 +18,10 @@ spring:
       mode: always # embedded database(ex h2) 이외에도 항상 sql을 실해하도록 설정
   profiles:
     include: database
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 20MB
 
 logging:
   config: classpath:logback-spring.xml

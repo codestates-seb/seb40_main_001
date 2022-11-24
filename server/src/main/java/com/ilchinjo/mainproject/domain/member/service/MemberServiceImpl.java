@@ -2,6 +2,8 @@ package com.ilchinjo.mainproject.domain.member.service;
 
 import com.ilchinjo.mainproject.domain.address.entity.Address;
 import com.ilchinjo.mainproject.domain.address.service.AddressService;
+import com.ilchinjo.mainproject.domain.image.entity.Image;
+import com.ilchinjo.mainproject.domain.image.repository.ImageRepository;
 import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
 import com.ilchinjo.mainproject.domain.exercise.repository.ExerciseRepository;
 import com.ilchinjo.mainproject.domain.member.dto.MemberDetailResponseDto;
@@ -30,6 +32,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final MemberMapper memberMapper;
     private final AddressService addressService;
+    private final ImageRepository imageRepository;
     private final ExerciseRepository exerciseRepository;
 
     @Override
@@ -52,6 +55,13 @@ public class MemberServiceImpl implements MemberService {
         verifyExistsNickname(patchDto.getNickname());
         Member patchMember = memberMapper.patchDtoToEntity(patchDto);
         Address findAddress = addressService.findVerifiedAddress(patchDto.getAddressId());
+
+        Optional.ofNullable(patchDto.getImageId())
+                        .ifPresent(imageId -> {
+                            Image image = findVerifiedImage(imageId);
+                            findMember.addImage(image);
+                            image.addProfiledMember(findMember);
+                        });
 
         findMember.update(patchMember, findAddress);
 
@@ -102,5 +112,13 @@ public class MemberServiceImpl implements MemberService {
         if (member.isPresent()) {
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
         }
+    }
+
+    private Image findVerifiedImage(Long imageId) {
+
+        Image image = imageRepository.findById(imageId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.FILE_NOT_FOUND));
+
+        return image;
     }
 }

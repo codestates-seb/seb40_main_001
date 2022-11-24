@@ -16,6 +16,10 @@ public enum ExceptionCode {
     PROPOSAL_NOT_FOUND(404, "Proposal not found"),
     EXERCISE_IS_CLOSED(422, "Exercise is closed"),
     ADDRESS_NOT_FOUND(404, "Address not found"),
+    FILE_EMPTY(400, "File is empty"),
+    FILE_NAME_NOT_VALID(400, "File name is not valid"),
+    NUMBER_OF_FILE_EXCEEDED(400, "The number of files is exceeded"),
+    FILE_NOT_FOUND(404, "File not found")
     ;
 
     private final int status;
