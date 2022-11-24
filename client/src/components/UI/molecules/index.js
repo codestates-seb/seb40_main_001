@@ -1,6 +1,7 @@
+import AddFile from './AddFile';
 import ArounderReview from './ArounderReview';
 import Carousel from './Carousel';
-import CheckPasswordinput from './CheckPasswordInput';
+import CheckPasswordInput from './CheckPasswordInput';
 import ViewrCLX from './CommentViewer_X';
 import ViewrCL from './CommentViewer';
 import DrawerInfo from './DrawerInfo';
@@ -12,7 +13,7 @@ import HistoryCL from './HistoryCards';
 import IdInput from './IdInput';
 import InputComments from './InputComments';
 import MiniDropdown from './MiniDropdown';
-import Nickname from './Nickname';
+import NickNameInput from './NickNameInput';
 import NicknameMypage from './NicknameMypage';
 import PasswordInput from './PasswordInput';
 import ReviewMent from './ReviewMent';
@@ -30,9 +31,10 @@ import TownSelect from './TownSelect';
 import ApplicantSet from './Applicant';
 
 export {
+  AddFile,
   ArounderReview,
   Carousel,
-  CheckPasswordinput,
+  CheckPasswordInput,
   ViewrCLX,
   ViewrCL,
   DrawerInfo,
@@ -44,7 +46,7 @@ export {
   IdInput,
   InputComments,
   MiniDropdown,
-  Nickname,
+  NickNameInput,
   NicknameMypage,
   PasswordInput,
   ReviewMent,

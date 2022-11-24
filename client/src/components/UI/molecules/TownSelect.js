@@ -5,8 +5,8 @@ const TownSelect = () => {
   const [city, setCity] = useState('강남구');
 
   return (
-    <div>
-      <div className="text font-bold text-300 mb-1">동네선택</div>
+    <div className="flex flex-col text-left py-2">
+      <label className="text font-bold text-200 mb-1">동네선택</label>
       <Dropdown city={city} setCity={setCity} />
     </div>
   );
