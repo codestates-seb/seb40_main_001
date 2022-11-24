@@ -2,12 +2,13 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update # DB 스키마 자동 생성
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 20MB
+
+logging:
+  config: classpath:logback-spring.xml
 
 server:
   port: 8080

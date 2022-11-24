@@ -17,9 +17,6 @@ spring:
   profiles:
     include: common
 
-logging:
-  config: classpath:logback-spring.xml
-
 decorator:
   datasource:
     p6spy:
