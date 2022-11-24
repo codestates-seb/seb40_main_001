@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactComponent as CommentDelete } from '../../../assets/img/icons/commentDelete.svg';
+import { CommentDelete } from '../../../assets/img';
 
 const CommentDeleteBtn = ({ handleClick }) => {
   return (

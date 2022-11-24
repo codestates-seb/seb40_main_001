@@ -1,7 +1,5 @@
 import React from 'react';
-import { LongBtn } from '../UI/atoms';
-import { HeaderArrow } from '../UI/molecules';
-import WriteContents from '../UI/organisms/WriteContents';
+import { LongBtn, HeaderArrow, WriteContents } from '../UI';
 
 const WriteTemplate = () => {
   return (

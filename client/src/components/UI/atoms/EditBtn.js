@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactComponent as Edit } from '../../../assets/img/icons/edit.svg';
+import { Edit } from '../../../assets/img';
 
 const EditBtn = ({ handleClick }) => {
   return (

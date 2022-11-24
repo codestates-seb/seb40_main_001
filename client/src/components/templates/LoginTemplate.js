@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  HeaderLogo,
-  HeaderNone,
-  IdInput,
-  PasswordInput,
-} from '../UI/molecules';
-import { LongBtn } from '../UI/atoms';
+import { HeaderLogo, HeaderNone, IdInput, PasswordInput, LongBtn } from '../UI';
 
 const LoginTemplate = () => {
   return (

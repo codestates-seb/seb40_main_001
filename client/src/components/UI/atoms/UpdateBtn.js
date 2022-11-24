@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactComponent as Update } from '../../../assets/img/icons/update.svg';
+import { Update } from '../../../assets/img';
 
 const UpdateBtn = ({ handleClick }) => {
   return (

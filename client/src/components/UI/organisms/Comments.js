@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import WriterCardX from '../molecules/WriterCardLayouts_X';
-import WriterCard from '../molecules/WriterCardLayouts';
-import ViewerCL from '../molecules/CommentViewer';
-import ViewerCLX from '../molecules/CommentViewer_X';
-import { ReactComponent as Recomments } from '../../../assets/img/icons/recomment.svg';
-import InputComments from '../molecules/InputComments';
+import {
+  WriterCardX,
+  WriterCard,
+  ViewerCL,
+  ViewerCLX,
+  InputComments,
+} from '../molecules';
+import { Recomment } from '../../../assets/img';
 
 const Comments = ({ target }) => {
   const [reply, setReply] = useState(false);
@@ -131,7 +133,7 @@ const Comments = ({ target }) => {
           if (x.recomments && x.viewer) {
             return (
               <div className="flex flex-row items-center mb-2">
-                <Recomments />
+                <Recomment />
                 <ViewerCL
                   key={idx}
                   nickname={x.nickname}
@@ -201,17 +203,15 @@ const Comments = ({ target }) => {
           if (x.recomments && x.viewer) {
             return (
               <div className="flex flex-row items-center mb-2">
+                <Recomment />
                 <div className="flex flex-col justify-center">
-                  <div className="flex flex-row items-center">
-                    <Recomments />
-                    <ViewerCL
-                      key={idx}
-                      nickname={x.nickname}
-                      contents={x.recontents}
-                      handler={writeReply}
-                      id={idx}
-                    />
-                  </div>
+                  <ViewerCL
+                    key={idx}
+                    nickname={x.nickname}
+                    contents={x.recontents}
+                    handler={writeReply}
+                    id={idx}
+                  />
                   <div className="mt-1 mb-1"></div>
                   <div className="pl-[24px]">
                     <InputComments handler={writeReply} target={target} />

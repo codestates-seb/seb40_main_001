@@ -1,12 +1,14 @@
 import React from 'react';
 
-import { ReactComponent as All } from '../assets/img/icons/all.svg';
-import { ReactComponent as Running } from '../assets/img/icons/running.svg';
-import { ReactComponent as Yoga } from '../assets/img/icons/yoga.svg';
-import { ReactComponent as Tennis } from '../assets/img/icons/tennis.svg';
-import { ReactComponent as Swim } from '../assets/img/icons/swim.svg';
-import { ReactComponent as Weight } from '../assets/img/icons/weight.svg';
-import { ReactComponent as Basketball } from '../assets/img/icons/basketball.svg';
+import {
+  All,
+  Running,
+  Yoga,
+  Tennis,
+  Swim,
+  Weight,
+  Basketball,
+} from '../assets/img';
 
 const getIcon = (exercise, fill) => {
   switch (exercise) {
