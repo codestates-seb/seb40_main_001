@@ -1,8 +1,8 @@
 import React from 'react';
 
-const LongBtn = ({ txt, disabled, handleClick }) => {
+const LongBtn = ({ txt, disabled }) => {
   let style =
-    'text-white text-400 btn w-[340px] h-[60px] rounded-[7px] px-[140px] py-[22px] my-10 border-0';
+    'text-white text-400 btn w-[340px] h-[60px] rounded-[7px] mt-40 mb-10 border-0';
 
   if (disabled) {
     style += ' bg-text-disabled hover:bg-text-disabled';
@@ -12,9 +12,7 @@ const LongBtn = ({ txt, disabled, handleClick }) => {
 
   return (
     <div>
-      <button className={style} onClick={handleClick}>
-        {txt}
-      </button>
+      <button className={style}>{txt}</button>
     </div>
   );
 };
