@@ -6,4 +6,10 @@
     html {
       font-family: Pretendard Variable;
     }
+    body {
+      @apply flex justify-center bg-white text;
+    }
+    .root {
+      @apply w-[390px] h-full
+    }
   }

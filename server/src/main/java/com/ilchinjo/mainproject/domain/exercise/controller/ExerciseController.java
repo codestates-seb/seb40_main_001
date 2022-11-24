@@ -7,7 +7,6 @@ import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseResponseDto;
 import com.ilchinjo.mainproject.domain.exercise.service.ExerciseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,7 +20,7 @@ public class ExerciseController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ExerciseResponseDto postExercise(@RequestBody @Valid ExercisePostDto postDto,
-                                            @RequestHeader(name = "Member-Id") Long memberId) {
+                                            @RequestHeader(name = "Authorization") Long memberId) {
 
         return exerciseService.saveExercise(postDto, memberId);
     }
@@ -30,7 +29,7 @@ public class ExerciseController {
     @ResponseStatus(HttpStatus.OK)
     public ExerciseResponseDto patchExercise(@PathVariable(name = "exercise-id") Long exerciseId,
                                              @RequestBody @Valid ExercisePatchDto patchDto,
-                                             @RequestHeader(name = "Member-Id") Long memberId) {
+                                             @RequestHeader(name = "Authorization") Long memberId) {
 
         return exerciseService.updateExercise(exerciseId, patchDto, memberId);
     }
@@ -45,7 +44,7 @@ public class ExerciseController {
     @DeleteMapping("/{exercise-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteExercise(@PathVariable(name = "exercise-id") Long exerciseId,
-                               @RequestHeader(name = "Member-Id") Long memberId) {
+                               @RequestHeader(name = "Authorization") Long memberId) {
 
         exerciseService.deleteExercise(exerciseId, memberId);
     }

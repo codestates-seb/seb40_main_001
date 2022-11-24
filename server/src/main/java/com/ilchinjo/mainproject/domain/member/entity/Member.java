@@ -3,6 +3,7 @@ package com.ilchinjo.mainproject.domain.member.entity;
 import com.ilchinjo.mainproject.domain.address.entity.Address;
 import com.ilchinjo.mainproject.domain.comment.entity.Comment;
 import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
+import com.ilchinjo.mainproject.domain.image.entity.Image;
 import com.ilchinjo.mainproject.domain.reply.entity.Reply;
 import com.ilchinjo.mainproject.domain.review.entity.Review;
 import com.ilchinjo.mainproject.global.audit.AuditingEntity;
@@ -66,6 +67,9 @@ public class Member extends AuditingEntity {
     @Builder.Default
     private int publicEvaluation = 20;
 
+    @OneToOne(mappedBy = "profiledMember", cascade = CascadeType.REMOVE)
+    private Image image;
+
     @Builder.Default
     private LocalDateTime updatedAt = LocalDateTime.now();
 
@@ -96,5 +100,9 @@ public class Member extends AuditingEntity {
                 .address(address)
                 .roles(roles)
                 .build();
+    }
+
+    public void addImage(Image image) {
+        this.image = image;
     }
 }
