@@ -68,9 +68,10 @@ public class Exercise extends AuditingEntity {
 
     @Builder.Default
     @OneToMany(mappedBy = "exercise", cascade = CascadeType.REMOVE)
-
     private List<Image> images = new ArrayList<>();
 
+    @Builder.Default
+    @OneToMany(mappedBy = "exercise", cascade = CascadeType.REMOVE)
     private List<Review> reviews = new ArrayList<>();
 
     public static Exercise createExercise(Exercise exercise, Member host) {
