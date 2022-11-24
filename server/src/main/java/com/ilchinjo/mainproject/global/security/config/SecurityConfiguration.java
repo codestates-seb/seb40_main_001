@@ -76,7 +76,7 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.POST, "/comments/*/replies").hasAnyRole("USER", "ADMIN") // 대댓글 생성
                         .antMatchers(HttpMethod.DELETE, "/replies/**").hasAnyRole("USER", "ADMIN") // 대댓글 삭제
 
-                        .antMatchers(HttpMethod.GET, "/addresses").hasAnyRole("USER", "ADMIN") // 주소 목록 조회
+                        .antMatchers(HttpMethod.GET, "/addresses").permitAll() // 주소 목록 조회
 
                         .antMatchers(HttpMethod.POST, "/exercises/*/proposals").hasRole("USER") // 운동 모집 신청
                         .antMatchers(HttpMethod.GET, "/exercises/*/proposals").permitAll() // 운동 모집 신청자 목록 조회
