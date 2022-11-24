@@ -4,6 +4,7 @@ import com.ilchinjo.mainproject.domain.address.dto.AddressResponseDto;
 import com.ilchinjo.mainproject.domain.exercise.entity.Category;
 import com.ilchinjo.mainproject.domain.exercise.entity.ExerciseStatus;
 import com.ilchinjo.mainproject.domain.exercise.entity.GenderType;
+import com.ilchinjo.mainproject.domain.member.dto.MemberResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -36,4 +37,9 @@ public class ExerciseDetailResponseDto {
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
+
+    private MemberResponseDto host;
+
+    private MemberResponseDto participant;
+
 }
