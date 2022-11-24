@@ -92,6 +92,14 @@ public class ExerciseServiceImpl implements ExerciseService {
         return exerciseMapper.entitiesToResponseDtoList(stream.collect(Collectors.toList()));
     }
 
+    public boolean hasNext(List<Exercise> exerciseList) {
+        if (exerciseList.isEmpty()) {
+            return false;
+        }
+
+        return exerciseRepository.existsByExerciseIdLessThan(exerciseList.get(exerciseList.size() - 1).getExerciseId());
+    }
+
     @Override
     public List<ExerciseResponseDto> findExercisesDynamicQuery(String address, String genderType, String category, Long memberId) {
 

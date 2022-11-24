@@ -10,4 +10,6 @@ public interface ExerciseRepository extends JpaRepository<Exercise, Long>, Exerc
     List<Exercise> findAllByHostOrParticipantOrderByExerciseIdDesc(Member host, Member participant);
 
     List<Exercise> findAllByExerciseIdLessThanOrderByExerciseIdDesc(Long cursorId);
+
+    Boolean existsByExerciseIdLessThan(Long cursorId);
 }
