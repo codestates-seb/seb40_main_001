@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import TextInputArea from '../atoms/TextInput';
 import { CommentBtn } from '../atoms';
 
-const InputComments = ({ handler, id }) => {
+const InputComments = ({ target, handler, id }) => {
   const [writeComments, setWriteComments] = useState('');
   const commentsHandler = e => {
     setWriteComments(e.target.value);
   };
-  const target = '댓글을';
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-ro mt-[15px]">
       <div className="mr-[13px]">
         <TextInputArea
           target={target}
