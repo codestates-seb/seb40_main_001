@@ -1,16 +1,16 @@
 package com.ilchinjo.mainproject.domain.exercise.service;
 
-import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseDetailResponseDto;
-import com.ilchinjo.mainproject.domain.exercise.dto.ExercisePatchDto;
-import com.ilchinjo.mainproject.domain.exercise.dto.ExercisePostDto;
-import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseResponseDto;
+import com.ilchinjo.mainproject.domain.exercise.dto.*;
+import com.ilchinjo.mainproject.domain.exercise.entity.Category;
 import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
+import com.ilchinjo.mainproject.domain.exercise.entity.GenderType;
 import com.ilchinjo.mainproject.domain.exercise.mapper.ExerciseMapper;
 import com.ilchinjo.mainproject.domain.exercise.repository.ExerciseRepository;
 import com.ilchinjo.mainproject.domain.image.entity.Image;
 import com.ilchinjo.mainproject.domain.image.repository.ImageRepository;
 import com.ilchinjo.mainproject.domain.member.entity.Member;
 import com.ilchinjo.mainproject.domain.member.repository.MemberRepository;
+import com.ilchinjo.mainproject.global.dto.CursorResponseDto;
 import com.ilchinjo.mainproject.global.exception.BusinessLogicException;
 import com.ilchinjo.mainproject.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -69,6 +71,52 @@ public class ExerciseServiceImpl implements ExerciseService {
         Exercise findExercise = findVerifiedExercise(exerciseId);
 
         return exerciseMapper.entityToDetailResponseDto(findExercise);
+    }
+
+    @Override
+    public CursorResponseDto<ExerciseResponseDto> findExercises(Long addressId, String genderType, String category,
+                                                                Long memberId, Long cursorId, int size) {
+
+        List<Exercise> exerciseList = exerciseRepository.findAllByExerciseIdLessThanOrderByExerciseIdDesc(cursorId);
+        Stream<Exercise> stream = exerciseList.stream()
+                .filter(exercise -> exercise.getAddress().getAddressId().equals(addressId));
+        Member findMember = findVerifiedMember(memberId);
+        if (genderType.equals("ALL")) {
+            stream = stream.filter(exercise -> exercise.getHost().getGender().equals(findMember.getGender()) ||
+                            exercise.getGenderType().equals(GenderType.ALL));
+        } else if (genderType.equals("SAME")){
+            stream = stream.filter(exercise -> exercise.getHost().getGender().equals(findMember.getGender()));
+        }
+        if (!category.equals("ALL")) {
+            stream = stream.filter(exercise -> exercise.getCategory().equals(Category.valueOf(category)));
+        }
+
+        List<Exercise> resultList = stream.collect(Collectors.toList());
+        if (resultList.size() > size) {
+            resultList = resultList.subList(0, size);
+        }
+
+
+        return CursorResponseDto.of(exerciseMapper.entitiesToResponseDtoList(resultList),
+                hasNext(resultList),
+                !resultList.isEmpty() ? resultList.get(resultList.size() - 1).getExerciseId() : 0L);
+    }
+
+    public boolean hasNext(List<Exercise> exerciseList) {
+        if (exerciseList.isEmpty()) {
+            return false;
+        }
+
+        return exerciseRepository.existsByExerciseIdLessThan(exerciseList.get(exerciseList.size() - 1).getExerciseId());
+    }
+
+    @Override
+    public List<ExerciseResponseDto> findExercisesDynamicQuery(String address, String genderType, String category, Long memberId) {
+
+        Member findMember = findVerifiedMember(memberId);
+        List<Exercise> exerciseList = exerciseRepository.findExercises(address, genderType, category, findMember);
+
+        return exerciseMapper.entitiesToResponseDtoList(exerciseList);
     }
 
     @Override

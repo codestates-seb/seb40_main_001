@@ -1,10 +1,8 @@
 package com.ilchinjo.mainproject.domain.exercise.controller;
 
-import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseDetailResponseDto;
-import com.ilchinjo.mainproject.domain.exercise.dto.ExercisePatchDto;
-import com.ilchinjo.mainproject.domain.exercise.dto.ExercisePostDto;
-import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseResponseDto;
+import com.ilchinjo.mainproject.domain.exercise.dto.*;
 import com.ilchinjo.mainproject.domain.exercise.service.ExerciseService;
+import com.ilchinjo.mainproject.global.dto.CursorResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +37,19 @@ public class ExerciseController {
     public ExerciseDetailResponseDto getExercise(@PathVariable(name = "exercise-id") Long exerciseId) {
 
         return exerciseService.findExercise(exerciseId);
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public CursorResponseDto<ExerciseResponseDto>
+    getExercises(@RequestHeader(name = "Authorization") Long memberId,
+                 @RequestParam(name = "address-id") Long addressId,
+                 @RequestParam String category,
+                 @RequestParam(name = "gender-type") String genderType,
+                 @RequestParam(required = false, defaultValue = "9223372036854775807") Long cursorId,
+                 @RequestParam(required = false, defaultValue = "10") Integer size) {
+
+        return exerciseService.findExercises(addressId, genderType, category, memberId, cursorId, size);
     }
 
     @DeleteMapping("/{exercise-id}")
