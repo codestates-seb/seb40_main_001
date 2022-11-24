@@ -103,4 +103,8 @@ public class Member extends AuditingEntity {
         this.nickname = nickname;
     }
 
+    public void updateAddress(Address address) {
+        this.address = address;
+    }
+
 }

@@ -59,6 +59,12 @@ public class MemberServiceImpl implements MemberService {
                     findMember.updateNickname(nickname);
                 });
 
+        Optional.ofNullable((patchDto.getAddressId()))
+                        .ifPresent(addressId -> {
+                            Address address = addressService.findVerifiedAddress(addressId);
+                            findMember.updateAddress(address);
+                        });
+
         Optional.ofNullable(patchDto.getImageId())
                         .ifPresent(imageId -> {
                             Image image = findVerifiedImage(imageId);
