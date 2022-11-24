@@ -203,17 +203,15 @@ const Comments = ({ target }) => {
           if (x.recomments && x.viewer) {
             return (
               <div className="flex flex-row items-center mb-2">
+                <Recomment />
                 <div className="flex flex-col justify-center">
-                  <div className="flex flex-row items-center">
-                    <Recomment />
-                    <ViewerCL
-                      key={idx}
-                      nickname={x.nickname}
-                      contents={x.recontents}
-                      handler={writeReply}
-                      id={idx}
-                    />
-                  </div>
+                  <ViewerCL
+                    key={idx}
+                    nickname={x.nickname}
+                    contents={x.recontents}
+                    handler={writeReply}
+                    id={idx}
+                  />
                   <div className="mt-1 mb-1"></div>
                   <div className="pl-[24px]">
                     <InputComments handler={writeReply} target={target} />
