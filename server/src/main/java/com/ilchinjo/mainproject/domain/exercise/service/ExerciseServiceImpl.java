@@ -77,7 +77,7 @@ public class ExerciseServiceImpl implements ExerciseService {
     public CursorResponseDto<ExerciseResponseDto> findExercises(Long addressId, String genderType, String category,
                                                                 Long memberId, Long cursorId, int size) {
 
-        List<Exercise> exerciseList = exerciseRepository.findAllByExerciseIdLessThanOrderByExerciseIdDesc(0L);
+        List<Exercise> exerciseList = exerciseRepository.findAllByExerciseIdLessThanOrderByExerciseIdDesc(cursorId);
         Stream<Exercise> stream = exerciseList.stream()
                 .filter(exercise -> exercise.getAddress().getAddressId().equals(addressId));
         Member findMember = findVerifiedMember(memberId);
@@ -91,7 +91,10 @@ public class ExerciseServiceImpl implements ExerciseService {
             stream = stream.filter(exercise -> exercise.getCategory().equals(Category.valueOf(category)));
         }
 
-        List<Exercise> resultList = stream.collect(Collectors.toList()).subList(0, size);
+        List<Exercise> resultList = stream.collect(Collectors.toList());
+        if (resultList.size() > size) {
+            resultList = resultList.subList(0, size);
+        }
 
 
         return CursorResponseDto.of(exerciseMapper.entitiesToResponseDtoList(resultList),
