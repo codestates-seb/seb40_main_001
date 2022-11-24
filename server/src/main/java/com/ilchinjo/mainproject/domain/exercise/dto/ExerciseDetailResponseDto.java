@@ -5,13 +5,11 @@ import com.ilchinjo.mainproject.domain.exercise.entity.Category;
 import com.ilchinjo.mainproject.domain.exercise.entity.ExerciseStatus;
 import com.ilchinjo.mainproject.domain.exercise.entity.GenderType;
 import com.ilchinjo.mainproject.domain.member.dto.MemberResponseDto;
-import com.ilchinjo.mainproject.domain.proposal.dto.ProposalSimpleResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Builder
@@ -42,5 +40,4 @@ public class ExerciseDetailResponseDto {
 
     private MemberResponseDto host;
 
-    private List<ProposalSimpleResponseDto> proposals;
 }
