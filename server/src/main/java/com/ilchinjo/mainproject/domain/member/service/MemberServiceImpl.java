@@ -60,9 +60,18 @@ public class MemberServiceImpl implements MemberService {
     public MemberResponseDto updateMember(Long memberId, MemberPatchDto patchDto) {
 
         Member findMember = findVerifiedMember(memberId);
-        verifyExistsNickname(patchDto.getNickname());
-        Member patchMember = memberMapper.patchDtoToEntity(patchDto);
-        Address findAddress = addressService.findVerifiedAddress(patchDto.getAddressId());
+
+        Optional.ofNullable(patchDto.getNickname())
+                .ifPresent(nickname -> {
+                    verifyExistsNickname(nickname);
+                    findMember.updateNickname(nickname);
+                });
+
+        Optional.ofNullable((patchDto.getAddressId()))
+                        .ifPresent(addressId -> {
+                            Address address = addressService.findVerifiedAddress(addressId);
+                            findMember.updateAddress(address);
+                        });
 
         Optional.ofNullable(patchDto.getImageId())
                         .ifPresent(imageId -> {
@@ -70,8 +79,6 @@ public class MemberServiceImpl implements MemberService {
                             findMember.addImage(image);
                             image.addProfiledMember(findMember);
                         });
-
-        findMember.update(patchMember, findAddress);
 
         return memberMapper.entityToResponseDto(findMember);
     }

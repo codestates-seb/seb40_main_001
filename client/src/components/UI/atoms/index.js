@@ -29,7 +29,7 @@ import WriterCL from './WriterCommentLayout';
 // IMG Layouts
 import HomeCard from './HomeCardImg';
 import Applicant from './Applicant';
-import Drawer from './Drawer';
+import DrawerLayout from './DrawerLayout';
 import HNM from './HNM';
 import HomeSquare from './HomeCardSquare';
 import SignUp from './SignupImg';
@@ -70,7 +70,7 @@ export { Toggle };
 export { HomeCL, CommentLayout, WriterCL };
 
 // IMG Layouts
-export { HomeCard, Applicant, Drawer, HNM, HomeSquare, SignUp };
+export { HomeCard, Applicant, DrawerLayout, HNM, HomeSquare, SignUp };
 
 // Input
 export {

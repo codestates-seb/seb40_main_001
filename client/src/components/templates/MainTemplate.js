@@ -1,8 +1,12 @@
 import React from 'react';
-import { HeaderLogo, ExerciseCarousel, MiniDropdown } from '../UI/molecules';
-import { ReactComponent as Info } from '../../assets/img/icons/info.svg';
-import { Toggle } from '../UI/atoms';
-import HomeContents from '../UI/organisms/HomeContents';
+import {
+  HeaderLogo,
+  ExerciseCarousel,
+  MiniDropdown,
+  Toggle,
+  HomeContents,
+} from '../UI';
+import { Info } from '../../assets/img';
 
 const dummyData = [
   {

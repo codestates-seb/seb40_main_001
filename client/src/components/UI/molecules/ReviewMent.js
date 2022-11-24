@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactComponent as Question } from '../../../assets/img/icons/reviewMark.svg';
+import { ReviewMark } from '../../../assets/img';
 import { LightBtn } from '../atoms';
 
 const ReviewMent = ({ color, setColor, ment }) => {
@@ -28,7 +28,7 @@ const ReviewMent = ({ color, setColor, ment }) => {
   return (
     <div>
       <div className="flex flex-row items-center">
-        <Question />
+        <ReviewMark />
         <div className="text text-200 ml-[5px]">{ment}</div>
       </div>
       <div className="flex flex-row mt-4 ml-3.5">
