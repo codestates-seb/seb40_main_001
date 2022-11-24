@@ -32,4 +32,5 @@ public class MemberPostDto {
 
     @NotNull
     private Long addressId;
+
 }

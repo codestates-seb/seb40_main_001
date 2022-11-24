@@ -8,14 +8,14 @@ import {
 } from '../molecules';
 import { Recomment } from '../../../assets/img';
 
-const Comments = () => {
+const Comments = ({ target }) => {
   const [reply, setReply] = useState(false);
 
   const dummyData = [
     {
       userId: '헬리',
       nickname: '헬리',
-      contents: '저 배드민턴 초보인데 참가 가능한가요?',
+      recontents: '저 배드민턴 초보인데 참가 가능한가요?',
       writer: true,
       viewer: false,
       comments: true,
@@ -24,7 +24,7 @@ const Comments = () => {
     {
       userId: '헬리',
       nickname: '앤디',
-      contents: '저 배드민턴 중수인데 참가 가능한가요?',
+      recontents: '저 배드민턴 중수인데 참가 가능한가요?',
       writer: false,
       viewer: true,
       comments: false,
@@ -33,16 +33,16 @@ const Comments = () => {
     {
       userId: '헬리',
       nickname: '루모스',
-      contents: '저 배드민턴 고수인데 참가 가능한가요?',
+      recontents: '저 배드민턴 고수인데 참가 가능한가요?',
       writer: false,
       viewer: true,
       comments: false,
       recomments: 'true',
     },
     {
-      userId: '큐원',
+      userId: '헬리',
       nickname: '큐원',
-      contents: '저 배드민턴 볼보이인데 참가 가능한가요?',
+      recontents: '저 배드민턴 볼보이인데 참가 가능한가요?',
       writer: false,
       viewer: true,
       comments: true,
@@ -51,7 +51,7 @@ const Comments = () => {
     {
       userId: '헬리',
       nickname: '가형',
-      contents: '저 배드민턴 심판인데 참가 가능한가요?',
+      recontents: '저 배드민턴 심판인데 참가 가능한가요?',
       writer: false,
       viewer: true,
       comments: false,
@@ -60,7 +60,7 @@ const Comments = () => {
     {
       userId: '헬리',
       nickname: '유정',
-      contents: '저 배드민턴 하수인데 참가 가능한가요?',
+      recontents: '저 배드민턴 하수인데 참가 가능한가요?',
       writer: false,
       viewer: true,
       comments: false,
@@ -73,6 +73,7 @@ const Comments = () => {
   2. 글쓴이 인지 뷰어인지 id 값을 확인한 다음 창이 바뀌어서 달려야한다.
   3. 아래 화살표와 함께 달려야한다.
   */
+
   const writeReply = idx => {
     const replyInput = new Array(dummyData.length).fill(false);
     replyInput[idx] = true;
@@ -80,7 +81,7 @@ const Comments = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center m-[50px]">
+    <div className="flex flex-col justify-center mt-[20px] h-full overflow: auto;">
       {dummyData.map((x, idx) => {
         if (!reply[idx]) {
           if (x.comments && x.viewer) {
@@ -89,7 +90,7 @@ const Comments = () => {
                 <ViewerCL
                   key={idx}
                   nickname={x.nickname}
-                  contents={x.contents}
+                  contents={x.recontents}
                   handler={writeReply}
                   id={idx}
                 />
@@ -99,7 +100,7 @@ const Comments = () => {
                 <ViewerCLX
                   key={idx}
                   nickname={x.nickname}
-                  contents={x.contents}
+                  contents={x.recontents}
                   handler={writeReply}
                   id={idx}
                 />
@@ -112,7 +113,7 @@ const Comments = () => {
                 <WriterCard
                   key={idx}
                   nickname={x.nickname}
-                  contents={x.contents}
+                  contents={x.recontents}
                   handler={writeReply}
                   id={idx}
                 />
@@ -122,7 +123,7 @@ const Comments = () => {
                 <WriterCardX
                   key={idx}
                   nickname={x.nickname}
-                  contents={x.contents}
+                  contents={x.recontents}
                   handler={writeReply}
                   id={idx}
                 />
@@ -136,7 +137,7 @@ const Comments = () => {
                 <ViewerCL
                   key={idx}
                   nickname={x.nickname}
-                  contents={x.contents}
+                  contents={x.recontents}
                   handler={writeReply}
                   id={idx}
                 />
@@ -151,24 +152,24 @@ const Comments = () => {
                 <ViewerCL
                   key={idx}
                   nickname={x.nickname}
-                  contents={x.contents}
+                  contents={x.recontents}
                   handler={writeReply}
                   id={idx}
                 />
                 <div className="mt-1 mb-1"></div>
-                <InputComments handler={writeReply} />
+                <InputComments handler={writeReply} target={target} />
               </div>
             ) : (
               <div className="mb-2">
                 <ViewerCLX
                   key={idx}
                   nickname={x.nickname}
-                  contents={x.contents}
+                  contents={x.recontents}
                   handler={writeReply}
                   id={idx}
                 />
                 <div className="mt-1 mb-1"></div>
-                <InputComments handler={writeReply} />
+                <InputComments handler={writeReply} target={target} />
               </div>
             );
           }
@@ -178,41 +179,45 @@ const Comments = () => {
                 <WriterCard
                   key={idx}
                   nickname={x.nickname}
-                  contents={x.contents}
+                  contents={x.recontents}
                   handler={writeReply}
                   id={idx}
                 />
                 <div className="mt-1 mb-1"></div>
-                <InputComments handler={writeReply} />
+                <InputComments handler={writeReply} target={target} />
               </div>
             ) : (
               <div className="mb-2">
                 <WriterCardX
                   key={idx}
                   nickname={x.nickname}
-                  contents={x.contents}
+                  contents={x.recontents}
                   handler={writeReply}
                   id={idx}
                 />
                 <div className="mt-1 mb-1"></div>
-                <InputComments handler={writeReply} />
+                <InputComments handler={writeReply} target={target} />
               </div>
             );
           }
           if (x.recomments && x.viewer) {
             return (
               <div className="flex flex-row items-center mb-2">
-                <Recomment />
                 <div className="flex flex-col justify-center">
-                  <ViewerCL
-                    key={idx}
-                    nickname={x.nickname}
-                    contents={x.contents}
-                    handler={writeReply}
-                    id={idx}
-                  />
+                  <div className="flex flex-row items-center">
+                    <Recomment />
+                    <ViewerCL
+                      key={idx}
+                      nickname={x.nickname}
+                      contents={x.recontents}
+                      handler={writeReply}
+                      id={idx}
+                    />
+                  </div>
                   <div className="mt-1 mb-1"></div>
-                  <InputComments handler={writeReply} />
+                  <div className="pl-[24px]">
+                    <InputComments handler={writeReply} target={target} />
+                  </div>
                 </div>
               </div>
             );

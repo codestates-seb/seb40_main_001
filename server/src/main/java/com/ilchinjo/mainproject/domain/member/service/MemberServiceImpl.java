@@ -2,6 +2,10 @@ package com.ilchinjo.mainproject.domain.member.service;
 
 import com.ilchinjo.mainproject.domain.address.entity.Address;
 import com.ilchinjo.mainproject.domain.address.service.AddressService;
+import com.ilchinjo.mainproject.domain.image.entity.Image;
+import com.ilchinjo.mainproject.domain.image.repository.ImageRepository;
+import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
+import com.ilchinjo.mainproject.domain.exercise.repository.ExerciseRepository;
 import com.ilchinjo.mainproject.domain.member.dto.MemberDetailResponseDto;
 import com.ilchinjo.mainproject.domain.member.dto.MemberPatchDto;
 import com.ilchinjo.mainproject.domain.member.dto.MemberPostDto;
@@ -9,13 +13,16 @@ import com.ilchinjo.mainproject.domain.member.dto.MemberResponseDto;
 import com.ilchinjo.mainproject.domain.member.entity.Member;
 import com.ilchinjo.mainproject.domain.member.mapper.MemberMapper;
 import com.ilchinjo.mainproject.domain.member.repository.MemberRepository;
+import com.ilchinjo.mainproject.domain.review.entity.Review;
 import com.ilchinjo.mainproject.global.exception.BusinessLogicException;
 import com.ilchinjo.mainproject.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -25,6 +32,8 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final MemberMapper memberMapper;
     private final AddressService addressService;
+    private final ImageRepository imageRepository;
+    private final ExerciseRepository exerciseRepository;
 
     @Override
     public MemberResponseDto saveMember(MemberPostDto postDto) {
@@ -47,17 +56,34 @@ public class MemberServiceImpl implements MemberService {
         Member patchMember = memberMapper.patchDtoToEntity(patchDto);
         Address findAddress = addressService.findVerifiedAddress(patchDto.getAddressId());
 
+        Optional.ofNullable(patchDto.getImageId())
+                        .ifPresent(imageId -> {
+                            Image image = findVerifiedImage(imageId);
+                            findMember.addImage(image);
+                            image.addProfiledMember(findMember);
+                        });
+
         findMember.update(patchMember, findAddress);
 
         return memberMapper.entityToResponseDto(findMember);
     }
 
     @Override
-    public MemberDetailResponseDto findMember(Long memberId) {
+    public MemberDetailResponseDto findDetailedMember(Long memberId) {
 
         Member findMember = findVerifiedMember(memberId);
+        List<Exercise> exercises = exerciseRepository.findAllByHostOrParticipantOrderByExerciseIdDesc(findMember, findMember);
+        MemberDetailResponseDto responseDto = memberMapper.entityToDetailResponseDto(findMember);
+        responseDto.setExerciseRecord(memberMapper.exercisesToExerciseRecordDtoList(exercises));
 
-        return memberMapper.entityToDetailResponseDto(findMember);
+        for (int i = 0; i < exercises.size(); i++) {
+            responseDto.getExerciseRecord().get(i)
+                    .setIsReviewed(exercises.get(i).getReviews().stream()
+                            .map(Review::getSrcMember).collect(Collectors.toList())
+                            .contains(findMember));
+        }
+
+        return responseDto;
     }
 
     @Override
@@ -86,5 +112,13 @@ public class MemberServiceImpl implements MemberService {
         if (member.isPresent()) {
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
         }
+    }
+
+    private Image findVerifiedImage(Long imageId) {
+
+        Image image = imageRepository.findById(imageId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.FILE_NOT_FOUND));
+
+        return image;
     }
 }

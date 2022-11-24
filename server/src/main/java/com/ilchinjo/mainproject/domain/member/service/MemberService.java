@@ -12,7 +12,7 @@ public interface MemberService {
 
     MemberResponseDto updateMember(Long memberId, MemberPatchDto patchDto);
 
-    MemberDetailResponseDto findMember(Long memberId);
+    MemberDetailResponseDto findDetailedMember(Long memberId);
 
     Member findVerifiedMember(Long memberId);
 }

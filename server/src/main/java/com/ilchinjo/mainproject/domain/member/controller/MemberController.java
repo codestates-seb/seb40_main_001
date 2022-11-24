@@ -37,6 +37,6 @@ public class MemberController {
     @ResponseStatus(HttpStatus.OK)
     public MemberDetailResponseDto getMember(@RequestHeader(name = "Member-Id") Long memberId) {
 
-        return memberService.findMember(memberId);
+        return memberService.findDetailedMember(memberId);
     }
 }

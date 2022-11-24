@@ -7,6 +7,8 @@ import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseResponseDto;
 import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
 import com.ilchinjo.mainproject.domain.exercise.mapper.ExerciseMapper;
 import com.ilchinjo.mainproject.domain.exercise.repository.ExerciseRepository;
+import com.ilchinjo.mainproject.domain.image.entity.Image;
+import com.ilchinjo.mainproject.domain.image.repository.ImageRepository;
 import com.ilchinjo.mainproject.domain.member.entity.Member;
 import com.ilchinjo.mainproject.domain.member.repository.MemberRepository;
 import com.ilchinjo.mainproject.global.exception.BusinessLogicException;
@@ -15,6 +17,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -22,6 +28,7 @@ public class ExerciseServiceImpl implements ExerciseService {
 
     private final ExerciseRepository exerciseRepository;
     private final MemberRepository memberRepository;
+    private final ImageRepository imageRepository;
     private final ExerciseMapper exerciseMapper;
 
     @Override
@@ -30,6 +37,16 @@ public class ExerciseServiceImpl implements ExerciseService {
         Member findMember = findVerifiedMember(memberId);
 
         Exercise createdExercise = Exercise.createExercise(exercise, findMember);
+
+        Optional.ofNullable(postDto.getImageIdList())
+                .ifPresent(imageIdList -> {
+                    List<Image> images = findVerifiedImages(imageIdList);
+                    createdExercise.addImages(images);
+                    for (Image image : images) {
+                        image.addExercise(createdExercise);
+                    }
+                });
+
         exerciseRepository.save(createdExercise);
 
         return exerciseMapper.entityToResponseDto(createdExercise);
@@ -83,5 +100,16 @@ public class ExerciseServiceImpl implements ExerciseService {
         }
     }
 
+    private List<Image> findVerifiedImages(List<Long> imageIdList) {
+
+        List<Image> images = new ArrayList<>();
+        for (Long imageId : imageIdList) {
+            Image image = imageRepository.findById(imageId)
+                    .orElseThrow(() -> new BusinessLogicException(ExceptionCode.FILE_NOT_FOUND));
+            images.add(image);
+        }
+
+        return images;
+    }
 
 }
