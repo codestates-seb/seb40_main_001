@@ -4,6 +4,7 @@ import com.ilchinjo.mainproject.domain.address.entity.Address;
 import com.ilchinjo.mainproject.domain.comment.entity.Comment;
 import com.ilchinjo.mainproject.domain.member.entity.Member;
 import com.ilchinjo.mainproject.domain.proposal.entity.Proposal;
+import com.ilchinjo.mainproject.domain.review.entity.Review;
 import com.ilchinjo.mainproject.global.audit.AuditingEntity;
 import lombok.*;
 
@@ -63,6 +64,10 @@ public class Exercise extends AuditingEntity {
     @Builder.Default
     @OneToMany(mappedBy = "exercise", cascade = CascadeType.REMOVE)
     private List<Proposal> proposals = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "exercise", cascade = CascadeType.REMOVE)
+    private List<Review> reviews = new ArrayList<>();
 
     public static Exercise createExercise(Exercise exercise, Member host) {
 
