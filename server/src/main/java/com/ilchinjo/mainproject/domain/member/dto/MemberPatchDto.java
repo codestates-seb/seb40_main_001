@@ -1,5 +1,7 @@
 package com.ilchinjo.mainproject.domain.member.dto;
 
+import com.ilchinjo.mainproject.global.validator.notspacelong.NotSpaceLong;
+import com.ilchinjo.mainproject.global.validator.notspacestring.NotSpaceString;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,12 +13,15 @@ import javax.validation.constraints.NotBlank;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@NotBlank
 public class MemberPatchDto {
 
-    @NotBlank
+    @NotSpaceString
     private String nickname;
 
+    @NotSpaceLong
     private Long addressId;
 
+    @NotSpaceLong
     private Long imageId;
 }
