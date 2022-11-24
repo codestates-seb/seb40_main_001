@@ -31,7 +31,7 @@ public class MemberAuthenticationSuccessHandler implements AuthenticationSuccess
         Member member = memberRepository.findByEmail(authentication.getName())
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
-        loginSuccessMemberInfo loginSuccessMemberInfo = new loginSuccessMemberInfo(HttpStatus.ACCEPTED.value(), member.getMemberId(), member.getEmail(), member.getNickname());
+        LoginSuccessMemberInfo loginSuccessMemberInfo = new LoginSuccessMemberInfo(HttpStatus.ACCEPTED.value(), member.getMemberId(), member.getEmail(), member.getNickname());
         String responseInfo = new Gson().toJson(loginSuccessMemberInfo);
 
         response.setCharacterEncoding("utf-8");
