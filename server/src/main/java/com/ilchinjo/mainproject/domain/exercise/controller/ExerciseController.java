@@ -46,7 +46,7 @@ public class ExerciseController {
                  @RequestParam(name = "address-id") Long addressId,
                  @RequestParam String category,
                  @RequestParam(name = "gender-type") String genderType,
-                 @RequestParam(required = false, defaultValue = "0") Long cursorId,
+                 @RequestParam(required = false, defaultValue = "9223372036854775807") Long cursorId,
                  @RequestParam(required = false, defaultValue = "10") Integer size) {
 
         return exerciseService.findExercises(addressId, genderType, category, memberId, cursorId, size);
