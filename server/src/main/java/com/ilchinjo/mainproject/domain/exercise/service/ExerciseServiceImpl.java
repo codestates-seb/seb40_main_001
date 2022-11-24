@@ -1,6 +1,7 @@
 package com.ilchinjo.mainproject.domain.exercise.service;
 
 import com.ilchinjo.mainproject.domain.exercise.dto.*;
+import com.ilchinjo.mainproject.domain.exercise.entity.Category;
 import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
 import com.ilchinjo.mainproject.domain.exercise.entity.GenderType;
 import com.ilchinjo.mainproject.domain.exercise.mapper.ExerciseMapper;
@@ -9,10 +10,10 @@ import com.ilchinjo.mainproject.domain.image.entity.Image;
 import com.ilchinjo.mainproject.domain.image.repository.ImageRepository;
 import com.ilchinjo.mainproject.domain.member.entity.Member;
 import com.ilchinjo.mainproject.domain.member.repository.MemberRepository;
+import com.ilchinjo.mainproject.global.dto.CursorResponseDto;
 import com.ilchinjo.mainproject.global.exception.BusinessLogicException;
 import com.ilchinjo.mainproject.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,11 +74,12 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
-    public List<ExerciseResponseDto> findExercises(Long address, String genderType, String category, Long memberId) {
+    public CursorResponseDto<ExerciseResponseDto> findExercises(Long addressId, String genderType, String category,
+                                                                Long memberId, Long cursorId, int size) {
 
-        List<Exercise> exerciseList = exerciseRepository.findAll(Sort.by("exerciseId").descending());
-        Stream<Exercise> stream = exerciseList.stream();
-//                .filter(exercise -> exercise.getAddress().getSigungu().equals(address));
+        List<Exercise> exerciseList = exerciseRepository.findAllByExerciseIdLessThanOrderByExerciseIdDesc(0L);
+        Stream<Exercise> stream = exerciseList.stream()
+                .filter(exercise -> exercise.getAddress().getAddressId().equals(addressId));
         Member findMember = findVerifiedMember(memberId);
         if (genderType.equals("ALL")) {
             stream = stream.filter(exercise -> exercise.getHost().getGender().equals(findMember.getGender()) ||
@@ -86,10 +88,15 @@ public class ExerciseServiceImpl implements ExerciseService {
             stream = stream.filter(exercise -> exercise.getHost().getGender().equals(findMember.getGender()));
         }
         if (!category.equals("ALL")) {
-            stream = stream.filter(exercise -> exercise.getCategory().toString().equals(category));
+            stream = stream.filter(exercise -> exercise.getCategory().equals(Category.valueOf(category)));
         }
 
-        return exerciseMapper.entitiesToResponseDtoList(stream.collect(Collectors.toList()));
+        List<Exercise> resultList = stream.collect(Collectors.toList()).subList(0, size);
+
+
+        return CursorResponseDto.of(exerciseMapper.entitiesToResponseDtoList(resultList),
+                hasNext(resultList),
+                !resultList.isEmpty() ? resultList.get(resultList.size() - 1).getExerciseId() : 0L);
     }
 
     public boolean hasNext(List<Exercise> exerciseList) {
