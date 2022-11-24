@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ChooseBtn } from '../atoms';
 
-const GenderSelect = () => {
-  const [isSelect, setIsSelect] = useState(false);
+const GenderSelect = ({ isSelect, setIsSelect }) => {
   // isSelect[0] === true
   // 남성
   // isSelect[1] === true
