@@ -8,5 +8,6 @@ spring:
     include: common
 
 cloud:
-  s3:
-    dir: test
+  aws:
+    s3:
+      dir: test

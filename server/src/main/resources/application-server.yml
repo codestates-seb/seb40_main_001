@@ -8,5 +8,6 @@ spring:
     include: common
 
 cloud:
+  aws:
     s3:
       dir: server/image
