@@ -40,4 +40,6 @@ public class ExerciseDetailResponseDto {
 
     private MemberResponseDto host;
 
+    private MemberResponseDto participant;
+
 }
