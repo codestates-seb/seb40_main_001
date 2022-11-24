@@ -1,6 +1,6 @@
 import React from 'react';
-import { LongBtn } from '../UI/atoms';
 import {
+  LongBtn,
   GenderSelect,
   HeaderLogo,
   HeaderNone,
@@ -9,7 +9,7 @@ import {
   CheckPasswordInput,
   PasswordInput,
   TownSelect,
-} from '../UI/molecules';
+} from '../UI';
 
 const RegisterTemplate = () => {
   return (

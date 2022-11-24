@@ -1,13 +1,6 @@
 import React, { useState } from 'react';
-import HNM from '../atoms/HNM';
-// svgr로 수정하기(예정)
-import { ReactComponent as Running } from '../../../assets/img/icons/running.svg';
-import { ReactComponent as Yoga } from '../../../assets/img/icons/yoga.svg';
-import { ReactComponent as Tennis } from '../../../assets/img/icons/tennis.svg';
-import { ReactComponent as Swim } from '../../../assets/img/icons/swim.svg';
-import { ReactComponent as Weight } from '../../../assets/img/icons/weight.svg';
-import { ReactComponent as Basketball } from '../../../assets/img/icons/basketball.svg';
-import { ShortBtn } from '../atoms';
+import { ShortBtn, HNM } from '../atoms';
+import getIcon from '../../../utils/getIcon';
 
 const HistoryCL = ({ data, openModal }) => {
   // 리뷰 완료 여부
@@ -20,26 +13,8 @@ const HistoryCL = ({ data, openModal }) => {
   const reviewing = () => {
     return reviewed ? '리뷰완료' : '리뷰하기';
   };
-  const getIcon = () => {
-    switch (data.exercise) {
-      case 'running':
-        return <Running fill={'#7FD1AE'} />;
-      case 'yoga':
-        return <Yoga fill={'#7FD1AE'} />;
-      case 'tennis':
-        return <Tennis fill={'#7FD1AE'} />;
-      case 'swim':
-        return <Swim fill={'#7FD1AE'} />;
-      case 'weight':
-        return <Weight fill={'#7FD1AE'} />;
-      case 'basketball':
-        return <Basketball fill={'#7FD1AE'} />;
-      default:
-        return 'a';
-    }
-  };
 
-  const icon = getIcon();
+  const icon = getIcon(data.exercise);
   const reviewTxt = reviewing();
 
   return (

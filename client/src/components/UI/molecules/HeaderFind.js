@@ -1,6 +1,5 @@
 import React from 'react';
-import { ReactComponent as Logo } from '../../../assets/img/icons/logo.svg';
-import { ReactComponent as Info } from '../../../assets/img/icons/info.svg';
+import { Logo, Info } from '../../../assets/img';
 import Dropdown from './MiniDropdown';
 
 const HeaderFind = () => {

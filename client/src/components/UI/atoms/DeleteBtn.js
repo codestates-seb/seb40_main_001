@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactComponent as Delete } from '../../../assets/img/icons/delete.svg';
+import { Delete } from '../../../assets/img';
 
 const DeleteBtn = ({ handleClick }) => {
   return (

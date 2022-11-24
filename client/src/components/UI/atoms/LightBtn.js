@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactComponent as Light } from '../../../assets/img/icons/light.svg';
+import { Light } from '../../../assets/img';
 
 const LightBtn = ({ color, changeColor, index }) => {
   return <Light onClick={() => changeColor(index)} fill={color} />;
