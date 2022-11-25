@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LandingPage from './components/pages/Landing';
-import LoginTemplate from './components/pages/LoginTemplate';
-import RegisterTemplate from './components/pages/RegisterTemplate';
-import MainTemplate from './components/pages/MainTemplate';
+import Login from './components/pages/Login';
+import Register from './components/pages/Register';
+import Main from './components/pages/Main';
 import ArounderViewer from './components/pages/ArounderViewer';
 import ArounderWriter from './components/pages/ArounderWriter';
 import WriteTemplate from './components/pages/WriteTemplate';
@@ -15,9 +15,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />}></Route>
-          <Route path="/login" element={<LoginTemplate />}></Route>
-          <Route path="/register" element={<RegisterTemplate />}></Route>
-          <Route path="/main" element={<MainTemplate />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/register" element={<Register />}></Route>
+          <Route path="/main" element={<Main />}></Route>
           <Route path="/arounderv/:id" element={<ArounderViewer />}></Route>
           <Route path="/arounderw/:id" element={<ArounderWriter />}></Route>
           <Route path="/write" element={<WriteTemplate />}></Route>
