@@ -1,9 +1,21 @@
-import React from 'react';
+import React from 'react'; // useEffect
 import { DownArrow } from '../../../assets/img';
+// import client from '../../../client/client';
 
 const DropdownCity = ({ city, setCity, setcityNum }) => {
   // state, cities 나중에 props로 받아도록 수정
   const cities = ['강남구', '관악구', '광진구'];
+  // const [cities, setCities] = useState([]);
+
+  // const getCityData = async () => {
+  //   const response = await client.get('/addresses');
+
+  //   setCities(response.data);
+  // };
+
+  // useEffect(() => {
+  //   getCityData();
+  // }, []);
 
   const handleClick = (e, idx) => {
     setCity(e.firstChild.data);
