@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import client from '../../client/client';
 import { LongBtn } from '../UI/atoms';
 import {
@@ -15,7 +15,7 @@ import {
 } from '../UI/molecules';
 
 const Register = () => {
-  const naviagte = useNavigate();
+  // const naviagte = useNavigate();
   const {
     register,
     handleSubmit,
@@ -28,12 +28,13 @@ const Register = () => {
   const currentPassword = useRef({});
   currentPassword.current = watch('password', '');
 
-  const onValid = data => {
+
+  const onValid = ({ text, password, nickname }) => {
     const gender = isSelect[0] ? 'MAN' : 'WOMEN';
     const payload = {
-      email: data.text,
-      password: data.password,
-      nickname: data.nickname,
+      email: text,
+      password,
+      nickname,
       gender,
       address: cityNum,
     };
@@ -43,7 +44,8 @@ const Register = () => {
       .post('/members', payload)
       .then(() => {
         alert('회원가입이 완료되었습니다.');
-        naviagte('/login');
+        // naviagte('/login');
+
       })
       .catch(err => {
         console.log(err);
