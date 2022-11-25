@@ -1,7 +1,8 @@
 import React from 'react';
 
 const ChooseBtn = ({ isSelect, setIsSelect, contents, size }) => {
-  const handleClick = idx => {
+  const handleClick = (e, idx) => {
+    e.preventDefault();
     const newArr = Array(contents.length).fill(false);
     newArr[idx] = true;
     setIsSelect(newArr);
@@ -21,7 +22,7 @@ const ChooseBtn = ({ isSelect, setIsSelect, contents, size }) => {
                 ? `w-3/6 h-full rounded-[5px] rounded-r-none bg-main text-white ${textsize} border-r border-main`
                 : `w-3/6 h-full rounded-[5px] rounded-r-none bg-white text ${textsize} border-r border-main`
             }
-            onClick={() => handleClick(idx)}
+            onClick={e => handleClick(e, idx)}
           >
             {ele}
           </button>
@@ -33,7 +34,7 @@ const ChooseBtn = ({ isSelect, setIsSelect, contents, size }) => {
                 ? `w-3/6 h-full rounded-[5px] rounded-l-none bg-main text-white ${textsize}`
                 : `w-3/6 h-full rounded-[5px] rounded-l-none bg-white text ${textsize}`
             }
-            onClick={() => handleClick(idx)}
+            onClick={e => handleClick(e, idx)}
           >
             {ele}
           </button>

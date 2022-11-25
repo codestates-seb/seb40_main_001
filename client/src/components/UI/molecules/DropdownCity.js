@@ -1,12 +1,13 @@
 import React from 'react';
 import { DownArrow } from '../../../assets/img';
 
-const DropdownCity = ({ city, setCity }) => {
+const DropdownCity = ({ city, setCity, setcityNum }) => {
   // state, cities 나중에 props로 받아도록 수정
   const cities = ['강남구', '관악구', '광진구'];
 
-  const handleClick = e => {
+  const handleClick = (e, idx) => {
     setCity(e.firstChild.data);
+    setcityNum(idx);
   };
 
   return (
@@ -22,8 +23,8 @@ const DropdownCity = ({ city, setCity }) => {
         tabIndex={0}
         className="dropdown-content menu p-2 shadow bg-white text text-400 rounded-box w-[338px]"
       >
-        {cities.map(el => (
-          <li value={el} key={el} onClick={e => handleClick(e.target)}>
+        {cities.map((el, idx) => (
+          <li value={el} key={el} onClick={e => handleClick(e.target, idx)}>
             <a className="active:bg-main active:text-white">{el}</a>
           </li>
         ))}
