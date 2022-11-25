@@ -59,8 +59,9 @@ public class ExerciseController {
     @DeleteMapping("/{exercise-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteExercise(@PathVariable(name = "exercise-id") Long exerciseId,
-                               @RequestHeader(name = "Authorization") Long memberId) {
+                               @RequestHeader(name = "Authorization") String token) {
 
+        Long memberId = jwtTokenizer.parseMemberId(token);
         exerciseService.deleteExercise(exerciseId, memberId);
     }
 }
