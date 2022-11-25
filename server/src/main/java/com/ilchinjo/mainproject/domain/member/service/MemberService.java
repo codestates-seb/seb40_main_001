@@ -10,7 +10,7 @@ public interface MemberService {
 
     MemberResponseDto saveMember(MemberPostDto postDto);
 
-    MemberResponseDto updateMember(Long memberId, MemberPatchDto patchDto);
+    MemberResponseDto updateMember(Long pathMemberId, Long memberId, MemberPatchDto patchDto);
 
     MemberDetailResponseDto findDetailedMember(Long memberId);
 
