@@ -46,13 +46,14 @@ public class ExerciseController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public CursorResponseDto<ExerciseResponseDto>
-    getExercises(@RequestHeader(name = "Authorization") Long memberId,
+    getExercises(@RequestHeader(name = "Authorization") String token,
                  @RequestParam(name = "address-id") Long addressId,
                  @RequestParam String category,
                  @RequestParam(name = "gender-type") String genderType,
                  @RequestParam(required = false, defaultValue = "9223372036854775807") Long cursorId,
                  @RequestParam(required = false, defaultValue = "10") Integer size) {
 
+        Long memberId = jwtTokenizer.parseMemberId(token);
         return exerciseService.findExercises(addressId, genderType, category, memberId, cursorId, size);
     }
 
