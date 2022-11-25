@@ -49,7 +49,13 @@ public class CommentServiceImpl implements CommentService {
     public CursorResponseDto<CommentDetailResponseDto> findComments(Long exerciseId, Long cursorId, Integer size) {
 
         Exercise findExercise = exerciseService.findVerifiedExercise(exerciseId);
-        List<Comment> comments = commentRepository.findAllByExerciseAndCommentIdGreaterThan(findExercise, cursorId, PageRequest.of(0, size));
+        List<Comment> comments = commentRepository.findAllByExerciseAndCommentIdGreaterThan(findExercise, cursorId, PageRequest.of(0, size + 1));
+
+        boolean hasNext = false;
+        if (comments.size() > size) {
+            hasNext = true;
+            comments = comments.subList(0, size);
+        }
 
         List<CommentDetailResponseDto> commentResponseDtoList = commentMapper.entitiesToResponseDtoList(comments);
 
@@ -57,7 +63,7 @@ public class CommentServiceImpl implements CommentService {
                 ? 0L
                 : comments.get(comments.size() - 1).getCommentId();
 
-        return CursorResponseDto.of(commentResponseDtoList, hasNext(findExercise, comments), nextCursorId);
+        return CursorResponseDto.of(commentResponseDtoList, hasNext, nextCursorId);
     }
 
     // 조회할 데이터가 더 남아 있는지 검사

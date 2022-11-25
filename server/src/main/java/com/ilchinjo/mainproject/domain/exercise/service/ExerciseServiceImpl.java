@@ -91,23 +91,18 @@ public class ExerciseServiceImpl implements ExerciseService {
             stream = stream.filter(exercise -> exercise.getCategory().equals(Category.valueOf(category)));
         }
 
+        boolean hasNext = false;
+
         List<Exercise> resultList = stream.collect(Collectors.toList());
         if (resultList.size() > size) {
             resultList = resultList.subList(0, size);
+            hasNext = true;
         }
 
 
         return CursorResponseDto.of(exerciseMapper.entitiesToResponseDtoList(resultList),
-                hasNext(resultList),
+                hasNext,
                 !resultList.isEmpty() ? resultList.get(resultList.size() - 1).getExerciseId() : 0L);
-    }
-
-    public boolean hasNext(List<Exercise> exerciseList) {
-        if (exerciseList.isEmpty()) {
-            return false;
-        }
-
-        return exerciseRepository.existsByExerciseIdLessThan(exerciseList.get(exerciseList.size() - 1).getExerciseId());
     }
 
     @Override
