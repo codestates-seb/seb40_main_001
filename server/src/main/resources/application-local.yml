@@ -4,8 +4,6 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: testuser
     password: 1234
-  profiles:
-    include: common
 
 cloud:
   aws:
