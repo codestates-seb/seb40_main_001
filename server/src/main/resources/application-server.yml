@@ -4,8 +4,6 @@ spring:
     url: ${RDS_URL}
     username: ${RDS_USERNAME}
     password: ${RDS_PASSWORD}
-  profiles:
-    include: common
 
 cloud:
   aws:
