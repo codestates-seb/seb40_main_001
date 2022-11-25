@@ -31,7 +31,7 @@ public class Comment extends AuditingEntity {
     private Exercise exercise;
 
     @Builder.Default
-    @OneToMany(mappedBy = "comment")
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.REMOVE)
     private List<Reply> replies = new ArrayList<>();
 
     public static Comment createComment(Comment comment, Member author, Exercise exercise) {
