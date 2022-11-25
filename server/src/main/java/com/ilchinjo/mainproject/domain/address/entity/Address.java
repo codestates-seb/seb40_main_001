@@ -3,10 +3,7 @@ package com.ilchinjo.mainproject.domain.address.entity;
 import com.ilchinjo.mainproject.global.audit.AuditingEntity;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -20,6 +17,7 @@ public class Address extends AuditingEntity {
 
     private String sido;
 
+    @Column(unique = true)
     private String sigungu;
 
     private String eupmyeondong;
