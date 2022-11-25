@@ -2,10 +2,10 @@ package com.ilchinjo.mainproject.domain.member.service;
 
 import com.ilchinjo.mainproject.domain.address.entity.Address;
 import com.ilchinjo.mainproject.domain.address.service.AddressService;
-import com.ilchinjo.mainproject.domain.image.entity.Image;
-import com.ilchinjo.mainproject.domain.image.repository.ImageRepository;
 import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
 import com.ilchinjo.mainproject.domain.exercise.repository.ExerciseRepository;
+import com.ilchinjo.mainproject.domain.image.entity.Image;
+import com.ilchinjo.mainproject.domain.image.repository.ImageRepository;
 import com.ilchinjo.mainproject.domain.member.dto.MemberDetailResponseDto;
 import com.ilchinjo.mainproject.domain.member.dto.MemberPatchDto;
 import com.ilchinjo.mainproject.domain.member.dto.MemberPostDto;
@@ -13,10 +13,10 @@ import com.ilchinjo.mainproject.domain.member.dto.MemberResponseDto;
 import com.ilchinjo.mainproject.domain.member.entity.Member;
 import com.ilchinjo.mainproject.domain.member.mapper.MemberMapper;
 import com.ilchinjo.mainproject.domain.member.repository.MemberRepository;
-import com.ilchinjo.mainproject.global.security.utils.CustomAuthorityUtils;
 import com.ilchinjo.mainproject.domain.review.entity.Review;
 import com.ilchinjo.mainproject.global.exception.BusinessLogicException;
 import com.ilchinjo.mainproject.global.exception.ExceptionCode;
+import com.ilchinjo.mainproject.global.security.utils.CustomAuthorityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -57,9 +57,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberResponseDto updateMember(Long memberId, MemberPatchDto patchDto) {
+    public MemberResponseDto updateMember(Long pathMemberId, Long memberId, MemberPatchDto patchDto) {
 
-        Member findMember = findVerifiedMember(memberId);
+        Member findMember = findVerifiedMember(pathMemberId);
+
+        checkAuthorization(findMember, memberId);
 
         Optional.ofNullable(patchDto.getNickname())
                 .ifPresent(nickname -> {
@@ -68,8 +70,8 @@ public class MemberServiceImpl implements MemberService {
                 });
 
         Optional.ofNullable((patchDto.getAddressId()))
-                        .ifPresent(addressId -> {
-                            Address address = addressService.findVerifiedAddress(addressId);
+                .ifPresent(addressId -> {
+                    Address address = addressService.findVerifiedAddress(addressId);
                             findMember.updateAddress(address);
                         });
 
@@ -135,5 +137,11 @@ public class MemberServiceImpl implements MemberService {
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.FILE_NOT_FOUND));
 
         return image;
+    }
+
+    private void checkAuthorization(Member member, Long memberId) {
+        if (!member.getMemberId().equals(memberId)) {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
+        }
     }
 }

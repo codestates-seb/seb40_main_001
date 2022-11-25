@@ -29,11 +29,12 @@ public class MemberController {
 
     @PatchMapping("/{member-id}")
     @ResponseStatus(HttpStatus.OK)
-    public MemberResponseDto patchMember(@PathVariable("member-id") Long memberId,
+    public MemberResponseDto patchMember(@PathVariable("member-id") Long pathMemberId,
                                          @RequestHeader(name = "Authorization") String token,
                                          @RequestBody MemberPatchDto patchDto) {
 
-        return memberService.updateMember(memberId, patchDto);
+        Long memberId = jwtTokenizer.parseMemberId(token);
+        return memberService.updateMember(pathMemberId, memberId, patchDto);
     }
 
     @GetMapping("/profiles")
