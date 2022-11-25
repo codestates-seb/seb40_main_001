@@ -5,14 +5,14 @@ import client from '../../client/client';
 import { LongBtn } from '../UI/atoms';
 import {
   GenderSelect,
-  HeaderLogo,
   HeaderNone,
   IdInput,
   NickNameInput,
   CheckPasswordInput,
   PasswordInput,
   TownSelect,
-} from '../UI/molecules';
+  HeaderLogo,
+} from '../UI';
 
 const Register = () => {
   // const naviagte = useNavigate();
@@ -27,7 +27,6 @@ const Register = () => {
   const [cityNum, setcityNum] = useState();
   const currentPassword = useRef({});
   currentPassword.current = watch('password', '');
-
 
   const onValid = ({ text, password, nickname }) => {
     const gender = isSelect[0] ? 'MAN' : 'WOMEN';
@@ -45,7 +44,6 @@ const Register = () => {
       .then(() => {
         alert('회원가입이 완료되었습니다.');
         // naviagte('/login');
-
       })
       .catch(err => {
         console.log(err);
