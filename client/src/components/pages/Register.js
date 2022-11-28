@@ -35,12 +35,12 @@ const Register = () => {
       password,
       nickname,
       gender,
-      address: cityNum,
+      addressId: cityNum,
     };
-    // console.log(payload);
+    console.log(payload);
     // console.log(JSON.stringify(payload));
     client
-      .post('/members', payload)
+      .post('/members', JSON.stringify(payload))
       .then(() => {
         alert('회원가입이 완료되었습니다.');
         // naviagte('/login');
@@ -92,8 +92,9 @@ const Register = () => {
               message: '최소 8자 이상의 숫자를 입력해주세요!',
             },
             pattern: {
-              value: /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,}$/,
-              message: '영문, 숫자, 특수문자를 포함하여 작성해주세요!',
+              value:
+                /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,}$/,
+              message: '영문 대,소 문자, 숫자, 특수문자를 포함하여 주세요!',
             },
           })}
           errors={errors}
