@@ -70,7 +70,9 @@ const Login = () => {
         회원이 아니신가요?
         <button
           className="font-bold"
-          // onClick={() => {naviagte('/regist');}}
+          onClick={() => {
+            naviagte('/regist');
+          }}
         >
           회원가입
         </button>
