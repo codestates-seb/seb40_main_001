@@ -29,7 +29,7 @@ const Register = () => {
   currentPassword.current = watch('password', '');
 
   const onValid = ({ text, password, nickname }) => {
-    const gender = isSelect[0] ? 'MAN' : 'WOMEN';
+    const gender = isSelect[0] ? 'MAN' : 'WOMAN';
     const payload = {
       email: text,
       password,
