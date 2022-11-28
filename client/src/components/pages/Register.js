@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import client from '../../client/client';
 import { LongBtn } from '../UI/atoms';
 import {
@@ -15,7 +15,7 @@ import {
 } from '../UI';
 
 const Register = () => {
-  // const naviagte = useNavigate();
+  const naviagte = useNavigate();
   const {
     register,
     handleSubmit,
@@ -37,13 +37,11 @@ const Register = () => {
       gender,
       addressId: cityNum,
     };
-    console.log(payload);
-    // console.log(JSON.stringify(payload));
     client
       .post('/members', JSON.stringify(payload))
       .then(() => {
         alert('회원가입이 완료되었습니다.');
-        // naviagte('/login');
+        naviagte('/login');
       })
       .catch(err => {
         console.log(err);
