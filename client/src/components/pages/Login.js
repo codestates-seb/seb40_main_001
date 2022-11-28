@@ -1,11 +1,11 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { HeaderLogo, HeaderNone, IdInput, PasswordInput, LongBtn } from '../UI';
-// import client from '../../client/client';
-// import { useNavigate } from 'react-router-dom';
+import client from '../../client/client';
 
 const Login = () => {
-  // const naviagte = useNavigate();
+  const naviagte = useNavigate();
   const {
     register,
     handleSubmit,
@@ -17,16 +17,14 @@ const Login = () => {
       email: text,
       password,
     };
-    console.log(payload);
-
-    // client
-    //   .post('/auth/login', payload)
-    //   .then(() => {
-    //     // naviagte('/main');
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
+    client
+      .post('/auth/login', payload)
+      .then(() => {
+        naviagte('/main');
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
   const onInValid = error => {
     console.log(error);
@@ -59,8 +57,9 @@ const Login = () => {
               message: '최소 8자 이상의 숫자를 입력해주세요!',
             },
             pattern: {
-              value: /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,}$/,
-              message: '영문, 숫자, 특수문자를 포함하여 작성해주세요!',
+              value:
+                /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,}$/,
+              message: '영문 대,소 문자, 숫자, 특수문자를 포함하여 주세요!',
             },
           })}
           errors={errors}
