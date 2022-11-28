@@ -1,7 +1,4 @@
-import React, {
-  useEffect,
-  // useState
-} from 'react';
+import React from 'react'; // useState // useEffect,
 
 import {
   HeaderLogo,
@@ -18,7 +15,7 @@ const dummyData = [
     title: '수영 빡고수 찾습니다!!',
     profile:
       'https://i.pinimg.com/474x/49/ec/a8/49eca86ab8fb9e496d5789f871559ab2.jpg',
-    nickname: '루모스',
+    nickname: '형님',
     createDate: '2022.11.22',
     endDate: '2022.11.23',
     contents: `접영 가능한 사람 구합니다. 접영 알려주시면 좋겠어요. 제가 수영 초보라 자세 교정해주실 분!!!!`,
@@ -54,14 +51,14 @@ const dummyData = [
 // const [gender, setGender] = useState();
 // const [category, setCategory] = useState();
 
-const getUserData = async () => {
-  // const response = await client.get(`/exercises?address=${1}&gender-type=${ALL}&category=${FITNESS}`);
-  // setUserData( );
-};
+// const getUserData = async () => {
+//   // const response = await client.get(`/exercises?address=${1}&gender-type=${ALL}&category=${FITNESS}`);
+//   // setUserData( );
+// };
 
-useEffect(() => {
-  getUserData();
-}, []);
+// useEffect(() => {
+//   getUserData();
+// }, []);
 
 const Main = () => {
   return (
