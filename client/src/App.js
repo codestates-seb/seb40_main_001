@@ -6,7 +6,7 @@ import Register from './components/pages/Register';
 import Main from './components/pages/Main';
 import ArounderViewer from './components/pages/ArounderViewer';
 import ArounderWriter from './components/pages/ArounderWriter';
-import WriteTemplate from './components/pages/WriteTemplate';
+import Write from './components/pages/Write';
 import MypageTemplate from './components/pages/MypageTemplate';
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
           <Route path="/main" element={<Main />}></Route>
           <Route path="/arounderv/:id" element={<ArounderViewer />}></Route>
           <Route path="/arounderw/:id" element={<ArounderWriter />}></Route>
-          <Route path="/write" element={<WriteTemplate />}></Route>
+          <Route path="/write" element={<Write />}></Route>
           <Route path="/mypage" element={<MypageTemplate />}></Route>
           {/* <Route path='*' element={} */}
           {/* 없는 URl 로 접속 시 에러 띄울 창이 필요할 지 ? */}
