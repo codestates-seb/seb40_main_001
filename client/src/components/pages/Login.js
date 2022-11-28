@@ -67,7 +67,7 @@ const Login = () => {
         />
         <LongBtn txt="로그인" type="button" />
       </form>
-      <div className="text-200 mt-4">
+      <div className="text-200 mt-4 text-center">
         회원이 아니신가요?
         <button
           className="font-bold"
