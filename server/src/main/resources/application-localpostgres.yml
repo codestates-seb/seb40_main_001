@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/testaround?serverTimezone=Asia/Seoul
+    driver-class-name: org.postgresql.Driver
+    username: # 로컬에 설치시 설치된 로컬 컴퓨터 계정, 그리고 동시에 공백 계정으로 mysql의 root와 같은 역할을 합니다.
+    password: # 비밀번호도 딱히 설정을 안하면 공백입니다.
+
+cloud:
+  aws:
+    s3:
+      dir: test
