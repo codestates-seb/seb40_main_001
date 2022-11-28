@@ -39,6 +39,7 @@ public class ExerciseServiceImpl implements ExerciseService {
         Member findMember = findVerifiedMember(memberId);
 
         Exercise createdExercise = Exercise.createExercise(exercise, findMember);
+        checkExerciseValid(createdExercise);
 
         Optional.ofNullable(postDto.getImageIdList())
                 .ifPresent(imageIdList -> {
@@ -153,6 +154,12 @@ public class ExerciseServiceImpl implements ExerciseService {
         }
 
         return images;
+    }
+
+    private void checkExerciseValid(Exercise exercise) {
+        if (exercise.getExerciseAt().isAfter(exercise.getEndAt())) {
+            throw new BusinessLogicException(ExceptionCode.START_TIME_IS_LATER_THAN_END_TIME);
+        }
     }
 
 }
