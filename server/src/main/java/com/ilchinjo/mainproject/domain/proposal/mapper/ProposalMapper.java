@@ -14,5 +14,7 @@ public interface ProposalMapper {
     ProposalResponseDto entityToResponseDto(Proposal proposal);
 
     @Mapping(target = "proposalStatus", source = "proposal.status")
+    ProposalSimpleResponseDto entityToSimpleResponseDto(Proposal proposal);
+
     List<ProposalSimpleResponseDto> entitiesToSimpleResponseDtoList(List<Proposal> proposals);
 }
