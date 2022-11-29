@@ -1,8 +1,4 @@
-import React, {
-  useEffect,
-  // useState
-} from 'react';
-
+import React, { useEffect, useState } from 'react';
 import {
   HeaderLogo,
   ExerciseCarousel,
@@ -11,14 +7,14 @@ import {
   HomeContents,
 } from '../UI';
 import { Info } from '../../assets/img';
-// import client from '../../client/client';
+import client from '../../client/client';
 
 const dummyData = [
   {
     title: '수영 빡고수 찾습니다!!',
     profile:
       'https://i.pinimg.com/474x/49/ec/a8/49eca86ab8fb9e496d5789f871559ab2.jpg',
-    nickname: '루모스',
+    nickname: '형님',
     createDate: '2022.11.22',
     endDate: '2022.11.23',
     contents: `접영 가능한 사람 구합니다. 접영 알려주시면 좋겠어요. 제가 수영 초보라 자세 교정해주실 분!!!!`,
@@ -49,21 +45,40 @@ const dummyData = [
   },
 ];
 
-// const [userData, setUserData] = useState([]);
-// const [address, setAddress] = useState();
-// const [gender, setGender] = useState();
-// const [category, setCategory] = useState();
-
-const getUserData = async () => {
-  // const response = await client.get(`/exercises?address=${1}&gender-type=${ALL}&category=${FITNESS}`);
-  // setUserData( );
-};
-
-useEffect(() => {
-  getUserData();
-}, []);
-
 const Main = () => {
+  const [userData, setUserData] = useState([]);
+  // eslint-disable-next-line no-unused-vars
+  const [address, setAddress] = useState(3);
+  // eslint-disable-next-line no-unused-vars
+  const [gender, setGender] = useState('ALL');
+  // eslint-disable-next-line no-unused-vars
+  const [category, setCategory] = useState('ALL');
+
+  const getUserData = async () => {
+    const response = await client.get(
+      `/exercises?address-id=${address}&category=${category}&gender-type=${gender}&cursorId=100&size=100`, // http://3.36.23.248:8080/exercises?address-id=1&category=ALL&gender-type=ALL&size=10
+    );
+    console.log(response);
+    console.log(address, category, gender);
+    setUserData(response.data.data);
+  };
+
+  const genderToggleClick = () => {
+    if (gender === 'ALL') {
+      setGender('SAME');
+    } else {
+      setGender('ALL');
+    }
+  };
+  const handler = (target, exercise) => {
+    setCategory(exercise);
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, [address, category, gender]);
+
+  console.log(userData);
   return (
     <div>
       <HeaderLogo txt="어라운더 찾기">
@@ -75,19 +90,20 @@ const Main = () => {
         </div>
       </HeaderLogo>
       <ExerciseCarousel
+        handler={handler}
         arr={[
-          'all',
-          'running',
-          'yoga',
-          'tennis',
-          'swim',
-          'weight',
-          'basketball',
+          'ALL',
+          'RUNNING',
+          'YOGA',
+          'FITNESS',
+          'SWIMMING',
+          'BASKETBALL',
+          'BADMINTON',
         ]}
       />
       <div className="flex justify-between border-t border-main pt-2 mx-5">
         <MiniDropdown />
-        <Toggle />
+        <Toggle genderToggleClick={genderToggleClick} />
       </div>
 
       <div className="flex flex-col pt-3 items-center space-y-3">

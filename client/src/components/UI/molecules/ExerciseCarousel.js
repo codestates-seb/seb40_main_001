@@ -6,7 +6,7 @@ const ExerciseCarousel = ({ arr, handler }) => {
   const handleClick = e => {
     // e === exercise name
     setIsSelect(e);
-    handler('exercise', isSelect);
+    handler('exercise', e);
   };
 
   return (
