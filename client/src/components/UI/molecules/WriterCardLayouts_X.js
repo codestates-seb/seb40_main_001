@@ -2,8 +2,15 @@ import React from 'react';
 import CommentDeleteBtn from '../atoms/CommentDeleteBtn';
 import WriterCL from '../atoms/WriterCommentLayout';
 
-const Source = ({ nickname, contents, handler, deleteHandler, id, mainRe }) => {
-  return mainRe ? (
+const Source = ({
+  nickname,
+  contents,
+  handler,
+  deleteHandler,
+  id,
+  mainReply,
+}) => {
+  return mainReply ? (
     // 메인 댓글 일 때
     <div className="flex flex-row justify-between">
       <div className="flex flex-col m-[15px]">
@@ -41,7 +48,7 @@ const WriterCardX = ({
   handler,
   deleteHandler,
   id,
-  mainRe,
+  mainReply,
 }) => {
   return (
     <WriterCL
@@ -52,7 +59,7 @@ const WriterCardX = ({
           handler={handler}
           deleteHandler={deleteHandler}
           id={id}
-          mainRe={mainRe}
+          mainReply={mainReply}
         />
       }
     />

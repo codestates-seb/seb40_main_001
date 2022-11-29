@@ -162,7 +162,7 @@ const WriterComments = ({ target, userId, writer }) => {
                   contents={x.content}
                   handler={writeReply}
                   id={idx}
-                  mainRe={true}
+                  mainReply={true}
                 />
                 <div className="mt-1 mb-1"></div>
                 <InputComments handler={writeReply} target={target} />
@@ -182,7 +182,7 @@ const WriterComments = ({ target, userId, writer }) => {
                               contents={y.content}
                               handler={writeReply}
                               id={id}
-                              mainRe={false}
+                              mainReply={false}
                             />
                           </div>
                         </div>
@@ -202,7 +202,7 @@ const WriterComments = ({ target, userId, writer }) => {
                               contents={y.content}
                               handler={writeReply}
                               id={id}
-                              mainRe={false}
+                              mainReply={false}
                             />
                           </div>
                         </div>
@@ -222,7 +222,7 @@ const WriterComments = ({ target, userId, writer }) => {
                   contents={x.content}
                   handler={writeReply}
                   id={idx}
-                  mainRe={true}
+                  mainReply={true}
                 />
               </div>
               {x.replies.length !== 0 &&
@@ -240,7 +240,7 @@ const WriterComments = ({ target, userId, writer }) => {
                               contents={y.content}
                               handler={writeReply}
                               id={id}
-                              mainRe={false}
+                              mainReply={false}
                             />
                           </div>
                         </div>
@@ -260,7 +260,7 @@ const WriterComments = ({ target, userId, writer }) => {
                               contents={y.content}
                               handler={writeReply}
                               id={id}
-                              mainRe={false}
+                              mainReply={false}
                             />
                           </div>
                         </div>
@@ -284,7 +284,7 @@ const WriterComments = ({ target, userId, writer }) => {
                   contents={x.content}
                   handler={writeReply}
                   id={idx}
-                  mainRe={true}
+                  mainReply={true}
                 />
                 <div className="mt-1 mb-1"></div>
                 <InputComments handler={writeReply} target={target} />
@@ -304,7 +304,7 @@ const WriterComments = ({ target, userId, writer }) => {
                               contents={y.content}
                               handler={writeReply}
                               id={id}
-                              mainRe={false}
+                              mainReply={false}
                             />
                           </div>
                         </div>
@@ -324,7 +324,7 @@ const WriterComments = ({ target, userId, writer }) => {
                               contents={y.content}
                               handler={writeReply}
                               id={id}
-                              mainRe={false}
+                              mainReply={false}
                             />
                           </div>
                         </div>
@@ -344,7 +344,7 @@ const WriterComments = ({ target, userId, writer }) => {
                   contents={x.content}
                   handler={writeReply}
                   id={idx}
-                  mainRe={true}
+                  mainReply={true}
                 />
               </div>
               {x.replies.length !== 0 &&
@@ -362,7 +362,7 @@ const WriterComments = ({ target, userId, writer }) => {
                               contents={y.content}
                               handler={writeReply}
                               id={id}
-                              mainRe={false}
+                              mainReply={false}
                             />
                           </div>
                         </div>
@@ -382,7 +382,7 @@ const WriterComments = ({ target, userId, writer }) => {
                               contents={y.content}
                               handler={writeReply}
                               id={id}
-                              mainRe={false}
+                              mainReply={false}
                             />
                           </div>
                         </div>

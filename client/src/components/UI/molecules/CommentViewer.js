@@ -1,8 +1,8 @@
 import React from 'react';
 import CommentLayout from '../atoms/CommentLayout';
 
-const ViewerSource = ({ nickname, contents, handler, id, mainRe }) => {
-  return mainRe ? (
+const ViewerSource = ({ nickname, contents, handler, id, mainReply }) => {
+  return mainReply ? (
     <div className="m-[15px]">
       <div className="flex flex-row items-center">
         <div
@@ -34,7 +34,7 @@ const ViewerSource = ({ nickname, contents, handler, id, mainRe }) => {
   );
 };
 
-const ViewerCL = ({ nickname, contents, handler, id, mainRe }) => {
+const ViewerCL = ({ nickname, contents, handler, id, mainReply }) => {
   return (
     <CommentLayout
       source={
@@ -43,7 +43,7 @@ const ViewerCL = ({ nickname, contents, handler, id, mainRe }) => {
           contents={contents}
           handler={handler}
           id={id}
-          mainRe={mainRe}
+          mainReply={mainReply}
         />
       }
     />

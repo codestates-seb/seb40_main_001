@@ -8,9 +8,9 @@ const ViewerSource = ({
   handler,
   deleteHandler,
   id,
-  mainRe,
+  mainReply,
 }) => {
-  return mainRe ? (
+  return mainReply ? (
     <div className="flex flex row justify-between">
       <div className="flex flex-col m-[15px]">
         <div className="flex flex-row">
@@ -46,7 +46,7 @@ const ViewerCLX = ({
   handler,
   deleteHandler,
   id,
-  mainRe,
+  mainReply,
 }) => {
   return (
     <CommentLayout
@@ -57,7 +57,7 @@ const ViewerCLX = ({
           handler={handler}
           deleteHandler={deleteHandler}
           id={id}
-          mainRe={mainRe}
+          mainReply={mainReply}
         />
       }
     />
