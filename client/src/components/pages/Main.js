@@ -5,6 +5,7 @@ import {
   MiniDropdown,
   Toggle,
   HomeContents,
+  EditBtn,
 } from '../UI';
 import { Info } from '../../assets/img';
 import { client } from '../../client/client';
@@ -74,6 +75,7 @@ const Main = () => {
           <HomeContents key={idx} data={data} />
         ))}
       </div>
+      <EditBtn />
     </div>
   );
 };
