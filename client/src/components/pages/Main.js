@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   HeaderLogo,
   ExerciseCarousel,
@@ -17,6 +18,7 @@ import { client } from '../../client/client';
 // 이미지 확인
 
 const Main = () => {
+  const naviagte = useNavigate();
   const [userData, setUserData] = useState([]);
   const [address, setAddress] = useState(3);
   const [gender, setGender] = useState('ALL');
@@ -37,6 +39,10 @@ const Main = () => {
   };
   const handler = (target, exercise) => {
     setCategory(exercise);
+  };
+
+  const handleClick = () => {
+    naviagte('/write');
   };
 
   useEffect(() => {
@@ -75,7 +81,7 @@ const Main = () => {
           <HomeContents key={idx} data={data} />
         ))}
       </div>
-      <EditBtn />
+      <EditBtn handleClick={handleClick} />
     </div>
   );
 };
