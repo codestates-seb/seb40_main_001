@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DownArrow } from '../../../assets/img';
-import client from '../../../client/client';
+import { client } from '../../../client/client';
 
 const DropdownCity = ({ setcityNum }) => {
   const [city, setCity] = useState([]);

@@ -7,12 +7,13 @@ import {
   HomeContents,
 } from '../UI';
 import { Info } from '../../assets/img';
-import client from '../../client/client';
+import { client } from '../../client/client';
 // 할일
 // 인포 api 들어오면 성별에 따라 토글 아이콘 바꾸기
 // 주소체계 api 들어오면 바꾸기
 // api에 따라 주소 디폴트값주기
 // 분기처리
+// 이미지 확인
 
 const Main = () => {
   const [userData, setUserData] = useState([]);
