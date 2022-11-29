@@ -19,7 +19,10 @@ const Login = () => {
     };
     client
       .post('/auth/login', payload)
-      .then(() => {
+      .then(res => {
+        if (res.headers.get('Authorization')) {
+          localStorage.setItem('accessToken', res.headers.get('Authorization'));
+        }
         naviagte('/main');
       })
       .catch(err => {
