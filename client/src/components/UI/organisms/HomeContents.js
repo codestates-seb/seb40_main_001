@@ -12,6 +12,7 @@ const Contents = ({ data }) => {
     exerciseStatus, // 추후에 추가
     host,
   } = data || {};
+  const { remotePath } = images[0] || {}; // 게시글 첫번째 이미지
   const { image, nickname } = host || {};
   const exerciseImg = getIcon(category, '#2BAE66');
   return (
@@ -37,7 +38,8 @@ const Contents = ({ data }) => {
           </div>
         </div>
         {/* 게시글 첫번째 이미지  */}
-        {images && <HomeSquare target={images} />}
+
+        {remotePath && <HomeSquare target={remotePath} />}
       </div>
     </div>
   );
