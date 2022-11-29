@@ -12,6 +12,8 @@ public enum ExceptionCode {
     CANT_PROPOSE_MYSELF(422, "Cant propose myself"),
     START_TIME_IS_PASSED(422, "Start time is passed"),
     END_TIME_IS_NOT_PASSED(422, "End time is not passed"),
+    START_TIME_IS_LATER_THAN_END_TIME(422, "Start time is later than end time"),
+    START_TIME_IS_EARLIER_THAN_CURRENT_TIME(422, "Start time is earlier than current time"),
     REVIEW_EXISTS(409, "Review exists"),
     PROPOSAL_NOT_FOUND(404, "Proposal not found"),
     EXERCISE_IS_CLOSED(422, "Exercise is closed"),

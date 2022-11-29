@@ -5,6 +5,7 @@ import com.ilchinjo.mainproject.domain.exercise.entity.Category;
 import com.ilchinjo.mainproject.domain.exercise.entity.ExerciseStatus;
 import com.ilchinjo.mainproject.domain.exercise.entity.GenderType;
 import com.ilchinjo.mainproject.domain.image.dto.ImageResponseDto;
+import com.ilchinjo.mainproject.domain.member.dto.MemberResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,6 +23,8 @@ public class ExerciseResponseDto {
     private String title;
 
     private String content;
+
+    private MemberResponseDto host;
 
     private LocalDateTime exerciseAt;
 

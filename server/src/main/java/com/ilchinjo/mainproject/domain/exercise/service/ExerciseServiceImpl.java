@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,6 +40,7 @@ public class ExerciseServiceImpl implements ExerciseService {
         Member findMember = findVerifiedMember(memberId);
 
         Exercise createdExercise = Exercise.createExercise(exercise, findMember);
+        checkExerciseValid(createdExercise);
 
         Optional.ofNullable(postDto.getImageIdList())
                 .ifPresent(imageIdList -> {
@@ -83,8 +85,8 @@ public class ExerciseServiceImpl implements ExerciseService {
         Member findMember = findVerifiedMember(memberId);
         if (genderType.equals("ALL")) {
             stream = stream.filter(exercise -> exercise.getHost().getGender().equals(findMember.getGender()) ||
-                            exercise.getGenderType().equals(GenderType.ALL));
-        } else if (genderType.equals("SAME")){
+                    exercise.getGenderType().equals(GenderType.ALL));
+        } else if (genderType.equals("SAME")) {
             stream = stream.filter(exercise -> exercise.getHost().getGender().equals(findMember.getGender()));
         }
         if (!category.equals("ALL")) {
@@ -153,6 +155,16 @@ public class ExerciseServiceImpl implements ExerciseService {
         }
 
         return images;
+    }
+
+    private void checkExerciseValid(Exercise exercise) {
+        if (exercise.getExerciseAt().isAfter(exercise.getEndAt())) {
+            throw new BusinessLogicException(ExceptionCode.START_TIME_IS_LATER_THAN_END_TIME);
+        }
+
+        if (LocalDateTime.now().isAfter(exercise.getExerciseAt())) {
+            throw new BusinessLogicException(ExceptionCode.START_TIME_IS_EARLIER_THAN_CURRENT_TIME);
+        }
     }
 
 }
