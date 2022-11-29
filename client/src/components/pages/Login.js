@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { HeaderLogo, HeaderNone, IdInput, PasswordInput, LongBtn } from '../UI';
-import client from '../../client/client';
+import { client } from '../../client/client';
 
 const Login = () => {
   const naviagte = useNavigate();
