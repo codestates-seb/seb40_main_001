@@ -1,5 +1,7 @@
 package com.ilchinjo.mainproject.global.security.jwt;
 
+import com.ilchinjo.mainproject.domain.auth.repository.RefreshTokenRepository;
+import com.ilchinjo.mainproject.global.security.userdetails.MemberDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -7,17 +9,27 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @Component
+@RequiredArgsConstructor
 public class JwtTokenizer {
+
+    private final MemberDetailsService memberDetailsService;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     @Getter
     @Value("${jwt.secret-key}")
@@ -49,6 +61,27 @@ public class JwtTokenizer {
                 .setIssuedAt(Calendar.getInstance().getTime())
                 .setExpiration(expiration)
                 .signWith(key)
+                .compact();
+    }
+
+    public String generateAccessToken(Long memberId, Authentication authentication) {
+
+        String base64EncodedSecretKey = encodeBase64SecretKey(secretKey);
+        Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
+
+        UserDetails userDetails = memberDetailsService.loadUserByUsername(authentication.getName());
+
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("memberId", memberId);
+        claims.put("email", userDetails.getUsername());
+        claims.put("roles", userDetails.getAuthorities());
+
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(authentication.getName())
+                .setIssuedAt(Calendar.getInstance().getTime())
+                .signWith(key)
+                .setExpiration(getTokenExpiration(getAccessTokenExpirationMinutes()))
                 .compact();
     }
 
