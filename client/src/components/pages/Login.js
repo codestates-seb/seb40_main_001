@@ -67,7 +67,9 @@ const Login = () => {
           })}
           errors={errors}
         />
-        <LongBtn txt="로그인" type="button" />
+        <div className="pt-28">
+          <LongBtn txt="로그인" type="button" />
+        </div>
       </form>
       <div className="text-200 mt-4 text-center">
         회원이 아니신가요?

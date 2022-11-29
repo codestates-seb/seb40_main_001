@@ -1,24 +1,20 @@
-import React from 'react'; // useEffect
+import React, { useState, useEffect } from 'react';
 import { DownArrow } from '../../../assets/img';
-// import client from '../../../client/client';
+import client from '../../../client/client';
 
-const DropdownCity = ({ city, setCity, setcityNum }) => {
-  // state, cities 나중에 props로 받아도록 수정
-  const cities = ['강남구', '관악구', '광진구'];
-  // const [cities, setCities] = useState([]);
+const DropdownCity = ({ setcityNum }) => {
+  const [city, setCity] = useState([]);
+  const getCities = () => {
+    client.get('/addresses').then(res => {
+      setCity(res.data.data);
+    });
+  };
 
-  // const getCityData = async () => {
-  //   const response = await client.get('/addresses');
-
-  //   setCities(response.data);
-  // };
-
-  // useEffect(() => {
-  //   getCityData();
-  // }, []);
+  useEffect(() => {
+    getCities();
+  }, []);
 
   const handleClick = (e, idx) => {
-    setCity(e.firstChild.data);
     setcityNum(idx);
   };
 
@@ -28,16 +24,17 @@ const DropdownCity = ({ city, setCity, setcityNum }) => {
         tabIndex={0}
         className="w-[333px] h-[60px] btn m-1 rounded-[7px] border-2 border-main bg-white text text-400 justify-between pl-[22px] pr-[13px] hover:bg-white hover:border-2 hover:border-main"
       >
-        {city}
+        {/* {city} */}
         <DownArrow />
       </label>
       <ul
         tabIndex={0}
         className="dropdown-content menu p-2 shadow bg-white text text-400 rounded-box w-[338px]"
+        // h-[200px] overflow-y-scroll 왜 안되는거지 찾아야할 것 같다..
       >
-        {cities.map((el, idx) => (
-          <li value={el} key={el} onClick={e => handleClick(e.target, idx)}>
-            <a className="active:bg-main active:text-white">{el}</a>
+        {city.map((data, idx) => (
+          <li key={idx} onClick={e => handleClick(e.target, data.addressId)}>
+            <a className="active:bg-main active:text-white">{data.sigungu}</a>
           </li>
         ))}
       </ul>

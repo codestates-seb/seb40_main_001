@@ -1,31 +1,42 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DownArrow } from '../../../assets/img';
+import client from '../../../client/client';
 
-const Dropdown = () => {
-  // state, cities 나중에 props로 받아도록 수정
-  const [city, setCity] = useState('강남구');
-  const cities = ['강남구', '관악구', '광진구'];
+const Dropdown = ({ setAddress }) => {
+  const [city, setCity] = useState([]);
 
-  const handleClick = e => {
-    setCity(e.firstChild.data);
+  const [selectedCity, setSelectedCity] = useState('강남구');
+  const getCities = () => {
+    client.get('/addresses').then(res => {
+      setCity(res.data.data);
+    });
+  };
+
+  useEffect(() => {
+    getCities();
+  }, []);
+
+  const handleClick = (e, idx) => {
+    setSelectedCity(e.firstChild.data);
+    setAddress(idx);
   };
 
   return (
     <div className="dropdown dropdown-bottom">
       <label
         tabIndex={0}
-        className="w-[71px] h-[30px] btn m-1 rounded-[7px] border-2 border-main bg-white text text-200 p-[2px] hover:bg-white hover:border-2 hover:border-main"
+        className="w-[78px] h-[30px] btn m-1 rounded-[7px] border-2 border-main bg-white text text-200 p-[2px] hover:bg-white hover:border-2 hover:border-main"
       >
-        {city}
+        {selectedCity}
         <DownArrow />
       </label>
       <ul
         tabIndex={0}
-        className="dropdown-content menu shadow bg-white text text-200 rounded-box w-[71px]"
+        className="dropdown-content menu shadow w-[78px]  bg-white text text-200 rounded-box overflow-y-scroll"
       >
-        {cities.map(el => (
-          <li value={el} key={el} onClick={e => handleClick(e.target)}>
-            <a className="active:bg-main active:text-white">{el}</a>
+        {city.map((data, idx) => (
+          <li key={idx} onClick={e => handleClick(e.target, data.addressId)}>
+            <a className="active:bg-main active:text-white">{data.sigungu}</a>
           </li>
         ))}
       </ul>
