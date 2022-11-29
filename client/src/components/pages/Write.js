@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { LongBtn, HeaderArrow, WriteContents } from '../UI';
-import { clientImg } from '../../client/client';
+import { client, clientImg } from '../../client/client';
 
 const Write = () => {
   const [data, setData] = useState({
@@ -13,14 +14,12 @@ const Write = () => {
     endTime: new Date(),
   });
   const [isDisabled, setIsDisabled] = useState(true);
-  const [imgForm, setImgForm] = useState();
   const [imgList, setImgList] = useState([]);
+
+  const navigate = useNavigate();
 
   const fileHandler = e => {
     if (imgList.length > 3) return;
-    const imgUp = new FormData();
-    imgUp.append(`image`, e.target.files[0], e.target.files[0].name);
-    setImgForm(imgUp);
     setImgList(prev => [...prev, e.target.files[0]]);
   };
 
@@ -33,40 +32,49 @@ const Write = () => {
   const handleDelete = idx => {
     const newArr = imgList.filter((el, id) => id !== idx);
     setImgList(newArr);
-    imgForm.delete(`image${idx}`);
   };
 
   const submitWrite = () => {
     // 이미지 생성
+    const imgUp = new FormData();
+    imgList.forEach(el => {
+      imgUp.append('image', el, el.name);
+    });
+
+    // 이미지 서버로 전송
     clientImg
-      .post('/images', imgForm)
+      .post('/images', imgUp)
       .then(res => {
         const newData = data;
-        newData.img.push(res.imageId);
+        res.data.forEach(el => {
+          newData.img.push(el.imageId);
+        });
         setData(newData);
+        return {
+          title: data.title,
+          content: data.content,
+          genderType: data.gender === '무관' ? 'ALL' : 'SAME',
+          category: data.exercise,
+          exerciseAt: data.startTime,
+          endAt: data.endTime,
+          imageIdList: data.img,
+        };
+      })
+      .then(payload => {
+        client
+          .post('/exercises', payload)
+          .then(() => {
+            navigate('/main');
+          })
+          .catch(err => {
+            console.log(err);
+          });
       })
       .catch(err => {
         console.log(err);
       });
-    // 제출
-    // const payload = {
-    //   title: data.title,
-    //   content: data.content,
-    //   genderType: data.gender === '무관' ? 'ALL' : 'SAME',
-    //   category: data.exercise,
-    //   exerciseAt: data.startTime,
-    //   endAt: data.endTime,
-    //   imageIdList: data.img,
-    // };
 
-    // client
-    //   .post('/exercises', payload)
-    //   .then(() => {
-    //     //
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
+    // 제출
   };
 
   // 여기가 동작을 안 해서 사람을 미치게 하는 중 ㅠㅠ
@@ -77,7 +85,7 @@ const Write = () => {
     if (data.exercise && data.title && data.content && data.gender) {
       setIsDisabled(false);
     } else {
-      setIsDisabled(true);
+      setIsDisabled(false);
     }
   }, [data.exercise, data.title, data.content, data.gender]);
 
