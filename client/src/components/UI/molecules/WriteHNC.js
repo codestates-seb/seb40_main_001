@@ -8,7 +8,7 @@ const WriteHNC = ({ handler }) => {
 
   const titleHandler = e => {
     setWriteTitle(e.target.value);
-    handler('title', writeTitle);
+    handler('title', e.target.value);
   };
   const contentsHandler = e => {
     setWriteContents(e.target.value);

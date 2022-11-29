@@ -9,8 +9,8 @@ const WriteGenderSelect = ({ handler }) => {
   // 동성
 
   useEffect(() => {
-    const gender = isSelect[0] ? '무관' : '동성';
-    handler('gender', gender);
+    if (isSelect[0]) handler('gender', '무관');
+    if (isSelect[1]) handler('gender', '동성');
   }, [isSelect]);
 
   return (

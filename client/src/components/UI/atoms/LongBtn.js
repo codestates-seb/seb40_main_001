@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LongBtn = ({ txt, disabled }) => {
+const LongBtn = ({ txt, onClick, disabled }) => {
   let style =
     'text-white text-400 btn w-[340px] h-[60px] rounded-[7px] border-0';
 
@@ -11,9 +11,9 @@ const LongBtn = ({ txt, disabled }) => {
   }
 
   return (
-    <div>
-      <button className={style}>{txt}</button>
-    </div>
+    <button className={style} onClick={onClick} disabled={disabled}>
+      {txt}
+    </button>
   );
 };
 

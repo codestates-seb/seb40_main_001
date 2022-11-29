@@ -2,7 +2,15 @@ import React from 'react';
 import ExerciseCarousel from './ExerciseCarousel';
 
 const ExerciseCategory = ({ handler }) => {
-  const arr = ['running', 'yoga', 'tennis', 'swim', 'weight', 'basketball'];
+  const arr = [
+    'ALL',
+    'RUNNING',
+    'YOGA',
+    'FITNESS',
+    'SWIMMING',
+    'BASKETBALL',
+    'BADMINTON',
+  ];
 
   return (
     <div>
