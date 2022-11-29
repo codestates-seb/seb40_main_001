@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/testexercise?serverTimezone=Asia/Seoul
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: testuser
+    password: 1234
+
+cloud:
+  aws:
+    s3:
+      dir: test
