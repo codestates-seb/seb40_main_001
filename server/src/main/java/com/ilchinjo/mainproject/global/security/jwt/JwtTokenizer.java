@@ -1,5 +1,6 @@
 package com.ilchinjo.mainproject.global.security.jwt;
 
+import com.ilchinjo.mainproject.domain.auth.entity.RefreshToken;
 import com.ilchinjo.mainproject.domain.auth.repository.RefreshTokenRepository;
 import com.ilchinjo.mainproject.global.security.userdetails.MemberDetailsService;
 import io.jsonwebtoken.Claims;
@@ -16,6 +17,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
@@ -105,6 +107,29 @@ public class JwtTokenizer {
         SecurityContextHolder.getContext().setAuthentication(getAuthentication(newAccessToken));
 
         return newAccessToken;
+    }
+
+    public String reIssueRefreshToken(String refreshToken) {
+
+        String base64EncodedSecretKey = encodeBase64SecretKey(secretKey);
+
+        Authentication authentication = getAuthentication(refreshToken);
+        RefreshToken findRefreshToken = refreshTokenRepository.findByEmail(authentication.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("email: " + authentication.getName() + " was not found"));
+
+        if (findRefreshToken.getToken().equals(refreshToken)) {
+            Date expiration = getTokenExpiration(getRefreshTokenExpirationMinutes());
+            String newRefreshToken = generateRefreshToken(authentication.getName(), expiration, base64EncodedSecretKey);
+            findRefreshToken.changeToken(newRefreshToken);
+
+            refreshTokenRepository.save(findRefreshToken);
+
+            return newRefreshToken;
+        } else {
+            log.info("Invalid Token");
+
+            return null;
+        }
     }
 
     public Jws<Claims> getClaims(String jws, String base64EncodedSecretKey) {
