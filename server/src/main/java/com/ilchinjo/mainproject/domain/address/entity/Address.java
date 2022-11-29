@@ -12,6 +12,11 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
+@Table(
+        uniqueConstraints = {
+                @UniqueConstraint(name = "NoSameName", columnNames = {"sido", "sigungu", "eupmyeondong"})
+        }
+)
 public class Address extends AuditingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +26,6 @@ public class Address extends AuditingEntity {
 
     private String sigungu;
 
-    @Column(unique = true)
     private String eupmyeondong;
 
     private Point centerPoint;
