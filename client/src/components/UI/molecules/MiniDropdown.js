@@ -9,7 +9,6 @@ const Dropdown = ({ setAddress }) => {
   const getCities = () => {
     client.get('/addresses').then(res => {
       setCity(res.data.data);
-      console.log(city);
     });
   };
 
