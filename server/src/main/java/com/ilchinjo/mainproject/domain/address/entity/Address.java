@@ -2,6 +2,8 @@ package com.ilchinjo.mainproject.domain.address.entity;
 
 import com.ilchinjo.mainproject.global.audit.AuditingEntity;
 import lombok.*;
+import org.locationtech.jts.geom.MultiPolygon;
+import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
 
@@ -17,8 +19,12 @@ public class Address extends AuditingEntity {
 
     private String sido;
 
-    @Column(unique = true)
     private String sigungu;
 
+    @Column(unique = true)
     private String eupmyeondong;
+
+    private Point centerPoint;
+
+    private MultiPolygon multiPolygon;
 }
