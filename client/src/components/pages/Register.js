@@ -24,7 +24,7 @@ const Register = () => {
   } = useForm();
 
   const [isSelect, setIsSelect] = useState('');
-  const [cityNum, setcityNum] = useState();
+  const [cityNum, setcityNum] = useState(1);
   const currentPassword = useRef({});
   currentPassword.current = watch('password', '');
 
@@ -106,11 +106,14 @@ const Register = () => {
           })}
           errors={errors}
         />
-
+        {/* const [address, setAddress] = useState(3);
+        <MiniDropdown setAddress={setAddress} /> */}
         <GenderSelect isSelect={isSelect} setIsSelect={setIsSelect} />
 
         <TownSelect setcityNum={setcityNum} />
-        <LongBtn txt="회원가입" />
+        <div className="p-28">
+          <LongBtn txt="회원가입" />
+        </div>
       </form>
     </>
   );
