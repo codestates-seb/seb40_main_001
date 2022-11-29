@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -96,6 +97,14 @@ public class JwtTokenizer {
                 .setExpiration(expiration)
                 .signWith(key)
                 .compact();
+    }
+
+    public String reIssueAccessToken(Long memberId, Authentication authentication) {
+
+        String newAccessToken = generateAccessToken(memberId, authentication);
+        SecurityContextHolder.getContext().setAuthentication(getAuthentication(newAccessToken));
+
+        return newAccessToken;
     }
 
     public Jws<Claims> getClaims(String jws, String base64EncodedSecretKey) {
