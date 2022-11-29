@@ -134,12 +134,17 @@ const dummyData = {
 };
 
 const ViewerComments = ({ target, userId, writer }) => {
-  const [reply, setReply] = useState(false);
-
+  const [reply, setReply] = useState(
+    new Array(dummyData.data.length).fill(false),
+  );
   const writeReply = idx => {
-    const clickReply = new Array(dummyData.data.length).fill(false);
-    clickReply[idx] = true;
-    setReply(clickReply);
+    // if (clickReply[idx]) clickReply[idx] = false;
+    // else clickReply[idx] = true;
+    setReply(prev => {
+      const clickReply = prev;
+      clickReply[idx] = !clickReply[idx];
+      return clickReply;
+    });
   };
 
   return (
@@ -309,6 +314,7 @@ const ViewerComments = ({ target, userId, writer }) => {
         }
         // 뷰어와 댓글 작성자가 다르다.그리고 댓글 작성자가 게시글 작성자와 다르다
         if (userId !== x.author.memberId && writer !== x.author.memberId) {
+          console.log(reply[idx]);
           return reply[idx] ? (
             // 댓글 버튼을 눌렀다.
             <>

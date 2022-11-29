@@ -2,7 +2,6 @@ import React from 'react';
 import HeaderArrow from '../UI/molecules/HeaderArrow';
 import ApplicantSet from '../UI/molecules/Applicant';
 import InputComments from '../UI/molecules/InputComments';
-// import Comments from '../UI/organisms/Comments';
 import DetailContentsWriter from '../UI/organisms/DetailContentsWriter';
 import WriterComments from '../UI/organisms/WriterComments';
 
@@ -83,8 +82,6 @@ const ArounderWriter = ({ writer, userId }) => {
       <ApplicantSet dummyData={dummyData} writer={writer} />
       <InputComments target="댓글을" />
       <WriterComments target="답글을" userId={userId} writer={writer} />
-      {/* Comments 는 데이터 양식을 받아오는 거 보고 많이 뜯어고쳐야 할 것 같습니다.
-      dummy 데이터로 테스트만 됐을 뿐입니다. */}
     </div>
   );
 };
