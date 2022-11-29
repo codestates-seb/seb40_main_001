@@ -2,8 +2,8 @@ import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import client from '../../client/client';
-import { LongBtn } from '../UI/atoms';
 import {
+  LongBtn,
   GenderSelect,
   HeaderNone,
   IdInput,
