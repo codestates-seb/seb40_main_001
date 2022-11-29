@@ -93,8 +93,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                         },
                         () -> {
                             RefreshToken token = RefreshToken.createToken(member.getEmail(), refreshToken);
-                            log.info("issueRefreshToken | save email: {}, token: {}", token.getEmail(), token.getToken());
                             refreshTokenRepository.save(token);
+                            log.info("issueRefreshToken | save email: {}, token: {}", token.getEmail(), token.getToken());
                         });
 
         return refreshToken;
