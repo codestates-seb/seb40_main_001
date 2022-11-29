@@ -1,6 +1,5 @@
 package com.ilchinjo.mainproject.domain.review.dto;
 
-import com.ilchinjo.mainproject.domain.member.dto.MemberSimpleDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

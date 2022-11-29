@@ -6,10 +6,7 @@ import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
 import com.ilchinjo.mainproject.domain.exercise.repository.ExerciseRepository;
 import com.ilchinjo.mainproject.domain.image.entity.Image;
 import com.ilchinjo.mainproject.domain.image.repository.ImageRepository;
-import com.ilchinjo.mainproject.domain.member.dto.MemberDetailResponseDto;
-import com.ilchinjo.mainproject.domain.member.dto.MemberPatchDto;
-import com.ilchinjo.mainproject.domain.member.dto.MemberPostDto;
-import com.ilchinjo.mainproject.domain.member.dto.MemberResponseDto;
+import com.ilchinjo.mainproject.domain.member.dto.*;
 import com.ilchinjo.mainproject.domain.member.entity.Member;
 import com.ilchinjo.mainproject.domain.member.mapper.MemberMapper;
 import com.ilchinjo.mainproject.domain.member.repository.MemberRepository;
@@ -72,15 +69,15 @@ public class MemberServiceImpl implements MemberService {
         Optional.ofNullable((patchDto.getAddressId()))
                 .ifPresent(addressId -> {
                     Address address = addressService.findVerifiedAddress(addressId);
-                            findMember.updateAddress(address);
-                        });
+                    findMember.updateAddress(address);
+                });
 
         Optional.ofNullable(patchDto.getImageId())
-                        .ifPresent(imageId -> {
-                            Image image = findVerifiedImage(imageId);
-                            findMember.addImage(image);
-                            image.addProfiledMember(findMember);
-                        });
+                .ifPresent(imageId -> {
+                    Image image = findVerifiedImage(imageId);
+                    findMember.addImage(image);
+                    image.addProfiledMember(findMember);
+                });
 
         return memberMapper.entityToResponseDto(findMember);
     }
@@ -101,6 +98,12 @@ public class MemberServiceImpl implements MemberService {
         }
 
         return responseDto;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public MemberSimpleDto findSimpleMember(Long memberId) {
+        return memberMapper.entityToSimpleResponseDto(findVerifiedMember(memberId));
     }
 
     @Override
