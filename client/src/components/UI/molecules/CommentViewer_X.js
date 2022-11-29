@@ -2,8 +2,15 @@ import React from 'react';
 import CommentDeleteBtn from '../atoms/CommentDeleteBtn';
 import CommentLayout from '../atoms/CommentLayout';
 
-const ViewerSource = ({ nickname, contents, handler, deleteHandler, id }) => {
-  return (
+const ViewerSource = ({
+  nickname,
+  contents,
+  handler,
+  deleteHandler,
+  id,
+  mainReply,
+}) => {
+  return mainReply ? (
     <div className="flex flex row justify-between">
       <div className="flex flex-col m-[15px]">
         <div className="flex flex-row">
@@ -18,10 +25,29 @@ const ViewerSource = ({ nickname, contents, handler, deleteHandler, id }) => {
         <CommentDeleteBtn onClick={deleteHandler} />
       </div>
     </div>
+  ) : (
+    <div className="flex flex row justify-between">
+      <div className="flex flex-col m-[15px]">
+        <div className="flex flex-row">
+          <div className="font-bold mr-[10px] text-200">{`${nickname}`}</div>
+        </div>
+        <div className="text-200 ">{`${contents}`}</div>
+      </div>
+      <div className="m-[5px]">
+        <CommentDeleteBtn onClick={deleteHandler} />
+      </div>
+    </div>
   );
 };
 
-const ViewerCLX = ({ nickname, contents, handler, deleteHandler, id }) => {
+const ViewerCLX = ({
+  nickname,
+  contents,
+  handler,
+  deleteHandler,
+  id,
+  mainReply,
+}) => {
   return (
     <CommentLayout
       source={
@@ -31,6 +57,7 @@ const ViewerCLX = ({ nickname, contents, handler, deleteHandler, id }) => {
           handler={handler}
           deleteHandler={deleteHandler}
           id={id}
+          mainReply={mainReply}
         />
       }
     />

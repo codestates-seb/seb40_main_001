@@ -2,10 +2,10 @@ import React from 'react';
 import HeaderArrow from '../UI/molecules/HeaderArrow';
 import ApplicantSet from '../UI/molecules/Applicant';
 import InputComments from '../UI/molecules/InputComments';
-import Comments from '../UI/organisms/Comments';
 import DetailContents from '../UI/organisms/DetailContents';
+import ViewerComments from '../UI/organisms/ViewerComments';
 
-const ArounderViewer = ({ writer }) => {
+const ArounderViewer = ({ writer, userId }) => {
   const img = [
     {
       src: 'https://www.sisajunior.com/img/play/dica/chat/%EB%B3%B4%EB%85%B8%EB%B3%B4%EB%85%B84.jpg',
@@ -67,7 +67,7 @@ const ArounderViewer = ({ writer }) => {
       <DetailContents dummyData={dummyData} img={img} />
       <ApplicantSet dummyData={dummyData} writer={writer} />
       <InputComments target="댓글을" />
-      <Comments target="답글을" />
+      <ViewerComments target="답글을" writer={writer} userId={userId} />
       {/* Comments 는 데이터 양식을 받아오는 거 보고 많이 뜯어고쳐야 할 것 같습니다.
       dummy 데이터로 테스트만 됐을 뿐입니다. */}
     </div>
