@@ -12,22 +12,22 @@ import {
 
 const getIcon = (exercise, fill) => {
   switch (exercise) {
-    case 'all':
+    case 'ALL':
       return <All fill={fill} />;
-    case 'running':
+    case 'RUNNING':
       return <Running fill={fill} />;
-    case 'yoga':
+    case 'YOGA':
       return <Yoga fill={fill} />;
-    case 'tennis':
+    case 'BADMINTON':
       return <Tennis fill={fill} />;
-    case 'swim':
+    case 'SWIMMING':
       return <Swim fill={fill} />;
-    case 'weight':
+    case 'FITNESS':
       return <Weight fill={fill} />;
-    case 'basketball':
+    case 'BASKETBALL':
       return <Basketball fill={fill} />;
     default:
-      return 'a';
+      return 'none';
   }
 };
 
