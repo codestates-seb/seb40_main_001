@@ -1,5 +1,4 @@
 import ArounderRecord from './ArounderRecord';
-import Comments from './Comments';
 import DetailContents from './DetailContents';
 import Drawer from './Drawer';
 import HomeContents from './HomeContents';
@@ -9,7 +8,6 @@ import WriteContents from './WriteContents';
 
 export {
   ArounderRecord,
-  Comments,
   DetailContents,
   Drawer,
   HomeContents,
