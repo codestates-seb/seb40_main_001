@@ -5,9 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ilchinjo.mainproject.domain.auth.entity.RefreshToken;
 import com.ilchinjo.mainproject.domain.auth.repository.RefreshTokenRepository;
 import com.ilchinjo.mainproject.global.security.userdetails.MemberDetailsService;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
@@ -189,6 +187,23 @@ public class JwtTokenizer {
         return Long.valueOf(String.valueOf(payloadMap.get("memberId")));
     }
 
+    public JwtStatus validateToken(String token) {
+
+        String base64EncodedSecretKey = encodeBase64SecretKey(secretKey);
+        Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
+
+        try {
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            return JwtStatus.ACCESS;
+        } catch (ExpiredJwtException e) {
+            return JwtStatus.EXPIRED;
+        } catch (JwtException | IllegalArgumentException e) {
+            log.info("jwtException: {}", e);
+        }
+
+        return JwtStatus.DENIED;
+    }
+
     public Authentication getAuthentication(String token) {
 
         String base64EncodedSecretKey = encodeBase64SecretKey(secretKey);
@@ -203,5 +218,11 @@ public class JwtTokenizer {
         UserDetails userDetails = memberDetailsService.loadUserByUsername(claims.getSubject());
 
         return new UsernamePasswordAuthenticationToken(userDetails, token, userDetails.getAuthorities());
+    }
+
+    public enum JwtStatus {
+        DENIED,
+        ACCESS,
+        EXPIRED;
     }
 }
