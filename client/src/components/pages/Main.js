@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import userInfoState from '../../recoil/atoms';
 import {
   HeaderLogo,
   ExerciseCarousel,
@@ -10,12 +12,6 @@ import {
 } from '../UI';
 import { Info } from '../../assets/img';
 import { client } from '../../client/client';
-// 할일
-// 인포 api 들어오면 성별에 따라 토글 아이콘 바꾸기
-// 주소체계 api 들어오면 바꾸기
-// api에 따라 주소 디폴트값주기
-// 분기처리
-// atom 분리
 
 const Main = () => {
   const navigate = useNavigate();
@@ -23,12 +19,20 @@ const Main = () => {
   const [address, setAddress] = useState(3);
   const [gender, setGender] = useState('ALL');
   const [category, setCategory] = useState('ALL');
+  const setUserId = useSetRecoilState(userInfoState);
+  const [userGender, setUserGender] = useState('');
 
   const getUserData = async () => {
     const response = await client.get(
       `/exercises?address-id=${address}&category=${category}&gender-type=${gender}&cursorId=100&size=100`, // http://3.36.23.248:8080/exercises?address-id=1&category=ALL&gender-type=ALL&size=10
     );
     setUserData(response.data.data);
+  };
+
+  const getUserInfoData = async () => {
+    const response = await client.get('/members/info');
+    setUserGender(response.data.gender);
+    setUserId(response.data.memberId);
   };
 
   const genderToggleClick = () => {
@@ -38,9 +42,6 @@ const Main = () => {
       setGender('ALL');
     }
   };
-
-  // console.log(gender);
-
   // const controlFlowMap = {
   //   SAME: () => setGender('ALL'),
   //   ALL: () => setGender('SAME'),
@@ -58,10 +59,23 @@ const Main = () => {
     navigate('/write');
   };
 
-  const contentClick = (e, target) => {
+  const contentClick = (e, target, Id) => {
     e.preventDefault();
-    navigate(`/arounderv/${target}`);
+
+    let urlCheck = '';
+
+    if (Id === target) {
+      urlCheck = 'arounderw';
+    } else {
+      urlCheck = 'arounderv';
+    }
+
+    navigate(`/${urlCheck}/${target}`);
   };
+
+  useEffect(() => {
+    getUserInfoData();
+  }, []);
 
   useEffect(() => {
     getUserData();
@@ -91,7 +105,7 @@ const Main = () => {
       />
       <div className="flex justify-between border-t border-main pt-2 mx-5">
         <MiniDropdown setAddress={setAddress} />
-        <Toggle genderToggleClick={genderToggleClick} />
+        <Toggle genderToggleClick={genderToggleClick} gender={userGender} />
       </div>
 
       <div className="flex flex-col pt-3 items-center space-y-3">
