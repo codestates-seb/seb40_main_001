@@ -111,7 +111,7 @@ const Register = () => {
         <GenderSelect isSelect={isSelect} setIsSelect={setIsSelect} />
 
         <TownSelect setcityNum={setcityNum} />
-        <div className="p-28">
+        <div className="pt-32">
           <LongBtn txt="회원가입" />
         </div>
       </form>

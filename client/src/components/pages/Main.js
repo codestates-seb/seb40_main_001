@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   HeaderLogo,
   ExerciseCarousel,
   MiniDropdown,
   Toggle,
   HomeContents,
+  EditBtn,
 } from '../UI';
 import { Info } from '../../assets/img';
 import { client } from '../../client/client';
@@ -13,9 +15,9 @@ import { client } from '../../client/client';
 // 주소체계 api 들어오면 바꾸기
 // api에 따라 주소 디폴트값주기
 // 분기처리
-// 이미지 확인
 
 const Main = () => {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState([]);
   const [address, setAddress] = useState(3);
   const [gender, setGender] = useState('ALL');
@@ -26,7 +28,7 @@ const Main = () => {
     );
     setUserData(response.data.data);
   };
-
+  console.log(userData);
   const genderToggleClick = () => {
     if (gender === 'ALL') {
       setGender('SAME');
@@ -36,6 +38,15 @@ const Main = () => {
   };
   const handler = (target, exercise) => {
     setCategory(exercise);
+  };
+
+  const handleClick = () => {
+    navigate('/write');
+  };
+
+  const contentClick = (e, target) => {
+    e.preventDefault();
+    navigate(`/arounderv/${target}`);
   };
 
   useEffect(() => {
@@ -71,9 +82,10 @@ const Main = () => {
 
       <div className="flex flex-col pt-3 items-center space-y-3">
         {userData.map((data, idx) => (
-          <HomeContents key={idx} data={data} />
+          <HomeContents key={idx} data={data} contentClick={contentClick} />
         ))}
       </div>
+      <EditBtn handleClick={handleClick} />
     </div>
   );
 };

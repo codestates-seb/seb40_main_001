@@ -8,12 +8,15 @@ const Contents = ({ data }) => {
     content,
     images,
     category,
+    exerciseId,
+    host,
     // eslint-disable-next-line no-unused-vars
     exerciseStatus, // 추후에 추가
-    host,
   } = data || {};
+  const { remotePath } = images[0] || {}; // 게시글 첫번째 이미지
   const { image, nickname } = host || {};
   const exerciseImg = getIcon(category, '#2BAE66');
+  console.log(exerciseId);
   return (
     <div className="px-[15px] pt-5 pb-[10px]">
       <div className="flex flex-row justify-between">
@@ -30,21 +33,27 @@ const Contents = ({ data }) => {
           <div className="flex flex-row mt-[10px] items-end">
             {/*  작성자 프로필  */}
             <HomeCard target={image} />
-
             <div className="flex text-light text-100 ml-[6px] items-center">
               {nickname}
             </div>
           </div>
         </div>
         {/* 게시글 첫번째 이미지  */}
-        {images && <HomeSquare target={images} />}
+
+        {remotePath && <HomeSquare target={remotePath} />}
       </div>
     </div>
   );
 };
 
-const HomeContents = ({ data }) => {
-  return <HomeCL source={<Contents data={data} />}></HomeCL>;
+const HomeContents = ({ data, contentClick }) => {
+  return (
+    <HomeCL
+      data={data}
+      contentClick={contentClick}
+      source={<Contents data={data} />}
+    ></HomeCL>
+  );
 };
 
 export default HomeContents;
