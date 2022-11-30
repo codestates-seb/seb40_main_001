@@ -8,7 +8,7 @@ const Contents = ({ data }) => {
     content,
     images,
     category,
-    exerciseId,
+    // exerciseId,
     host,
     // eslint-disable-next-line no-unused-vars
     exerciseStatus, // 추후에 추가
@@ -16,7 +16,7 @@ const Contents = ({ data }) => {
   const { remotePath } = images[0] || {}; // 게시글 첫번째 이미지
   const { image, nickname } = host || {};
   const exerciseImg = getIcon(category, '#2BAE66');
-  console.log(exerciseId);
+  // console.log(exerciseId);
   return (
     <div className="px-[15px] pt-5 pb-[10px]">
       <div className="flex flex-row justify-between">
