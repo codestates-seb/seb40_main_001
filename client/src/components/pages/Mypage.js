@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { HeaderLogo, MyInfo, ArounderRecord, Modal, Drawer } from '../UI';
 
-const MypageTemplate = ({ userData, data }) => {
+const Mypage = ({ userData, data }) => {
   const [isDrawer, setIsDrawer] = useState(false);
   const [isModal, setIsModal] = useState(false);
   const [score, setScore] = useState('');
@@ -67,4 +67,4 @@ const MypageTemplate = ({ userData, data }) => {
   );
 };
 
-export default MypageTemplate;
+export default Mypage;
