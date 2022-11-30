@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { ExerciseBtn } from '../atoms';
 
 const ExerciseCarousel = ({ arr, handler }) => {
-  const [isSelect, setIsSelect] = useState('');
+  const [isSelect, setIsSelect] = useState('ALL');
   const handleClick = e => {
-    // e === exercise name
     setIsSelect(e);
     handler('exercise', e);
   };
