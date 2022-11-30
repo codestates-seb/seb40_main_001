@@ -33,7 +33,7 @@ const MypageTemplate = ({ userData, data }) => {
         ) : (
           <></>
         )}
-        <HeaderLogo txt="마이페이지" menuHandler={menuHandler} />
+        <HeaderLogo txt="마이페이지" menuHandler={menuHandler} menu={true} />
         <div className="flex justify-center mt-5">
           {/* 사용자 프로필 이미지, 닉네임, 배터리 요소 전달 */}
           {/* 데이터 패칭 후 해당 요소를 data 등으로 묶어서 보낼 것 */}

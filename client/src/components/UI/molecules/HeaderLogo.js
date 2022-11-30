@@ -2,7 +2,7 @@ import React from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { Logo, Menu } from '../../../assets/img';
 
-const HeaderLogo = ({ txt, menuHandler, children }) => {
+const HeaderLogo = ({ txt, menuHandler, children, menu = false }) => {
   const logoHandler = () => {
     if (txt) {
       // navigate('/');
@@ -14,7 +14,7 @@ const HeaderLogo = ({ txt, menuHandler, children }) => {
       <Logo onClick={logoHandler} />
       <div className="text-400">{txt}</div>
       <div className="absolute transform translate-x-[14rem]">{children}</div>
-      <Menu onClick={menuHandler} />
+      {menu ? <Menu onClick={menuHandler} /> : null}
     </div>
   );
 };
