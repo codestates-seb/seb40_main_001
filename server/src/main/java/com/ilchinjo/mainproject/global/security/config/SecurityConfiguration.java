@@ -73,6 +73,8 @@ public class SecurityConfiguration {
 
                         .antMatchers("/images").hasRole("USER")
 
+                        .antMatchers("/auth/logout").hasRole("USER")
+
                         .anyRequest().denyAll()
                 );
 
