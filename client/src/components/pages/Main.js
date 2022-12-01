@@ -28,7 +28,6 @@ const Main = () => {
     );
     setUserData(response.data.data);
   };
-
   const getUserInfoData = async () => {
     const response = await client.get('/members/info');
     setUserGender(response.data.gender);
@@ -59,18 +58,9 @@ const Main = () => {
     navigate('/write');
   };
 
-  const contentClick = (e, target, Id) => {
+  const contentClick = (e, target, checked) => {
     e.preventDefault();
-
-    let urlCheck = '';
-
-    if (Id === target) {
-      urlCheck = 'arounderw';
-    } else {
-      urlCheck = 'arounderv';
-    }
-
-    navigate(`/${urlCheck}/${target}`);
+    navigate(`/${checked}/${target}`);
   };
 
   useEffect(() => {
