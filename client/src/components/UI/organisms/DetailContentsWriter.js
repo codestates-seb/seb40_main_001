@@ -6,7 +6,7 @@ import { Carousel } from '../molecules';
 
 const DetailContentsWriter = ({
   updateHandler,
-  deleteHander,
+  deleteHandler,
   img,
   contentsData,
 }) => {
@@ -22,7 +22,7 @@ const DetailContentsWriter = ({
               <UpdateBtn handleClick={updateHandler} />
             </div>
             <div className="">
-              <DeleteBtn handleClick={deleteHander} />
+              <DeleteBtn handleClick={deleteHandler} />
             </div>
           </div>
         </div>
