@@ -13,7 +13,7 @@ const HeaderLogo = ({ txt, menuHandler, children, menu = false }) => {
     <div className="flex flex-row justify-between w-[390px] h-[55px] items-center px-5">
       <Logo onClick={logoHandler} />
       <div className="text-400">{txt}</div>
-      <div className="absolute transform translate-x-[14rem]">{children}</div>
+      <div className="absolute transform translate-x-[14.6rem]">{children}</div>
       {menu ? <Menu onClick={menuHandler} /> : null}
     </div>
   );

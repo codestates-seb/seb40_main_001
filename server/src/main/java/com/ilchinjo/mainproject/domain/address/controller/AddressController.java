@@ -5,10 +5,7 @@ import com.ilchinjo.mainproject.domain.address.service.AddressService;
 import com.ilchinjo.mainproject.global.dto.MultiResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,5 +18,11 @@ public class AddressController {
     @ResponseStatus(HttpStatus.OK)
     public MultiResponseDto<AddressResponseDto> getAddresses() {
         return MultiResponseDto.of(addressService.findAddresses());
+    }
+
+    @GetMapping("/{address-id}/nearby")
+    @ResponseStatus(HttpStatus.OK)
+    public MultiResponseDto<AddressResponseDto> getAddressesNearby(@PathVariable(name = "address-id") Long addressId) {
+        return MultiResponseDto.of(addressService.findNearbyAddresses(addressId));
     }
 }
