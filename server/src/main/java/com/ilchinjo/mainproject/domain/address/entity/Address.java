@@ -15,6 +15,9 @@ import javax.persistence.*;
 @Table(
         uniqueConstraints = {
                 @UniqueConstraint(name = "NoSameName", columnNames = {"sido", "sigungu", "eupmyeondong"})
+        },
+        indexes = {
+                @Index(name = "sigunguIndex", columnList = "sigungu")
         }
 )
 public class Address extends AuditingEntity {
