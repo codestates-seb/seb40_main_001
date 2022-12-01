@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { HeaderLogo, HeaderNone, IdInput, PasswordInput, LongBtn } from '../UI';
-import { client } from '../../client/client';
+import { preClient } from '../../client/client';
 
 const Login = () => {
   const naviagte = useNavigate();
@@ -17,7 +17,7 @@ const Login = () => {
       email: text,
       password,
     };
-    client
+    preClient
       .post('/auth/login', payload)
       .then(res => {
         if (res.headers.get('Authorization')) {
