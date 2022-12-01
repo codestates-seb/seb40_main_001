@@ -31,4 +31,9 @@ public class AddressServiceImpl implements AddressService {
                 () -> new BusinessLogicException(ExceptionCode.ADDRESS_NOT_FOUND)
         );
     }
+
+    @Override
+    public List<AddressResponseDto> findNearbyAddresses(Long addressId) {
+        return mapper.entitiesToResponseDtoList(addressRepository.findNearbyAddresses(addressId));
+    }
 }
