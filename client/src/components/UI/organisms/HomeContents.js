@@ -18,19 +18,19 @@ const Contents = ({ data }) => {
   const exerciseImg = getIcon(category, '#2BAE66');
   // console.log(exerciseId);
   return (
-    <div className="px-[15px] pt-5 pb-[10px]">
+    <div className="px-[15px] pt-4 pb-[10px]">
       <div className="flex flex-row justify-between">
         <div className="flex flex-col">
           <div className="flex flex-row">
             {exerciseImg}
-            <div className="flex text text-300 font-bold ml-[10px] items-center">
+            <div className="flex text text-300 font-bold ml-[10px] h-[48px]">
               {title}
             </div>
           </div>
-          <div className="text-left text-low text-200 mt-2 whitespace-pre-wrap w-[179px] h-[43px]">
+          <div className="text-left text-low text-200 whitespace-pre-wrap w-[200px] h-[43px]">
             {content.length > 30 ? `${content.slice(0, 30)}...` : content}
           </div>
-          <div className="flex flex-row mt-[10px] items-end">
+          <div className="flex flex-row mt-[5px] items-center">
             {/*  작성자 프로필  */}
             <HomeCard target={image} />
             <div className="flex text-light text-100 ml-[6px] items-center">

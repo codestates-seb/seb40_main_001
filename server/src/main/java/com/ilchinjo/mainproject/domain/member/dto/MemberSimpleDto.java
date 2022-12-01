@@ -1,6 +1,7 @@
 package com.ilchinjo.mainproject.domain.member.dto;
 
 import com.ilchinjo.mainproject.domain.address.dto.AddressResponseDto;
+import com.ilchinjo.mainproject.domain.image.dto.ImageResponseDto;
 import com.ilchinjo.mainproject.domain.member.entity.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,4 +16,5 @@ public class MemberSimpleDto {
     private String nickname;
     private AddressResponseDto address;
     private Gender gender;
+    private ImageResponseDto image;
 }

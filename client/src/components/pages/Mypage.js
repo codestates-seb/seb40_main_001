@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import userInfoState from '../../recoil/atoms';
 import { HeaderLogo, MyInfo, ArounderRecord, Modal, Drawer } from '../UI';
+import { client } from '../../client/client';
 
-const MypageTemplate = ({ userData, data }) => {
+const Mypage = () => {
+  const [userData, setUserData] = useState();
+  const [data, setData] = useState();
   const [isDrawer, setIsDrawer] = useState(false);
   const [isModal, setIsModal] = useState(false);
   const [score, setScore] = useState('');
+  const userId = useRecoilValue(userInfoState);
 
   const closeModal = () => {
     setIsModal(false);
@@ -17,10 +23,42 @@ const MypageTemplate = ({ userData, data }) => {
 
   const menuHandler = () => {
     setIsDrawer(!isDrawer);
+    setUserData(''); // delete하기
   };
 
+  // eslint-disable-next-line no-unused-vars
+  const editProfile = () => {
+    const payload = {
+      nickname: userData.nickname,
+      addressId: userData.address,
+      imageId: 1,
+    };
+    client.patch(`/members/${userId}`, payload);
+  };
+
+  const getHistory = () => {
+    client
+      .get('/members/profiles')
+      .then(res => {
+        setUserData({
+          profile: res.data.image,
+          nickname: res.data.nickname,
+          charge: res.data.publicEvaluation,
+          address: res.data.address.addressId,
+        });
+        setData(res.data.exerciseRecord);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getHistory();
+  }, []);
+
   return (
-    <div className="relative">
+    <div className="relative h-screen">
       <div>
         {/* 배경 흐리게 */}
         {isDrawer ? (
@@ -37,11 +75,7 @@ const MypageTemplate = ({ userData, data }) => {
         <div className="flex justify-center mt-5">
           {/* 사용자 프로필 이미지, 닉네임, 배터리 요소 전달 */}
           {/* 데이터 패칭 후 해당 요소를 data 등으로 묶어서 보낼 것 */}
-          <MyInfo
-            profile={userData.img}
-            nickname={userData.nickname}
-            charge={userData.charge}
-          />
+          <MyInfo userData={userData} />
         </div>
         <div className="flex justify-center mt-5">
           <ArounderRecord data={data} openModal={openModal} />
@@ -49,6 +83,7 @@ const MypageTemplate = ({ userData, data }) => {
       </div>
       {/* 드로워 */}
       {isDrawer ? (
+        // h-full 하면 top-55px 밀리니까 이거 계산해서 넣어주기
         <div className="h-full absolute z-20 top-[55px] right-0">
           <Drawer />
         </div>
@@ -67,4 +102,4 @@ const MypageTemplate = ({ userData, data }) => {
   );
 };
 
-export default MypageTemplate;
+export default Mypage;

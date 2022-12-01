@@ -1,6 +1,6 @@
 package com.ilchinjo.mainproject.domain.exercise.dto;
 
-import com.ilchinjo.mainproject.domain.address.entity.Address;
+import com.ilchinjo.mainproject.domain.address.dto.AddressResponseDto;
 import com.ilchinjo.mainproject.domain.exercise.entity.Category;
 import com.ilchinjo.mainproject.domain.exercise.entity.ExerciseStatus;
 import com.ilchinjo.mainproject.domain.exercise.entity.GenderType;
@@ -25,6 +25,6 @@ public class ExerciseRecordDto {
     private GenderType genderType;
     private Category category;
     private ExerciseStatus exerciseStatus;
-    private Address address;
+    private AddressResponseDto address;
     private Boolean isReviewed;
 }

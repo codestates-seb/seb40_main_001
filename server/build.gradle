@@ -58,6 +58,9 @@ dependencies {
     //querydsl 추가
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
     annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
+
+    // hibernate spatial
+    implementation 'org.hibernate:hibernate-spatial'
 }
 
 tasks.named('test') {

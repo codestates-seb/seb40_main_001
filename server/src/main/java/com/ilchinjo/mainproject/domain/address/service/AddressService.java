@@ -9,4 +9,6 @@ public interface AddressService {
     List<AddressResponseDto> findAddresses();
 
     Address findVerifiedAddress(Long addressId);
+
+    List<AddressResponseDto> findNearbyAddresses(Long addressId);
 }

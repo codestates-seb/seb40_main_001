@@ -15,14 +15,14 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class AddressServiceImpl implements AddressService{
+public class AddressServiceImpl implements AddressService {
     private final AddressRepository addressRepository;
     private final AddressMapper mapper;
 
     @Override
     @Transactional(readOnly = true)
     public List<AddressResponseDto> findAddresses() {
-        return mapper.entitiesToResponseDtoList(addressRepository.findAll());
+        return mapper.entitiesToResponseDtoList(addressRepository.findAllAddressDistinct());
     }
 
     @Override
@@ -30,5 +30,10 @@ public class AddressServiceImpl implements AddressService{
         return addressRepository.findById(addressId).orElseThrow(
                 () -> new BusinessLogicException(ExceptionCode.ADDRESS_NOT_FOUND)
         );
+    }
+
+    @Override
+    public List<AddressResponseDto> findNearbyAddresses(Long addressId) {
+        return mapper.entitiesToResponseDtoList(addressRepository.findNearbyAddresses(addressId));
     }
 }
