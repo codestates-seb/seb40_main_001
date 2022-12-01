@@ -14,7 +14,7 @@ const Carousel = ({ img }) => {
       <div className="carousel w-[368px] h-[231px]">
         <div id="slide1" className="carousel-item relative w-full">
           <img src={img[0].remotePath} className="w-full" />
-          <CarouselBtn />
+          <CarouselBtn href={''} />
         </div>
       </div>
     );
