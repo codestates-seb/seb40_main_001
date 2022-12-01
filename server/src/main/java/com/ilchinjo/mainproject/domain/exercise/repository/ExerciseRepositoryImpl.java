@@ -86,4 +86,10 @@ public class ExerciseRepositoryImpl implements ExerciseRepositoryCustom {
         }
     }
 
+    private BooleanExpression startPoint(Long cursorId) {
+        if (cursorId == null) {
+            return null;
+        }
+        return exercise.exerciseId.lt(cursorId);
+    }
 }
