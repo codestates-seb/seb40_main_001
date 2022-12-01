@@ -38,6 +38,7 @@ const Main = () => {
   };
   const getUserInfoData = async () => {
     const response = await client.get('/members/info');
+    // nickname, image를 드로워에 내려줘야 함!
     setUserGender(response.data.gender);
     setUserId(response.data.memberId);
   };
