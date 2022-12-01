@@ -9,6 +9,7 @@ import {
   Toggle,
   HomeContents,
   EditBtn,
+  Drawer,
 } from '../UI';
 import { Info } from '../../assets/img';
 import { client } from '../../client/client';
@@ -21,6 +22,13 @@ const Main = () => {
   const [category, setCategory] = useState('ALL');
   const setUserId = useSetRecoilState(userInfoState);
   const [userGender, setUserGender] = useState('');
+  // 드로워 오픈 여부
+  const [isDrawer, setIsDrawer] = useState(false);
+
+  // 햄버거 아이콘 클릭 시 드로워 오픈 여부 변경
+  const menuHandler = () => {
+    setIsDrawer(!isDrawer);
+  };
 
   const getUserData = async () => {
     const response = await client.get(
@@ -72,8 +80,9 @@ const Main = () => {
   }, [address, category, gender]);
 
   return (
-    <div>
-      <HeaderLogo txt="어라운더 찾기" menu={true}>
+    // 드로워 위치를 위한 css 추가
+    <div className="relative h-screen">
+      <HeaderLogo txt="어라운더 찾기" menuHandler={menuHandler} menu={true}>
         <div
           className="tooltip tooltip-bottom"
           data-tip="어라운더란? 같이 운동할 동네친구"
@@ -81,6 +90,12 @@ const Main = () => {
           <Info />
         </div>
       </HeaderLogo>
+      {/* 배경 흐리게 */}
+      {isDrawer ? (
+        <div className="w-full h-full absolute bg-black opacity-50 z-10"></div>
+      ) : (
+        <></>
+      )}
       <ExerciseCarousel
         handler={handler}
         arr={[
@@ -104,6 +119,15 @@ const Main = () => {
         ))}
       </div>
       <EditBtn handleClick={handleClick} />
+
+      {/* 드로워 */}
+      {isDrawer ? (
+        <div className="h-full absolute z-20 top-[55px] right-0">
+          <Drawer />
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

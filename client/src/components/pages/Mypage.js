@@ -58,9 +58,7 @@ const Mypage = () => {
     client
       .get('/members/profiles')
       .then(res => {
-        console.log(res.data);
         setUserData({
-          // profile: res.data.image,
           nickname: res.data.nickname,
           charge: res.data.publicEvaluation,
           addressId: res.data.address.addressId,
@@ -74,6 +72,15 @@ const Mypage = () => {
 
   useEffect(() => {
     getHistory();
+
+    client.get('/members/info').then(res => {
+      console.log(res.data);
+      setUserData(prev => {
+        const newData = prev;
+        newData.profile = res.data.image.remotePath;
+        return newData;
+      });
+    });
   }, []);
 
   useEffect(() => {
@@ -112,7 +119,7 @@ const Mypage = () => {
       {isDrawer ? (
         // h-full 하면 top-55px 밀리니까 이거 계산해서 넣어주기
         <div className="h-full absolute z-20 top-[55px] right-0">
-          <Drawer />
+          <Drawer img={userData.profile} name={userData.nickname} />
         </div>
       ) : (
         <></>
