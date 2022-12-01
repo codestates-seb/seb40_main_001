@@ -10,21 +10,6 @@ const DetailContentsWriter = ({
   img,
   contentsData,
 }) => {
-  // const dummyData = [
-  //   {
-  //     id: 1,
-  //     title: '같이 농구 하실분?!!',
-  //     target:
-  //       'https://i.pinimg.com/474x/49/ec/a8/49eca86ab8fb9e496d5789f871559ab2.jpg',
-  //     nickname: '헬리',
-  //     createDate: '2022.11.18',
-  //     endDate: '2022.11.19',
-  //     content: `일요일 오후 4시부터 서울숲에서 같이 해요!
-  //     댓글에 연락수단 말씀해주시면 대댓글로 남겨드릴게요!
-  //     참고로 농구 초보입니다 >< !`,
-  //   },
-  // ];
-
   return (
     <div className="flex flex-col mt-[30px]">
       <div className="border-b border-main w-[351px]">
@@ -43,12 +28,12 @@ const DetailContentsWriter = ({
         </div>
         <div className="flex flex-row justify-between items-end">
           <div className="flex flex-row items-center justify-center mb-[15px]">
-            <HomeCard target={contentsData.target} />
+            <HomeCard target={contentsData.host && contentsData.host.image} />
             <div className=" ml-[5px] text-default text-200 max-w-[170px] truncate">
-              {contentsData.nickname}
+              {contentsData.host && contentsData.host.nickname}
             </div>
           </div>
-          <div className="text-low text-200">{`${contentsData.createDate} ~ ${contentsData.endDate}`}</div>
+          <div className="text-low text-200">{`${contentsData.exerciseAt} ~ ${contentsData.endAt}`}</div>
         </div>
       </div>
       <div className="mt-[25px] mb-[10px]">
