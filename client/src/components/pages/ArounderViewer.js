@@ -9,7 +9,7 @@ import ViewerComments from '../UI/organisms/ViewerComments';
 import { client } from '../../client/client';
 import userInfoState from '../../recoil/atoms';
 
-// test
+// 해당 id 값을 어떻게 받아오는가에 대한 로직 -> 승환님 도와줘요오
 // Applicant button onClick event setting
 // input button onClick event setting
 // change createAt && endAt -> YYYY-MM-DD
@@ -45,27 +45,32 @@ const ArounderViewer = () => {
     setCommentsData(commentsResponse.data.data);
   };
 
+  // input value 저장
   const commentsHandler = e => {
     setWriteComments(e.target.value);
   };
 
+  // 화살표 클릭 시 main으로 돌아가기
   const arrowHandler = () => {
     navigate('/main');
   };
 
+  // 댓글 삭제 handler
   // eslint-disable-next-line no-unused-vars
   const mainReplyDeleteHandler = async () => {
     // await client.delete(`/comments/${commentsData.commentId}`);
     console.log(commentsData.commentID);
   };
 
+  // 대댓글 삭제 handler
   // eslint-disable-next-line no-unused-vars
   const nonMainReplyDeleteHandler = async () => {
     // await client.delete(`/replies/${commentsData.replies.replyId}`);
     console.log(commentsData && commentsData.replies);
   };
 
-  const writeReplies = e => {
+  // 댓글 달기
+  const writeMainReplies = e => {
     e.preventDefault();
     if (writeComments === '') {
       alert('내용을 입력해주세요.');
@@ -75,7 +80,21 @@ const ArounderViewer = () => {
       content: writeComments,
     };
     client.post(`/exercises/${id}/comments`, body);
-    console.log(id, writeComments);
+    setWriteComments('');
+  };
+
+  // 대댓글 달기
+  // eslint-disable-next-line no-unused-vars
+  const writeSubReplies = e => {
+    e.preventDefault();
+    if (writeComments === '') {
+      alert('내용을 입력해주세요.');
+      return;
+    }
+    const body = {
+      content: writeComments,
+    };
+    client.post(`/comments/{comment-id}/replies`, body);
     setWriteComments('');
   };
 
@@ -107,7 +126,7 @@ const ArounderViewer = () => {
             target="댓글을"
             handler={writeReplies} // post 요청 줘야한다
             onChange={commentsHandler}
-            value={writeComments}
+            value={writeMainReplies}
           />
           <ViewerComments
             target="답글을"
