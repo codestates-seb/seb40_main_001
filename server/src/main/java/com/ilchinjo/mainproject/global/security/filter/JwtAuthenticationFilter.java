@@ -1,11 +1,14 @@
 package com.ilchinjo.mainproject.global.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ilchinjo.mainproject.domain.auth.entity.RefreshToken;
+import com.ilchinjo.mainproject.domain.auth.repository.RefreshTokenRepository;
 import com.ilchinjo.mainproject.domain.member.entity.Member;
 import com.ilchinjo.mainproject.global.security.dto.LoginDto;
 import com.ilchinjo.mainproject.global.security.jwt.JwtTokenizer;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,11 +23,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
     private final JwtTokenizer jwtTokenizer;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     @SneakyThrows
     @Override
@@ -78,6 +83,19 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
 
         String refreshToken = jwtTokenizer.generateRefreshToken(subject, expiration, base64EncodedSecretKey);
+
+        refreshTokenRepository.findByEmail(member.getEmail())
+                .ifPresentOrElse(
+                        r -> {
+                            r.changeToken(refreshToken);
+                            refreshTokenRepository.save(r);
+                            log.info("issueRefreshToken | change token");
+                        },
+                        () -> {
+                            RefreshToken token = RefreshToken.createToken(member.getEmail(), refreshToken);
+                            refreshTokenRepository.save(token);
+                            log.info("issueRefreshToken | save email: {}, token: {}", token.getEmail(), token.getToken());
+                        });
 
         return refreshToken;
     }
