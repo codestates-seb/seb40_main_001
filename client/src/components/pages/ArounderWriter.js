@@ -18,17 +18,17 @@ const ArounderWriter = ({ writer, userId }) => {
     console.log(contentsData.host.image);
   };
 
-  // const img = [
-  //   {
-  //     src: 'https://www.sisajunior.com/img/play/dica/chat/%EB%B3%B4%EB%85%B8%EB%B3%B4%EB%85%B84.jpg',
-  //   },
-  //   {
-  //     src: 'https://w.namu.la/s/fbe29c52a03345a112f33d89632e39735b30e9cd3d85346db314841d27e13f5148542ea262ae9fcd04c1a5c86c1a07586e381983ef8c4ce600ea9378fe4066a20cc0cc852ead850742da5a7bdbc4d2b106793134d34f08ab8703103c226b4947',
-  //   },
-  //   {
-  //     src: 'https://t1.daumcdn.net/cfile/tistory/997E5C3C5BA1E68137',
-  //   },
-  // ];
+  const img = [
+    {
+      src: 'https://www.sisajunior.com/img/play/dica/chat/%EB%B3%B4%EB%85%B8%EB%B3%B4%EB%85%B84.jpg',
+    },
+    {
+      src: 'https://w.namu.la/s/fbe29c52a03345a112f33d89632e39735b30e9cd3d85346db314841d27e13f5148542ea262ae9fcd04c1a5c86c1a07586e381983ef8c4ce600ea9378fe4066a20cc0cc852ead850742da5a7bdbc4d2b106793134d34f08ab8703103c226b4947',
+    },
+    {
+      src: 'https://t1.daumcdn.net/cfile/tistory/997E5C3C5BA1E68137',
+    },
+  ];
 
   const dummyData = [
     {
@@ -93,7 +93,7 @@ const ArounderWriter = ({ writer, userId }) => {
         updateHandler={updateHandler}
         deleteHandler={deleteHandler}
         writer={writer}
-        img={contentsData.host.image}
+        img={img}
       />
       <ApplicantSet dummyData={dummyData} writer={writer} />
       <InputComments target="댓글을" />
