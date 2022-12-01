@@ -2,25 +2,36 @@ import React, { useState } from 'react';
 import Applicant from '../atoms/Applicant';
 import { ShortBtn } from '../atoms';
 
-const ApplicantSet = ({ dummyData, writer }) => {
+const ApplicantSet = ({ proposalsData, writer, userId }) => {
   const [together, setTogether] = useState(false);
   const [checkProfile, setCheckProfile] = useState(false);
+
   const buttonHandler = () => {
     setTogether(!together);
   };
 
+  // const getContentsData = async () => {
+  //   const contentsResponse = await client.get(`/exercises/${id}`);
+  //   setContentsData(contentsResponse.data);
+  // };
+
+  // const postApplicants = async () => {
+  //   const postApplicantsData = await
+  // }
+
   const profileHandler = id => {
-    const profiles = new Array(dummyData.length).fill(false);
+    const profiles = new Array(proposalsData.length).fill(false);
     profiles[id] = true;
     setCheckProfile(profiles);
   };
 
   const txt = together ? '완료' : '함께하기';
+
   return (
-    <div className="flex flex-row w-[350px]">
+    <div className="flex flex-row w-[350px] items-start justify-between">
       <div className="carousel overflow-x-scroll flex items-center justify-between">
-        {dummyData.map((x, id) => {
-          if (writer) {
+        {proposalsData.map((x, id) => {
+          if (writer === userId) {
             return !checkProfile[id] ? (
               <>
                 <div
@@ -30,7 +41,7 @@ const ApplicantSet = ({ dummyData, writer }) => {
                 >
                   <Applicant target={x.target} />
                   <div className="text-center w-[50px] text-200 truncate">
-                    {x.nickname}
+                    {x.participant && x.participant.nickname}
                   </div>
                 </div>
               </>
@@ -43,13 +54,13 @@ const ApplicantSet = ({ dummyData, writer }) => {
                 >
                   <Applicant target={x.target} />
                   <div className="text-center w-[50px] text-200 truncate items-center">
-                    {x.nickname}
+                    {x.participant && x.participant.nickname}
                   </div>
                 </div>
               </>
             );
           }
-          if (!writer) {
+          if (writer !== userId) {
             return (
               <>
                 <div
@@ -58,7 +69,7 @@ const ApplicantSet = ({ dummyData, writer }) => {
                 >
                   <Applicant target={x.target} />
                   <div className="text-center w-[50px] text-200 truncate">
-                    {x.nickname}
+                    {x.participant && x.participant.nickname}
                   </div>
                 </div>
               </>
@@ -66,15 +77,21 @@ const ApplicantSet = ({ dummyData, writer }) => {
           }
           return <></>;
         })}
-      </div>{' '}
-      <div className="flex items-center">
-        <ShortBtn
-          txt={txt}
-          handleClick={buttonHandler}
-          pink={!together}
-          disabled={together}
-        />
       </div>
+      {together ? (
+        <div className="flex items-center">
+          <ShortBtn txt={txt} disabled={together} />
+        </div>
+      ) : (
+        <div className="flex items-center">
+          <ShortBtn
+            txt={txt}
+            handleClick={buttonHandler}
+            pink={!together}
+            disabled={together}
+          />
+        </div>
+      )}
     </div>
   );
 };

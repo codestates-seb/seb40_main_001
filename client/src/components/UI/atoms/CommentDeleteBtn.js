@@ -1,9 +1,9 @@
 import React from 'react';
 import { CommentDelete } from '../../../assets/img';
 
-const CommentDeleteBtn = ({ handleClick }) => {
+const CommentDeleteBtn = ({ onClick }) => {
   return (
-    <button onClick={handleClick}>
+    <button onClick={onClick}>
       <CommentDelete />
     </button>
   );
