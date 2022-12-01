@@ -7,7 +7,7 @@ const EditBtn = ({ handleClick }) => {
       onClick={handleClick}
       className="fixed bottom-12 right-10 w-[55px] h-[55px] btn btn-circle drop-shadow bg-main-red hover:bg-main-red"
     >
-      <Edit />
+      <Edit fill="white" />
     </button>
   );
 };
