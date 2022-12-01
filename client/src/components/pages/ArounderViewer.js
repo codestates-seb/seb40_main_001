@@ -23,6 +23,7 @@ const ArounderViewer = () => {
   const [proposalsData, setProposalsData] = useState([]);
   const [commentsData, setCommentsData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [writeComments, setWriteComments] = useState('');
 
   // 글 내용 관련 데이터 가져오기
   const getContentsData = async () => {
@@ -39,13 +40,10 @@ const ArounderViewer = () => {
   // 댓글 데이터 가져오기
   const getCommentsData = async () => {
     const commentsResponse = await client.get(
-      `/exercises/${id}/comments?cursorId=0&size=3`,
+      `/exercises/${id}/comments?cursorId=0&size=100`,
     );
     setCommentsData(commentsResponse.data.data);
-    console.log(commentsData);
   };
-
-  const [writeComments, setWriteComments] = useState('');
 
   const commentsHandler = e => {
     setWriteComments(e.target.value);
@@ -67,12 +65,25 @@ const ArounderViewer = () => {
     console.log(commentsData && commentsData.replies);
   };
 
+  const writeReplies = e => {
+    e.preventDefault();
+    if (writeComments === '') {
+      alert('내용을 입력해주세요.');
+      return;
+    }
+    const body = {
+      content: writeComments,
+    };
+    client.post(`/exercises/${id}/comments`, body);
+    console.log(id, writeComments);
+    setWriteComments('');
+  };
+
   useEffect(() => {
     const dataSetting = async () => {
       await getContentsData();
       await getProposalsData();
       await getCommentsData();
-
       setLoading(true);
     };
     dataSetting();
@@ -94,7 +105,7 @@ const ArounderViewer = () => {
           />
           <InputComments
             target="댓글을"
-            // handler={''} // post 요청 줘야한다
+            handler={writeReplies} // post 요청 줘야한다
             onChange={commentsHandler}
             value={writeComments}
           />

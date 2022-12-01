@@ -33,7 +33,7 @@ const ArounderWriter = () => {
   // 댓글 데이터 가져오기
   const getCommentsData = async () => {
     const commentsResponse = await client.get(
-      `/exercises/${id}/comments?cursorId=0&size=3`,
+      `/exercises/${id}/comments?cursorId=0&size=100`,
     );
     setCommentsData(commentsResponse.data.data);
   };
