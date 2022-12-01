@@ -124,7 +124,7 @@ const ArounderViewer = () => {
           />
           <InputComments
             target="댓글을"
-            handler={writeReplies} // post 요청 줘야한다
+            handler={writeMainReplies} // post 요청 줘야한다
             onChange={commentsHandler}
             value={writeMainReplies}
           />
