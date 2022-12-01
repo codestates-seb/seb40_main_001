@@ -38,7 +38,7 @@ const NicknameMypage = ({ nickname }) => {
       <div className="flex flex-row text text-300">
         안녕하세요!&nbsp;<div className="font-bold">{name}</div>님
       </div>
-      <Edit onClick={() => handleClick(false)} />
+      <Edit onClick={() => handleClick(false)} fill="black" />
     </div>
   );
 };

@@ -6,9 +6,14 @@ import { AddPeople, Mypage } from '../../../assets/img';
 const Drawer = ({ img, name }) => {
   const navigate = useNavigate();
 
+  const logoutHandler = () => {
+    navigate('/login');
+    alert('로그아웃이 완료되었습니다.');
+  };
+
   return (
     <div className="w-72 h-full p-[14px] bg-white">
-      <DrawerInfo img={img} name={name} />
+      <DrawerInfo img={img} name={name} handler={logoutHandler} />
       <div className="border-2 border-gray mt-7"></div>
       <div className="ml-[14px] mt-4">
         <div

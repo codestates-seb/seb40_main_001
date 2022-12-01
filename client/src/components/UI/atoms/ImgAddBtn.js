@@ -1,14 +1,19 @@
 import React from 'react';
 import { ImgAdd } from '../../../assets/img';
 
-const ImgAddBtn = ({ handleClick }) => {
+const ImgAddBtn = ({ handleFile }) => {
   return (
-    <button
-      onClick={handleClick}
-      className="absolute transform translate-y-16 -translate-x-7"
-    >
-      <ImgAdd />
-    </button>
+    <>
+      <label htmlFor="profile">
+        <ImgAdd />
+      </label>
+      <input
+        id="profile"
+        type="file"
+        className="hidden"
+        onChange={handleFile}
+      />
+    </>
   );
 };
 
