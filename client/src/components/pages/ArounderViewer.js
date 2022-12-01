@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import HeaderArrow from '../UI/molecules/HeaderArrow';
 import ApplicantSet from '../UI/molecules/Applicant';
 import InputComments from '../UI/molecules/InputComments';
 import DetailContents from '../UI/organisms/DetailContents';
 import ViewerComments from '../UI/organisms/ViewerComments';
 import { client } from '../../client/client';
+import userInfoState from '../../recoil/atoms';
 
 // Applicant button onClick event setting
 // input button onClick event setting
@@ -27,6 +29,7 @@ const img = [
 ];
 
 const ArounderViewer = () => {
+  const UserId = useRecoilValue(userInfoState);
   const { id } = useParams();
   const [contentsData, setContentsData] = useState([]);
   const [proposalsData, setProposalsData] = useState([]);
@@ -78,7 +81,7 @@ const ArounderViewer = () => {
           <ApplicantSet
             proposalsData={proposalsData}
             writer={contentsData.host && contentsData.host.memberId}
-            userId={id}
+            userId={UserId}
           />
           <InputComments
             target="댓글을"
@@ -89,7 +92,7 @@ const ArounderViewer = () => {
           <ViewerComments
             target="답글을"
             writer={contentsData.host && contentsData.host.memberId}
-            userId={id}
+            userId={UserId}
             commentsData={commentsData}
           />
         </div>
