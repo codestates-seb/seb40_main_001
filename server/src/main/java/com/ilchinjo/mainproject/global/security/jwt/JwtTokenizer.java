@@ -219,10 +219,4 @@ public class JwtTokenizer {
 
         return new UsernamePasswordAuthenticationToken(userDetails, token, userDetails.getAuthorities());
     }
-
-    public enum JwtStatus {
-        DENIED,
-        ACCESS,
-        EXPIRED;
-    }
 }
