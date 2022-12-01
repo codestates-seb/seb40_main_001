@@ -16,7 +16,7 @@ import { client } from '../../client/client';
 const Main = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState([]);
-  const [address, setAddress] = useState(3);
+  const [address, setAddress] = useState(358);
   const [gender, setGender] = useState('ALL');
   const [category, setCategory] = useState('ALL');
   const setUserId = useSetRecoilState(userInfoState);
