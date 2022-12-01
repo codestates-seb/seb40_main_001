@@ -82,7 +82,7 @@ public class ImageServiceImpl implements ImageService {
             throw new BusinessLogicException(ExceptionCode.FILE_NAME_NOT_VALID);
         }
 
-        boolean matches = originalFileName.matches("^[a-zA-Zㄱ-ㅎ가-힣-_]+\\.(jpg|JPG|png|jpeg|JPEG|heif|heic)$");
+        boolean matches = originalFileName.matches("^[a-zA-Zㄱ-ㅎ가-힣-_\\d]+\\.(jpg|JPG|png|jpeg|JPEG|heif|heic)$");
         if (!matches) {
             throw new BusinessLogicException(ExceptionCode.FILE_NAME_NOT_VALID);
         }
