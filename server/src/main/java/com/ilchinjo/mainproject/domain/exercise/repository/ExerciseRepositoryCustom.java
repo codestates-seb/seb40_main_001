@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ExerciseRepositoryCustom {
 
-    List<Exercise> findExercisesScroll(Long addressId, String category, String genderType, Member findMember, int size, Long cursorId);
+    List<Exercise> findExercises(Long addressId, String category, String genderType, Member findMember, int size, Long cursorId);
 }
