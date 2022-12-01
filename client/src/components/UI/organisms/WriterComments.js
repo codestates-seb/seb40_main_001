@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 import { WriterCardX, ViewerCL, InputComments } from '../molecules';
 import { Recomment } from '../../../assets/img';
 
-const WriterComments = ({ target, userId, writer, commentsData }) => {
+const WriterComments = ({
+  target,
+  userId,
+  writer,
+  commentsData,
+  mainReplyDeleteHandler,
+  nonMainReplyDeleteHandler,
+}) => {
   const [reply, setReply] = useState(false);
 
   const writeReply = idx => {
@@ -33,6 +40,7 @@ const WriterComments = ({ target, userId, writer, commentsData }) => {
                     handler={writeReply}
                     id={idx}
                     mainReply={true}
+                    deleteHandler={mainReplyDeleteHandler}
                   />
                   <div className="mt-1 mb-1"></div>
                   <InputComments handler={writeReply} target={target} />
@@ -53,6 +61,7 @@ const WriterComments = ({ target, userId, writer, commentsData }) => {
                                 handler={writeReply}
                                 id={id}
                                 mainReply={false}
+                                deleteHandler={nonMainReplyDeleteHandler}
                               />
                             </div>
                           </div>
@@ -93,6 +102,7 @@ const WriterComments = ({ target, userId, writer, commentsData }) => {
                     handler={writeReply}
                     id={idx}
                     mainReply={true}
+                    deleteHandler={mainReplyDeleteHandler}
                   />
                 </div>
                 {x.replies.length !== 0 &&
@@ -111,6 +121,7 @@ const WriterComments = ({ target, userId, writer, commentsData }) => {
                                 handler={writeReply}
                                 id={id}
                                 mainReply={false}
+                                deleteHandler={nonMainReplyDeleteHandler}
                               />
                             </div>
                           </div>
@@ -175,6 +186,7 @@ const WriterComments = ({ target, userId, writer, commentsData }) => {
                                 handler={writeReply}
                                 id={id}
                                 mainReply={false}
+                                deleteHandler={nonMainReplyDeleteHandler}
                               />
                             </div>
                           </div>
@@ -233,6 +245,7 @@ const WriterComments = ({ target, userId, writer, commentsData }) => {
                                 handler={writeReply}
                                 id={id}
                                 mainReply={false}
+                                deleteHandler={nonMainReplyDeleteHandler}
                               />
                             </div>
                           </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import HeaderArrow from '../UI/molecules/HeaderArrow';
 import ApplicantSet from '../UI/molecules/Applicant';
@@ -9,21 +9,8 @@ import WriterComments from '../UI/organisms/WriterComments';
 import { client } from '../../client/client';
 import userInfoState from '../../recoil/atoms';
 
-const img = [
-  {
-    remotePath:
-      'https://www.sisajunior.com/img/play/dica/chat/%EB%B3%B4%EB%85%B8%EB%B3%B4%EB%85%B84.jpg',
-  },
-  {
-    remotePath:
-      'https://w.namu.la/s/fbe29c52a03345a112f33d89632e39735b30e9cd3d85346db314841d27e13f5148542ea262ae9fcd04c1a5c86c1a07586e381983ef8c4ce600ea9378fe4066a20cc0cc852ead850742da5a7bdbc4d2b106793134d34f08ab8703103c226b4947',
-  },
-  {
-    remotePath: 'https://t1.daumcdn.net/cfile/tistory/997E5C3C5BA1E68137',
-  },
-];
-
 const ArounderWriter = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const UserId = useRecoilValue(userInfoState);
   const [contentsData, setContentsData] = useState([]);
@@ -31,21 +18,43 @@ const ArounderWriter = () => {
   const [commentsData, setCommentsData] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  // 글 내용 관련 데이터 가져오기
   const getContentsData = async () => {
     const contentsResponse = await client.get(`/exercises/${id}`);
     setContentsData(contentsResponse.data);
   };
 
+  // 지원자 데이터 가져오기
   const getProposalsData = async () => {
     const proposalsResponse = await client.get(`/exercises/${id}/proposals`);
     setProposalsData(proposalsResponse.data.data);
   };
 
+  // 댓글 데이터 가져오기
   const getCommentsData = async () => {
     const commentsResponse = await client.get(
       `/exercises/${id}/comments?cursorId=0&size=3`,
     );
     setCommentsData(commentsResponse.data.data);
+  };
+
+  const updateHandler = () => {
+    console.log('update');
+  };
+
+  const deleteHandler = async () => {
+    await client.delete(`/exercises/${id}`);
+    navigate('/main');
+  };
+
+  // eslint-disable-next-line no-unused-vars
+  const mainReplyDeleteHandler = async () => {
+    await client.delete(`/comments/${commentsData.commentId}`);
+  };
+
+  // eslint-disable-next-line no-unused-vars
+  const nonMainReplyDeleteHandler = async () => {
+    await client.delete(`/replies/${commentsData.replies.replyId}`);
   };
 
   const [writeComments, setWriteComments] = useState('');
@@ -65,27 +74,21 @@ const ArounderWriter = () => {
     dataSetting();
   }, []);
 
-  const updateHandler = () => {
-    console.log('update');
+  const arrowHandler = () => {
+    navigate('/main');
   };
-
-  const deleteHandler = () => {
-    console.log('delete');
-  };
-
-  console.log(UserId);
 
   return (
     <>
       {loading && (
         <div className="flex flex-col justify-center items-center overflow: auto;">
-          <HeaderArrow txt={'상세 글 보기'} />
+          <HeaderArrow arrowHandler={arrowHandler} txt={'상세 글 보기'} />
           <DetailContentsWriter
             contentsData={contentsData}
             updateHandler={updateHandler}
             deleteHandler={deleteHandler}
             writer={contentsData.host && contentsData.host.memberId}
-            img={img}
+            img={contentsData && contentsData.images}
           />
           <ApplicantSet
             proposalsData={proposalsData}
@@ -103,6 +106,8 @@ const ArounderWriter = () => {
             writer={contentsData.host && contentsData.host.memberId}
             userId={UserId}
             commentsData={commentsData}
+            mainReplyDeleteHandler={mainReplyDeleteHandler}
+            nonMainReplyDeleteHandler={nonMainReplyDeleteHandler}
           />
         </div>
       )}

@@ -5,9 +5,19 @@ import { ShortBtn } from '../atoms';
 const ApplicantSet = ({ proposalsData, writer, userId }) => {
   const [together, setTogether] = useState(false);
   const [checkProfile, setCheckProfile] = useState(false);
+
   const buttonHandler = () => {
     setTogether(!together);
   };
+
+  // const getContentsData = async () => {
+  //   const contentsResponse = await client.get(`/exercises/${id}`);
+  //   setContentsData(contentsResponse.data);
+  // };
+
+  // const postApplicants = async () => {
+  //   const postApplicantsData = await
+  // }
 
   const profileHandler = id => {
     const profiles = new Array(proposalsData.length).fill(false);
@@ -16,8 +26,9 @@ const ApplicantSet = ({ proposalsData, writer, userId }) => {
   };
 
   const txt = together ? '완료' : '함께하기';
+
   return (
-    <div className="flex flex-row w-[350px] justify-between">
+    <div className="flex flex-row w-[350px] items-start justify-between">
       <div className="carousel overflow-x-scroll flex items-center justify-between">
         {proposalsData.map((x, id) => {
           if (writer === userId) {
@@ -66,15 +77,21 @@ const ApplicantSet = ({ proposalsData, writer, userId }) => {
           }
           return <></>;
         })}
-      </div>{' '}
-      <div className="flex items-center">
-        <ShortBtn
-          txt={txt}
-          handleClick={buttonHandler}
-          pink={!together}
-          disabled={together}
-        />
       </div>
+      {together ? (
+        <div className="flex items-center">
+          <ShortBtn txt={txt} disabled={together} />
+        </div>
+      ) : (
+        <div className="flex items-center">
+          <ShortBtn
+            txt={txt}
+            handleClick={buttonHandler}
+            pink={!together}
+            disabled={together}
+          />
+        </div>
+      )}
     </div>
   );
 };
