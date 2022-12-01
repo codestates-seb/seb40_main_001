@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { DownArrow } from '../../../assets/img';
-import { client } from '../../../client/client';
+import { preClient } from '../../../client/client';
 
 const DropdownCity = ({ setcityNum }) => {
   const [city, setCity] = useState([]);
   const [viewCity, setViewCity] = useState('동네를 선택하세요.');
   const getCities = () => {
-    client.get('/addresses').then(res => {
+    preClient.get('/addresses').then(res => {
       setCity(res.data.data);
     });
   };

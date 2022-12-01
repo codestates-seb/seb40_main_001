@@ -26,6 +26,7 @@ const Mypage = () => {
     setUserData(''); // delete하기
   };
 
+  // eslint-disable-next-line no-unused-vars
   const editProfile = () => {
     const payload = {
       nickname: userData.nickname,

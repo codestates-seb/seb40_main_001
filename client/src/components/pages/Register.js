@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { client } from '../../client/client';
+import { preClient } from '../../client/client';
 import {
   LongBtn,
   GenderSelect,
@@ -37,7 +37,7 @@ const Register = () => {
       gender,
       addressId: cityNum,
     };
-    client
+    preClient
       .post('/members', JSON.stringify(payload))
       .then(() => {
         alert('회원가입이 완료되었습니다.');
