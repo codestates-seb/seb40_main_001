@@ -1,6 +1,8 @@
 package com.ilchinjo.mainproject.domain.exercise.repository;
 
 import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
+import com.ilchinjo.mainproject.domain.exercise.entity.GenderType;
+import com.ilchinjo.mainproject.domain.member.entity.Gender;
 import com.ilchinjo.mainproject.domain.member.entity.Member;
 import com.ilchinjo.mainproject.global.exception.BusinessLogicException;
 import com.ilchinjo.mainproject.global.exception.ExceptionCode;
@@ -41,6 +43,21 @@ public class ExerciseRepositoryImpl implements ExerciseRepositoryCustom {
         }
 
         return exercise.address.addressId.eq(addressId);
+    }
+
+    private BooleanExpression genderTypeEq(String genderType, Member findMember) {
+        if (genderType == null) {
+            throw new BusinessLogicException(ExceptionCode.GENDER_TYPE_NOT_FOUND);
+        }
+        Gender memberGender = findMember.getGender();
+        switch (genderType) {
+            case "ALL":
+                return exercise.genderType.eq(GenderType.ALL).or((exercise.genderType.eq(GenderType.SAME).and(exercise.host.gender.eq(findMember.getGender()))));
+            case "SAME":
+                return exercise.genderType.eq(GenderType.SAME).and(exercise.host.gender.eq(findMember.getGender())).or(exercise.genderType.eq(GenderType.ALL).and(exercise.host.gender.eq(findMember.getGender())));
+            default:
+                throw new BusinessLogicException(ExceptionCode.GENDER_TYPE_NOT_FOUND);
+        }
     }
 
 }
