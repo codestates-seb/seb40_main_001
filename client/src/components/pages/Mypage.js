@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import userInfoState from '../../recoil/atoms';
 import { HeaderLogo, MyInfo, ArounderRecord, Modal, Drawer } from '../UI';
-import { client } from '../../client/client';
+import { client, clientImg } from '../../client/client';
 
 const Mypage = () => {
   const [userData, setUserData] = useState();
@@ -23,28 +23,47 @@ const Mypage = () => {
 
   const menuHandler = () => {
     setIsDrawer(!isDrawer);
-    setUserData(''); // delete하기
   };
 
   // eslint-disable-next-line no-unused-vars
-  const editProfile = () => {
-    const payload = {
-      nickname: userData.nickname,
-      addressId: userData.address,
-      imageId: 1,
-    };
+  const editProfile = payload => {
     client.patch(`/members/${userId}`, payload);
+  };
+
+  const imageHandler = e => {
+    // 이미지 생성
+    const imgUp = new FormData();
+    imgUp.append('image', e.target.files[0], e.target.files[0].name);
+
+    // 이미지 서버로 전송
+    clientImg
+      .post('/images', imgUp)
+      .then(res => {
+        const newData = userData;
+        newData.imageId = res.data[0].imageId;
+        setUserData(newData);
+      })
+      .then(() => {
+        const payload = {
+          imageId: userData.imageId,
+        };
+        console.log(`payload`, payload);
+        editProfile(payload);
+      });
+
+    // 제출
   };
 
   const getHistory = () => {
     client
       .get('/members/profiles')
       .then(res => {
+        console.log(res.data);
         setUserData({
-          profile: res.data.image,
+          // profile: res.data.image,
           nickname: res.data.nickname,
           charge: res.data.publicEvaluation,
-          address: res.data.address.addressId,
+          addressId: res.data.address.addressId,
         });
         setData(res.data.exerciseRecord);
       })
@@ -56,6 +75,10 @@ const Mypage = () => {
   useEffect(() => {
     getHistory();
   }, []);
+
+  useEffect(() => {
+    console.log(userData);
+  }, [userData]);
 
   return (
     <div className="relative h-screen">
@@ -75,7 +98,11 @@ const Mypage = () => {
         <div className="flex justify-center mt-5">
           {/* 사용자 프로필 이미지, 닉네임, 배터리 요소 전달 */}
           {/* 데이터 패칭 후 해당 요소를 data 등으로 묶어서 보낼 것 */}
-          <MyInfo userData={userData} />
+          <MyInfo
+            userData={userData}
+            setUserData={setUserData}
+            imageHandler={imageHandler}
+          />
         </div>
         <div className="flex justify-center mt-5">
           <ArounderRecord data={data} openModal={openModal} />
