@@ -1,5 +1,6 @@
 package com.ilchinjo.mainproject.domain.exercise.repository;
 
+import com.ilchinjo.mainproject.domain.exercise.entity.Category;
 import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
 import com.ilchinjo.mainproject.domain.exercise.entity.GenderType;
 import com.ilchinjo.mainproject.domain.member.entity.Gender;
@@ -57,6 +58,31 @@ public class ExerciseRepositoryImpl implements ExerciseRepositoryCustom {
                 return exercise.genderType.eq(GenderType.SAME).and(exercise.host.gender.eq(findMember.getGender())).or(exercise.genderType.eq(GenderType.ALL).and(exercise.host.gender.eq(findMember.getGender())));
             default:
                 throw new BusinessLogicException(ExceptionCode.GENDER_TYPE_NOT_FOUND);
+        }
+    }
+
+    private BooleanExpression categoryEq(String category) {
+        if (category == null) {
+            throw new BusinessLogicException(ExceptionCode.CATEGORY_NOT_FOUND);
+        }
+
+        switch (category) {
+            case "FITNESS":
+                return exercise.category.eq(Category.FITNESS);
+            case "YOGA":
+                return exercise.category.eq(Category.YOGA);
+            case "BASKETBALL":
+                return exercise.category.eq(Category.BASKETBALL);
+            case "RUNNING":
+                return exercise.category.eq(Category.RUNNING);
+            case "SWIMMING":
+                return exercise.category.eq(Category.SWIMMING);
+            case "BADMINTON":
+                return exercise.category.eq(Category.BADMINTON);
+            case "ALL":
+                return null;
+            default:
+                throw new BusinessLogicException(ExceptionCode.CATEGORY_NOT_FOUND);
         }
     }
 
