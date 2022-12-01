@@ -74,9 +74,9 @@ const Login = () => {
       <div className="text-200 mt-4 text-center">
         회원이 아니신가요?
         <button
-          className="font-bold"
+          className="font-bold ml-1"
           onClick={() => {
-            naviagte('/regist');
+            naviagte('/register');
           }}
         >
           회원가입
