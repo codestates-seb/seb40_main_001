@@ -68,7 +68,9 @@ const Mypage = () => {
         client.get('/members/info').then(res => {
           setUserData(prev => {
             const newData = prev;
-            newData.profile = res.data.image.remotePath;
+            if (res.data.image) {
+              newData.profile = res.data.image.remotePath;
+            }
             return newData;
           });
         });
