@@ -44,7 +44,13 @@ const Register = () => {
         naviagte('/login');
       })
       .catch(err => {
-        console.log(err);
+        const errMSG = err.response.data.message;
+        if (errMSG === 'Member exists') {
+          alert('이미 존재하는 이메일입니다.');
+        }
+        if (errMSG === 'Nickname exists') {
+          alert('이미 존재하는 닉네임입니다.');
+        }
       });
   };
   const onInValid = error => {

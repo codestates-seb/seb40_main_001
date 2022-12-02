@@ -158,11 +158,10 @@ const Main = () => {
         <div ref={observerRef}></div>
       </div>
       <EditBtn handleClick={handleClick} />
-
       {/* 드로워 */}
       {isDrawer ? (
         <div className="h-full absolute z-20 top-[55px] right-0">
-          <Drawer img={infoData.image} name={infoData.nickname} />
+          <Drawer img={infoData.image.remotePath} name={infoData.nickname} />
         </div>
       ) : (
         <></>

@@ -27,7 +27,8 @@ const Login = () => {
         naviagte('/main');
       })
       .catch(err => {
-        console.log(err);
+        const errMSG = err.response.data.message;
+        alert(errMSG);
       });
   };
   const onInValid = error => {
