@@ -144,8 +144,6 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
             }
             // 작성자 일 때 && 선택하지 않았을 때
             if (writer === userId && checkProfile[id]) {
-              console.log('hi 3');
-              console.log('선택하지 않았을 때 ', profileHandler(id));
               return (
                 <>
                   <div className="w-[350px] flex flex-row justify-between items-center">
@@ -179,8 +177,6 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
             }
             // 작성자 일 때 && 선택을 했을 때
             if (writer === userId && !checkProfile[id]) {
-              console.log('hi4');
-              console.log('선택을 했을 때', profileHandler(id));
               return (
                 <>
                   <div className="w-[350px] flex flex-row justify-between items-center">
