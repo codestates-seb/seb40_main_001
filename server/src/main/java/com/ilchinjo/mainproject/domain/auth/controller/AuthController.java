@@ -1,11 +1,13 @@
 package com.ilchinjo.mainproject.domain.auth.controller;
 
 import com.ilchinjo.mainproject.domain.auth.service.AuthService;
-import com.ilchinjo.mainproject.global.security.jwt.JwtTokenizer;
 import com.ilchinjo.mainproject.global.security.utils.ErrorResponder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -15,7 +17,6 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final JwtTokenizer jwtTokenizer;
     private final AuthService authService;
 
     @PostMapping("/refresh")
@@ -32,9 +33,8 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public void logout(@RequestHeader("Authorization") String token) {
+    public void logout(@CookieValue("Refresh") String refreshToken) {
 
-        Long memberId = jwtTokenizer.parseMemberId(token);
-        authService.deleteToken(memberId);
+        authService.deleteToken(refreshToken);
     }
 }

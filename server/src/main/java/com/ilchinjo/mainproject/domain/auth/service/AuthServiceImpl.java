@@ -55,12 +55,14 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void deleteToken(Long memberId) {
+    public void deleteToken(String refreshToken) {
 
-        Member findMember = memberService.findVerifiedMember(memberId);
-        RefreshToken refreshToken = findVerifiedRefreshToken(findMember.getEmail());
+        Authentication authentication = jwtTokenizer.getAuthentication(refreshToken);
+        Member member = memberService.findVerifiedMember(authentication.getName());
 
-        refreshTokenRepository.delete(refreshToken);
+        RefreshToken findRefreshToken = findVerifiedRefreshToken(member.getEmail());
+
+        refreshTokenRepository.delete(findRefreshToken);
     }
 
     private RefreshToken findVerifiedRefreshToken(String email) {
