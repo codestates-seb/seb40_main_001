@@ -7,8 +7,9 @@ const Drawer = ({ img, name }) => {
   const navigate = useNavigate();
 
   const logoutHandler = () => {
-    navigate('/login');
+    localStorage.removeItem('accessToken');
     alert('로그아웃이 완료되었습니다.');
+    navigate('/login');
   };
 
   return (

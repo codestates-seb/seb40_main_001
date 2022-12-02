@@ -56,7 +56,7 @@ const Main = () => {
     const response = await client.get('/members/info');
     setInfoData({
       nickname: response.data.nickname,
-      image: response.data.image,
+      image: response.data.image.remotePath,
       gender: response.data.gender,
     });
     setUserId(response.data.memberId);
@@ -161,7 +161,7 @@ const Main = () => {
       {/* 드로워 */}
       {isDrawer ? (
         <div className="h-full absolute z-20 top-[55px] right-0">
-          <Drawer img={infoData.image.remotePath} name={infoData.nickname} />
+          <Drawer img={infoData.image} name={infoData.nickname} />
         </div>
       ) : (
         <></>
