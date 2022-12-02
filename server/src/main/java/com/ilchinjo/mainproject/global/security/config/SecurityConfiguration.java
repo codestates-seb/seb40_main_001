@@ -75,6 +75,8 @@ public class SecurityConfiguration {
 
                         .antMatchers("/auth/logout").hasRole("USER")
 
+                        .antMatchers("/auth/**").permitAll()
+
                         .anyRequest().denyAll()
                 );
 
