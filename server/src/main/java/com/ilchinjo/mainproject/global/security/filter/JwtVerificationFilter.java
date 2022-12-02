@@ -1,11 +1,14 @@
 package com.ilchinjo.mainproject.global.security.filter;
 
 import com.ilchinjo.mainproject.global.security.jwt.JwtTokenizer;
-import com.ilchinjo.mainproject.global.security.utils.ErrorResponder;
+import com.ilchinjo.mainproject.global.security.utils.CustomAuthorityUtils;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.security.SignatureException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -14,34 +17,28 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
 public class JwtVerificationFilter extends OncePerRequestFilter {
 
     private final JwtTokenizer jwtTokenizer;
+    private final CustomAuthorityUtils authorityUtils;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        String jwt = request.getHeader("Authorization").replace("Bearer ", "");
-        Long memberId = jwtTokenizer.parseMemberIdFromPayload(jwt);
-
-        if (jwtTokenizer.validateToken(jwt) == JwtTokenizer.JwtStatus.ACCESS) {
-
-            Authentication authentication = jwtTokenizer.getAuthentication(jwt);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-
-            log.info("set Authentication to security context for '{}', uri: {}", authentication.getName(), request.getRequestURI());
-
-        } else if (jwtTokenizer.validateToken(jwt) == JwtTokenizer.JwtStatus.EXPIRED) {
-
-            String refresh = request.getHeader("Refresh");
-
-            if (jwtTokenizer.validateToken(refresh) == JwtTokenizer.JwtStatus.ACCESS) {
-                issueToken(response, memberId, refresh);
-                return;
-            }
+        try {
+            Map<String, Object> claims = verifyJwt(request);
+            setAuthenticationToContext(claims);
+        } catch (SignatureException se) {
+            request.setAttribute("exception", se);
+        } catch (ExpiredJwtException ee) {
+            request.setAttribute("exception", ee);
+        } catch (Exception e) {
+            request.setAttribute("exception", e);
         }
 
         filterChain.doFilter(request, response);
@@ -55,20 +52,21 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         return authorization == null || !authorization.startsWith("Bearer");
     }
 
-    private void issueToken(HttpServletResponse response, Long memberId, String refresh) throws IOException {
+    private Map<String, Object> verifyJwt(HttpServletRequest request) {
 
-        Authentication authentication = jwtTokenizer.getAuthentication(refresh);
+        String jws = request.getHeader("Authorization").replace("Bearer ", "");
+        String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
 
-        String newAccessToken = jwtTokenizer.reIssueAccessToken(memberId, authentication);
-        String newRefresh = jwtTokenizer.reIssueRefreshToken(refresh);
+        Map<String, Object> claims = jwtTokenizer.getClaims(jws, base64EncodedSecretKey).getBody();
 
-        if (newRefresh != null) {
-            response.setHeader("Authorization", "Bearer " + newAccessToken);
-            response.setHeader("Refresh", newRefresh);
+        return claims;
+    }
 
-            log.info("Reissue Refresh Token & Access Token");
-        } else {
-            ErrorResponder.sendErrorResponse(response, HttpStatus.UNAUTHORIZED);
-        }
+    private void setAuthenticationToContext(Map<String, Object> claims) {
+
+        String email = (String) claims.get("email");
+        List<GrantedAuthority> authorities = authorityUtils.createAuthorities((List) claims.get("roles"));
+        Authentication authentication = new UsernamePasswordAuthenticationToken(email, null, authorities);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }

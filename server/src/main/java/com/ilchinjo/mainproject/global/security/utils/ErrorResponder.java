@@ -18,4 +18,13 @@ public class ErrorResponder {
         response.setStatus(status.value());
         response.getWriter().write(new Gson().toJson(errorResponse, ErrorResponse.class));
     }
+
+    public static void sendExpiredJwtExceptionError(HttpServletResponse response, HttpStatus status) throws IOException {
+
+        ErrorResponse errorResponse = ErrorResponse.of(status, "Jwt token has expired");
+
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setStatus(status.value());
+        response.getWriter().write(new Gson().toJson(errorResponse, ErrorResponse.class));
+    }
 }
