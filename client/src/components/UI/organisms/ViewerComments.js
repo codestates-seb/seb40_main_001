@@ -304,7 +304,6 @@ const ViewerComments = ({
                 {x.replies.length !== 0 &&
                   x.replies.map((y, id) => {
                     // 대댓글 작성자가 뷰어 이다
-                    console.log(idx);
                     if (y.author.memberId === userId) {
                       return (
                         <>

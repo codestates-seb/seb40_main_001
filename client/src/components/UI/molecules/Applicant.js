@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import Applicant from '../atoms/Applicant';
 import { ShortBtn } from '../atoms';
+import { client } from '../../../client/client';
 
-const ApplicantSet = ({ proposalsData, writer, userId }) => {
+const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
   const [together, setTogether] = useState(false);
   const [checkProfile, setCheckProfile] = useState(false);
 
@@ -10,14 +11,9 @@ const ApplicantSet = ({ proposalsData, writer, userId }) => {
     setTogether(!together);
   };
 
-  // const getContentsData = async () => {
-  //   const contentsResponse = await client.get(`/exercises/${id}`);
-  //   setContentsData(contentsResponse.data);
-  // };
-
-  // const postApplicants = async () => {
-  //   const postApplicantsData = await
-  // }
+  const checkUsable = proposalsData.map(x => {
+    return x.participant && x.participant.memberId;
+  });
 
   const profileHandler = id => {
     const profiles = new Array(proposalsData.length).fill(false);
@@ -27,71 +23,223 @@ const ApplicantSet = ({ proposalsData, writer, userId }) => {
 
   const txt = together ? '완료' : '함께하기';
 
+  const submitProposals = async () => {
+    await client
+      .post(`/exercises/${contentsData.exerciseId}/proposals`)
+      .then(() => {
+        alert('신청 완료했습니다.');
+        window.location.reload();
+      });
+  };
+  // 지원자 없음 && 뷰어 일 때
+  if (
+    contentsData &&
+    contentsData.exerciseStatus === 'ACTIVE' &&
+    proposalsData.length === 0 &&
+    writer !== userId
+  ) {
+    return (
+      <>
+        <div className="flex flex-row w-[350px] items-end justify-end">
+          <div className="flex items-center">
+            <ShortBtn
+              txt={txt}
+              handleClick={(buttonHandler, submitProposals)}
+              pink={!together}
+              disabled={together}
+            />
+          </div>
+        </div>
+      </>
+    );
+  }
+  // 지원자 없음 && 글작성자 일 때
+  if (
+    contentsData &&
+    contentsData.exerciseStatus === 'ACTIVE' &&
+    proposalsData.length === 0 &&
+    writer === userId
+  ) {
+    return (
+      <>
+        <div className="flex flex-row w-[350px] items-end justify-end">
+          <div className="flex items-center">
+            <ShortBtn
+              txt={'모집 중'}
+              handleClick={buttonHandler}
+              pink={!together}
+              disabled={!together}
+            />
+          </div>
+        </div>
+      </>
+    );
+  }
+  // 예외 사항 외 리턴
   return (
     <div className="flex flex-row w-[350px] items-start justify-between">
       <div className="carousel overflow-x-scroll flex items-center justify-between">
         {proposalsData.map((x, id) => {
-          if (writer === userId) {
-            return !checkProfile[id] ? (
-              <>
-                <div
-                  key={id}
-                  className="flex flex-col justify-center items-center mr-[5px] opacity-60"
-                  onClick={() => profileHandler(id)}
-                >
-                  <Applicant target={x.target} />
-                  <div className="text-center w-[50px] text-200 truncate">
-                    {x.participant && x.participant.nickname}
+          if (contentsData && contentsData.exerciseStatus === 'ACTIVE') {
+            // 신청자 일 때 && 신청하지 않은 사람일 때
+            if (writer !== userId && checkUsable.indexOf(userId) === -1) {
+              console.log('hi 1');
+              return (
+                <>
+                  <div className="w-[350px] flex flex-row justify-between items-center">
+                    <div
+                      key={id}
+                      className="flex flex-col justify-center items-center mr-[5px] opacity-60"
+                    >
+                      <Applicant
+                        target={
+                          x.participant &&
+                          x.participant.image &&
+                          x.participant.image.remotePath
+                        }
+                      />
+                      <div className="text-center w-[50px] text-200 truncate">
+                        {x.participant && x.participant.nickname}
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <ShortBtn
+                        txt={txt}
+                        handleClick={(buttonHandler, submitProposals)}
+                        pink={!together}
+                        disabled={together}
+                      />
+                    </div>
                   </div>
-                </div>
-              </>
-            ) : (
-              <>
-                <div
-                  key={id}
-                  className="flex flex-col  justify-center items-center mr-[5px] opacity-100"
-                  onClick={() => profileHandler(id)}
-                >
-                  <Applicant target={x.target} />
-                  <div className="text-center w-[50px] text-200 truncate items-center">
-                    {x.participant && x.participant.nickname}
+                </>
+              );
+            }
+            // 신청자 일 때 && 신청한 사람일 때
+            if (writer !== userId && checkUsable.indexOf(userId) !== -1) {
+              console.log('hi 2');
+              return (
+                <>
+                  <div className="w-[350px] flex flex-row justify-between items-center">
+                    <div
+                      key={id}
+                      className="flex flex-col justify-center items-center mr-[5px] opacity-60"
+                    >
+                      <Applicant
+                        target={
+                          x.participant &&
+                          x.participant.image &&
+                          x.participant.image.remotePath
+                        }
+                      />
+                      <div className="text-center w-[50px] text-200 truncate">
+                        {x.participant && x.participant.nickname}
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <ShortBtn txt={'신청완료'} disabled={!together} />
+                    </div>
                   </div>
-                </div>
-              </>
-            );
+                </>
+              );
+            }
+            // 작성자 일 때 && 선택하지 않았을 때
+            if (writer === userId && checkProfile[id]) {
+              console.log('hi 3');
+              console.log('선택하지 않았을 때 ', profileHandler(id));
+              return (
+                <>
+                  <div className="w-[350px] flex flex-row justify-between items-center">
+                    <div
+                      key={id}
+                      className="flex flex-col  justify-center items-center mr-[5px] opacity-100"
+                      onClick={() => profileHandler(id)}
+                    >
+                      <Applicant
+                        target={
+                          x.participant &&
+                          x.participant.image &&
+                          x.participant.image.remotePath
+                        }
+                      />
+                      <div className="text-center w-[50px] text-200 truncate items-center">
+                        {x.participant && x.participant.nickname}
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <ShortBtn
+                        txt={txt}
+                        handleClick={buttonHandler}
+                        pink={!together}
+                        disabled={together}
+                      />
+                    </div>
+                  </div>
+                </>
+              );
+            }
+            // 작성자 일 때 && 선택을 했을 때
+            if (writer === userId && !checkProfile[id]) {
+              console.log('hi4');
+              console.log('선택을 했을 때', profileHandler(id));
+              return (
+                <>
+                  <div className="w-[350px] flex flex-row justify-between items-center">
+                    <div
+                      key={id}
+                      className="flex flex-col justify-center items-center mr-[5px] opacity-60"
+                      onClick={() => profileHandler(id)}
+                    >
+                      <Applicant
+                        target={
+                          x.participant &&
+                          x.participant.image &&
+                          x.participant.image.remotePath
+                        }
+                      />
+                      <div className="text-center w-[50px] text-200 truncate">
+                        {x.participant && x.participant.nickname}
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <ShortBtn txt={txt} disabled={together} />
+                    </div>
+                  </div>
+                </>
+              );
+            }
           }
-          if (writer !== userId) {
+          // 글 모집 기간이 아닐 때
+          if (contentsData && contentsData.exerciseStatus === 'CLOSED') {
+            console.log('hi5');
             return (
               <>
-                <div
-                  key={id}
-                  className="flex flex-col justify-center items-center mr-[5px] opacity-60"
-                >
-                  <Applicant target={x.target} />
-                  <div className="text-center w-[50px] text-200 truncate">
-                    {x.participant && x.participant.nickname}
+                <div className="w-[350px] flex flex-row justify-between items-center">
+                  <div
+                    key={id}
+                    className="flex flex-col justify-center items-center mr-[5px] opacity-60"
+                  >
+                    <Applicant
+                      target={
+                        x.participant &&
+                        x.participant.image &&
+                        x.participant.image.remotePath
+                      }
+                    />
+                    <div className="text-center w-[50px] text-200 truncate">
+                      {x.participant && x.participant.nickname}
+                    </div>
+                  </div>
+                  <div className="flex items-center">
+                    <ShortBtn txt={'모집종료'} disabled={!together} />
                   </div>
                 </div>
               </>
             );
           }
+          console.log('hi6');
           return <></>;
         })}
       </div>
-      {together ? (
-        <div className="flex items-center">
-          <ShortBtn txt={txt} disabled={together} />
-        </div>
-      ) : (
-        <div className="flex items-center">
-          <ShortBtn
-            txt={txt}
-            handleClick={buttonHandler}
-            pink={!together}
-            disabled={together}
-          />
-        </div>
-      )}
     </div>
   );
 };
