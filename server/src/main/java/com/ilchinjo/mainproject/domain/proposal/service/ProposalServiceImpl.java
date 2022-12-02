@@ -2,6 +2,7 @@ package com.ilchinjo.mainproject.domain.proposal.service;
 
 import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
 import com.ilchinjo.mainproject.domain.exercise.entity.ExerciseStatus;
+import com.ilchinjo.mainproject.domain.exercise.entity.GenderType;
 import com.ilchinjo.mainproject.domain.exercise.service.ExerciseService;
 import com.ilchinjo.mainproject.domain.member.entity.Member;
 import com.ilchinjo.mainproject.domain.member.service.MemberService;
@@ -34,9 +35,11 @@ public class ProposalServiceImpl implements ProposalService {
     @Override
     public ProposalResponseDto saveProposal(Long exerciseId, Long participantId) {
         Exercise findExercise = exerciseService.findVerifiedExercise(exerciseId);
+        Member participant = memberService.findVerifiedMember(participantId);
         checkExerciseValid(findExercise);
         checkSelfPropose(findExercise, participantId);
         checkDuplicatedPropose(findExercise, participantId);
+        checkMatchedGenderType(findExercise, participant);
         Member findParticipant = memberService.findVerifiedMember(participantId);
         return mapper.entityToResponseDto(
                 proposalRepository.save(Proposal.createProposal(findExercise, findParticipant))
@@ -92,6 +95,14 @@ public class ProposalServiceImpl implements ProposalService {
         for (Proposal proposal : proposals) {
             if (Objects.equals(proposal.getParticipant().getMemberId(), memberId)) {
                 throw new BusinessLogicException(ExceptionCode.CANT_DUPLICATED_PROPOSAL);
+            }
+        }
+    }
+
+    private void checkMatchedGenderType(Exercise exercise, Member participant) {
+        if (exercise.getGenderType().equals(GenderType.SAME)) {
+            if (!Objects.equals(exercise.getHost().getGender(), participant.getGender())) {
+                throw new BusinessLogicException(ExceptionCode.GENDER_TYPE_NOT_MATCHED);
             }
         }
     }
