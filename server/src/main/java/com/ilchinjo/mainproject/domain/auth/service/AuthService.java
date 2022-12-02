@@ -4,5 +4,5 @@ public interface AuthService {
 
     String refreshToken(String refreshToken);
 
-    void deleteToken(Long memberId);
+    void deleteToken(String refreshToken);
 }
