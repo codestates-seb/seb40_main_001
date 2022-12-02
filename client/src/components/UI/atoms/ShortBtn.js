@@ -5,7 +5,7 @@ const ShortBtn = ({ txt, disabled, pink, handleClick }) => {
     'text-[#FFF] text-200 btn w-[92px] h-[46px] rounded-[5px] border-0';
 
   if (disabled) {
-    style += ' bg-text-disabled hover:bg-text-disabled';
+    style += ' bg-gray bg-text-disabled hover:bg-text-disabled';
   } else if (pink) {
     style += ' bg-main-red hover:bg-main-red';
   } else {
@@ -13,7 +13,7 @@ const ShortBtn = ({ txt, disabled, pink, handleClick }) => {
   }
 
   return (
-    <button className={style} onClick={handleClick}>
+    <button className={style} onClick={handleClick} disabled={disabled}>
       {txt}
     </button>
   );
