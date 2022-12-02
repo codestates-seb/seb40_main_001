@@ -14,6 +14,11 @@ import {
 import { Info } from '../../assets/img';
 import { client } from '../../client/client';
 
+// 드로워 밖에 클릭시 안닫힘 은혜님께 전달하기.
+// 무한스크롤하기
+// 유정님끝나면 클라이언트 조작하기
+// 로그인,회원가입,메인 버그 찾기
+
 const Main = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState([]);
@@ -21,7 +26,7 @@ const Main = () => {
   const [gender, setGender] = useState('ALL');
   const [category, setCategory] = useState('ALL');
   const setUserId = useSetRecoilState(userInfoState);
-  const [userGender, setUserGender] = useState('');
+  const [infoData, setInfoData] = useState({});
   // 드로워 오픈 여부
   const [isDrawer, setIsDrawer] = useState(false);
 
@@ -38,8 +43,11 @@ const Main = () => {
   };
   const getUserInfoData = async () => {
     const response = await client.get('/members/info');
-    // nickname, image를 드로워에 내려줘야 함!
-    setUserGender(response.data.gender);
+    setInfoData({
+      nickname: response.data.nickname,
+      image: response.data.image,
+      gender: response.data.gender,
+    });
     setUserId(response.data.memberId);
   };
 
@@ -50,14 +58,6 @@ const Main = () => {
       setGender('ALL');
     }
   };
-  // const controlFlowMap = {
-  //   SAME: () => setGender('ALL'),
-  //   ALL: () => setGender('SAME'),
-  // };
-
-  // const genderToggleClick = () => {
-  //   return controlFlowMap[gender];
-  // };
 
   const handler = (target, exercise) => {
     setCategory(exercise);
@@ -82,7 +82,7 @@ const Main = () => {
 
   return (
     // 드로워 위치를 위한 css 추가
-    <div className="relative h-screen">
+    <div className="relative h-screen scrollbar-hide">
       <HeaderLogo txt="어라운더 찾기" menuHandler={menuHandler} menu={true}>
         <div
           className="tooltip tooltip-bottom"
@@ -111,7 +111,10 @@ const Main = () => {
       />
       <div className="flex justify-between border-t border-main pt-2 mx-5">
         <MiniDropdown setAddress={setAddress} />
-        <Toggle genderToggleClick={genderToggleClick} gender={userGender} />
+        <Toggle
+          genderToggleClick={genderToggleClick}
+          gender={infoData.gender}
+        />
       </div>
 
       <div className="flex flex-col pt-3 items-center space-y-3">
@@ -124,7 +127,7 @@ const Main = () => {
       {/* 드로워 */}
       {isDrawer ? (
         <div className="h-full absolute z-20 top-[55px] right-0">
-          <Drawer />
+          <Drawer img={infoData.image} name={infoData.nickname} />
         </div>
       ) : (
         <></>
