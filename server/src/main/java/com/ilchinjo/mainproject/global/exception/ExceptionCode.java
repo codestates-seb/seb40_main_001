@@ -10,6 +10,8 @@ public enum ExceptionCode {
     EXERCISE_NOT_FOUND(404, "Exercise not found"),
     COMMENT_NOT_FOUND(404, "Comment not found"),
     CANT_PROPOSE_MYSELF(422, "Cant propose myself"),
+    CANT_DUPLICATED_PROPOSAL(422, "Cant duplicated proposal"),
+    GENDER_TYPE_NOT_MATCHED(422, "Gender type is not matched"),
     START_TIME_IS_PASSED(422, "Start time is passed"),
     END_TIME_IS_NOT_PASSED(422, "End time is not passed"),
     START_TIME_IS_LATER_THAN_END_TIME(422, "Start time is later than end time"),

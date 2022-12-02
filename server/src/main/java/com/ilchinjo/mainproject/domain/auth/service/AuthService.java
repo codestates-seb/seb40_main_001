@@ -2,5 +2,7 @@ package com.ilchinjo.mainproject.domain.auth.service;
 
 public interface AuthService {
 
-    void deleteToken(Long memberId);
+    String refreshToken(String refreshToken);
+
+    void deleteToken(String refreshToken);
 }

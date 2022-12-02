@@ -9,6 +9,7 @@ import com.ilchinjo.mainproject.global.security.jwt.JwtTokenizer;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -55,7 +56,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String refreshToken = delegateRefreshToken(member);
 
         response.setHeader("Authorization", "Bearer " + accessToken);
-        response.setHeader("Refresh", refreshToken);
+
+        ResponseCookie cookie = ResponseCookie.from("Refresh", refreshToken)
+                .maxAge(17 * 24 * 60 * 60)
+                .path("/")
+                .secure(true)
+                .sameSite("None")
+                .httpOnly(true)
+                .build();
+        response.setHeader("Set-Cookie", cookie.toString());
 
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }

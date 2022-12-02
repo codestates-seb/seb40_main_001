@@ -7,6 +7,7 @@ const Source = ({
   contents,
   handler,
   deleteHandler,
+  parentId,
   id,
   mainReply,
 }) => {
@@ -23,7 +24,7 @@ const Source = ({
         <div className="text-200 ">{`${contents}`}</div>
       </div>
       <div className="m-[5px]">
-        <CommentDeleteBtn onClick={deleteHandler} />
+        <CommentDeleteBtn onClick={() => deleteHandler(id)} />
       </div>
     </div>
   ) : (
@@ -36,7 +37,7 @@ const Source = ({
         <div className="text-200 ">{`${contents}`}</div>
       </div>
       <div className="m-[5px]">
-        <CommentDeleteBtn onClick={deleteHandler} />
+        <CommentDeleteBtn onClick={() => deleteHandler(parentId, id)} />
       </div>
     </div>
   );
@@ -48,6 +49,7 @@ const WriterCardX = ({
   handler,
   deleteHandler,
   id,
+  parentId,
   mainReply,
 }) => {
   return (
@@ -59,6 +61,7 @@ const WriterCardX = ({
           handler={handler}
           deleteHandler={deleteHandler}
           id={id}
+          parentId={parentId}
           mainReply={mainReply}
         />
       }

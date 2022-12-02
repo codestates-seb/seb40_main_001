@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Confirm, Edit } from '../../../assets/img';
 
-const NicknameMypage = ({ nickname }) => {
+const NicknameMypage = ({ userData, setUserData, changeName }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [name, setName] = useState();
 
-  const handleClick = bool => {
+  const handleClick = () => {
     setIsEdit(!isEdit);
-    if (bool) {
-      console.log('nickname 저장');
-    }
   };
 
   const handleChange = e => {
@@ -17,8 +14,21 @@ const NicknameMypage = ({ nickname }) => {
   };
 
   useEffect(() => {
-    setName(nickname);
-  }, [nickname]);
+    if (userData) {
+      setName(userData.nickname);
+    }
+  }, [userData]);
+
+  useEffect(() => {
+    if (userData && name !== userData.nickname) {
+      setUserData(prev => {
+        const newData = prev;
+        newData.nickname = name;
+        return newData;
+      });
+      changeName();
+    }
+  }, [isEdit]);
 
   if (isEdit) {
     return (
@@ -28,7 +38,7 @@ const NicknameMypage = ({ nickname }) => {
           value={name}
           onChange={handleChange}
         ></input>
-        <Confirm onClick={() => handleClick(true)} />
+        <Confirm onClick={handleClick} />
       </div>
     );
   }

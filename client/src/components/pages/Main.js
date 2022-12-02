@@ -14,6 +14,11 @@ import {
 import { Info } from '../../assets/img';
 import { client } from '../../client/client';
 
+// 드로워 밖에 클릭시 안닫힘 은혜님께 전달하기.
+// 무한스크롤하기
+// 유정님끝나면 클라이언트 조작하기
+// 로그인,회원가입,메인 버그 찾기
+
 const Main = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState([]);
@@ -25,6 +30,7 @@ const Main = () => {
   const [count, setCount] = useState(1);
   const [hasNext, setHasNext] = useState(true);
   const SIZE = 5;
+
   // 드로워 오픈 여부
   const [isDrawer, setIsDrawer] = useState(false);
   const observerRef = useRef(); // 탐지 대상
