@@ -131,6 +131,7 @@ const ArounderViewer = () => {
             proposalsData={proposalsData}
             writer={contentsData.host && contentsData.host.memberId}
             userId={UserId}
+            contentsData={contentsData}
           />
           <InputComments
             target="댓글을"

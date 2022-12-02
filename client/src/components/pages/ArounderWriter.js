@@ -74,7 +74,6 @@ const ArounderWriter = () => {
   };
 
   // 대댓글 달기
-  // eslint-disable-next-line no-unused-vars
   const writeSubReplies = idx => {
     if (writeComments === '') {
       alert('내용을 입력해주세요.');
@@ -130,7 +129,6 @@ const ArounderWriter = () => {
   const arrowHandler = () => {
     navigate('/main');
   };
-
   return (
     <>
       {loading && (
@@ -147,6 +145,7 @@ const ArounderWriter = () => {
             proposalsData={proposalsData}
             writer={contentsData.host && contentsData.host.memberId}
             userId={UserId}
+            contentsData={contentsData}
           />
           <InputComments
             target="댓글을"
