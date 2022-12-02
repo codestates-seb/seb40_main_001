@@ -46,7 +46,15 @@ const ArounderWriter = () => {
 
   // 게시글 수정하기
   const updateHandler = () => {
-    console.log('update');
+    if (contentsData.exerciseStatus === 'ACTIVE') {
+      navigate('/write', {
+        state: {
+          data: contentsData,
+        },
+      });
+    } else {
+      alert('모집이 종료된 운동입니다.');
+    }
   };
 
   // 댓글 달기
