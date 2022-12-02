@@ -1,7 +1,7 @@
 import React from 'react';
 import ExerciseCarousel from './ExerciseCarousel';
 
-const ExerciseCategory = ({ handler }) => {
+const ExerciseCategory = ({ handler, data, isWrite }) => {
   const arr = [
     'ALL',
     'RUNNING',
@@ -12,10 +12,14 @@ const ExerciseCategory = ({ handler }) => {
     'BADMINTON',
   ];
 
+  if (isWrite && arr.length > 6) {
+    arr.shift();
+  }
+
   return (
     <div>
       <div className="ml-5 text-400 text-low">카테고리</div>
-      <ExerciseCarousel arr={arr} handler={handler} />
+      <ExerciseCarousel data={data} arr={arr} handler={handler} />
     </div>
   );
 };
