@@ -3,6 +3,9 @@ import { WriterCard, ViewerCL, ViewerCLX, InputComments } from '../molecules';
 import { Recomment } from '../../../assets/img';
 
 const ViewerComments = ({
+  onChange,
+  value,
+  handler,
   target,
   userId,
   writer,
@@ -37,7 +40,13 @@ const ViewerComments = ({
                     deleteHandler={mainReplyDeleteHandler}
                   />
                   <div className="mt-1 mb-1"></div>
-                  <InputComments handler={writeReply} target={target} />
+                  <InputComments
+                    value={value}
+                    handler={handler}
+                    id={idx}
+                    target={target}
+                    onChange={onChange}
+                  />
                 </div>
                 {x.replies.length !== 0 &&
                   x.replies.map((y, id) => {
@@ -53,8 +62,10 @@ const ViewerComments = ({
                                 nickname={y.author.nickname}
                                 contents={y.content}
                                 handler={writeReply}
+                                parentId={idx}
                                 id={id}
                                 mainReply={false}
+                                deleteHandler={nonMainReplyDeleteHandler}
                               />
                             </div>
                           </div>
@@ -133,6 +144,7 @@ const ViewerComments = ({
                                 contents={y.content}
                                 handler={writeReply}
                                 id={id}
+                                parentId={idx}
                                 mainReply={false}
                                 deleteHandler={nonMainReplyDeleteHandler}
                               />
@@ -201,7 +213,13 @@ const ViewerComments = ({
                     mainReply={true}
                   />
                   <div className="mt-1 mb-1"></div>
-                  <InputComments handler={writeReply} target={target} />
+                  <InputComments
+                    value={value}
+                    handler={handler}
+                    id={idx}
+                    target={target}
+                    onChange={onChange}
+                  />
                 </div>
                 {x.replies.length !== 0 &&
                   x.replies.map((y, id) => {
@@ -218,6 +236,7 @@ const ViewerComments = ({
                                 contents={y.content}
                                 handler={writeReply}
                                 id={id}
+                                parentId={idx}
                                 mainReply={false}
                                 deleteHandler={nonMainReplyDeleteHandler}
                               />
@@ -285,6 +304,7 @@ const ViewerComments = ({
                 {x.replies.length !== 0 &&
                   x.replies.map((y, id) => {
                     // 대댓글 작성자가 뷰어 이다
+                    console.log(idx);
                     if (y.author.memberId === userId) {
                       return (
                         <>
@@ -297,6 +317,7 @@ const ViewerComments = ({
                                 contents={y.content}
                                 handler={writeReply}
                                 id={id}
+                                parentId={idx}
                                 mainReply={false}
                                 deleteHandler={nonMainReplyDeleteHandler}
                               />
@@ -365,7 +386,13 @@ const ViewerComments = ({
                     mainReply={true}
                   />
                   <div className="mt-1 mb-1"></div>
-                  <InputComments handler={writeReply} target={target} />
+                  <InputComments
+                    value={value}
+                    handler={handler}
+                    id={idx}
+                    target={target}
+                    onChange={onChange}
+                  />
                 </div>
                 {x.replies.length !== 0 &&
                   x.replies.map((y, id) => {
@@ -382,6 +409,7 @@ const ViewerComments = ({
                                 contents={y.content}
                                 handler={writeReply}
                                 id={id}
+                                parentId={idx}
                                 mainReply={false}
                                 deleteHandler={nonMainReplyDeleteHandler}
                               />
@@ -460,6 +488,7 @@ const ViewerComments = ({
                                 nickname={y.author.nickname}
                                 contents={y.content}
                                 handler={writeReply}
+                                parentId={idx}
                                 id={id}
                                 mainReply={false}
                                 deleteHandler={nonMainReplyDeleteHandler}

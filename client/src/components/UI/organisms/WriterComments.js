@@ -3,6 +3,9 @@ import { WriterCardX, ViewerCL, InputComments } from '../molecules';
 import { Recomment } from '../../../assets/img';
 
 const WriterComments = ({
+  onChange,
+  value,
+  handler,
   target,
   userId,
   writer,
@@ -11,7 +14,6 @@ const WriterComments = ({
   nonMainReplyDeleteHandler,
 }) => {
   const [reply, setReply] = useState(false);
-
   const writeReply = idx => {
     const clickReply = new Array(commentsData.length).fill(false);
     clickReply[idx] = true;
@@ -43,7 +45,13 @@ const WriterComments = ({
                     deleteHandler={mainReplyDeleteHandler}
                   />
                   <div className="mt-1 mb-1"></div>
-                  <InputComments handler={writeReply} target={target} />
+                  <InputComments
+                    value={value}
+                    handler={handler}
+                    id={idx}
+                    target={target}
+                    onChange={onChange}
+                  />
                 </div>
                 {x.replies.length !== 0 &&
                   x.replies.map((y, id) => {
@@ -60,6 +68,7 @@ const WriterComments = ({
                                 contents={y.content}
                                 handler={writeReply}
                                 id={id}
+                                parentId={idx}
                                 mainReply={false}
                                 deleteHandler={nonMainReplyDeleteHandler}
                               />
@@ -120,6 +129,7 @@ const WriterComments = ({
                                 contents={y.content}
                                 handler={writeReply}
                                 id={id}
+                                parentId={idx}
                                 mainReply={false}
                                 deleteHandler={nonMainReplyDeleteHandler}
                               />
@@ -168,7 +178,13 @@ const WriterComments = ({
                     mainReply={true}
                   />
                   <div className="mt-1 mb-1"></div>
-                  <InputComments handler={writeReply} target={target} />
+                  <InputComments
+                    value={value}
+                    handler={handler}
+                    id={idx}
+                    target={target}
+                    onChange={onChange}
+                  />
                 </div>
                 {x.replies.length !== 0 &&
                   x.replies.map((y, id) => {
@@ -185,6 +201,7 @@ const WriterComments = ({
                                 contents={y.content}
                                 handler={writeReply}
                                 id={id}
+                                parentId={idx}
                                 mainReply={false}
                                 deleteHandler={nonMainReplyDeleteHandler}
                               />
@@ -244,6 +261,7 @@ const WriterComments = ({
                                 contents={y.content}
                                 handler={writeReply}
                                 id={id}
+                                parentId={idx}
                                 mainReply={false}
                                 deleteHandler={nonMainReplyDeleteHandler}
                               />
