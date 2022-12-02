@@ -32,9 +32,8 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public void logout(@RequestHeader("Authorization") String token) {
+    public void logout(@CookieValue("Refresh") String refreshToken) {
 
-        Long memberId = jwtTokenizer.parseMemberId(token);
-        authService.deleteToken(memberId);
+        authService.deleteToken(refreshToken);
     }
 }
