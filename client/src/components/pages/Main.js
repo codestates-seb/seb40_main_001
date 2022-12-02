@@ -14,11 +14,6 @@ import {
 import { Info } from '../../assets/img';
 import { client } from '../../client/client';
 
-// 드로워 밖에 클릭시 안닫힘 은혜님께 전달하기.
-// 무한스크롤하기
-// 유정님끝나면 클라이언트 조작하기
-// 로그인,회원가입,메인 버그 찾기
-
 const Main = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState([]);
@@ -35,6 +30,7 @@ const Main = () => {
   const observerRef = useRef(); // 탐지 대상
   const preventRef = useRef(true); // 중복 체크
   const visited = useRef(false); // 첫방문 여부
+
   // 햄버거 아이콘 클릭 시 드로워 오픈 여부 변경
   const menuHandler = () => {
     setIsDrawer(!isDrawer);
@@ -56,7 +52,7 @@ const Main = () => {
     const response = await client.get('/members/info');
     setInfoData({
       nickname: response.data.nickname,
-      image: response.data.image.remotePath,
+      image: response.data.image.remotePath || '',
       gender: response.data.gender,
     });
     setUserId(response.data.memberId);
@@ -74,22 +70,26 @@ const Main = () => {
       setCount(cnt => cnt + 1);
     }
   };
-  useEffect(() => {
-    if (localStorage.getItem('accessToken') === null) {
-      navigate('/login');
-    }
 
-    getUserInfoData();
-
+  const observerSet = () => {
     const observer = new IntersectionObserver(obsHandler, { threshold: 1 });
     if (observerRef.current) observer.observe(observerRef.current);
     return () => {
       observer.disconnect();
     };
-  }, []);
+  };
+
+  const checkToken = async () => {
+    if (localStorage.getItem('accessToken') === null) {
+      navigate('/login');
+    }
+  };
 
   useEffect(() => {
     getUserData();
+    checkToken();
+    getUserInfoData();
+    observerSet();
   }, [address, category, gender, count]);
 
   const genderToggleClick = () => {
@@ -160,7 +160,7 @@ const Main = () => {
       <EditBtn handleClick={handleClick} />
       {/* 드로워 */}
       {isDrawer ? (
-        <div className="h-full absolute z-20 top-[55px] right-0">
+        <div className="h-screen absolute z-20 top-[55px] right-0">
           <Drawer img={infoData.image} name={infoData.nickname} />
         </div>
       ) : (
