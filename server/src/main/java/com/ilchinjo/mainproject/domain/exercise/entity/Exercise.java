@@ -103,7 +103,6 @@ public class Exercise extends AuditingEntity {
                 .ifPresent(category -> this.category = category);
         this.address = address;
         this.updatedAt = LocalDateTime.now();
-
     }
 
     public void choiceProposal(Proposal proposal) {
@@ -114,5 +113,9 @@ public class Exercise extends AuditingEntity {
 
     public void addImages(List<Image> images) {
         this.images.addAll(images);
+    }
+
+    public void removeImages() {
+        this.images.clear();
     }
 }

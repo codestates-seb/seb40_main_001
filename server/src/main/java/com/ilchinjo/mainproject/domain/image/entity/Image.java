@@ -57,4 +57,8 @@ public class Image extends AuditingEntity {
     public void addExercise(Exercise exercise) {
         this.exercise = exercise;
     }
+
+    public void removeExercise() {
+        this.exercise = null;
+    }
 }
