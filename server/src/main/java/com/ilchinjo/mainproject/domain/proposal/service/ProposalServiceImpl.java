@@ -36,6 +36,7 @@ public class ProposalServiceImpl implements ProposalService {
         Exercise findExercise = exerciseService.findVerifiedExercise(exerciseId);
         checkExerciseValid(findExercise);
         checkSelfPropose(findExercise, participantId);
+        checkDuplicatedPropose(findExercise, participantId);
         Member findParticipant = memberService.findVerifiedMember(participantId);
         return mapper.entityToResponseDto(
                 proposalRepository.save(Proposal.createProposal(findExercise, findParticipant))
@@ -83,6 +84,15 @@ public class ProposalServiceImpl implements ProposalService {
     public void checkHostAuthorized(Proposal proposal, Long hostId) {
         if (!Objects.equals(proposal.getExercise().getHost().getMemberId(), hostId)) {
             throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
+        }
+    }
+
+    private void checkDuplicatedPropose(Exercise exercise, Long memberId) {
+        List<Proposal> proposals = exercise.getProposals();
+        for (Proposal proposal : proposals) {
+            if (Objects.equals(proposal.getParticipant().getMemberId(), memberId)) {
+                throw new BusinessLogicException(ExceptionCode.CANT_DUPLICATED_PROPOSAL);
+            }
         }
     }
 }
