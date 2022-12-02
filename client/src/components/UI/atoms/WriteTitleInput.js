@@ -1,8 +1,9 @@
 import { React } from 'react';
 
-const TitleInput = ({ handler }) => {
+const TitleInput = ({ value, handler }) => {
   return (
     <input
+      value={value}
       onChange={handler}
       type="text"
       placeholder="제목을 입력해주세요"

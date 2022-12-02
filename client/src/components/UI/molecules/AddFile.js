@@ -10,7 +10,7 @@ const AddFile = ({ img, handler, handleDelete }) => {
           img.map((el, idx) => {
             return (
               <div key={el} className="flex flex-row items-center mr-[5px]">
-                {el.name}
+                {el.name || el.originalFilename}
                 <FileDeleteBtn key={el} idx={idx} handler={handleDelete} />
               </div>
             );

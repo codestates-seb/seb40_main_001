@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import { ko } from 'date-fns/locale';
 import { format } from 'date-fns';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const DatepickerModule = ({ start, handler }) => {
+const DatepickerModule = ({ start, data, handler }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(data);
 
   const handleClick = e => {
     e.preventDefault();
@@ -19,6 +19,10 @@ const DatepickerModule = ({ start, handler }) => {
     setStartDate(e);
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    setStartDate(new Date(data));
+  }, [data]);
 
   return (
     <div className="flex flex-col items-end">

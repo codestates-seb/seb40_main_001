@@ -49,7 +49,7 @@ const ArounderWriter = () => {
     if (contentsData.exerciseStatus === 'ACTIVE') {
       navigate('/write', {
         state: {
-          data: contentsData,
+          data: [contentsData, id],
         },
       });
     } else {

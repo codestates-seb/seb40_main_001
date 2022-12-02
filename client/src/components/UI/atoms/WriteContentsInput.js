@@ -1,8 +1,9 @@
 import { React } from 'react';
 
-const ContentsInput = ({ handler }) => {
+const ContentsInput = ({ value, handler }) => {
   return (
     <textarea
+      value={value}
       onChange={handler}
       type="text"
       placeholder="내용을 입력해주세요"

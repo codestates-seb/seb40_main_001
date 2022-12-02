@@ -23,21 +23,24 @@ const WriteContents = ({
       />
       <div className="px-5">
         <div className="flex items-center">
-          <WriteHNC handler={dataHandler} data={data} />
+          <WriteHNC handler={dataHandler} data={[data.title, data.content]} />
         </div>
         <div className="py-3 border-b border-b-main">
-          <WriteGenderSelect handler={dataHandler} data={data} />
+          <WriteGenderSelect handler={dataHandler} data={data.gender} />
         </div>
         <div className="flex flex-col py-3 border-b border-b-main">
           <div className="mb-[10px]">
-            <WriteDate start={true} handler={dataHandler} data={data} />
+            <WriteDate
+              start={true}
+              handler={dataHandler}
+              data={data.startTime}
+            />
           </div>
-          <WriteDate handler={dataHandler} data={data} />
+          <WriteDate handler={dataHandler} data={data.endTime} />
         </div>
         <div className="mt-[18px] mb-[27px]">
           {/* data.img를 가지고 첨부파일 리스트를 업데이트 하는데 조금 많이 느린 이슈 존재 */}
           <AddFile
-            data={data}
             img={img}
             handler={fileHandler}
             handleDelete={handleDelete}
