@@ -47,7 +47,6 @@ const Mypage = () => {
         const payload = {
           imageId: userData.imageId,
         };
-        console.log(`payload`, payload);
         editProfile(payload);
       });
 
@@ -65,27 +64,20 @@ const Mypage = () => {
         });
         setData(res.data.exerciseRecord);
       })
-      .catch(err => {
-        console.log(err);
+      .then(() => {
+        client.get('/members/info').then(res => {
+          setUserData(prev => {
+            const newData = prev;
+            newData.profile = res.data.image.remotePath;
+            return newData;
+          });
+        });
       });
   };
 
   useEffect(() => {
     getHistory();
-
-    client.get('/members/info').then(res => {
-      console.log(res.data);
-      setUserData(prev => {
-        const newData = prev;
-        newData.profile = res.data.image.remotePath;
-        return newData;
-      });
-    });
   }, []);
-
-  useEffect(() => {
-    console.log(userData);
-  }, [userData]);
 
   return (
     <div className="relative h-screen">
