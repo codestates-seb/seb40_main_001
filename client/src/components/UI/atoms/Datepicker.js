@@ -15,8 +15,10 @@ const DatepickerModule = ({ start, data, handler }) => {
 
   const handleChange = e => {
     const name = start ? 'startTime' : 'endTime';
-    handler(name, e);
-    setStartDate(e);
+    const offset = e.getTimezoneOffset() * 60000; // ms단위라 60000곱해줌
+    const dateOffset = new Date(e.getTime() - offset);
+    handler(name, dateOffset.toISOString());
+    setStartDate(dateOffset);
     setIsOpen(!isOpen);
   };
 

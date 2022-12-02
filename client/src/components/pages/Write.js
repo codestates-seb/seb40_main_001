@@ -126,10 +126,8 @@ const Write = () => {
     if (!data.exercise || !data.title || !data.content || !data.gender) {
       return;
     }
-    console.log(postId);
     const newImgArr = imgList.filter(el => el.name);
-    const originImgArr = imgList.filter(el => el.originalFilename);
-
+    const originImgArr = imgList.fil;
     if (newImgArr.length > 0) {
       // 이미지 생성
       const newImg = new FormData();
@@ -144,10 +142,14 @@ const Write = () => {
         .then(res => {
           const newData = data;
           originImgArr.forEach(el => {
-            newData.img.push(el.imageId);
+            if (el.imageId) {
+              newData.img.push(el.imageId);
+            }
           });
           res.data.forEach(el => {
-            newData.img.push(el.imageId);
+            if (el.imageId) {
+              newData.img.push(el.imageId);
+            }
           });
           newData.img = newData.img.filter(el => el);
           setData(newData);
@@ -172,7 +174,7 @@ const Write = () => {
           };
         })
         .then(payload => {
-          client.patch(`/exercises/${data.exerciseId}`, payload).then(() => {
+          client.patch(`/exercises/${postId}`, payload).then(() => {
             navigate('/main');
           });
         })
@@ -182,6 +184,10 @@ const Write = () => {
           }
         });
     } else {
+      const newData = data;
+      newData.img = newData.img.filter(el => el);
+      setData(newData);
+
       const payload = {
         title: data.title,
         content: data.content,
@@ -189,6 +195,7 @@ const Write = () => {
         category: data.exercise,
         exerciseAt: data.startTime,
         endAt: data.endTime,
+        imageIdList: data.img,
       };
       client
         .patch(`/exercises/${postId}`, payload)
@@ -209,6 +216,7 @@ const Write = () => {
       setIsRewrite(true);
       setIsDisable(false);
       const before = location.state.data[0];
+      console.log(before.images);
       setData({
         exercise: before.category,
         title: before.title,
