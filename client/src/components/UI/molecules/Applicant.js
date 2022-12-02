@@ -22,7 +22,6 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
     setCheckProfile(profiles);
     setIsSelected(id);
   };
-  console.log(proposalsData[isSelected].proposalId);
 
   const txt = together ? '완료' : '함께하기';
 
