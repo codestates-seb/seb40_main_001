@@ -2,7 +2,7 @@ import React from 'react';
 import { NicknameMypage } from '../molecules';
 import { BatteryCase, HNM, ImgAddBtn } from '../atoms';
 
-const MyInfo = ({ userData, setUserData, imageHandler }) => {
+const MyInfo = ({ userData, setUserData, imageHandler, changeName }) => {
   return (
     <div className="flex flex-row h-[90px] w-[350px] pt-0.5 border-b border-b-main">
       <div className="">
@@ -14,8 +14,9 @@ const MyInfo = ({ userData, setUserData, imageHandler }) => {
       <div className="flex flex-col ml-[15px]">
         <div className="mb-[10px]">
           <NicknameMypage
+            userData={userData}
             setUserData={setUserData}
-            nickname={userData && userData.nickname}
+            changeName={changeName}
           />
         </div>
         <BatteryCase charge={userData && userData.charge} />
