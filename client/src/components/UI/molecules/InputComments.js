@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import TextInputArea from '../atoms/TextInput';
 import { CommentBtn } from '../atoms';
 
-const InputComments = ({ target, handler, id, onChange, value }) => {
+const InputComments = ({ target, handler, id, onChange, value, subValue }) => {
   // eslint-disable-next-line no-unused-vars
   const [writeComments, setWriteComments] = useState('');
   // eslint-disable-next-line no-unused-vars
@@ -12,9 +12,14 @@ const InputComments = ({ target, handler, id, onChange, value }) => {
   return (
     <div className="flex flex-ro mt-[15px]">
       <div className="mr-[13px]">
-        <TextInputArea target={target} value={value} onChange={onChange} />
+        <TextInputArea
+          target={target}
+          value={value}
+          subValue={subValue}
+          onChange={onChange}
+        />
       </div>
-      <CommentBtn id={id} handler={handler} />
+      <CommentBtn handler={() => handler(id)} />
     </div>
   );
 };

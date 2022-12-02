@@ -56,22 +56,25 @@ const ArounderViewer = () => {
   };
 
   // 댓글 삭제 handler
-  // eslint-disable-next-line no-unused-vars
-  const mainReplyDeleteHandler = async () => {
-    // await client.delete(`/comments/${commentsData.commentId}`);
-    console.log(commentsData.commentID);
+  const mainReplyDeleteHandler = async idx => {
+    alert('댓글을 삭제합니다.');
+    await client.delete(`/comments/${commentsData[idx].commentId}`).then(() => {
+      window.location.reload();
+    });
   };
 
   // 대댓글 삭제 handler
-  // eslint-disable-next-line no-unused-vars
-  const nonMainReplyDeleteHandler = async () => {
-    // await client.delete(`/replies/${commentsData.replies.replyId}`);
-    console.log(commentsData && commentsData.replies);
+  const nonMainReplyDeleteHandler = async (parentId, idx) => {
+    alert('대댓글을 삭제합니다.');
+    await client
+      .delete(`/replies/${commentsData[parentId].replies[idx].replyId}`)
+      .then(() => {
+        window.location.reload();
+      });
   };
 
   // 댓글 달기
-  const writeMainReplies = e => {
-    e.preventDefault();
+  const writeMainReplies = () => {
     if (writeComments === '') {
       alert('내용을 입력해주세요.');
       return;
@@ -79,14 +82,16 @@ const ArounderViewer = () => {
     const body = {
       content: writeComments,
     };
-    client.post(`/exercises/${id}/comments`, body);
-    setWriteComments('');
+    client.post(`/exercises/${id}/comments`, body).then(() => {
+      alert('댓글이 등록되었습니다.');
+      window.location.reload();
+      setWriteComments('');
+    });
   };
 
   // 대댓글 달기
   // eslint-disable-next-line no-unused-vars
-  const writeSubReplies = e => {
-    e.preventDefault();
+  const writeSubReplies = idx => {
     if (writeComments === '') {
       alert('내용을 입력해주세요.');
       return;
@@ -94,8 +99,13 @@ const ArounderViewer = () => {
     const body = {
       content: writeComments,
     };
-    client.post(`/comments/{comment-id}/replies`, body);
-    setWriteComments('');
+    client
+      .post(`/comments/${commentsData[idx].commentId}/replies`, body)
+      .then(() => {
+        alert('댓글이 등록되었습니다.');
+        window.location.reload();
+        setWriteComments('');
+      });
   };
 
   useEffect(() => {
@@ -126,7 +136,7 @@ const ArounderViewer = () => {
             target="댓글을"
             handler={writeMainReplies} // post 요청 줘야한다
             onChange={commentsHandler}
-            value={writeMainReplies}
+            value={writeComments}
           />
           <ViewerComments
             target="답글을"
@@ -135,6 +145,8 @@ const ArounderViewer = () => {
             commentsData={commentsData}
             mainReplyDeleteHandler={mainReplyDeleteHandler}
             nonMainReplyDeleteHandler={nonMainReplyDeleteHandler}
+            handler={writeSubReplies}
+            subValue={writeComments}
           />
         </div>
       )}
