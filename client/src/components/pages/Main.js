@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import userInfoState from '../../recoil/atoms';
@@ -27,9 +27,15 @@ const Main = () => {
   const [category, setCategory] = useState('ALL');
   const setUserId = useSetRecoilState(userInfoState);
   const [infoData, setInfoData] = useState({});
+  const [count, setCount] = useState(1);
+  const [hasNext, setHasNext] = useState(true);
+  const SIZE = 5;
+
   // 드로워 오픈 여부
   const [isDrawer, setIsDrawer] = useState(false);
-
+  const observerRef = useRef(); // 탐지 대상
+  const preventRef = useRef(true); // 중복 체크
+  const visited = useRef(false); // 첫방문 여부
   // 햄버거 아이콘 클릭 시 드로워 오픈 여부 변경
   const menuHandler = () => {
     setIsDrawer(!isDrawer);
@@ -37,10 +43,16 @@ const Main = () => {
 
   const getUserData = async () => {
     const response = await client.get(
-      `/exercises?address-id=${address}&category=${category}&gender-type=${gender}&cursorId=100&size=100`, // http://3.36.23.248:8080/exercises?address-id=1&category=ALL&gender-type=ALL&size=10
+      `/exercises?address-id=${address}&category=${category}&gender-type=${gender}&cursorId=100&size=${
+        count * SIZE
+      }`,
     );
+    setHasNext(response.data.hasNext);
     setUserData(response.data.data);
+    preventRef.current = true;
+    visited.current = true;
   };
+
   const getUserInfoData = async () => {
     const response = await client.get('/members/info');
     setInfoData({
@@ -50,6 +62,36 @@ const Main = () => {
     });
     setUserId(response.data.memberId);
   };
+
+  const obsHandler = async entries => {
+    const target = entries[0];
+    if (
+      target.isIntersecting &&
+      hasNext &&
+      preventRef.current &&
+      visited.current
+    ) {
+      preventRef.current = false;
+      setCount(cnt => cnt + 1);
+    }
+  };
+  useEffect(() => {
+    if (localStorage.getItem('accessToken') === null) {
+      navigate('/login');
+    }
+
+    getUserInfoData();
+
+    const observer = new IntersectionObserver(obsHandler, { threshold: 1 });
+    if (observerRef.current) observer.observe(observerRef.current);
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    getUserData();
+  }, [address, category, gender, count]);
 
   const genderToggleClick = () => {
     if (gender === 'ALL') {
@@ -71,14 +113,6 @@ const Main = () => {
     e.preventDefault();
     navigate(`/${checked}/${target}`);
   };
-
-  useEffect(() => {
-    getUserInfoData();
-  }, []);
-
-  useEffect(() => {
-    getUserData();
-  }, [address, category, gender]);
 
   return (
     // 드로워 위치를 위한 css 추가
@@ -121,6 +155,7 @@ const Main = () => {
         {userData.map((data, idx) => (
           <HomeContents key={idx} data={data} contentClick={contentClick} />
         ))}
+        <div ref={observerRef}></div>
       </div>
       <EditBtn handleClick={handleClick} />
 
