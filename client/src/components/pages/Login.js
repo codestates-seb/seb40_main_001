@@ -22,6 +22,7 @@ const Login = () => {
       .then(res => {
         if (res.headers.get('Authorization')) {
           localStorage.setItem('accessToken', res.headers.get('Authorization'));
+          alert('로그인 성공');
         }
         naviagte('/main');
       })

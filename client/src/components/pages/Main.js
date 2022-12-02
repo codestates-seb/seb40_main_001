@@ -29,8 +29,7 @@ const Main = () => {
   const [infoData, setInfoData] = useState({});
   const [count, setCount] = useState(1);
   const [hasNext, setHasNext] = useState(true);
-  const SIZE = 5;
-
+  const SIZE = 10;
   // 드로워 오픈 여부
   const [isDrawer, setIsDrawer] = useState(false);
   const observerRef = useRef(); // 탐지 대상
@@ -152,9 +151,10 @@ const Main = () => {
       </div>
 
       <div className="flex flex-col pt-3 items-center space-y-3">
-        {userData.map((data, idx) => (
-          <HomeContents key={idx} data={data} contentClick={contentClick} />
-        ))}
+        {userData &&
+          userData.map((data, idx) => (
+            <HomeContents key={idx} data={data} contentClick={contentClick} />
+          ))}
         <div ref={observerRef}></div>
       </div>
       <EditBtn handleClick={handleClick} />
