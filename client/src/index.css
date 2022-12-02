@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 @layer base {
-    html {
-      font-family: Pretendard Variable;
-      @apply h-screen
-    }
-    body {
-      @apply flex justify-center bg-white text h-full
-    }
-    .root {
-      @apply w-[390px] h-full
-    }
+  html {
+    font-family: Pretendard Variable;
+    @apply h-screen scrollbar-hide;
   }
+  body {
+    @apply flex justify-center bg-white text h-full;
+  }
+  .root {
+    @apply w-[390px] h-full;
+  }
+}
