@@ -121,7 +121,7 @@ const ArounderViewer = () => {
   return (
     <>
       {loading && (
-        <div className="flex flex-col justify-center items-center overflow: auto;">
+        <div className="flex flex-col justify-center items-center overflow:auto mb-[5rem]">
           <HeaderArrow arrowHandler={arrowHandler} txt={'상세 글 보기'} />
           <DetailContents
             contentsData={contentsData}
