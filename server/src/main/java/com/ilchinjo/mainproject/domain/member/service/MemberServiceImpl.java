@@ -139,7 +139,7 @@ public class MemberServiceImpl implements MemberService {
         Optional<Member> member = memberRepository.findByNickname(nickname);
 
         if (member.isPresent()) {
-            throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
+            throw new BusinessLogicException(ExceptionCode.NICKNAME_EXISTS);
         }
     }
 

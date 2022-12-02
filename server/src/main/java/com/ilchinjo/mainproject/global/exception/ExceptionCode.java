@@ -6,6 +6,7 @@ import lombok.Getter;
 public enum ExceptionCode {
     MEMBER_NOT_FOUND(404, "Member not found"),
     MEMBER_EXISTS(409, "Member exists"),
+    NICKNAME_EXISTS(409, "Nickname exists"),
     MEMBER_UNAUTHORIZED(403, "Member unauthorized"),
     EXERCISE_NOT_FOUND(404, "Exercise not found"),
     COMMENT_NOT_FOUND(404, "Comment not found"),
