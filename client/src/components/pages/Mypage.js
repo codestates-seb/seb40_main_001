@@ -9,16 +9,26 @@ const Mypage = () => {
   const [data, setData] = useState();
   const [isDrawer, setIsDrawer] = useState(false);
   const [isModal, setIsModal] = useState(false);
-  const [score, setScore] = useState('');
+  const [exerciseId, setExerciseId] = useState(0);
+  const [destId, setDestId] = useState(0);
+  const [score, setScore] = useState([]);
   const userId = useRecoilValue(userInfoState);
 
   const closeModal = () => {
+    const payload = {
+      destMemberId: destId,
+      publicEvaluation: score[0],
+      privateEvaluation: score[1],
+    };
+    client.post(`/exercises/${exerciseId}/reviews`, payload);
     setIsModal(false);
-    console.log(score);
+    // 제출 후 새로고침을 할 것인가?
   };
 
-  const openModal = () => {
+  const openModal = (id, dest) => {
     setIsModal(true);
+    setExerciseId(id);
+    setDestId(dest);
   };
 
   const menuHandler = () => {
@@ -27,7 +37,9 @@ const Mypage = () => {
 
   // eslint-disable-next-line no-unused-vars
   const editProfile = payload => {
-    client.patch(`/members/${userId}`, payload);
+    client.patch(`/members/${userId}`, payload).then(() => {
+      alert('프로필 사진이 변경되었습니다.');
+    });
   };
 
   const imageHandler = e => {
@@ -50,19 +62,39 @@ const Mypage = () => {
         editProfile(payload);
       });
 
-    // 제출
+    // 제출 후 새로고침을 할 것인가?
+  };
+
+  const changeName = () => {
+    const payload = {
+      nickname: userData.nickname,
+    };
+    client
+      .patch(`/members/${userId}`, payload)
+      .then(() => {
+        alert('닉네임이 변경되었습니다.');
+      })
+      .catch(e => {
+        if (e.response.data.message === 'Member exists') {
+          alert('중복된 닉네임입니다.');
+          window.location.reload();
+        } else {
+          alert('닉네임을 변경하지 못했습니다.');
+          window.location.reload();
+        }
+      });
   };
 
   const getHistory = () => {
     client
       .get('/members/profiles')
       .then(res => {
+        setData(res.data.exerciseRecord);
         setUserData({
           nickname: res.data.nickname,
           charge: res.data.publicEvaluation,
           addressId: res.data.address.addressId,
         });
-        setData(res.data.exerciseRecord);
       })
       .then(() => {
         client.get('/members/info').then(res => {
@@ -97,11 +129,10 @@ const Mypage = () => {
         )}
         <HeaderLogo txt="마이페이지" menuHandler={menuHandler} menu={true} />
         <div className="flex justify-center mt-5">
-          {/* 사용자 프로필 이미지, 닉네임, 배터리 요소 전달 */}
-          {/* 데이터 패칭 후 해당 요소를 data 등으로 묶어서 보낼 것 */}
           <MyInfo
             userData={userData}
             setUserData={setUserData}
+            changeName={changeName}
             imageHandler={imageHandler}
           />
         </div>
@@ -121,7 +152,11 @@ const Mypage = () => {
       {/* 모달창 */}
       {isModal ? (
         <div className="fixed top-0 transform translate-x-12 translate-y-64 z-20">
-          <Modal handleClose={closeModal} setScore={setScore} />
+          <Modal
+            handleClose={closeModal}
+            setScore={setScore}
+            setIsModal={setIsModal}
+          />
         </div>
       ) : (
         <></>
