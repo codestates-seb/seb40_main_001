@@ -66,6 +66,23 @@ public class ExerciseServiceImpl implements ExerciseService {
         Member findMember = findVerifiedMember(memberId);
         Exercise patchExercise = exerciseMapper.patchDtoToEntity(patchDto);
 
+        Optional.ofNullable(patchDto.getImageIdList())
+                .ifPresent(imageIdList -> {
+                    List<Image> images = findVerifiedImages(imageIdList);
+
+                    if (findExercise.getImages() != null) {
+                        for (Image image : findExercise.getImages()) {
+                            image.removeExercise();
+                        }
+                        findExercise.removeImages();
+                    }
+
+                    for (Image image : images) {
+                        image.addExercise(findExercise);
+                    }
+                    findExercise.addImages(images);
+                });
+
         findExercise.update(patchExercise, findMember.getAddress());
 
         return exerciseMapper.entityToResponseDto(findExercise);
