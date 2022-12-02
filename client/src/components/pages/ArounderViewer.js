@@ -146,7 +146,8 @@ const ArounderViewer = () => {
             mainReplyDeleteHandler={mainReplyDeleteHandler}
             nonMainReplyDeleteHandler={nonMainReplyDeleteHandler}
             handler={writeSubReplies}
-            subValue={writeComments}
+            onChange={commentsHandler}
+            Value={writeComments}
           />
         </div>
       )}

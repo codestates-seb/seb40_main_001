@@ -50,8 +50,7 @@ const ArounderWriter = () => {
   };
 
   // 댓글 달기
-  const writeMainReplies = e => {
-    e.preventDefault();
+  const writeMainReplies = () => {
     if (writeComments === '') {
       alert('내용을 입력해주세요.');
       return;
@@ -59,14 +58,16 @@ const ArounderWriter = () => {
     const body = {
       content: writeComments,
     };
-    client.post(`/exercises/${id}/comments`, body);
-    setWriteComments('');
+    client.post(`/exercises/${id}/comments`, body).then(() => {
+      alert('댓글이 등록되었습니다.');
+      window.location.reload();
+      setWriteComments('');
+    });
   };
 
   // 대댓글 달기
   // eslint-disable-next-line no-unused-vars
-  const writeSubReplies = e => {
-    e.preventDefault();
+  const writeSubReplies = idx => {
     if (writeComments === '') {
       alert('내용을 입력해주세요.');
       return;
@@ -74,9 +75,13 @@ const ArounderWriter = () => {
     const body = {
       content: writeComments,
     };
-    client.post(`/comments/{comment-id}/replies`, body);
-    console.log(id, writeComments);
-    setWriteComments('');
+    client
+      .post(`/comments/${commentsData[idx].commentId}/replies`, body)
+      .then(() => {
+        alert('댓글이 등록되었습니다.');
+        window.location.reload();
+        setWriteComments('');
+      });
   };
 
   // 게시글 삭제하기
@@ -85,16 +90,22 @@ const ArounderWriter = () => {
     navigate('/main');
   };
 
-  // 기본 댓글 삭제
-  // eslint-disable-next-line no-unused-vars
-  const mainReplyDeleteHandler = async () => {
-    await client.delete(`/comments/${commentsData.commentId}`);
+  // 댓글 삭제 handler
+  const mainReplyDeleteHandler = async idx => {
+    alert('댓글을 삭제합니다.');
+    await client.delete(`/comments/${commentsData[idx].commentId}`).then(() => {
+      window.location.reload();
+    });
   };
 
-  // 기본 대댓글 삭제
-  // eslint-disable-next-line no-unused-vars
-  const nonMainReplyDeleteHandler = async () => {
-    await client.delete(`/replies/${commentsData.replies.replyId}`);
+  // 대댓글 삭제 handler
+  const nonMainReplyDeleteHandler = async (parentId, idx) => {
+    alert('대댓글을 삭제합니다.');
+    await client
+      .delete(`/replies/${commentsData[parentId].replies[idx].replyId}`)
+      .then(() => {
+        window.location.reload();
+      });
   };
 
   useEffect(() => {
@@ -142,8 +153,9 @@ const ArounderWriter = () => {
             commentsData={commentsData}
             mainReplyDeleteHandler={mainReplyDeleteHandler}
             nonMainReplyDeleteHandler={nonMainReplyDeleteHandler}
-            value={writeComments}
             handler={writeSubReplies}
+            onChange={commentsHandler}
+            Value={writeComments}
           />
         </div>
       )}
