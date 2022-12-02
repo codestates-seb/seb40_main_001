@@ -9,6 +9,7 @@ import com.ilchinjo.mainproject.global.security.handler.MemberAuthenticationEntr
 import com.ilchinjo.mainproject.global.security.handler.MemberAuthenticationFailureHandler;
 import com.ilchinjo.mainproject.global.security.handler.MemberAuthenticationSuccessHandler;
 import com.ilchinjo.mainproject.global.security.jwt.JwtTokenizer;
+import com.ilchinjo.mainproject.global.security.utils.CustomAuthorityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,6 +36,7 @@ public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final MemberRepository memberRepository;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final CustomAuthorityUtils authorityUtils;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -72,8 +74,6 @@ public class SecurityConfiguration {
                         .antMatchers("/proposals/**").hasRole("USER")
 
                         .antMatchers("/images").hasRole("USER")
-
-                        .antMatchers("/auth/logout").hasRole("USER")
 
                         .antMatchers("/auth/**").permitAll()
 
@@ -118,7 +118,7 @@ public class SecurityConfiguration {
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler(memberRepository));
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
 
-            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer);
+            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
 
             builder
                     .addFilter(jwtAuthenticationFilter)
