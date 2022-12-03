@@ -37,7 +37,7 @@ public class Member extends AuditingEntity {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id")
     private Address address;
 
@@ -67,7 +67,7 @@ public class Member extends AuditingEntity {
     @Builder.Default
     private int publicEvaluation = 20;
 
-    @OneToOne(mappedBy = "profiledMember", cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "profiledMember", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private Image image;
 
     @Builder.Default

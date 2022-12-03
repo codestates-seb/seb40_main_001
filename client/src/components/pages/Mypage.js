@@ -122,30 +122,30 @@ const Mypage = () => {
   }, []);
 
   return (
-    <div className="relative h-screen">
-      <div>
-        {isModal ? (
-          <div className="w-full h-full absolute bg-black opacity-50 z-10"></div>
-        ) : (
-          <></>
-        )}
-        <HeaderLogo txt="마이페이지" menuHandler={menuHandler} menu={true} />
-        <div className="flex justify-center mt-5">
-          <MyInfo
-            infoData={infoData}
-            setUserData={setUserData}
-            changeName={changeName}
-            imageHandler={imageHandler}
-          />
-        </div>
-        <div className="flex justify-center items-center mt-5">
-          <ArounderRecord data={data} openModal={openModal} />
-        </div>
+    <div className="relative h-screen scrollbar-hide">
+      {isModal ? (
+        <div className="w-full h-full absolute bg-black opacity-50 z-10"></div>
+      ) : (
+        <></>
+      )}
+      <HeaderLogo txt="마이페이지" menuHandler={menuHandler} menu={true} />
+
+      <div className="flex justify-center mt-[55px]">
+        <MyInfo
+          infoData={infoData}
+          setUserData={setUserData}
+          changeName={changeName}
+          imageHandler={imageHandler}
+        />
       </div>
+      <div className="flex justify-center items-center mt-5">
+        <ArounderRecord data={data} openModal={openModal} />
+      </div>
+
       {/* 드로워 */}
       {isDrawer ? (
         // h-full 하면 top-55px 밀리니까 이거 계산해서 넣어주기
-        <div className="h-screen w-full absolute z-20 top-[55px] right-0">
+        <div className="h-screen w-[390px] fixed z-20 top-[55px]">
           <Drawer img={userData.profile} name={userData.nickname} />
         </div>
       ) : (
