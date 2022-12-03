@@ -279,7 +279,6 @@ const Write = () => {
   return (
     <div>
       <HeaderArrow txt="글쓰기" arrowHandler={arrowHandler} />
-      {/* 아래 컴포넌트에 handler 필요 */}
       <WriteContents
         data={data}
         dataHandler={dataHandler}
