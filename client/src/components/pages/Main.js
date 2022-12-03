@@ -116,6 +116,18 @@ const Main = () => {
     navigate(`/${checked}/${target}`);
   };
 
+  const Refresh = () => {
+    client
+      .post('/auth/refresh')
+      .then(res => {
+        console.log(res);
+        console.log('성공!잘 작동해요!');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   return (
     // 드로워 위치를 위한 css 추가
     <div className="relative h-screen scrollbar-hide">
@@ -127,6 +139,7 @@ const Main = () => {
           <Info />
         </div>
       </HeaderLogo>
+      <button onClick={Refresh}>클릭</button>
       <ExerciseCarousel
         handler={handler}
         arr={[
