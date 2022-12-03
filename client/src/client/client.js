@@ -6,25 +6,25 @@ axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 export const preClient = axios.create({
   headers: {
-    withCredentials: true,
     'Content-Type': `application/json`,
   },
+  withCredentials: true,
 });
 
 export const clientImg = axios.create({
   headers: {
-    withCredentials: true,
     Authorization: `${accessToken}`,
     'Content-Type': `multipart/form-data`,
   },
+  withCredentials: true,
 });
 // client
 export const client = axios.create({
   headers: {
-    withCredentials: true,
     Authorization: `${accessToken}`,
     'Content-Type': `application/json`,
   },
+  withCredentials: true,
 });
 // 요청 인터셉터
 client.interceptors.request.use(
