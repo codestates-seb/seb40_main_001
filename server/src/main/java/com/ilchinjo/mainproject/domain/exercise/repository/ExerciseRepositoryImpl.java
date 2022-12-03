@@ -53,9 +53,9 @@ public class ExerciseRepositoryImpl implements ExerciseRepositoryCustom {
         Gender memberGender = findMember.getGender();
         switch (genderType) {
             case "ALL":
-                return exercise.genderType.eq(GenderType.ALL).or((exercise.genderType.eq(GenderType.SAME).and(exercise.host.gender.eq(findMember.getGender()))));
+                return exercise.genderType.eq(GenderType.ALL).or(exercise.host.gender.eq(findMember.getGender()));
             case "SAME":
-                return exercise.genderType.eq(GenderType.SAME).and(exercise.host.gender.eq(findMember.getGender())).or(exercise.genderType.eq(GenderType.ALL).and(exercise.host.gender.eq(findMember.getGender())));
+                return exercise.host.gender.eq(findMember.getGender());
             default:
                 throw new BusinessLogicException(ExceptionCode.GENDER_TYPE_NOT_FOUND);
         }
