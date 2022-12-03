@@ -1,23 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
 import HeaderArrow from '../UI/molecules/HeaderArrow';
 import ApplicantSet from '../UI/molecules/Applicant';
 import InputComments from '../UI/molecules/InputComments';
 import DetailContentsWriter from '../UI/organisms/DetailContentsWriter';
 import WriterComments from '../UI/organisms/WriterComments';
 import { client } from '../../client/client';
-import userInfoState from '../../recoil/atoms';
 
 const ArounderWriter = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const UserId = useRecoilValue(userInfoState);
   const [contentsData, setContentsData] = useState([]);
   const [proposalsData, setProposalsData] = useState([]);
   const [commentsData, setCommentsData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [writeComments, setWriteComments] = useState('');
+  const userId = +localStorage.getItem('memberId');
 
   // 글 내용 관련 데이터 가져오기
   const getContentsData = async () => {
@@ -144,7 +142,7 @@ const ArounderWriter = () => {
           <ApplicantSet
             proposalsData={proposalsData}
             writer={contentsData.host && contentsData.host.memberId}
-            userId={UserId}
+            userId={userId}
             contentsData={contentsData}
           />
           <InputComments
@@ -156,7 +154,7 @@ const ArounderWriter = () => {
           <WriterComments
             target="답글을"
             writer={contentsData.host && contentsData.host.memberId}
-            userId={UserId}
+            userId={userId}
             commentsData={commentsData}
             mainReplyDeleteHandler={mainReplyDeleteHandler}
             nonMainReplyDeleteHandler={nonMainReplyDeleteHandler}
