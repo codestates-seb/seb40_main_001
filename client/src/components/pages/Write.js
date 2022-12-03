@@ -131,7 +131,7 @@ const Write = () => {
       return;
     }
     const newImgArr = imgList.filter(el => el.name);
-    const originImgArr = imgList.fil;
+    const originImgArr = imgList.filter(el => el.originImgArr);
     if (newImgArr.length > 0) {
       // 이미지 생성
       const newImg = new FormData();
@@ -254,7 +254,13 @@ const Write = () => {
       <div
         className="flex w-full h-[30px] justify-center"
         onClick={() => {
-          return isRewrite ? submitPatch() : submitWrite(imgList.length > 0);
+          if (isRewrite) {
+            console.log('patch');
+            submitPatch();
+          } else {
+            console.log('write');
+            submitWrite(imgList.length > 0);
+          }
         }}
       >
         <LongBtn txt="글쓰기" disabled={isDisable} />
