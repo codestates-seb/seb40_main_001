@@ -16,7 +16,7 @@ const Drawer = ({ img, name }) => {
   };
 
   return (
-    <div className="w-full p-[14px] bg-white drop-shadow-lg">
+    <div className="w-full p-[14px] bg-white shadow rounded-b-2xl">
       <DrawerInfo img={img} name={name} handler={logoutHandler} />
       <div className="border-2 border-gray mt-7"></div>
       <div className="ml-[14px] mt-5">
