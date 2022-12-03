@@ -27,7 +27,7 @@ const DatepickerModule = ({ start, data, handler }) => {
   }, [data]);
 
   return (
-    <div className="flex flex-col items-end">
+    <div className="relative flex flex-col items-end">
       <button
         className="bg-white rounded-[7px] w-[130px] h-[30px] text text-200 border border-main"
         onClick={handleClick}
@@ -35,16 +35,18 @@ const DatepickerModule = ({ start, data, handler }) => {
         {format(startDate, 'yyyy.MM.dd.HH:mm')}
       </button>
       {isOpen && (
-        <DatePicker
-          selected={startDate}
-          onChange={handleChange}
-          showTimeSelect
-          locale={ko}
-          timeFormat="HH:mm"
-          timeIntervals={15}
-          timeCaption="time"
-          inline
-        />
+        <div className="absolute z-20 w-[390px] right-0 mt-[30px] flex justify-end">
+          <DatePicker
+            selected={startDate}
+            onChange={handleChange}
+            showTimeSelect
+            locale={ko}
+            timeFormat="HH:mm"
+            timeIntervals={15}
+            timeCaption="time"
+            inline
+          />
+        </div>
       )}
     </div>
   );
