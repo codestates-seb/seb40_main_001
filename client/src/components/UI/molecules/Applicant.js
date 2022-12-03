@@ -8,6 +8,9 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
   const [checkProfile, setCheckProfile] = useState(false);
   const [isSelected, setIsSelected] = useState(0);
 
+  const today = new Date();
+  const endPoint = new Date(contentsData.exerciseAt);
+
   const buttonHandler = () => {
     setTogether(!together);
   };
@@ -35,7 +38,6 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
       });
   };
 
-  // eslint-disable-next-line no-unused-vars
   const confirmProposals = async () => {
     await client
       .post(`/proposals/${proposalsData[isSelected].proposalId}/approvals`)
@@ -46,12 +48,7 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
   };
 
   // 지원자 없음 && 뷰어 일 때
-  if (
-    contentsData &&
-    contentsData.exerciseStatus === 'ACTIVE' &&
-    proposalsData.length === 0 &&
-    writer !== userId
-  ) {
+  if (today < endPoint && proposalsData.length === 0 && writer !== userId) {
     return (
       <>
         <div className="flex flex-row w-[350px] items-end justify-end">
@@ -68,12 +65,7 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
     );
   }
   // 지원자 없음 && 글작성자 일 때
-  if (
-    contentsData &&
-    contentsData.exerciseStatus === 'ACTIVE' &&
-    proposalsData.length === 0 &&
-    writer === userId
-  ) {
+  if (today < endPoint && proposalsData.length === 0 && writer === userId) {
     return (
       <>
         <div className="flex flex-row w-[350px] items-end justify-end">
@@ -92,10 +84,11 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
 
   const buttonType = () => {
     if (
-      contentsData &&
-      contentsData.exerciseStatus === 'CLOSED' &&
-      writer === userId
+      writer === userId &&
+      checkUsable.indexOf(userId) !== -1 &&
+      contentsData.exerciseStatus === 'CLOSED'
     ) {
+      console.log(1);
       return (
         <div className="flex items-center">
           <ShortBtn txt={'확정완료'} disabled={!together} />
@@ -103,18 +96,39 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
       );
     }
     if (
-      contentsData &&
-      contentsData.exerciseStatus === 'CLOSED' &&
-      writer !== userId &&
-      checkUsable.indexOf(userId) !== -1
+      writer === userId &&
+      (today > endPoint || contentsData.exerciseStatus === 'CLOSED') &&
+      checkUsable.indexOf(userId) === -1
     ) {
+      console.log(6);
+      return (
+        <div className="flex items-center">
+          <ShortBtn txt={'모집종료'} disabled={!together} />
+        </div>
+      );
+    }
+    if (writer !== userId && checkUsable.indexOf(userId) !== -1) {
+      console.log(2);
       return (
         <div className="flex items-center">
           <ShortBtn txt={'신청완료'} disabled={!together} />
         </div>
       );
     }
+    if (
+      writer !== userId &&
+      (today > endPoint || contentsData.exerciseStatus === 'CLOSED') &&
+      checkUsable.indexOf(userId) === -1
+    ) {
+      console.log(5);
+      return (
+        <div className="flex items-center">
+          <ShortBtn txt={'모집종료'} disabled={!together} />
+        </div>
+      );
+    }
     if (writer === userId) {
+      console.log(3);
       return (
         <div className="flex items-center">
           <ShortBtn
@@ -127,6 +141,7 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
       );
     }
     if (writer !== userId && checkUsable.indexOf(userId) === -1) {
+      console.log(4);
       return (
         <div className="flex items-center">
           <ShortBtn
@@ -138,6 +153,7 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
         </div>
       );
     }
+    console.log(5);
     return (
       <div className="flex items-center">
         <ShortBtn txt={'신청완료'} disabled={!together} />
@@ -151,7 +167,7 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
         <div className="carousel w-[250px] mr-[10px] overflow-x-scroll flex flex-row">
           {proposalsData.map((x, id) => {
             // 글 모집 기간이 아닐 때
-            if (contentsData && contentsData.exerciseStatus === 'CLOSED') {
+            if (today > endPoint) {
               return (
                 <>
                   <div
@@ -173,7 +189,7 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
               );
             }
             // 글 모집 기간일 때
-            if (contentsData && contentsData.exerciseStatus === 'ACTIVE') {
+            if (today < endPoint) {
               // 신청자 일 때 && 신청하지 않은 사람일 때
               if (writer !== userId && checkUsable.indexOf(userId) === -1) {
                 return (
