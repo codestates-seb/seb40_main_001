@@ -42,6 +42,7 @@ const Main = () => {
         count * SIZE
       }`,
     );
+
     setHasNext(response.data.hasNext);
     setUserData(response.data.data);
     preventRef.current = true;
@@ -51,9 +52,9 @@ const Main = () => {
   const getUserInfoData = async () => {
     const response = await client.get('/members/info');
     setInfoData({
-      nickname: response.data.nickname,
+      nickname: response.data.nickname || '',
       image: response.data.image.remotePath || '',
-      gender: response.data.gender,
+      gender: response.data.gender || '',
     });
     setUserId(response.data.memberId);
   };
