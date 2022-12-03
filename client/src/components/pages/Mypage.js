@@ -20,9 +20,22 @@ const Mypage = () => {
       publicEvaluation: score[0],
       privateEvaluation: score[1],
     };
-    client.post(`/exercises/${exerciseId}/reviews`, payload).then(() => {
-      setIsModal(false);
-    });
+    client
+      .post(`/exercises/${exerciseId}/reviews`, payload)
+      .then(() => {
+        setIsModal(false);
+      })
+      .catch(e => {
+        if (e.response) {
+          if (e.response.data.message === 'End time is not passed') {
+            alert('운동 시간이 아직 종료되지 않았습니다.');
+            setIsModal(false);
+            window.location.reload();
+          } else {
+            alert(e.response.data.message);
+          }
+        }
+      });
   };
 
   const openModal = (id, dest) => {
@@ -61,8 +74,6 @@ const Mypage = () => {
         };
         editProfile(payload);
       });
-
-    // 제출 후 새로고침을 할 것인가?
   };
 
   const changeName = () => {
@@ -86,6 +97,7 @@ const Mypage = () => {
   };
 
   const getHistory = () => {
+    console.log('here');
     client
       .get('/members/profiles')
       .then(res => {
@@ -99,7 +111,6 @@ const Mypage = () => {
         return user;
       })
       .then(response => {
-        console.log(response);
         client.get('/members/info').then(res => {
           setUserData(prev => {
             const newData = prev;
