@@ -53,13 +53,15 @@ const Main = () => {
   };
 
   const getUserInfoData = async () => {
-    const response = await client.get('/members/info');
-    setInfoData({
-      nickname: response.data.nickname,
-      image: response.data.image.remotePath,
-      gender: response.data.gender,
+    await client.get('/members/info').then(res => {
+      localStorage.setItem('memberId', res.data.memberId);
+      setInfoData({
+        nickname: res.data.nickname,
+        image: res.data.image.remotePath,
+        gender: res.data.gender,
+      });
+      setUserId(res.data.memberId);
     });
-    setUserId(response.data.memberId);
   };
 
   const obsHandler = async entries => {
