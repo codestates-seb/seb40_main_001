@@ -26,6 +26,7 @@ export const client = axios.create({
   },
   withCredentials: true,
 });
+
 // 요청 인터셉터
 client.interceptors.request.use(
   config => {
@@ -37,27 +38,81 @@ client.interceptors.request.use(
   },
 );
 
-// 만료되기전에 재요청. renew polling
-// 정상적인 리프레시토큰이 유지되고 있는데 만료되는 경우에 대한 에러코드가 존재
-// 401은 분기처리 하면 안됨.
-
 // 응답 인터셉터
 client.interceptors.response.use(
   response => {
     return response;
   },
   error => {
-    const errorCode = error.code;
-    // console.log(error.response.data.message);
-    // 토큰 만료 여부 체크!
-    // 엑세스토큰이 만료됐다면
-    if (errorCode === '만료됐다구') {
-      // 백엔드에서 해줌!
-      // 그 응답이 성공하면
-      // return axios(originalRequest);
-      // 실패하면 로그아웃 api 호출
-      // return axios.post('/auth/logout');
-      // navigate('/login');
+    const errorMSG = error.response.data.message;
+
+    if (errorMSG === 'Unauthorized') {
+      client
+        .post('/auth/refresh')
+        .then(res => {
+          const token = res.headers.get('Authorization');
+          client.defaults.headers.Authorization = token;
+          localStorage.setItem('accessToken', res.headers.get('Authorization'));
+          window.location.reload();
+        })
+        .catch(err => {
+          const errorDetail = err.response.data.message;
+          if (
+            errorDetail === 'Jwt token has expired' ||
+            errorDetail === 'Required request cookie is missing'
+          ) {
+            preClient.post('/auth/logout');
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('memberId');
+            window.location.assign('/login');
+          }
+        });
+    }
+    return Promise.reject(error);
+  },
+);
+
+// 요청 인터셉터
+clientImg.interceptors.request.use(
+  config => {
+    return config;
+  },
+  error => {
+    console.log(error);
+    return Promise.reject(error);
+  },
+);
+
+// 응답 인터셉터
+clientImg.interceptors.response.use(
+  response => {
+    return response;
+  },
+  error => {
+    const errorMSG = error.response.data.message;
+
+    if (errorMSG === 'Unauthorized') {
+      client
+        .post('/auth/refresh')
+        .then(res => {
+          const token = res.headers.get('Authorization');
+          clientImg.defaults.headers.Authorization = token;
+          localStorage.setItem('accessToken', res.headers.get('Authorization'));
+          window.location.reload();
+        })
+        .catch(err => {
+          const errorDetail = err.response.data.message;
+
+          if (
+            errorDetail === 'Jwt token has expired' ||
+            errorDetail === 'Required request cookie is missing'
+          ) {
+            preClient.post('/auth/logout');
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('memberId');
+            window.location.assign('/login');
+          }
+        });
     }
     return Promise.reject(error);
   },
