@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
-import userInfoState from '../../recoil/atoms';
 import { HeaderLogo, MyInfo, ArounderRecord, Modal, Drawer } from '../UI';
 import { client, clientImg } from '../../client/client';
 
 const Mypage = () => {
   const [userData, setUserData] = useState();
   const [data, setData] = useState();
+  const [infoData, setInfoData] = useState();
   const [isDrawer, setIsDrawer] = useState(false);
   const [isModal, setIsModal] = useState(false);
   const [exerciseId, setExerciseId] = useState(0);
   const [destId, setDestId] = useState(0);
   const [score, setScore] = useState([]);
-  const userId = useRecoilValue(userInfoState);
+  // eslint-disable-next-line no-unused-vars
+  const [userId, setUserId] = useState(localStorage.getItem('memberId'));
 
   const closeModal = () => {
     const payload = {
@@ -20,9 +20,9 @@ const Mypage = () => {
       publicEvaluation: score[0],
       privateEvaluation: score[1],
     };
-    client.post(`/exercises/${exerciseId}/reviews`, payload);
-    setIsModal(false);
-    // 제출 후 새로고침을 할 것인가?
+    client.post(`/exercises/${exerciseId}/reviews`, payload).then(() => {
+      setIsModal(false);
+    });
   };
 
   const openModal = (id, dest) => {
@@ -35,10 +35,10 @@ const Mypage = () => {
     setIsDrawer(!isDrawer);
   };
 
-  // eslint-disable-next-line no-unused-vars
   const editProfile = payload => {
     client.patch(`/members/${userId}`, payload).then(() => {
       alert('프로필 사진이 변경되었습니다.');
+      window.location.reload();
     });
   };
 
@@ -90,13 +90,16 @@ const Mypage = () => {
       .get('/members/profiles')
       .then(res => {
         setData(res.data.exerciseRecord);
-        setUserData({
+        const user = {
           nickname: res.data.nickname,
           charge: res.data.publicEvaluation,
           addressId: res.data.address.addressId,
-        });
+        };
+        setUserData(user);
+        return user;
       })
-      .then(() => {
+      .then(response => {
+        console.log(response);
         client.get('/members/info').then(res => {
           setUserData(prev => {
             const newData = prev;
@@ -104,6 +107,11 @@ const Mypage = () => {
               newData.profile = res.data.image.remotePath;
             }
             return newData;
+          });
+          setInfoData({
+            profile: res.data.image.remotePath || '',
+            nickname: response.nickname,
+            charge: response.charge,
           });
         });
       });
@@ -130,7 +138,7 @@ const Mypage = () => {
         <HeaderLogo txt="마이페이지" menuHandler={menuHandler} menu={true} />
         <div className="flex justify-center mt-5">
           <MyInfo
-            userData={userData}
+            infoData={infoData}
             setUserData={setUserData}
             changeName={changeName}
             imageHandler={imageHandler}

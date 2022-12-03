@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Confirm, Edit } from '../../../assets/img';
 
-const NicknameMypage = ({ userData, setUserData, changeName }) => {
+const NicknameMypage = ({ nickname, setUserData, changeName }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [name, setName] = useState();
 
@@ -14,13 +14,13 @@ const NicknameMypage = ({ userData, setUserData, changeName }) => {
   };
 
   useEffect(() => {
-    if (userData) {
-      setName(userData.nickname);
+    if (nickname) {
+      setName(nickname);
     }
-  }, [userData]);
+  }, [nickname]);
 
   useEffect(() => {
-    if (userData && name !== userData.nickname) {
+    if (nickname && name !== nickname) {
       setUserData(prev => {
         const newData = prev;
         newData.nickname = name;
