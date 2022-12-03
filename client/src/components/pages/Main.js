@@ -118,18 +118,21 @@ const Main = () => {
           <Info />
         </div>
       </HeaderLogo>
-      <ExerciseCarousel
-        handler={handler}
-        arr={[
-          'ALL',
-          'RUNNING',
-          'YOGA',
-          'FITNESS',
-          'SWIMMING',
-          'BASKETBALL',
-          'BADMINTON',
-        ]}
-      />
+      {/* <button onClick={Refresh}>클릭</button> */}
+      <div className="mt-[55px]">
+        <ExerciseCarousel
+          handler={handler}
+          arr={[
+            'ALL',
+            'RUNNING',
+            'YOGA',
+            'FITNESS',
+            'SWIMMING',
+            'BASKETBALL',
+            'BADMINTON',
+          ]}
+        />
+      </div>
       <div className="flex justify-between border-t border-main pt-2 mx-5">
         <MiniDropdown setAddress={setAddress} />
         <Toggle

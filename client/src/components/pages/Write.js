@@ -97,7 +97,16 @@ const Write = () => {
         .catch(e => {
           if (e.response) {
             if (e.response.data.status === 422) {
-              alert(e.response.data.message);
+              if (
+                e.response.data.message ===
+                'Start time is earlier than current time'
+              ) {
+                alert('시작 시간이 현재 시간보다 빠릅니다.');
+              } else if (
+                e.response.data.message === 'Start time is later than end time'
+              ) {
+                alert('종료 시작이 시작 시간보다 빠릅니다.');
+              }
             }
           }
         });
@@ -118,7 +127,16 @@ const Write = () => {
         .catch(e => {
           if (e.response) {
             if (e.response.data.status === 422) {
-              alert(e.response.data.message);
+              if (
+                e.response.data.message ===
+                'Start time is earlier than current time'
+              ) {
+                alert('시작 시간이 현재 시간보다 빠릅니다.');
+              } else if (
+                e.response.data.message === 'Start time is later than end time'
+              ) {
+                alert('종료 시작이 시작 시간보다 빠릅니다.');
+              }
             }
           }
         });
@@ -186,7 +204,16 @@ const Write = () => {
         .catch(e => {
           if (e.response) {
             if (e.response.data.status === 422) {
-              alert(e.response.data.message);
+              if (
+                e.response.data.message ===
+                'Start time is earlier than current time'
+              ) {
+                alert('시작 시간이 현재 시간보다 빠릅니다.');
+              } else if (
+                e.response.data.message === 'Start time is later than end time'
+              ) {
+                alert('종료 시작이 시작 시간보다 빠릅니다.');
+              }
             }
           }
         });
@@ -213,7 +240,16 @@ const Write = () => {
         .catch(e => {
           if (e.response) {
             if (e.response.data.status === 422) {
-              alert(e.response.data.message);
+              if (
+                e.response.data.message ===
+                'Start time is earlier than current time'
+              ) {
+                alert('시작 시간이 현재 시간보다 빠릅니다.');
+              } else if (
+                e.response.data.message === 'Start time is later than end time'
+              ) {
+                alert('종료 시작이 시작 시간보다 빠릅니다.');
+              }
             }
           }
         });
@@ -243,7 +279,6 @@ const Write = () => {
   return (
     <div>
       <HeaderArrow txt="글쓰기" arrowHandler={arrowHandler} />
-      {/* 아래 컴포넌트에 handler 필요 */}
       <WriteContents
         data={data}
         dataHandler={dataHandler}
