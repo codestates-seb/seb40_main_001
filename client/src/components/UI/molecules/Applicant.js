@@ -28,7 +28,7 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
   const submitProposals = async () => {
     await client
       .post(`/exercises/${contentsData.exerciseId}/proposals`)
-      .then(res => {
+      .then(() => {
         buttonHandler();
         alert('신청 완료했습니다.');
         window.location.reload();
