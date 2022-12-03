@@ -115,35 +115,27 @@ const Main = () => {
           menu={true}
           logo={true}
         >
-
           <div
             className="tooltip tooltip-bottom"
             data-tip="어라운더란? 같이 운동할 동네친구"
           >
-          <Info />
+            <Info />
+          </div>
+        </HeaderLogo>
+        <div className="mt-[55px]">
+          <ExerciseCarousel
+            handler={handler}
+            arr={[
+              'ALL',
+              'RUNNING',
+              'YOGA',
+              'FITNESS',
+              'SWIMMING',
+              'BASKETBALL',
+              'BADMINTON',
+            ]}
+          />
         </div>
-      </HeaderLogo>
-      {/* <button onClick={Refresh}>클릭</button> */}
-      <div className="mt-[55px]">
-        <ExerciseCarousel
-          handler={handler}
-          arr={[
-            'ALL',
-            'RUNNING',
-            'YOGA',
-            'FITNESS',
-            'SWIMMING',
-            'BASKETBALL',
-            'BADMINTON',
-          ]}
-        />
-      </div>
-      <div className="flex justify-between border-t border-main pt-2 mx-5">
-        <MiniDropdown setAddress={setAddress} />
-        <Toggle
-          genderToggleClick={genderToggleClick}
-          gender={infoData.gender}
-        />
         <div className="flex justify-between border-t border-main pt-2 mx-5">
           <MiniDropdown setAddress={setAddress} />
           <Toggle
