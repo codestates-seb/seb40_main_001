@@ -62,6 +62,7 @@ client.interceptors.response.use(
             errorDetail === 'Required request cookie is missing'
           ) {
             preClient.post('/auth/logout');
+            client.defaults.headers.Authorization = '';
             localStorage.removeItem('accessToken');
             localStorage.removeItem('memberId');
             window.location.assign('/login');
@@ -108,6 +109,7 @@ clientImg.interceptors.response.use(
             errorDetail === 'Required request cookie is missing'
           ) {
             preClient.post('/auth/logout');
+            clientImg.defaults.headers.Authorization = '';
             localStorage.removeItem('accessToken');
             localStorage.removeItem('memberId');
             window.location.assign('/login');
