@@ -1,6 +1,9 @@
 package com.ilchinjo.mainproject.domain.exercise.service;
 
-import com.ilchinjo.mainproject.domain.exercise.dto.*;
+import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseDetailResponseDto;
+import com.ilchinjo.mainproject.domain.exercise.dto.ExercisePatchDto;
+import com.ilchinjo.mainproject.domain.exercise.dto.ExercisePostDto;
+import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseResponseDto;
 import com.ilchinjo.mainproject.domain.exercise.entity.Category;
 import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
 import com.ilchinjo.mainproject.domain.exercise.entity.GenderType;
@@ -63,6 +66,23 @@ public class ExerciseServiceImpl implements ExerciseService {
         Member findMember = findVerifiedMember(memberId);
         Exercise patchExercise = exerciseMapper.patchDtoToEntity(patchDto);
 
+        Optional.ofNullable(patchDto.getImageIdList())
+                .ifPresent(imageIdList -> {
+                    List<Image> images = findVerifiedImages(imageIdList);
+
+                    if (findExercise.getImages() != null) {
+                        for (Image image : findExercise.getImages()) {
+                            image.removeExercise();
+                        }
+                        findExercise.removeImages();
+                    }
+
+                    for (Image image : images) {
+                        image.addExercise(findExercise);
+                    }
+                    findExercise.addImages(images);
+                });
+
         findExercise.update(patchExercise, findMember.getAddress());
 
         return exerciseMapper.entityToResponseDto(findExercise);
@@ -76,44 +96,21 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     @Override
-    public CursorResponseDto<ExerciseResponseDto> findExercises(Long addressId, String genderType, String category,
-                                                                Long memberId, Long cursorId, int size) {
-
-        List<Exercise> exerciseList = exerciseRepository.findAllByExerciseIdLessThanOrderByExerciseIdDesc(cursorId);
-        Stream<Exercise> stream = exerciseList.stream()
-                .filter(exercise -> exercise.getAddress().getAddressId().equals(addressId));
+    public CursorResponseDto<ExerciseResponseDto> findExercises(Long memberId, Long addressId, String genderType, String category, int size, Long cursorId) {
         Member findMember = findVerifiedMember(memberId);
-        if (genderType.equals("ALL")) {
-            stream = stream.filter(exercise -> exercise.getHost().getGender().equals(findMember.getGender()) ||
-                    exercise.getGenderType().equals(GenderType.ALL));
-        } else if (genderType.equals("SAME")) {
-            stream = stream.filter(exercise -> exercise.getHost().getGender().equals(findMember.getGender()));
-        }
-        if (!category.equals("ALL")) {
-            stream = stream.filter(exercise -> exercise.getCategory().equals(Category.valueOf(category)));
-        }
+
+        List<Exercise> exercises = exerciseRepository.findExercises(addressId, category, genderType, findMember, size, cursorId);
 
         boolean hasNext = false;
 
-        List<Exercise> resultList = stream.collect(Collectors.toList());
-        if (resultList.size() > size) {
-            resultList = resultList.subList(0, size);
+        if (exercises.size() > size) {
+            exercises = exercises.subList(0, size);
             hasNext = true;
         }
 
-
-        return CursorResponseDto.of(exerciseMapper.entitiesToResponseDtoList(resultList),
+        return CursorResponseDto.of(exerciseMapper.entitiesToResponseDtoList(exercises),
                 hasNext,
-                !resultList.isEmpty() ? resultList.get(resultList.size() - 1).getExerciseId() : 0L);
-    }
-
-    @Override
-    public List<ExerciseResponseDto> findExercisesDynamicQuery(String address, String genderType, String category, Long memberId) {
-
-        Member findMember = findVerifiedMember(memberId);
-        List<Exercise> exerciseList = exerciseRepository.findExercises(address, genderType, category, findMember);
-
-        return exerciseMapper.entitiesToResponseDtoList(exerciseList);
+                !exercises.isEmpty() ? exercises.get(exercises.size() - 1).getExerciseId() : 0L);
     }
 
     @Override
@@ -167,4 +164,44 @@ public class ExerciseServiceImpl implements ExerciseService {
         }
     }
 
+    @Override
+    public CursorResponseDto<ExerciseResponseDto> findExercisesOld(Long addressId, String genderType, String category,
+                                                                   Long memberId, Long cursorId, int size) {
+
+        List<Exercise> exerciseList = exerciseRepository.findAllByExerciseIdLessThanOrderByExerciseIdDesc(cursorId);
+        Stream<Exercise> stream = exerciseList.stream()
+                .filter(exercise -> exercise.getAddress().getAddressId().equals(addressId));
+        Member findMember = findVerifiedMember(memberId);
+        if (genderType.equals("ALL")) {
+            stream = stream.filter(exercise -> exercise.getHost().getGender().equals(findMember.getGender()) ||
+                    exercise.getGenderType().equals(GenderType.ALL));
+        } else if (genderType.equals("SAME")) {
+            stream = stream.filter(exercise -> exercise.getHost().getGender().equals(findMember.getGender()));
+        }
+        if (!category.equals("ALL")) {
+            stream = stream.filter(exercise -> exercise.getCategory().equals(Category.valueOf(category)));
+        }
+
+        boolean hasNext = false;
+
+        List<Exercise> resultList = stream.collect(Collectors.toList());
+        if (resultList.size() > size) {
+            resultList = resultList.subList(0, size);
+            hasNext = true;
+        }
+
+
+        return CursorResponseDto.of(exerciseMapper.entitiesToResponseDtoList(resultList),
+                hasNext,
+                !resultList.isEmpty() ? resultList.get(resultList.size() - 1).getExerciseId() : 0L);
+    }
+
+    //    @Override
+//    public List<ExerciseResponseDto> findExercisesDynamicQuery(String address, String genderType, String category, Long memberId) {
+//
+//        Member findMember = findVerifiedMember(memberId);
+//        List<Exercise> exerciseList = exerciseRepository.findExercises(address, genderType, category, findMember);
+//
+//        return exerciseMapper.entitiesToResponseDtoList(exerciseList);
+//    }
 }

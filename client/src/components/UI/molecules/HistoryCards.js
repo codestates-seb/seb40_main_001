@@ -1,35 +1,109 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import { ShortBtn, HNM } from '../atoms';
 import getIcon from '../../../utils/getIcon';
+import userInfoState from '../../../recoil/atoms';
 
 const HistoryCL = ({ data, openModal }) => {
+  // 운동 한글화
+  const [isExercise, setIsExercise] = useState('');
   // 리뷰 완료 여부
-  const [reviewed, setReviewed] = useState(false);
+  const [reviewed, setReviewed] = useState(data.isReviewed);
+  // 유저 ID
+  const myId = useRecoilValue(userInfoState);
+  // 운동 상대
+  const [partner, setPartner] = useState();
+
   const reviewHandler = () => {
-    openModal();
-    setReviewed(true);
+    if (data.participant.memberId === myId) {
+      openModal(data.exerciseId, data.host.memberId);
+      setReviewed(true);
+    } else if (data.host.memberId === myId) {
+      openModal(data.exerciseId, data.participant.memberId);
+      setReviewed(true);
+    }
   };
 
   const reviewing = () => {
     return reviewed ? '리뷰완료' : '리뷰하기';
   };
 
-  const icon = getIcon(data.exercise);
+  const icon = getIcon(data && data.category, '#7FD1AE');
   const reviewTxt = reviewing();
+
+  useEffect(() => {
+    if (data) {
+      setIsExercise(() => {
+        switch (data.category) {
+          case 'RUNNING':
+            return '러닝';
+          case 'YOGA':
+            return '요가';
+          case 'BADMINTON':
+            return '배드민턴';
+          case 'SWIMMING':
+            return '수영';
+          case 'FITNESS':
+            return '헬스';
+          case 'BASKETBALL':
+            return '농구';
+          default:
+            return 'null';
+        }
+      });
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (data.participant.memberId === myId) {
+      if (data.host.image) {
+        setPartner({
+          image: data.host.image.remotePath,
+          nickname: data.host.nickname,
+        });
+      } else {
+        setPartner({
+          image: '',
+          nickname: data.host.nickname,
+        });
+      }
+    } else if (data.host.memberId === myId) {
+      if (data.participant.image) {
+        setPartner({
+          image: data.participant.image.remotePath,
+          nickname: data.participant.nickname,
+        });
+      } else {
+        setPartner({
+          image: '',
+          nickname: data.participant.nickname,
+        });
+      }
+    }
+  }, [data]);
 
   return (
     <div className="flex flex-low justify-between w-[350px] h-[92px]  bg-white items-center drop-shadow-lg rounded-[5px]">
       <div className="ml-[20px] flex flex-row">
-        <HNM target={data.target} />
+        <HNM target={partner && partner.image} />
         <div className="flex flex-col ml-[15px] text-300">
           <div className="flex flex-row items-end">
-            <div className="text-300 text-default mr-[10px] max-w-[70px] truncate">{`${data.nickname}`}</div>
-            <div className="text-200 text-low">{`${data.date}`}</div>
+            <div className="text-300 text-default mr-[10px] max-w-[70px] truncate">{`${
+              partner && partner.nickname
+            }`}</div>
+            <div className="text-200 text-low">{`${
+              data &&
+              new Date(data.exerciseAt)
+                .toLocaleDateString('ko')
+                .replace(' ', '')
+            }`}</div>
           </div>
 
           <div className="flex flex-row items-center">
             <div>{icon}</div>
-            <div className="text-200 text-exercise">{`${data.krExercise}`}</div>
+            <div className="text-200 font-bold text-exercise">{`${
+              data && isExercise
+            }`}</div>
           </div>
         </div>
       </div>
@@ -37,7 +111,7 @@ const HistoryCL = ({ data, openModal }) => {
         <ShortBtn
           txt={reviewTxt}
           handleClick={reviewHandler}
-          disabled={data.reviewed}
+          disabled={data && data.isReviewed}
         />
       </div>
     </div>

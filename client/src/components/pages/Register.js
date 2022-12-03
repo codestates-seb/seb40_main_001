@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { client } from '../../client/client';
+import { preClient } from '../../client/client';
 import {
   LongBtn,
   GenderSelect,
@@ -37,14 +37,20 @@ const Register = () => {
       gender,
       addressId: cityNum,
     };
-    client
+    preClient
       .post('/members', JSON.stringify(payload))
       .then(() => {
         alert('회원가입이 완료되었습니다.');
         naviagte('/login');
       })
       .catch(err => {
-        console.log(err);
+        const errMSG = err.response.data.message;
+        if (errMSG === 'Member exists') {
+          alert('이미 존재하는 이메일입니다.');
+        }
+        if (errMSG === 'Nickname exists') {
+          alert('이미 존재하는 닉네임입니다.');
+        }
       });
   };
   const onInValid = error => {
@@ -111,7 +117,7 @@ const Register = () => {
         <GenderSelect isSelect={isSelect} setIsSelect={setIsSelect} />
 
         <TownSelect setcityNum={setcityNum} />
-        <div className="p-28">
+        <div className="pt-32 pb-16">
           <LongBtn txt="회원가입" />
         </div>
       </form>

@@ -1,5 +1,6 @@
 package com.ilchinjo.mainproject.global.security.config;
 
+import com.ilchinjo.mainproject.domain.auth.repository.RefreshTokenRepository;
 import com.ilchinjo.mainproject.domain.member.repository.MemberRepository;
 import com.ilchinjo.mainproject.global.security.filter.JwtAuthenticationFilter;
 import com.ilchinjo.mainproject.global.security.filter.JwtVerificationFilter;
@@ -9,6 +10,7 @@ import com.ilchinjo.mainproject.global.security.handler.MemberAuthenticationFail
 import com.ilchinjo.mainproject.global.security.handler.MemberAuthenticationSuccessHandler;
 import com.ilchinjo.mainproject.global.security.jwt.JwtTokenizer;
 import com.ilchinjo.mainproject.global.security.utils.CustomAuthorityUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -28,17 +30,13 @@ import java.util.List;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfiguration {
 
     private final JwtTokenizer jwtTokenizer;
-    private final CustomAuthorityUtils authorityUtils;
     private final MemberRepository memberRepository;
-
-    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils, MemberRepository memberRepository) {
-        this.jwtTokenizer = jwtTokenizer;
-        this.authorityUtils = authorityUtils;
-        this.memberRepository = memberRepository;
-    }
+    private final RefreshTokenRepository refreshTokenRepository;
+    private final CustomAuthorityUtils authorityUtils;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -77,6 +75,8 @@ public class SecurityConfiguration {
 
                         .antMatchers("/images").hasRole("USER")
 
+                        .antMatchers("/auth/*").permitAll()
+
                         .anyRequest().denyAll()
                 );
 
@@ -112,7 +112,7 @@ public class SecurityConfiguration {
 
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
 
-            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer, refreshTokenRepository);
             jwtAuthenticationFilter.setFilterProcessesUrl("/auth/login");
 
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler(memberRepository));

@@ -30,15 +30,15 @@ public class Review extends AuditingEntity {
     @Range(min = -2, max = 2)
     private int privateEvaluation;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "src_member_id")
     private Member srcMember;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dest_member_id")
     private Member destMember;
 

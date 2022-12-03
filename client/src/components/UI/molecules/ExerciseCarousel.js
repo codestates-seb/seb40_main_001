@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ExerciseBtn } from '../atoms';
 
-const ExerciseCarousel = ({ arr, handler }) => {
-  const [isSelect, setIsSelect] = useState('');
+const ExerciseCarousel = ({ data, arr, handler }) => {
+  const [isSelect, setIsSelect] = useState('ALL');
   const handleClick = e => {
-    // e === exercise name
     setIsSelect(e);
     handler('exercise', e);
   };
 
+  useEffect(() => {
+    if (data) {
+      setIsSelect(data);
+    }
+  }, [data]);
+
   return (
-    <div className="carousel overflow-x-scroll mx-5 w-[350px] h-[86px] flex items-center">
+    <div className="carousel overflow-x-scroll mx-5 w-[350px] h-[86px] flex items-center mt-[55px]">
       {arr.map(el => (
         <div className="px-2 carousel-item" key={el}>
           <ExerciseBtn

@@ -1,13 +1,17 @@
 package com.ilchinjo.mainproject.global.security.jwt;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
+import com.ilchinjo.mainproject.global.security.userdetails.MemberDetailsService;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
@@ -16,8 +20,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
+@Slf4j
 @Component
+@RequiredArgsConstructor
 public class JwtTokenizer {
+
+    private final MemberDetailsService memberDetailsService;
 
     @Getter
     @Value("${jwt.secret-key}")
@@ -103,5 +111,38 @@ public class JwtTokenizer {
                 .getBody();
 
         return claims.get("memberId", Long.class);
+    }
+
+    public JwtStatus validateToken(String token) {
+
+        String base64EncodedSecretKey = encodeBase64SecretKey(secretKey);
+        Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
+
+        try {
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            return JwtStatus.ACCESS;
+        } catch (ExpiredJwtException e) {
+            return JwtStatus.EXPIRED;
+        } catch (JwtException | IllegalArgumentException e) {
+            log.info("jwtException: {}", e);
+        }
+
+        return JwtStatus.DENIED;
+    }
+
+    public Authentication getAuthentication(String token) {
+
+        String base64EncodedSecretKey = encodeBase64SecretKey(secretKey);
+        Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
+
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        UserDetails userDetails = memberDetailsService.loadUserByUsername(claims.getSubject());
+
+        return new UsernamePasswordAuthenticationToken(userDetails, token, userDetails.getAuthorities());
     }
 }

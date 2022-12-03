@@ -1,9 +1,12 @@
 package com.ilchinjo.mainproject.domain.exercise.controller;
 
-import com.ilchinjo.mainproject.domain.exercise.dto.*;
+import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseDetailResponseDto;
+import com.ilchinjo.mainproject.domain.exercise.dto.ExercisePatchDto;
+import com.ilchinjo.mainproject.domain.exercise.dto.ExercisePostDto;
+import com.ilchinjo.mainproject.domain.exercise.dto.ExerciseResponseDto;
 import com.ilchinjo.mainproject.domain.exercise.service.ExerciseService;
-import com.ilchinjo.mainproject.global.security.jwt.JwtTokenizer;
 import com.ilchinjo.mainproject.global.dto.CursorResponseDto;
+import com.ilchinjo.mainproject.global.security.jwt.JwtTokenizer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -54,7 +57,7 @@ public class ExerciseController {
                  @RequestParam(required = false, defaultValue = "10") Integer size) {
 
         Long memberId = jwtTokenizer.parseMemberId(token);
-        return exerciseService.findExercises(addressId, genderType, category, memberId, cursorId, size);
+        return exerciseService.findExercises(memberId, addressId, genderType, category, size, cursorId);
     }
 
     @DeleteMapping("/{exercise-id}")

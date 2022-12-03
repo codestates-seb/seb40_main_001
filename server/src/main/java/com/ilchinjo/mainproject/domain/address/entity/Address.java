@@ -2,6 +2,8 @@ package com.ilchinjo.mainproject.domain.address.entity;
 
 import com.ilchinjo.mainproject.global.audit.AuditingEntity;
 import lombok.*;
+import org.locationtech.jts.geom.MultiPolygon;
+import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
 
@@ -10,6 +12,14 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
+@Table(
+        uniqueConstraints = {
+                @UniqueConstraint(name = "NoSameName", columnNames = {"sido", "sigungu", "eupmyeondong"})
+        },
+        indexes = {
+                @Index(name = "sigunguIndex", columnList = "sigungu")
+        }
+)
 public class Address extends AuditingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,8 +27,11 @@ public class Address extends AuditingEntity {
 
     private String sido;
 
-    @Column(unique = true)
     private String sigungu;
 
     private String eupmyeondong;
+
+    private Point centerPoint;
+
+    private MultiPolygon multiPolygon;
 }

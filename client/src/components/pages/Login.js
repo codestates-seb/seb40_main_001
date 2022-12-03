@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { HeaderLogo, HeaderNone, IdInput, PasswordInput, LongBtn } from '../UI';
-import { client } from '../../client/client';
+import { preClient, client, clientImg } from '../../client/client';
 
 const Login = () => {
   const naviagte = useNavigate();
@@ -17,16 +17,21 @@ const Login = () => {
       email: text,
       password,
     };
-    client
+    preClient
       .post('/auth/login', payload)
       .then(res => {
         if (res.headers.get('Authorization')) {
+          const token = res.headers.get('Authorization');
+          client.defaults.headers.Authorization = token;
+          clientImg.defaults.headers.Authorization = token;
           localStorage.setItem('accessToken', res.headers.get('Authorization'));
+          alert('로그인 성공');
         }
         naviagte('/main');
       })
       .catch(err => {
-        console.log(err);
+        const errMSG = err.response.data.message;
+        alert(errMSG);
       });
   };
   const onInValid = error => {
@@ -74,9 +79,9 @@ const Login = () => {
       <div className="text-200 mt-4 text-center">
         회원이 아니신가요?
         <button
-          className="font-bold"
+          className="font-bold ml-1"
           onClick={() => {
-            naviagte('/regist');
+            naviagte('/register');
           }}
         >
           회원가입

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Confirm, Edit } from '../../../assets/img';
 
-const NicknameMypage = ({ nickname }) => {
+const NicknameMypage = ({ nickname, setUserData, changeName }) => {
   const [isEdit, setIsEdit] = useState(false);
-  const [name, setName] = useState(nickname);
+  const [name, setName] = useState();
 
   const handleClick = () => {
     setIsEdit(!isEdit);
@@ -12,6 +12,23 @@ const NicknameMypage = ({ nickname }) => {
   const handleChange = e => {
     setName(e.target.value);
   };
+
+  useEffect(() => {
+    if (nickname) {
+      setName(nickname);
+    }
+  }, [nickname]);
+
+  useEffect(() => {
+    if (nickname && name !== nickname) {
+      setUserData(prev => {
+        const newData = prev;
+        newData.nickname = name;
+        return newData;
+      });
+      changeName();
+    }
+  }, [isEdit]);
 
   if (isEdit) {
     return (
@@ -31,7 +48,7 @@ const NicknameMypage = ({ nickname }) => {
       <div className="flex flex-row text text-300">
         안녕하세요!&nbsp;<div className="font-bold">{name}</div>님
       </div>
-      <Edit onClick={handleClick} />
+      <Edit onClick={() => handleClick(false)} fill="black" />
     </div>
   );
 };

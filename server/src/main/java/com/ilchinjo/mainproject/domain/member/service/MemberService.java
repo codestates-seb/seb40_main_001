@@ -14,4 +14,6 @@ public interface MemberService {
     MemberSimpleDto findSimpleMember(Long memberId);
 
     Member findVerifiedMember(Long memberId);
+
+    Member findVerifiedMember(String email);
 }

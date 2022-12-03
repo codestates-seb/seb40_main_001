@@ -20,7 +20,6 @@ const Dropdown = ({ setAddress }) => {
     setSelectedCity(e.firstChild.data);
     setAddress(idx);
   };
-
   return (
     <div className="dropdown dropdown-bottom">
       <label
@@ -32,7 +31,7 @@ const Dropdown = ({ setAddress }) => {
       </label>
       <ul
         tabIndex={0}
-        className="dropdown-content menu shadow w-[78px]  bg-white text text-200 rounded-box overflow-y-scroll"
+        className="block h-[200px] dropdown-content menu shadow w-[78px] bg-white text text-200 rounded-box overflow-y-scroll"
       >
         {city.map((data, idx) => (
           <li key={idx} onClick={e => handleClick(e.target, data.addressId)}>

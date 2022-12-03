@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { MiniBtn } from '../atoms';
 import { ArounderReview, ReviewMent } from '../molecules';
 
-const Modal = ({ handleClose, setScore }) => {
+const Modal = ({ handleClose, setScore, setIsModal }) => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [colorOne, setColorOne] = useState([
     'white',
@@ -19,18 +19,34 @@ const Modal = ({ handleClose, setScore }) => {
     'white',
   ]);
 
+  const rate = index => {
+    switch (index) {
+      case -1:
+        return 2;
+      case 4:
+        return 1;
+      case 3:
+        return 0;
+      case 2:
+        return -1;
+      case 1:
+        return -2;
+      default:
+        return 0;
+    }
+  };
+
   const handleConfirm = () => {
     // colorOne.indexOf('white');
     // colorTwo.indexOf('white');
     // 위 2개의 값이 리뷰 점수
     // -1인 경우 5점으로 치환
-    let first = colorOne.indexOf('white');
-    let second = colorTwo.indexOf('white');
-    if (first === -1) first = 5;
-    if (second === -1) second = 5;
-
+    const first = colorOne.indexOf('white');
+    const second = colorTwo.indexOf('white');
+    const reveiw = [rate(first), rate(second)];
     // 상위 컴포넌트에서 내려온 score state에 값 담기
-    setScore([first, second]);
+    setScore(reveiw);
+    console.log('score', reveiw);
     handleClose();
   };
 
@@ -43,7 +59,7 @@ const Modal = ({ handleClose, setScore }) => {
   return (
     <div className="w-[290px] h-[350px] flex flex-col bg-white rounded-2xl p-5">
       <div className="flex justify-end mb-1">
-        <ArounderReview handleClick={handleClose} />
+        <ArounderReview setIsModal={setIsModal} />
       </div>
       <div className="mt-5">
         <ReviewMent

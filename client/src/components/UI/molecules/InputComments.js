@@ -1,22 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import TextInputArea from '../atoms/TextInput';
 import { CommentBtn } from '../atoms';
 
-const InputComments = ({ target, handler, id }) => {
-  const [writeComments, setWriteComments] = useState('');
-  const commentsHandler = e => {
-    setWriteComments(e.target.value);
-  };
+const InputComments = ({ target, handler, id, onChange, value }) => {
   return (
     <div className="flex flex-ro mt-[15px]">
       <div className="mr-[13px]">
-        <TextInputArea
-          target={target}
-          value={writeComments}
-          onChange={commentsHandler}
-        />
+        <TextInputArea target={target} value={value} onChange={onChange} />
       </div>
-      <CommentBtn id={id} handler={handler} />
+      <CommentBtn handler={() => handler(id)} />
     </div>
   );
 };

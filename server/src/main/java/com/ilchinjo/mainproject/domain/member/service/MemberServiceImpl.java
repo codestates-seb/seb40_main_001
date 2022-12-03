@@ -116,6 +116,15 @@ public class MemberServiceImpl implements MemberService {
         return findMember;
     }
 
+    @Override
+    public Member findVerifiedMember(String email) {
+
+        Optional<Member> optionalMember = memberRepository.findByEmail(email);
+        Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+
+        return findMember;
+    }
+
     private void verifyExistsEmail(String email) {
 
         Optional<Member> member = memberRepository.findByEmail(email);
@@ -130,7 +139,7 @@ public class MemberServiceImpl implements MemberService {
         Optional<Member> member = memberRepository.findByNickname(nickname);
 
         if (member.isPresent()) {
-            throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
+            throw new BusinessLogicException(ExceptionCode.NICKNAME_EXISTS);
         }
     }
 

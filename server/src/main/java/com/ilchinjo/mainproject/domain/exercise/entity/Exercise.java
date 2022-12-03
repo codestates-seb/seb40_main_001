@@ -46,15 +46,15 @@ public class Exercise extends AuditingEntity {
     @Enumerated(EnumType.STRING)
     private ExerciseStatus exerciseStatus = ExerciseStatus.ACTIVE;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "host_id")
     private Member host;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "participant_id")
     private Member participant;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id")
     private Address address;
 
@@ -103,7 +103,6 @@ public class Exercise extends AuditingEntity {
                 .ifPresent(category -> this.category = category);
         this.address = address;
         this.updatedAt = LocalDateTime.now();
-
     }
 
     public void choiceProposal(Proposal proposal) {
@@ -114,5 +113,9 @@ public class Exercise extends AuditingEntity {
 
     public void addImages(List<Image> images) {
         this.images.addAll(images);
+    }
+
+    public void removeImages() {
+        this.images.clear();
     }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ToggleAll, Woman, Man } from '../../../assets/img';
 
-const Toggle = ({ genderToggleClick }) => {
+const Toggle = ({ genderToggleClick, gender }) => {
   return (
     <div className="form-control flex flex-row items-center">
       <ToggleAll className="mr-2" />
@@ -10,8 +10,7 @@ const Toggle = ({ genderToggleClick }) => {
         className="toggle toggle-lg bg-main-week border-main-week"
         onClick={genderToggleClick}
       />
-      <Woman />
-      <Man />
+      {gender === 'MAN' ? <Man /> : <Woman />}
     </div>
   );
 };
