@@ -7,6 +7,7 @@ const HeaderLogo = ({ txt, menuHandler, children, menu = false }) => {
   const navigate = useNavigate();
   const logoHandler = () => {
     navigate('/main');
+    window.scrollTo(0, 0);
   };
 
   return (
