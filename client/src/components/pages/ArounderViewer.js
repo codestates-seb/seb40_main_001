@@ -24,6 +24,7 @@ const ArounderViewer = () => {
   const [commentsData, setCommentsData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [writeComments, setWriteComments] = useState('');
+  const [replyComments, setReplyComments] = useState('');
 
   // 글 내용 관련 데이터 가져오기
   const getContentsData = async () => {
@@ -48,6 +49,11 @@ const ArounderViewer = () => {
   // input value 저장
   const commentsHandler = e => {
     setWriteComments(e.target.value);
+  };
+
+  // reply input value 저장
+  const recommentsHandler = e => {
+    setReplyComments(e.target.value);
   };
 
   // 화살표 클릭 시 main으로 돌아가기
@@ -92,19 +98,19 @@ const ArounderViewer = () => {
   // 대댓글 달기
   // eslint-disable-next-line no-unused-vars
   const writeSubReplies = idx => {
-    if (writeComments === '') {
+    if (replyComments === '') {
       alert('내용을 입력해주세요.');
       return;
     }
     const body = {
-      content: writeComments,
+      content: replyComments,
     };
     client
       .post(`/comments/${commentsData[idx].commentId}/replies`, body)
       .then(() => {
         alert('댓글이 등록되었습니다.');
         window.location.reload();
-        setWriteComments('');
+        setReplyComments('');
       });
   };
 
@@ -121,7 +127,7 @@ const ArounderViewer = () => {
   return (
     <>
       {loading && (
-        <div className="flex flex-col justify-center items-center overflow: auto;">
+        <div className="flex flex-col justify-center items-center overflow:auto mb-[5rem]">
           <HeaderArrow arrowHandler={arrowHandler} txt={'상세 글 보기'} />
           <DetailContents
             contentsData={contentsData}
@@ -147,8 +153,8 @@ const ArounderViewer = () => {
             mainReplyDeleteHandler={mainReplyDeleteHandler}
             nonMainReplyDeleteHandler={nonMainReplyDeleteHandler}
             handler={writeSubReplies}
-            onChange={commentsHandler}
-            Value={writeComments}
+            onChange={recommentsHandler}
+            value={replyComments}
           />
         </div>
       )}

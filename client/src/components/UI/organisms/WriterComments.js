@@ -26,7 +26,7 @@ const WriterComments = ({
   // Add main reply button function && sub reply
 
   return (
-    <div className="flex flex-col justify-center mt-[20px] h-full overflow: auto;">
+    <div className="flex flex-col justify-center mt-[20px] ml-[40px] w-full h-full overflow: auto;">
       {commentsData &&
         commentsData.map((x, idx) => {
           // 글 작성자인 경우

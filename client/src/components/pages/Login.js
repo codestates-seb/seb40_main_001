@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { HeaderLogo, HeaderNone, IdInput, PasswordInput, LongBtn } from '../UI';
-import { preClient } from '../../client/client';
+import { preClient, client, clientImg } from '../../client/client';
 
 const Login = () => {
   const naviagte = useNavigate();
@@ -21,6 +21,9 @@ const Login = () => {
       .post('/auth/login', payload)
       .then(res => {
         if (res.headers.get('Authorization')) {
+          const token = res.headers.get('Authorization');
+          client.defaults.headers.Authorization = token;
+          clientImg.defaults.headers.Authorization = token;
           localStorage.setItem('accessToken', res.headers.get('Authorization'));
           alert('로그인 성공');
         }
