@@ -3,6 +3,7 @@ package com.ilchinjo.mainproject.domain.proposal.service;
 import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
 import com.ilchinjo.mainproject.domain.exercise.entity.ExerciseStatus;
 import com.ilchinjo.mainproject.domain.exercise.entity.GenderType;
+import com.ilchinjo.mainproject.domain.exercise.repository.ExerciseRepository;
 import com.ilchinjo.mainproject.domain.exercise.service.ExerciseService;
 import com.ilchinjo.mainproject.domain.member.entity.Member;
 import com.ilchinjo.mainproject.domain.member.service.MemberService;
@@ -28,6 +29,7 @@ import java.util.Optional;
 public class ProposalServiceImpl implements ProposalService {
 
     private final ProposalRepository proposalRepository;
+    private final ExerciseRepository exerciseRepository;
     private final ExerciseService exerciseService;
     private final MemberService memberService;
     private final ProposalMapper mapper;
@@ -57,6 +59,8 @@ public class ProposalServiceImpl implements ProposalService {
     public ProposalResponseDto approvalProposal(Long proposalId, Long hostId) {
         Proposal findProposal = findVerifiedProposal(proposalId);
         checkHostAuthorized(findProposal, hostId);
+        checkExerciseValid(findProposal.getExercise());
+
         findProposal.getExercise().choiceProposal(findProposal);
         return mapper.entityToResponseDto(findProposal);
     }
