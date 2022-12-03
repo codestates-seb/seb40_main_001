@@ -1,7 +1,6 @@
 package com.ilchinjo.mainproject.domain.reply.entity;
 
 import com.ilchinjo.mainproject.domain.comment.entity.Comment;
-import com.ilchinjo.mainproject.domain.exercise.entity.Exercise;
 import com.ilchinjo.mainproject.domain.member.entity.Member;
 import com.ilchinjo.mainproject.global.audit.AuditingEntity;
 import lombok.*;
@@ -20,11 +19,11 @@ public class Reply extends AuditingEntity {
 
     private String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
     private Member author;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comment_id")
     private Comment comment;
 
