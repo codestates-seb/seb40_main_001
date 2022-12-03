@@ -58,6 +58,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setHeader("Authorization", "Bearer " + accessToken);
 
         ResponseCookie cookie = ResponseCookie.from("Refresh", refreshToken)
+                .domain("aroundexercise.com")
                 .maxAge(17 * 24 * 60 * 60)
                 .path("/")
                 .secure(true)
