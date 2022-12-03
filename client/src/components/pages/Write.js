@@ -95,8 +95,10 @@ const Write = () => {
           });
         })
         .catch(e => {
-          if (e.response.data.status === 422) {
-            alert(e.response.data.message);
+          if (e.response) {
+            if (e.response.data.status === 422) {
+              alert(e.response.data.message);
+            }
           }
         });
     } else {
@@ -114,8 +116,10 @@ const Write = () => {
           navigate('/main');
         })
         .catch(e => {
-          if (e.response.data.status === 422) {
-            alert(e.response.data.message);
+          if (e.response) {
+            if (e.response.data.status === 422) {
+              alert(e.response.data.message);
+            }
           }
         });
     }
@@ -174,16 +178,20 @@ const Write = () => {
           };
         })
         .then(payload => {
+          console.log('전송');
           client.patch(`/exercises/${postId}`, payload).then(() => {
             navigate('/main');
           });
         })
         .catch(e => {
-          if (e.response.data.status === 422) {
-            alert(e.response.data.message);
+          if (e.response) {
+            if (e.response.data.status === 422) {
+              alert(e.response.data.message);
+            }
           }
         });
     } else {
+      console.log('else');
       const newData = data;
       newData.img = newData.img.filter(el => el);
       setData(newData);
@@ -203,8 +211,10 @@ const Write = () => {
           navigate('/main');
         })
         .catch(e => {
-          if (e.response.data.status === 422) {
-            alert(e.response.data.message);
+          if (e.response) {
+            if (e.response.data.status === 422) {
+              alert(e.response.data.message);
+            }
           }
         });
     }
@@ -216,7 +226,6 @@ const Write = () => {
       setIsRewrite(true);
       setIsDisable(false);
       const before = location.state.data[0];
-      console.log(before.images);
       setData({
         exercise: before.category,
         title: before.title,
@@ -242,13 +251,13 @@ const Write = () => {
         handleDelete={handleDelete}
         img={imgList}
       />
-      <div className="flex w-full h-[30px] justify-center">
-        <LongBtn
-          txt="글쓰기"
-          hasImg={imgList.length > 0}
-          onClick={isRewrite ? submitPatch : submitWrite}
-          disabled={isDisable}
-        />
+      <div
+        className="flex w-full h-[30px] justify-center"
+        onClick={() => {
+          return isRewrite ? submitPatch() : submitWrite(imgList.length > 0);
+        }}
+      >
+        <LongBtn txt="글쓰기" disabled={isDisable} />
       </div>
     </div>
   );
