@@ -7,12 +7,6 @@ import DetailContents from '../UI/organisms/DetailContents';
 import ViewerComments from '../UI/organisms/ViewerComments';
 import { client } from '../../client/client';
 
-// 해당 id 값을 어떻게 받아오는가에 대한 로직 -> 승환님 도와줘요오
-// Applicant button onClick event setting
-// input button onClick event setting
-// change createAt && endAt -> YYYY-MM-DD
-// leftArrow connect navigate page
-
 const ArounderViewer = () => {
   const navigate = useNavigate();
   const userId = +localStorage.getItem('memberId');
