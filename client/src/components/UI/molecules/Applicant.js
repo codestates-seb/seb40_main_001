@@ -29,6 +29,7 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
     await client
       .post(`/exercises/${contentsData.exerciseId}/proposals`)
       .then(() => {
+        buttonHandler();
         alert('신청 완료했습니다.');
         window.location.reload();
       });
@@ -57,7 +58,7 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
           <div className="flex items-center">
             <ShortBtn
               txt={txt}
-              handleClick={(buttonHandler, submitProposals)}
+              handleClick={submitProposals}
               pink={!together}
               disabled={together}
             />
@@ -118,7 +119,7 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
         <div className="flex items-center">
           <ShortBtn
             txt={txt}
-            handleClick={(buttonHandler, confirmProposals)}
+            handleClick={confirmProposals}
             pink={!together}
             disabled={together}
           />
@@ -130,7 +131,7 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
         <div className="flex items-center">
           <ShortBtn
             txt={txt}
-            handleClick={(buttonHandler, submitProposals)}
+            handleClick={submitProposals}
             pink={!together}
             disabled={together}
           />

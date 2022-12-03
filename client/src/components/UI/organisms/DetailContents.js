@@ -16,7 +16,13 @@ const DetailContents = ({ img, contentsData }) => {
               {contentsData.host && contentsData.host.nickname}
             </div>
           </div>
-          <div className="text-low text-200">{`${contentsData.exerciseAt} ~ ${contentsData.endAt}`}</div>
+          <div className="text-low text-200">{`${new Date(
+            contentsData.exerciseAt,
+          )
+            .toLocaleDateString('ko')
+            .replace(' ', '')} ~ ${new Date(contentsData.endAt)
+            .toLocaleDateString('ko')
+            .replace(' ', '')}`}</div>
         </div>
       </div>
       <div className="mt-[25px] mb-[10px]">

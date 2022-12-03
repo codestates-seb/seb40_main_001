@@ -1,23 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
 import HeaderArrow from '../UI/molecules/HeaderArrow';
 import ApplicantSet from '../UI/molecules/Applicant';
 import InputComments from '../UI/molecules/InputComments';
 import DetailContents from '../UI/organisms/DetailContents';
 import ViewerComments from '../UI/organisms/ViewerComments';
 import { client } from '../../client/client';
-import userInfoState from '../../recoil/atoms';
-
-// 해당 id 값을 어떻게 받아오는가에 대한 로직 -> 승환님 도와줘요오
-// Applicant button onClick event setting
-// input button onClick event setting
-// change createAt && endAt -> YYYY-MM-DD
-// leftArrow connect navigate page
 
 const ArounderViewer = () => {
   const navigate = useNavigate();
-  const UserId = useRecoilValue(userInfoState);
+  const userId = +localStorage.getItem('memberId');
   const { id } = useParams();
   const [contentsData, setContentsData] = useState([]);
   const [proposalsData, setProposalsData] = useState([]);
@@ -136,7 +128,7 @@ const ArounderViewer = () => {
           <ApplicantSet
             proposalsData={proposalsData}
             writer={contentsData.host && contentsData.host.memberId}
-            userId={UserId}
+            userId={userId}
             contentsData={contentsData}
           />
           <InputComments
@@ -148,7 +140,7 @@ const ArounderViewer = () => {
           <ViewerComments
             target="답글을"
             writer={contentsData.host && contentsData.host.memberId}
-            userId={UserId}
+            userId={userId}
             commentsData={commentsData}
             mainReplyDeleteHandler={mainReplyDeleteHandler}
             nonMainReplyDeleteHandler={nonMainReplyDeleteHandler}

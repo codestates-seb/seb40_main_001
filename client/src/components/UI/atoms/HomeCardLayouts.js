@@ -1,9 +1,7 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
-import userInfoState from '../../../recoil/atoms';
 
 const HomeCL = ({ data, source, contentClick }) => {
-  const userId = useRecoilValue(userInfoState);
+  const userId = +localStorage.getItem('memberId');
   const { exerciseId } = data;
   const checkWriter = data.host.memberId;
 
