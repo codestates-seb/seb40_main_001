@@ -30,14 +30,14 @@ const Carousel = ({ img }) => {
           className="carousel-item flex justify-center relative w-full"
         >
           <img src={img[0].remotePath} className="" />
-          <CarouselBtn href={['#slide2']} />
+          <CarouselBtn href={['#slide2', '#slide2']} />
         </div>
         <div
           id="slide2"
           className="carousel-item flex justify-center relative w-full"
         >
           <img src={img[1].remotePath} className="" />
-          <CarouselBtn href={['#slide1']} />
+          <CarouselBtn href={['#slide1', '#slide1']} />
         </div>
       </div>
     );
