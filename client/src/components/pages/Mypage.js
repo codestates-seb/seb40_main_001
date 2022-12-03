@@ -97,7 +97,6 @@ const Mypage = () => {
   };
 
   const getHistory = () => {
-    console.log('here');
     client
       .get('/members/profiles')
       .then(res => {
@@ -133,7 +132,7 @@ const Mypage = () => {
   }, []);
 
   return (
-    <div className="relative h-screen scrollbar-hide">
+    <div className="relative h-screen w-[390px] scrollbar-hide">
       {isModal ? (
         <div className="w-full h-full absolute bg-black opacity-50 z-10"></div>
       ) : (
