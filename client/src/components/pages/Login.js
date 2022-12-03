@@ -21,7 +21,8 @@ const Login = () => {
       .post('/auth/login', payload)
       .then(res => {
         if (res.headers.get('Authorization')) {
-          localStorage.setItem('accessToken', res.headers.get('Authorization'));
+          preClient.defaults.header.Authorization =
+            res.headers.get('Authorization');
           alert('로그인 성공');
         }
         naviagte('/main');
