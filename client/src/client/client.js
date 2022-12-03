@@ -3,16 +3,17 @@ import axios from 'axios';
 const accessToken = localStorage.getItem('accessToken') || '';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
-axios.defaults.headers.withCredentials = true;
 
 export const preClient = axios.create({
   headers: {
+    withCredentials: true,
     'Content-Type': `application/json`,
   },
 });
 
 export const clientImg = axios.create({
   headers: {
+    withCredentials: true,
     Authorization: `${accessToken}`,
     'Content-Type': `multipart/form-data`,
   },
@@ -20,6 +21,7 @@ export const clientImg = axios.create({
 // client
 export const client = axios.create({
   headers: {
+    withCredentials: true,
     Authorization: `${accessToken}`,
     'Content-Type': `application/json`,
   },
@@ -33,14 +35,6 @@ client.interceptors.request.use(
     console.log(error);
     return Promise.reject(error);
   },
-
-  // (error) => {
-  //   if (error.response.status === 401) {
-  //     localStorage.removeItem('accessToken');
-  //     navigate('/login');
-  //   }
-  //   return Promise.reject(error);
-  // }
 );
 
 // 만료되기전에 재요청. renew polling
@@ -53,8 +47,6 @@ client.interceptors.response.use(
     return response;
   },
   error => {
-    // eslint-disable-next-line no-unused-vars
-    const originalRequest = error.config;
     const errorCode = error.code;
     // console.log(error.response.data.message);
     // 토큰 만료 여부 체크!
