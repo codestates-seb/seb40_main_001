@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
 import { ShortBtn, HNM } from '../atoms';
 import getIcon from '../../../utils/getIcon';
-import userInfoState from '../../../recoil/atoms';
 
 const HistoryCL = ({ data, openModal }) => {
   // 운동 한글화
@@ -10,7 +8,8 @@ const HistoryCL = ({ data, openModal }) => {
   // 리뷰 완료 여부
   const [reviewed, setReviewed] = useState(data.isReviewed);
   // 유저 ID
-  const myId = useRecoilValue(userInfoState);
+  // eslint-disable-next-line no-unused-vars
+  const [myId, setMyId] = useState(+localStorage.getItem('memberId'));
   // 운동 상대
   const [partner, setPartner] = useState();
 
@@ -57,11 +56,13 @@ const HistoryCL = ({ data, openModal }) => {
   useEffect(() => {
     if (data.participant.memberId === myId) {
       if (data.host.image) {
+        console.log('host img');
         setPartner({
           image: data.host.image.remotePath,
           nickname: data.host.nickname,
         });
       } else {
+        console.log('host non img');
         setPartner({
           image: '',
           nickname: data.host.nickname,
@@ -69,16 +70,20 @@ const HistoryCL = ({ data, openModal }) => {
       }
     } else if (data.host.memberId === myId) {
       if (data.participant.image) {
+        console.log('part img');
         setPartner({
           image: data.participant.image.remotePath,
           nickname: data.participant.nickname,
         });
       } else {
+        console.log('part non img');
         setPartner({
           image: '',
           nickname: data.participant.nickname,
         });
       }
+    } else {
+      console.log('너 내가 누군지 아니');
     }
   }, [data]);
 
