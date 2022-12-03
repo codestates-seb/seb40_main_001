@@ -50,7 +50,7 @@ public class ProposalServiceImpl implements ProposalService {
     public List<ProposalSimpleResponseDto> findProposals(Long exerciseId) {
         Exercise findExercise = exerciseService.findVerifiedExercise(exerciseId);
 
-        return mapper.entitiesToSimpleResponseDtoList(findExercise.getProposals());
+        return mapper.entitiesToSimpleResponseDtoList(proposalRepository.findAllByExercise(findExercise));
     }
 
     @Override
