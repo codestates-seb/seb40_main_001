@@ -53,9 +53,9 @@ const Main = () => {
     await client.get('/members/info').then(res => {
       localStorage.setItem('memberId', res.data.memberId);
       setInfoData({
-        nickname: res.data.nickname,
-        image: res.data.image.remotePath,
-        gender: res.data.gender,
+        nickname: res.data.nickname || '',
+        image: res.data.image.remotePath || '',
+        gender: res.data.gender || '',
       });
       setUserId(res.data.memberId);
     });
