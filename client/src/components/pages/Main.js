@@ -25,13 +25,11 @@ const Main = () => {
   const [count, setCount] = useState(1);
   const [hasNext, setHasNext] = useState(true);
   const SIZE = 10;
-  // 드로워 오픈 여부
   const [isDrawer, setIsDrawer] = useState(false);
-  const observerRef = useRef(); // 탐지 대상
-  const preventRef = useRef(true); // 중복 체크
-  const visited = useRef(false); // 첫방문 여부
+  const observerRef = useRef();
+  const preventRef = useRef(true);
+  const visited = useRef(false);
 
-  // 햄버거 아이콘 클릭 시 드로워 오픈 여부 변경
   const menuHandler = () => {
     setIsDrawer(!isDrawer);
   };
@@ -82,15 +80,8 @@ const Main = () => {
     };
   };
 
-  const checkToken = async () => {
-    if (localStorage.getItem('accessToken') === null) {
-      navigate('/login');
-    }
-  };
-
   useEffect(() => {
     getUserData();
-    checkToken();
     getUserInfoData();
     observerSet();
   }, [address, category, gender, count]);
@@ -116,18 +107,6 @@ const Main = () => {
     navigate(`/${checked}/${target}`);
   };
 
-  const Refresh = () => {
-    client
-      .post('/auth/refresh')
-      .then(res => {
-        console.log(res);
-        console.log('성공!잘 작동해요!');
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
   return (
     // 드로워 위치를 위한 css 추가
     <div className="relative h-screen scrollbar-hide">
@@ -139,7 +118,6 @@ const Main = () => {
           <Info />
         </div>
       </HeaderLogo>
-      <button onClick={Refresh}>클릭</button>
       <ExerciseCarousel
         handler={handler}
         arr={[
@@ -159,7 +137,6 @@ const Main = () => {
           gender={infoData.gender}
         />
       </div>
-
       <div className="flex flex-col pt-3 items-center space-y-3">
         {userData &&
           userData.map((data, idx) => (
@@ -170,7 +147,7 @@ const Main = () => {
       <EditBtn handleClick={handleClick} />
       {/* 드로워 */}
       {isDrawer ? (
-        <div className="h-screen w-full absolute z-20 top-[55px] right-0">
+        <div className="h-screen w-[390px] fixed z-20 top-[55px]">
           <Drawer img={infoData.image} name={infoData.nickname} />
         </div>
       ) : (
