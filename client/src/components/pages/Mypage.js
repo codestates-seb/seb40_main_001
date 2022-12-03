@@ -118,11 +118,19 @@ const Mypage = () => {
             }
             return newData;
           });
-          setInfoData({
-            profile: res.data.image.remotePath || '',
-            nickname: response.nickname,
-            charge: response.charge,
-          });
+          if (res.data.image) {
+            setInfoData({
+              profile: res.data.image.remotePath,
+              nickname: response.nickname,
+              charge: response.charge,
+            });
+          } else {
+            setInfoData({
+              profile: '',
+              nickname: response.nickname,
+              charge: response.charge,
+            });
+          }
         });
       });
   };
