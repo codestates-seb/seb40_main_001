@@ -26,15 +26,15 @@ public class Image extends AuditingEntity {
 
     private Long filesize;
 
-    @OneToOne
-    @JoinColumn(name = "owner_id")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id", nullable = false)
     private Member owner;
 
     @OneToOne
     @JoinColumn(name = "profiled_member_id")
     private Member profiledMember;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
 

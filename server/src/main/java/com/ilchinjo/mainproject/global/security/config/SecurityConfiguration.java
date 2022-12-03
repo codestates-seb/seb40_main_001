@@ -76,6 +76,8 @@ public class SecurityConfiguration {
                         .antMatchers("/images").hasRole("USER")
 
                         .antMatchers("/auth/*").permitAll()
+                        
+                        .antMatchers("/healthcheck").permitAll()
 
                         .anyRequest().denyAll()
                 );
