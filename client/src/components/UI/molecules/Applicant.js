@@ -104,7 +104,8 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
     if (
       contentsData &&
       contentsData.exerciseStatus === 'CLOSED' &&
-      writer !== userId
+      writer !== userId &&
+      checkUsable.indexOf(userId) !== -1
     ) {
       return (
         <div className="flex items-center">
@@ -124,7 +125,7 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
         </div>
       );
     }
-    if (writer !== userId) {
+    if (writer !== userId && checkUsable.indexOf(userId) === -1) {
       return (
         <div className="flex items-center">
           <ShortBtn
@@ -150,7 +151,6 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
           {proposalsData.map((x, id) => {
             // 글 모집 기간이 아닐 때
             if (contentsData && contentsData.exerciseStatus === 'CLOSED') {
-              console.log('hi5');
               return (
                 <>
                   <div
@@ -175,7 +175,6 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
             if (contentsData && contentsData.exerciseStatus === 'ACTIVE') {
               // 신청자 일 때 && 신청하지 않은 사람일 때
               if (writer !== userId && checkUsable.indexOf(userId) === -1) {
-                console.log('hi 1');
                 return (
                   <>
                     <div
@@ -198,7 +197,6 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
               }
               // 신청자 일 때 && 신청한 사람일 때
               if (writer !== userId && checkUsable.indexOf(userId) !== -1) {
-                console.log('hi 2');
                 return (
                   <>
                     <div
