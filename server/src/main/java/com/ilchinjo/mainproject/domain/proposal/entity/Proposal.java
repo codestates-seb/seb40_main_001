@@ -22,11 +22,11 @@ public class Proposal extends AuditingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long proposalId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "participant_id")
     private Member participant;
 
