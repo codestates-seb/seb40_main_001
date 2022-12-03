@@ -104,7 +104,8 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
     if (
       contentsData &&
       contentsData.exerciseStatus === 'CLOSED' &&
-      writer !== userId
+      writer !== userId &&
+      checkUsable.indexOf(userId) !== -1
     ) {
       return (
         <div className="flex items-center">
@@ -124,7 +125,7 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
         </div>
       );
     }
-    if (writer !== userId) {
+    if (writer !== userId && checkUsable.indexOf(userId) === -1) {
       return (
         <div className="flex items-center">
           <ShortBtn
@@ -145,12 +146,11 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
   // 예외 사항 외 리턴
   return (
     <div className="flex flex-row w-[350px] items-start justify-start">
-      <div className="carousel w-full overflow-x-scroll flex items-center justify-between">
-        <div className="flex flex-row">
+      <div className=" flex items-center justify-between">
+        <div className="carousel w-[250px] mr-[10px] overflow-x-scroll flex flex-row">
           {proposalsData.map((x, id) => {
             // 글 모집 기간이 아닐 때
             if (contentsData && contentsData.exerciseStatus === 'CLOSED') {
-              console.log('hi5');
               return (
                 <>
                   <div
@@ -175,7 +175,6 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
             if (contentsData && contentsData.exerciseStatus === 'ACTIVE') {
               // 신청자 일 때 && 신청하지 않은 사람일 때
               if (writer !== userId && checkUsable.indexOf(userId) === -1) {
-                console.log('hi 1');
                 return (
                   <>
                     <div
@@ -198,7 +197,6 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
               }
               // 신청자 일 때 && 신청한 사람일 때
               if (writer !== userId && checkUsable.indexOf(userId) !== -1) {
-                console.log('hi 2');
                 return (
                   <>
                     <div
