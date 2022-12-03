@@ -127,12 +127,6 @@ const Main = () => {
           <Info />
         </div>
       </HeaderLogo>
-      {/* 배경 흐리게 */}
-      {isDrawer ? (
-        <div className="w-full h-full absolute bg-black opacity-50 z-10"></div>
-      ) : (
-        <></>
-      )}
       <ExerciseCarousel
         handler={handler}
         arr={[
@@ -163,7 +157,7 @@ const Main = () => {
       <EditBtn handleClick={handleClick} />
       {/* 드로워 */}
       {isDrawer ? (
-        <div className="h-screen absolute z-20 top-[55px] right-0">
+        <div className="h-screen w-full absolute z-20 top-[55px] right-0">
           <Drawer img={infoData.image} name={infoData.nickname} />
         </div>
       ) : (
