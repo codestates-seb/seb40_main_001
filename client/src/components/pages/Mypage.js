@@ -128,7 +128,12 @@ const Mypage = () => {
       ) : (
         <></>
       )}
-      <HeaderLogo txt="마이페이지" menuHandler={menuHandler} menu={true} />
+      <HeaderLogo
+        txt="마이페이지"
+        menuHandler={menuHandler}
+        menu={true}
+        logo={true}
+      />
 
       <div className="flex justify-center mt-[55px]">
         <MyInfo

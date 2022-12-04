@@ -3,11 +3,19 @@ import { useNavigate } from 'react-router-dom';
 // import { useNavigate } from 'react-router-dom';
 import { Logo, Menu } from '../../../assets/img';
 
-const HeaderLogo = ({ txt, menuHandler, children, menu = false }) => {
+const HeaderLogo = ({
+  txt,
+  menuHandler,
+  children,
+  menu = false,
+  logo = false,
+}) => {
   const navigate = useNavigate();
   const logoHandler = () => {
-    navigate('/main');
-    window.scrollTo(0, 0);
+    if (logo) {
+      navigate('/main');
+      window.scrollTo(0, 0);
+    }
   };
 
   return (
