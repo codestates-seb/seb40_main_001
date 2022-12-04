@@ -56,13 +56,11 @@ const HistoryCL = ({ data, openModal }) => {
   useEffect(() => {
     if (data.participant.memberId === myId) {
       if (data.host.image) {
-        console.log('host img');
         setPartner({
           image: data.host.image.remotePath,
           nickname: data.host.nickname,
         });
       } else {
-        console.log('host non img');
         setPartner({
           image: '',
           nickname: data.host.nickname,
@@ -70,20 +68,16 @@ const HistoryCL = ({ data, openModal }) => {
       }
     } else if (data.host.memberId === myId) {
       if (data.participant.image) {
-        console.log('part img');
         setPartner({
           image: data.participant.image.remotePath,
           nickname: data.participant.nickname,
         });
       } else {
-        console.log('part non img');
         setPartner({
           image: '',
           nickname: data.participant.nickname,
         });
       }
-    } else {
-      console.log('너 내가 누군지 아니');
     }
   }, [data]);
 
