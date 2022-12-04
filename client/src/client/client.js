@@ -45,7 +45,6 @@ client.interceptors.response.use(
   },
   error => {
     const errorMSG = error.response.data.message;
-
     if (errorMSG === 'Unauthorized') {
       client
         .post('/auth/refresh')
@@ -57,6 +56,7 @@ client.interceptors.response.use(
         })
         .catch(err => {
           const errorDetail = err.response.data.message;
+
           if (
             errorDetail === 'Jwt token has expired' ||
             errorDetail === 'Required request cookie is missing'
@@ -69,6 +69,13 @@ client.interceptors.response.use(
           }
         });
     }
+    if (errorMSG === 'Jwt token has expired') {
+      preClient.post('/auth/logout');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('memberId');
+      window.location.assign('/login');
+    }
+
     return Promise.reject(error);
   },
 );

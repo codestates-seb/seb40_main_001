@@ -15,7 +15,10 @@ const MetaTag = ({ title = 'Around' }) => {
         property="og:description"
         content="주변 동네의 운동친구를 찾아보세요!"
       />
-      <meta property="og:image" content={''} />
+      <meta
+        property="og:image"
+        content="https://raw.githubusercontent.com/codestates-seb/seb40_main_001/develop/client/public/AroundImg.png"
+      />
       <meta property="og:url" content="https://aroundexercise.com/" />
 
       <link rel="canonical" href="https://aroundexercise.com/" />
