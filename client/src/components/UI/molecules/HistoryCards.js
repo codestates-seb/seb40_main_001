@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
 import { ShortBtn, HNM } from '../atoms';
 import getIcon from '../../../utils/getIcon';
-import userInfoState from '../../../recoil/atoms';
 
 const HistoryCL = ({ data, openModal }) => {
   // 운동 한글화
@@ -10,7 +8,8 @@ const HistoryCL = ({ data, openModal }) => {
   // 리뷰 완료 여부
   const [reviewed, setReviewed] = useState(data.isReviewed);
   // 유저 ID
-  const myId = useRecoilValue(userInfoState);
+  // eslint-disable-next-line no-unused-vars
+  const [myId, setMyId] = useState(+localStorage.getItem('memberId'));
   // 운동 상대
   const [partner, setPartner] = useState();
 

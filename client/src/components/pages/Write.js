@@ -196,7 +196,6 @@ const Write = () => {
           };
         })
         .then(payload => {
-          console.log('전송');
           client.patch(`/exercises/${postId}`, payload).then(() => {
             navigate('/main');
           });
@@ -218,7 +217,6 @@ const Write = () => {
           }
         });
     } else {
-      console.log('else');
       const newData = data;
       newData.img = newData.img.filter(el => el);
       setData(newData);
@@ -290,10 +288,8 @@ const Write = () => {
         className="flex w-full h-[30px] justify-center"
         onClick={() => {
           if (isRewrite) {
-            console.log('patch');
             submitPatch();
           } else {
-            console.log('write');
             submitWrite(imgList.length > 0);
           }
         }}
