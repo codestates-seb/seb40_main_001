@@ -40,7 +40,7 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
 
   const confirmProposals = async () => {
     if (isSelected < 0) {
-      alert('함께할 어라운더를 선택해주세요!');
+      alert('함께 할 어라운더를 선택해주세요!');
       return;
     }
     if (window.confirm('해당 어라운더와 함께 하시겠습니까?')) {
