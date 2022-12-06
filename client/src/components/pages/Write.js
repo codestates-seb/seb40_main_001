@@ -71,7 +71,7 @@ const Write = () => {
     }
 
     const isFast = new Date(data.startTime) < new Date();
-    const isEnd = new Date(data.endTime) < new Date();
+    const isEnd = new Date(data.endTime) < new Date(data.startTime);
     if (isFast) {
       alert('운동 시작 시간이 현재 시간보다 빠릅니다.');
       setImgList([]);
@@ -180,7 +180,7 @@ const Write = () => {
     }
 
     const isFast = new Date(data.startTime) < new Date();
-    const isEnd = new Date(data.endTime) < new Date();
+    const isEnd = new Date(data.endTime) < new Date(data.startTime);
     if (isFast) {
       alert('운동 시작 시간이 현재 시간보다 빠릅니다.');
       setImgList([]);
