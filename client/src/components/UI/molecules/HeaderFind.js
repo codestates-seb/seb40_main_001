@@ -4,10 +4,10 @@ import Dropdown from './MiniDropdown';
 
 const HeaderFind = () => {
   const logoHandler = () => {
-    console.log('logo');
+    // console.log('logo');
   };
   const infoHandler = () => {
-    console.log('info');
+    // console.log('info');
   };
 
   return (

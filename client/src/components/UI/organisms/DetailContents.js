@@ -3,7 +3,6 @@ import HomeCard from '../atoms/HomeCardImg';
 import { Carousel } from '../molecules';
 
 const DetailContents = ({ img, contentsData }) => {
-  console.log(contentsData);
   return (
     <div className="flex flex-col mt-[30px]">
       <div className="border-b border-main w-[351px]">
