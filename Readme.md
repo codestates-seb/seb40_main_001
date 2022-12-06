@@ -6,6 +6,8 @@
 
 ### 배포 주소: [Around 바로가기](https://aroundexercise.com)
 
+*어라운드는 모바일 온리를 지원합니다.
+
 ---
 
 ## 🛠️ 기술스택
