@@ -6,7 +6,7 @@ import { client } from '../../../client/client';
 const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
   const [together, setTogether] = useState(false);
   const [checkProfile, setCheckProfile] = useState(false);
-  const [isSelected, setIsSelected] = useState(0);
+  const [isSelected, setIsSelected] = useState(-1);
 
   const today = new Date();
   const endPoint = new Date(contentsData.exerciseAt);
@@ -39,6 +39,10 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
   };
 
   const confirmProposals = async () => {
+    if (isSelected < 0) {
+      alert('함께할 어라운더를 선택해주세요!');
+      return;
+    }
     if (window.confirm('해당 어라운더와 함께 하시겠습니까?')) {
       await client
         .post(`/proposals/${proposalsData[isSelected].proposalId}/approvals`)
@@ -47,7 +51,7 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
           window.location.reload();
         });
     } else {
-      console.log('취소 변화 없음');
+      console.log('취소, 변화 없음');
     }
   };
 
