@@ -79,12 +79,12 @@ const ArounderWriter = () => {
 
   // 대댓글 달기
   const writeSubReplies = idx => {
-    if (writeComments === '') {
+    if (replyComments === '') {
       alert('내용을 입력해주세요.');
       return;
     }
     const body = {
-      content: writeComments,
+      content: replyComments,
     };
     client
       .post(`/comments/${commentsData[idx].commentId}/replies`, body)
