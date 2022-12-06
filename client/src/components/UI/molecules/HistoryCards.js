@@ -82,11 +82,13 @@ const HistoryCL = ({ data, openModal }) => {
   }, [data]);
 
   return (
-    <div className="flex flex-low justify-between w-[350px] h-[92px]  bg-white items-center drop-shadow-lg rounded-[5px]">
-      <div className="ml-[20px] flex flex-row">
-        <HNM target={partner && partner.image} />
-        <div className="flex flex-col ml-[15px] text-300">
-          <div className="flex flex-row items-end">
+    <div className="flex flex-low w-[350px] h-[92px]  bg-white items-center drop-shadow-lg rounded-[5px]">
+      <div className="w-[240px] ml-[20px] flex flex-row">
+        <div className="flex items-center">
+          <HNM target={partner && partner.image} />
+        </div>
+        <div className="flex flex-col ml-[10px] text-300">
+          <div className="flex flex-row items-center">
             <div className="text-300 text-default mr-[10px] max-w-[70px] truncate">{`${
               partner && partner.nickname
             }`}</div>
@@ -94,19 +96,21 @@ const HistoryCL = ({ data, openModal }) => {
               data &&
               new Date(data.exerciseAt)
                 .toLocaleDateString('ko')
-                .replace(' ', '')
+                .replace(/\s/g, '')
             }`}</div>
           </div>
-
-          <div className="flex flex-row items-center">
-            <div>{icon}</div>
-            <div className="text-200 font-bold text-exercise">{`${
-              data && isExercise
-            }`}</div>
+          <div className="flex flex-row items-center justify-between">
+            <div className="flex flex-row items-center">
+              <div>{icon}</div>
+              <div className="ml-1 text-200 font-bold text-exercise">{`${
+                data && isExercise
+              }`}</div>
+            </div>
+            <div className="ml-1 text-100 text-low">종료: 20:40</div>
           </div>
         </div>
       </div>
-      <div className="mr-[20px]">
+      <div className="mr-[15px]">
         <ShortBtn
           txt={reviewTxt}
           handleClick={reviewHandler}

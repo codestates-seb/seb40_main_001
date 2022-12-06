@@ -24,6 +24,7 @@ const Mypage = () => {
       .post(`/exercises/${exerciseId}/reviews`, payload)
       .then(() => {
         setIsModal(false);
+        window.location.reload();
       })
       .catch(e => {
         if (e.response) {
@@ -33,6 +34,7 @@ const Mypage = () => {
             window.location.reload();
           } else {
             alert(e.response.data.message);
+            window.location.reload();
           }
         }
       });
@@ -84,6 +86,7 @@ const Mypage = () => {
       .patch(`/members/${userId}`, payload)
       .then(() => {
         alert('닉네임이 변경되었습니다.');
+        window.location.reload();
       })
       .catch(e => {
         if (e.response.data.message === 'Member exists') {

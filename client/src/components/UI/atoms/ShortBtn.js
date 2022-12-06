@@ -2,7 +2,7 @@ import React from 'react';
 
 const ShortBtn = ({ txt, disabled, pink, handleClick }) => {
   let style =
-    'text-[#FFF] text-200 btn w-[92px] h-[46px] rounded-[5px] border-0';
+    'text-[#FFF] text-200 btn w-[88px] h-[46px] rounded-[5px] border-0';
 
   if (disabled) {
     style += ' bg-gray bg-text-disabled hover:bg-text-disabled';
