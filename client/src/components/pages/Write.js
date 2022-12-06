@@ -70,9 +70,8 @@ const Write = () => {
       return;
     }
 
-    const now = new Date();
-    const isFast = new Date(data.startTime) < now;
-    if (isFast < now) {
+    const isFast = new Date(data.startTime) < new Date();
+    if (isFast) {
       alert('운동 시작 시간이 현재 시간보다 빠릅니다.');
       return;
     }
