@@ -20,11 +20,6 @@ const WriterComments = ({
     setReply(clickReply);
   };
 
-  // Add reply delete button function & drop off props
-  // Add edit button function & connect navigate
-  // Api connect detail contents delete button
-  // Add main reply button function && sub reply
-
   return (
     <div className="flex flex-col justify-center mt-[20px] ml-[40px] w-full h-full overflow: auto;">
       {commentsData &&

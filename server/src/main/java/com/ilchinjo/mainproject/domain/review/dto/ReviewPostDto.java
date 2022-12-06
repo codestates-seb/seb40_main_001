@@ -17,9 +17,9 @@ public class ReviewPostDto {
 
     @NotNull
     @Range(min = -2, max = 2)
-    private int publicEvaluation;
+    private Integer publicEvaluation;
 
     @NotNull
     @Range(min = -2, max = 2)
-    private int privateEvaluation;
+    private Integer privateEvaluation;
 }
