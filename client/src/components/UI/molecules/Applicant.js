@@ -39,12 +39,16 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
   };
 
   const confirmProposals = async () => {
-    await client
-      .post(`/proposals/${proposalsData[isSelected].proposalId}/approvals`)
-      .then(() => {
-        alert('어라운더를 정했습니다.');
-        window.location.reload();
-      });
+    if (window.confirm('해당 어라운더와 함께 하시겠습니까?')) {
+      await client
+        .post(`/proposals/${proposalsData[isSelected].proposalId}/approvals`)
+        .then(() => {
+          alert('어라운더를 정했습니다.');
+          window.location.reload();
+        });
+    } else {
+      console.log('취소 변화 없음');
+    }
   };
 
   // 지원자 없음 && 뷰어 일 때
@@ -88,7 +92,6 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
       checkUsable.indexOf(userId) !== -1 &&
       contentsData.exerciseStatus === 'CLOSED'
     ) {
-      console.log(1);
       return (
         <div className="flex items-center">
           <ShortBtn txt={'확정완료'} disabled={!together} />
@@ -100,7 +103,6 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
       (today > endPoint || contentsData.exerciseStatus === 'CLOSED') &&
       checkUsable.indexOf(userId) === -1
     ) {
-      console.log(6);
       return (
         <div className="flex items-center">
           <ShortBtn txt={'모집종료'} disabled={!together} />
@@ -108,7 +110,6 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
       );
     }
     if (writer !== userId && checkUsable.indexOf(userId) !== -1) {
-      console.log(2);
       return (
         <div className="flex items-center">
           <ShortBtn txt={'신청완료'} disabled={!together} />
@@ -120,7 +121,6 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
       (today > endPoint || contentsData.exerciseStatus === 'CLOSED') &&
       checkUsable.indexOf(userId) === -1
     ) {
-      console.log(5);
       return (
         <div className="flex items-center">
           <ShortBtn txt={'모집종료'} disabled={!together} />
@@ -128,7 +128,6 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
       );
     }
     if (writer === userId) {
-      console.log(3);
       return (
         <div className="flex items-center">
           <ShortBtn
@@ -141,7 +140,6 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
       );
     }
     if (writer !== userId && checkUsable.indexOf(userId) === -1) {
-      console.log(4);
       return (
         <div className="flex items-center">
           <ShortBtn
@@ -153,7 +151,7 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
         </div>
       );
     }
-    console.log(5);
+
     return (
       <div className="flex items-center">
         <ShortBtn txt={'신청완료'} disabled={!together} />
