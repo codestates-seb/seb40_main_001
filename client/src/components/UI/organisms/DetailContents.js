@@ -20,9 +20,9 @@ const DetailContents = ({ img, contentsData }) => {
             contentsData.exerciseAt,
           )
             .toLocaleDateString('ko')
-            .replace(' ', '')} ~ ${new Date(contentsData.endAt)
+            .replace(/\s/g, '')} ~ ${new Date(contentsData.endAt)
             .toLocaleDateString('ko')
-            .replace(' ', '')}`}</div>
+            .replace(/\s/g, '')}`}</div>
         </div>
       </div>
       <div className="mt-[25px] mb-[10px]">

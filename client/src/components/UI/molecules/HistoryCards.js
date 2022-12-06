@@ -94,7 +94,7 @@ const HistoryCL = ({ data, openModal }) => {
               data &&
               new Date(data.exerciseAt)
                 .toLocaleDateString('ko')
-                .replace(' ', '')
+                .replace(/\s/g, '')
             }`}</div>
           </div>
 
