@@ -47,7 +47,7 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
           window.location.reload();
         });
     } else {
-      console.log('취소 변화 없음');
+      // console.log('취소 변화 없음');
     }
   };
 
