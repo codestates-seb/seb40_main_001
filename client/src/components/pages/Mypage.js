@@ -15,6 +15,9 @@ const Mypage = () => {
   const [userId, setUserId] = useState(localStorage.getItem('memberId'));
 
   const closeModal = () => {
+    if (!score) {
+      return;
+    }
     const payload = {
       destMemberId: destId,
       publicEvaluation: score[0],
@@ -170,7 +173,6 @@ const Mypage = () => {
 
       {/* 드로워 */}
       {isDrawer ? (
-        // h-full 하면 top-55px 밀리니까 이거 계산해서 넣어주기
         <div className="h-screen w-[390px] fixed z-20 top-[55px]">
           <Drawer img={userData.profile} name={userData.nickname} />
         </div>

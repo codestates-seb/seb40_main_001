@@ -33,7 +33,10 @@ const Write = () => {
 
   const fileHandler = e => {
     if (imgList.length === 3) {
-      alert('이미지는 최대 3개까지 첨부 가능합니다.');
+      alert(
+        '이미지는 최대 3개까지 첨부 가능합니다. 이미지 리스트가 리셋됩니다.',
+      );
+      setImgList([]);
       return;
     }
     setImgList(prev => [...prev, e.target.files[0]]);
@@ -66,6 +69,20 @@ const Write = () => {
     if (!data.exercise || !data.title || !data.content || !data.gender) {
       return;
     }
+
+    const isFast = new Date(data.startTime) < new Date();
+    const isEnd = new Date(data.endTime) < new Date(data.startTime);
+    if (isFast) {
+      alert('운동 시작 시간이 현재 시간보다 빠릅니다.');
+      setImgList([]);
+      return;
+    }
+    if (isEnd) {
+      alert('종료 시작이 시작 시간보다 빠릅니다.');
+      setImgList([]);
+      return;
+    }
+
     if (img) {
       // 이미지 생성
       const imgUp = new FormData();
@@ -105,10 +122,15 @@ const Write = () => {
                 'Start time is earlier than current time'
               ) {
                 alert('시작 시간이 현재 시간보다 빠릅니다.');
+                setImgList([]);
               } else if (
                 e.response.data.message === 'Start time is later than end time'
               ) {
                 alert('종료 시작이 시작 시간보다 빠릅니다.');
+                setImgList([]);
+              } else {
+                alert(e.response.data.message);
+                setImgList([]);
               }
             }
           }
@@ -135,10 +157,15 @@ const Write = () => {
                 'Start time is earlier than current time'
               ) {
                 alert('시작 시간이 현재 시간보다 빠릅니다.');
+                setImgList([]);
               } else if (
                 e.response.data.message === 'Start time is later than end time'
               ) {
                 alert('종료 시작이 시작 시간보다 빠릅니다.');
+                setImgList([]);
+              } else {
+                alert(e.response.data.message);
+                setImgList([]);
               }
             }
           }
@@ -151,6 +178,20 @@ const Write = () => {
     if (!data.exercise || !data.title || !data.content || !data.gender) {
       return;
     }
+
+    const isFast = new Date(data.startTime) < new Date();
+    const isEnd = new Date(data.endTime) < new Date(data.startTime);
+    if (isFast) {
+      alert('운동 시작 시간이 현재 시간보다 빠릅니다.');
+      setImgList([]);
+      return;
+    }
+    if (isEnd) {
+      alert('종료 시작이 시작 시간보다 빠릅니다.');
+      setImgList([]);
+      return;
+    }
+
     const newImgArr = imgList.filter(el => el.name);
     const originImgArr = imgList.filter(el => el.originImgArr);
     if (newImgArr.length > 0) {
@@ -211,10 +252,15 @@ const Write = () => {
                 'Start time is earlier than current time'
               ) {
                 alert('시작 시간이 현재 시간보다 빠릅니다.');
+                setImgList([]);
               } else if (
                 e.response.data.message === 'Start time is later than end time'
               ) {
                 alert('종료 시작이 시작 시간보다 빠릅니다.');
+                setImgList([]);
+              } else {
+                alert(e.response.data.message);
+                setImgList([]);
               }
             }
           }

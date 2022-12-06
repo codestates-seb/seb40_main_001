@@ -28,7 +28,7 @@ const ViewerComments = ({
           if (userId === x.author.memberId) {
             return reply[idx] ? (
               // 댓글 버튼을 눌렀다.
-              <>
+              <div key={idx}>
                 <div className="mb-2">
                   <ViewerCLX
                     key={idx}
@@ -53,7 +53,7 @@ const ViewerComments = ({
                     // 대댓글 작성자가 뷰어 이다
                     if (y.author.memberId === userId) {
                       return (
-                        <>
+                        <div key={id}>
                           <div className="flex flex-row items-center mb-2">
                             <Recomment />
                             <div className="flex flex-col justify-center">
@@ -69,33 +69,13 @@ const ViewerComments = ({
                               />
                             </div>
                           </div>
-                        </>
+                        </div>
                       );
                     }
-                    // 대댓글 작성자가 뷰어가 아니다
-                    if (y.author.memberId !== userId) {
-                      return (
-                        <>
-                          <div className="flex flex-row items-center mb-2">
-                            <Recomment />
-                            <div className="flex flex-col justify-center">
-                              <ViewerCL
-                                key={id}
-                                nickname={y.author.nickname}
-                                contents={y.content}
-                                handler={writeReply}
-                                id={id}
-                                mainReply={false}
-                              />
-                            </div>
-                          </div>
-                        </>
-                      );
-                    }
-                    // 댓글을 쓴 사람이 글 작성자다
+                    // 대댓글을 쓴 사람이 글 작성자다
                     if (y.author.memberId === writer) {
                       return (
-                        <>
+                        <div key={id}>
                           <div className="flex flex-row items-center mb-2">
                             <Recomment />
                             <div className="flex flex-col justify-center">
@@ -109,15 +89,35 @@ const ViewerComments = ({
                               />
                             </div>
                           </div>
-                        </>
+                        </div>
+                      );
+                    }
+                    // 대댓글 작성자가 뷰어가 아니다
+                    if (y.author.memberId !== userId) {
+                      return (
+                        <div key={id}>
+                          <div className="flex flex-row items-center mb-2">
+                            <Recomment />
+                            <div className="flex flex-col justify-center">
+                              <ViewerCL
+                                key={id}
+                                nickname={y.author.nickname}
+                                contents={y.content}
+                                handler={writeReply}
+                                id={id}
+                                mainReply={false}
+                              />
+                            </div>
+                          </div>
+                        </div>
                       );
                     }
                     return <></>;
                   })}
-              </>
+              </div>
             ) : (
               // 댓글 버튼을 안눌렀다.
-              <>
+              <div key={idx}>
                 <div className="mb-2">
                   <ViewerCLX
                     key={idx}
@@ -134,7 +134,7 @@ const ViewerComments = ({
                     // 대댓글 작성자가 뷰어 이다
                     if (y.author.memberId === userId) {
                       return (
-                        <>
+                        <div key={id}>
                           <div className="flex flex-row items-center mb-2">
                             <Recomment />
                             <div className="flex flex-col justify-center">
@@ -150,33 +150,13 @@ const ViewerComments = ({
                               />
                             </div>
                           </div>
-                        </>
-                      );
-                    }
-                    // 대댓글 작성자가 뷰어가 아니다
-                    if (y.author.memberId !== userId) {
-                      return (
-                        <>
-                          <div className="flex flex-row items-center mb-2">
-                            <Recomment />
-                            <div className="flex flex-col justify-center">
-                              <ViewerCL
-                                key={id}
-                                nickname={y.author.nickname}
-                                contents={y.content}
-                                handler={writeReply}
-                                id={id}
-                                mainReply={false}
-                              />
-                            </div>
-                          </div>
-                        </>
+                        </div>
                       );
                     }
                     // 댓글을 쓴 사람이 글 작성자다
                     if (y.author.memberId === writer) {
                       return (
-                        <>
+                        <div key={id}>
                           <div className="flex flex-row items-center mb-2">
                             <Recomment />
                             <div className="flex flex-col justify-center">
@@ -190,19 +170,39 @@ const ViewerComments = ({
                               />
                             </div>
                           </div>
-                        </>
+                        </div>
+                      );
+                    }
+                    // 대댓글 작성자가 뷰어가 아니다
+                    if (y.author.memberId !== userId) {
+                      return (
+                        <div key={id}>
+                          <div className="flex flex-row items-center mb-2">
+                            <Recomment />
+                            <div className="flex flex-col justify-center">
+                              <ViewerCL
+                                key={id}
+                                nickname={y.author.nickname}
+                                contents={y.content}
+                                handler={writeReply}
+                                id={id}
+                                mainReply={false}
+                              />
+                            </div>
+                          </div>
+                        </div>
                       );
                     }
                     return <></>;
                   })}
-              </>
+              </div>
             );
           }
           // 뷰어와 댓글 작성자가 다르다.그리고 댓글 작성자가 게시글 작성자와 다르다
           if (userId !== x.author.memberId && writer !== x.author.memberId) {
             return reply[idx] ? (
               // 댓글 버튼을 눌렀다.
-              <>
+              <div key={idx}>
                 <div className="mb-2">
                   <ViewerCL
                     key={idx}
@@ -226,71 +226,74 @@ const ViewerComments = ({
                     // 대댓글 작성자가 뷰어 이다
                     if (y.author.memberId === userId) {
                       return (
-                        <>
-                          <div className="flex flex-row items-center mb-2">
-                            <Recomment />
-                            <div className="flex flex-col justify-center">
-                              <ViewerCLX
-                                key={id}
-                                nickname={y.author.nickname}
-                                contents={y.content}
-                                handler={writeReply}
-                                id={id}
-                                parentId={idx}
-                                mainReply={false}
-                                deleteHandler={nonMainReplyDeleteHandler}
-                              />
-                            </div>
+                        <div
+                          className="flex flex-row items-center mb-2"
+                          key={id}
+                        >
+                          <Recomment />
+                          <div className="flex flex-col justify-center">
+                            <ViewerCLX
+                              key={id}
+                              nickname={y.author.nickname}
+                              contents={y.content}
+                              handler={writeReply}
+                              id={id}
+                              parentId={idx}
+                              mainReply={false}
+                              deleteHandler={nonMainReplyDeleteHandler}
+                            />
                           </div>
-                        </>
-                      );
-                    }
-                    // 대댓글 작성자가 뷰어가 아니다
-                    if (y.author.memberId !== userId) {
-                      return (
-                        <>
-                          <div className="flex flex-row items-center mb-2">
-                            <Recomment />
-                            <div className="flex flex-col justify-center">
-                              <ViewerCL
-                                key={id}
-                                nickname={y.author.nickname}
-                                contents={y.content}
-                                handler={writeReply}
-                                id={id}
-                                mainReply={false}
-                              />
-                            </div>
-                          </div>
-                        </>
+                        </div>
                       );
                     }
                     // 댓글을 쓴 사람이 글 작성자다
                     if (y.author.memberId === writer) {
                       return (
-                        <>
-                          <div className="flex flex-row items-center mb-2">
-                            <Recomment />
-                            <div className="flex flex-col justify-center">
-                              <WriterCard
-                                key={id}
-                                nickname={y.author.nickname}
-                                contents={y.content}
-                                handler={writeReply}
-                                id={id}
-                                mainReply={false}
-                              />
-                            </div>
+                        <div
+                          className="flex flex-row items-center mb-2"
+                          key={id}
+                        >
+                          <Recomment />
+                          <div className="flex flex-col justify-center">
+                            <WriterCard
+                              key={id}
+                              nickname={y.author.nickname}
+                              contents={y.content}
+                              handler={writeReply}
+                              id={id}
+                              mainReply={false}
+                            />
                           </div>
-                        </>
+                        </div>
+                      );
+                    }
+                    // 대댓글 작성자가 뷰어가 아니다
+                    if (y.author.memberId !== userId) {
+                      return (
+                        <div
+                          className="flex flex-row items-center mb-2"
+                          key={id}
+                        >
+                          <Recomment />
+                          <div className="flex flex-col justify-center">
+                            <ViewerCL
+                              key={id}
+                              nickname={y.author.nickname}
+                              contents={y.content}
+                              handler={writeReply}
+                              id={id}
+                              mainReply={false}
+                            />
+                          </div>
+                        </div>
                       );
                     }
                     return <></>;
                   })}
-              </>
+              </div>
             ) : (
               // 댓글 버튼을 안눌렀다.
-              <>
+              <div key={idx}>
                 <div className="mb-2">
                   <ViewerCL
                     key={idx}
@@ -306,7 +309,7 @@ const ViewerComments = ({
                     // 대댓글 작성자가 뷰어 이다
                     if (y.author.memberId === userId) {
                       return (
-                        <>
+                        <div key={id}>
                           <div className="flex flex-row items-center mb-2">
                             <Recomment />
                             <div className="flex flex-col justify-center">
@@ -322,33 +325,13 @@ const ViewerComments = ({
                               />
                             </div>
                           </div>
-                        </>
-                      );
-                    }
-                    // 대댓글 작성자가 뷰어가 아니다
-                    if (y.author.memberId !== userId) {
-                      return (
-                        <>
-                          <div className="flex flex-row items-center mb-2">
-                            <Recomment />
-                            <div className="flex flex-col justify-center">
-                              <ViewerCL
-                                key={id}
-                                nickname={y.author.nickname}
-                                contents={y.content}
-                                handler={writeReply}
-                                id={id}
-                                mainReply={false}
-                              />
-                            </div>
-                          </div>
-                        </>
+                        </div>
                       );
                     }
                     // 댓글을 쓴 사람이 글 작성자다
                     if (y.author.memberId === writer) {
                       return (
-                        <>
+                        <div key={id}>
                           <div className="flex flex-row items-center mb-2">
                             <Recomment />
                             <div className="flex flex-col justify-center">
@@ -362,19 +345,39 @@ const ViewerComments = ({
                               />
                             </div>
                           </div>
-                        </>
+                        </div>
+                      );
+                    }
+                    // 대댓글 작성자가 뷰어가 아니다
+                    if (y.author.memberId !== userId) {
+                      return (
+                        <div key={id}>
+                          <div className="flex flex-row items-center mb-2">
+                            <Recomment />
+                            <div className="flex flex-col justify-center">
+                              <ViewerCL
+                                key={id}
+                                nickname={y.author.nickname}
+                                contents={y.content}
+                                handler={writeReply}
+                                id={id}
+                                mainReply={false}
+                              />
+                            </div>
+                          </div>
+                        </div>
                       );
                     }
                     return <></>;
                   })}
-              </>
+              </div>
             );
           }
           // 뷰어와 댓글 작성자가 다르다. 그리고 작성자와 댓글 작성자가 같다.
           if (userId !== x.author.memberId && writer === x.author.memberId) {
             return reply[idx] ? (
               // 댓글 버튼을 눌렀다.
-              <>
+              <div key={idx}>
                 <div className="mb-2">
                   <WriterCard
                     key={idx}
@@ -398,7 +401,7 @@ const ViewerComments = ({
                     // 대댓글 작성자가 뷰어 이다
                     if (y.author.memberId === userId) {
                       return (
-                        <>
+                        <div key={id}>
                           <div className="flex flex-row items-center mb-2">
                             <Recomment />
                             <div className="flex flex-col justify-center">
@@ -414,33 +417,13 @@ const ViewerComments = ({
                               />
                             </div>
                           </div>
-                        </>
-                      );
-                    }
-                    // 대댓글 작성자가 뷰어가 아니다
-                    if (y.author.memberId !== userId) {
-                      return (
-                        <>
-                          <div className="flex flex-row items-center mb-2">
-                            <Recomment />
-                            <div className="flex flex-col justify-center">
-                              <ViewerCL
-                                key={id}
-                                nickname={y.author.nickname}
-                                contents={y.content}
-                                handler={writeReply}
-                                id={id}
-                                mainReply={false}
-                              />
-                            </div>
-                          </div>
-                        </>
+                        </div>
                       );
                     }
                     // 댓글을 쓴 사람이 글 작성자다
                     if (y.author.memberId === writer) {
                       return (
-                        <>
+                        <div key={id}>
                           <div className="flex flex-row items-center mb-2">
                             <Recomment />
                             <div className="flex flex-col justify-center">
@@ -454,15 +437,35 @@ const ViewerComments = ({
                               />
                             </div>
                           </div>
-                        </>
+                        </div>
+                      );
+                    }
+                    // 대댓글 작성자가 뷰어가 아니다
+                    if (y.author.memberId !== userId) {
+                      return (
+                        <div key={id}>
+                          <div className="flex flex-row items-center mb-2">
+                            <Recomment />
+                            <div className="flex flex-col justify-center">
+                              <ViewerCL
+                                key={id}
+                                nickname={y.author.nickname}
+                                contents={y.content}
+                                handler={writeReply}
+                                id={id}
+                                mainReply={false}
+                              />
+                            </div>
+                          </div>
+                        </div>
                       );
                     }
                     return <></>;
                   })}
-              </>
+              </div>
             ) : (
               // 댓글 버튼을 안눌렀다.
-              <>
+              <div key={idx}>
                 <div className="mb-2">
                   <WriterCard
                     key={idx}
@@ -478,7 +481,7 @@ const ViewerComments = ({
                     // 대댓글 작성자가 뷰어 이다
                     if (y.author.memberId === userId) {
                       return (
-                        <>
+                        <div key={id}>
                           <div className="flex flex-row items-center mb-2">
                             <Recomment />
                             <div className="flex flex-col justify-center">
@@ -494,33 +497,13 @@ const ViewerComments = ({
                               />
                             </div>
                           </div>
-                        </>
-                      );
-                    }
-                    // 대댓글 작성자가 뷰어가 아니다
-                    if (y.author.memberId !== userId) {
-                      return (
-                        <>
-                          <div className="flex flex-row items-center mb-2">
-                            <Recomment />
-                            <div className="flex flex-col justify-center">
-                              <ViewerCL
-                                key={id}
-                                nickname={y.author.nickname}
-                                contents={y.content}
-                                handler={writeReply}
-                                id={id}
-                                mainReply={false}
-                              />
-                            </div>
-                          </div>
-                        </>
+                        </div>
                       );
                     }
                     // 댓글을 쓴 사람이 글 작성자다
                     if (y.author.memberId === writer) {
                       return (
-                        <>
+                        <div key={id}>
                           <div className="flex flex-row items-center mb-2">
                             <Recomment />
                             <div className="flex flex-col justify-center">
@@ -534,12 +517,32 @@ const ViewerComments = ({
                               />
                             </div>
                           </div>
-                        </>
+                        </div>
+                      );
+                    }
+                    // 대댓글 작성자가 뷰어가 아니다
+                    if (y.author.memberId !== userId) {
+                      return (
+                        <div key={id}>
+                          <div className="flex flex-row items-center mb-2">
+                            <Recomment />
+                            <div className="flex flex-col justify-center">
+                              <ViewerCL
+                                key={id}
+                                nickname={y.author.nickname}
+                                contents={y.content}
+                                handler={writeReply}
+                                id={id}
+                                mainReply={false}
+                              />
+                            </div>
+                          </div>
+                        </div>
                       );
                     }
                     return <></>;
                   })}
-              </>
+              </div>
             );
           }
           return <></>;

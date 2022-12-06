@@ -6,7 +6,7 @@ import { client } from '../../../client/client';
 const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
   const [together, setTogether] = useState(false);
   const [checkProfile, setCheckProfile] = useState(false);
-  const [isSelected, setIsSelected] = useState(0);
+  const [isSelected, setIsSelected] = useState(-1);
 
   const today = new Date();
   const endPoint = new Date(contentsData.exerciseAt);
@@ -39,12 +39,20 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
   };
 
   const confirmProposals = async () => {
-    await client
-      .post(`/proposals/${proposalsData[isSelected].proposalId}/approvals`)
-      .then(() => {
-        alert('어라운더를 정했습니다.');
-        window.location.reload();
-      });
+    if (isSelected < 0) {
+      alert('함께 할 어라운더를 선택해주세요!');
+      return;
+    }
+    if (window.confirm('해당 어라운더와 함께 하시겠습니까?')) {
+      await client
+        .post(`/proposals/${proposalsData[isSelected].proposalId}/approvals`)
+        .then(() => {
+          alert('어라운더를 정했습니다.');
+          window.location.reload();
+        });
+    } else {
+      console.log('취소, 변화 없음');
+    }
   };
 
   // 지원자 없음 && 뷰어 일 때
@@ -88,7 +96,6 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
       checkUsable.indexOf(userId) !== -1 &&
       contentsData.exerciseStatus === 'CLOSED'
     ) {
-      console.log(1);
       return (
         <div className="flex items-center">
           <ShortBtn txt={'확정완료'} disabled={!together} />
@@ -100,7 +107,6 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
       (today > endPoint || contentsData.exerciseStatus === 'CLOSED') &&
       checkUsable.indexOf(userId) === -1
     ) {
-      console.log(6);
       return (
         <div className="flex items-center">
           <ShortBtn txt={'모집종료'} disabled={!together} />
@@ -108,7 +114,6 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
       );
     }
     if (writer !== userId && checkUsable.indexOf(userId) !== -1) {
-      console.log(2);
       return (
         <div className="flex items-center">
           <ShortBtn txt={'신청완료'} disabled={!together} />
@@ -120,7 +125,6 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
       (today > endPoint || contentsData.exerciseStatus === 'CLOSED') &&
       checkUsable.indexOf(userId) === -1
     ) {
-      console.log(5);
       return (
         <div className="flex items-center">
           <ShortBtn txt={'모집종료'} disabled={!together} />
@@ -128,7 +132,6 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
       );
     }
     if (writer === userId) {
-      console.log(3);
       return (
         <div className="flex items-center">
           <ShortBtn
@@ -141,7 +144,6 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
       );
     }
     if (writer !== userId && checkUsable.indexOf(userId) === -1) {
-      console.log(4);
       return (
         <div className="flex items-center">
           <ShortBtn
@@ -153,7 +155,7 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
         </div>
       );
     }
-    console.log(5);
+
     return (
       <div className="flex items-center">
         <ShortBtn txt={'신청완료'} disabled={!together} />
@@ -169,7 +171,28 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
             // 글 모집 기간이 아닐 때
             if (today > endPoint) {
               return (
-                <>
+                <div
+                  key={id}
+                  className="flex flex-col justify-center items-center mr-[5px] opacity-60"
+                >
+                  <Applicant
+                    target={
+                      x.participant &&
+                      x.participant.image &&
+                      x.participant.image.remotePath
+                    }
+                  />
+                  <div className="text-center w-[50px] text-200 truncate">
+                    {x.participant && x.participant.nickname}
+                  </div>
+                </div>
+              );
+            }
+            // 글 모집 기간일 때
+            if (today < endPoint) {
+              // 신청자 일 때 && 신청하지 않은 사람일 때
+              if (writer !== userId && checkUsable.indexOf(userId) === -1) {
+                return (
                   <div
                     key={id}
                     className="flex flex-col justify-center items-center mr-[5px] opacity-60"
@@ -185,99 +208,68 @@ const ApplicantSet = ({ contentsData, proposalsData, writer, userId }) => {
                       {x.participant && x.participant.nickname}
                     </div>
                   </div>
-                </>
-              );
-            }
-            // 글 모집 기간일 때
-            if (today < endPoint) {
-              // 신청자 일 때 && 신청하지 않은 사람일 때
-              if (writer !== userId && checkUsable.indexOf(userId) === -1) {
-                return (
-                  <>
-                    <div
-                      key={id}
-                      className="flex flex-col justify-center items-center mr-[5px] opacity-60"
-                    >
-                      <Applicant
-                        target={
-                          x.participant &&
-                          x.participant.image &&
-                          x.participant.image.remotePath
-                        }
-                      />
-                      <div className="text-center w-[50px] text-200 truncate">
-                        {x.participant && x.participant.nickname}
-                      </div>
-                    </div>
-                  </>
                 );
               }
               // 신청자 일 때 && 신청한 사람일 때
               if (writer !== userId && checkUsable.indexOf(userId) !== -1) {
                 return (
-                  <>
-                    <div
-                      key={id}
-                      className="flex flex-col justify-center items-center mr-[5px] opacity-60"
-                    >
-                      <Applicant
-                        target={
-                          x.participant &&
-                          x.participant.image &&
-                          x.participant.image.remotePath
-                        }
-                      />
-                      <div className="text-center w-[50px] text-200 truncate">
-                        {x.participant && x.participant.nickname}
-                      </div>
+                  <div
+                    key={id}
+                    className="flex flex-col justify-center items-center mr-[5px] opacity-60"
+                  >
+                    <Applicant
+                      target={
+                        x.participant &&
+                        x.participant.image &&
+                        x.participant.image.remotePath
+                      }
+                    />
+                    <div className="text-center w-[50px] text-200 truncate">
+                      {x.participant && x.participant.nickname}
                     </div>
-                  </>
+                  </div>
                 );
               }
               // 작성자 일 때 && 선택하지 않았을 때
               if (writer === userId && checkProfile[id]) {
                 return (
-                  <>
-                    <div
-                      key={id}
-                      className="flex flex-col  justify-center items-center mr-[5px] opacity-100"
-                      onClick={() => profileHandler(id)}
-                    >
-                      <Applicant
-                        target={
-                          x.participant &&
-                          x.participant.image &&
-                          x.participant.image.remotePath
-                        }
-                      />
-                      <div className="text-center w-[50px] text-200 truncate items-center">
-                        {x.participant && x.participant.nickname}
-                      </div>
+                  <div
+                    key={id}
+                    className="flex flex-col  justify-center items-center mr-[5px] opacity-100"
+                    onClick={() => profileHandler(id)}
+                  >
+                    <Applicant
+                      target={
+                        x.participant &&
+                        x.participant.image &&
+                        x.participant.image.remotePath
+                      }
+                    />
+                    <div className="text-center w-[50px] text-200 truncate items-center">
+                      {x.participant && x.participant.nickname}
                     </div>
-                  </>
+                  </div>
                 );
               }
               // 작성자 일 때 && 선택을 했을 때
               if (writer === userId && !checkProfile[id]) {
                 return (
-                  <>
-                    <div
-                      key={id}
-                      className="flex flex-col justify-center items-center mr-[5px] opacity-60"
-                      onClick={() => profileHandler(id)}
-                    >
-                      <Applicant
-                        target={
-                          x.participant &&
-                          x.participant.image &&
-                          x.participant.image.remotePath
-                        }
-                      />
-                      <div className="text-center w-[50px] text-200 truncate">
-                        {x.participant && x.participant.nickname}
-                      </div>
+                  <div
+                    key={id}
+                    className="flex flex-col justify-center items-center mr-[5px] opacity-60"
+                    onClick={() => profileHandler(id)}
+                  >
+                    <Applicant
+                      target={
+                        x.participant &&
+                        x.participant.image &&
+                        x.participant.image.remotePath
+                      }
+                    />
+                    <div className="text-center w-[50px] text-200 truncate">
+                      {x.participant && x.participant.nickname}
                     </div>
-                  </>
+                  </div>
                 );
               }
             }

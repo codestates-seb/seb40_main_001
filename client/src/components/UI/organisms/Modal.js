@@ -3,6 +3,7 @@ import { MiniBtn } from '../atoms';
 import { ArounderReview, ReviewMent } from '../molecules';
 
 const Modal = ({ handleClose, setScore, setIsModal }) => {
+  const [review, setReview] = useState();
   const [isDisabled, setIsDisabled] = useState(true);
   const [colorOne, setColorOne] = useState([
     'white',
@@ -41,11 +42,7 @@ const Modal = ({ handleClose, setScore, setIsModal }) => {
     // colorTwo.indexOf('white');
     // 위 2개의 값이 리뷰 점수
     // -1인 경우 5점으로 치환
-    const first = colorOne.indexOf('white');
-    const second = colorTwo.indexOf('white');
-    const reveiw = [rate(first), rate(second)];
     // 상위 컴포넌트에서 내려온 score state에 값 담기
-    setScore(reveiw);
     handleClose();
   };
 
@@ -53,7 +50,14 @@ const Modal = ({ handleClose, setScore, setIsModal }) => {
     if (colorOne[0] !== 'white' && colorTwo[0] !== 'white') {
       setIsDisabled(false);
     }
+    const first = colorOne.indexOf('white');
+    const second = colorTwo.indexOf('white');
+    setReview([rate(first), rate(second)]);
   }, [colorOne, colorTwo]);
+
+  useEffect(() => {
+    setScore(review);
+  }, [review]);
 
   return (
     <div className="w-[290px] h-[350px] flex flex-col bg-white rounded-2xl p-5">

@@ -19,12 +19,6 @@ const WriterComments = ({
     clickReply[idx] = true;
     setReply(clickReply);
   };
-
-  // Add reply delete button function & drop off props
-  // Add edit button function & connect navigate
-  // Api connect detail contents delete button
-  // Add main reply button function && sub reply
-
   return (
     <div className="flex flex-col justify-center mt-[20px] ml-[40px] w-full h-full overflow: auto;">
       {commentsData &&
@@ -33,7 +27,7 @@ const WriterComments = ({
           if (writer === x.author.memberId) {
             return reply[idx] ? (
               // 댓글 쓰기를 눌렀다
-              <>
+              <div key={idx}>
                 <div className="mb-2">
                   <WriterCardX
                     key={idx}
@@ -58,7 +52,7 @@ const WriterComments = ({
                     // 대댓글 작성자가 글작성자 이다
                     if (y.author.memberId === writer) {
                       return (
-                        <>
+                        <div key={id}>
                           <div className="flex flex-row items-center mb-2">
                             <Recomment />
                             <div className="flex flex-col justify-center">
@@ -74,13 +68,13 @@ const WriterComments = ({
                               />
                             </div>
                           </div>
-                        </>
+                        </div>
                       );
                     }
                     // 대댓글 작성자가 글 작성자가 아니다
                     if (y.author.memberId !== userId) {
                       return (
-                        <>
+                        <div key={id}>
                           <div className="flex flex-row items-center mb-2">
                             <Recomment />
                             <div className="flex flex-col justify-center">
@@ -94,15 +88,15 @@ const WriterComments = ({
                               />
                             </div>
                           </div>
-                        </>
+                        </div>
                       );
                     }
                     return <></>;
                   })}
-              </>
+              </div>
             ) : (
               // 댓글 쓰기를 누르지 않았다
-              <>
+              <div key={idx}>
                 <div className="mb-2">
                   <WriterCardX
                     key={idx}
@@ -119,7 +113,7 @@ const WriterComments = ({
                     // 대댓글 작성자가 글작성자 이다
                     if (y.author.memberId === userId) {
                       return (
-                        <>
+                        <div key={id}>
                           <div className="flex flex-row items-center mb-2">
                             <Recomment />
                             <div className="flex flex-col justify-center">
@@ -135,13 +129,13 @@ const WriterComments = ({
                               />
                             </div>
                           </div>
-                        </>
+                        </div>
                       );
                     }
                     // 대댓글 작성자가 글작성자가 아니다
                     if (y.author.memberId !== userId) {
                       return (
-                        <>
+                        <div key={id}>
                           <div className="flex flex-row items-center mb-2">
                             <Recomment />
                             <div className="flex flex-col justify-center">
@@ -155,19 +149,19 @@ const WriterComments = ({
                               />
                             </div>
                           </div>
-                        </>
+                        </div>
                       );
                     }
                     return <></>;
                   })}
-              </>
+              </div>
             );
           }
           // 글 작성자가 아닌 경우
           if (writer !== x.author.memberId) {
             return reply[idx] ? (
               // 댓글 쓰기를 눌렀다
-              <>
+              <div key={idx}>
                 <div className="mb-2">
                   <ViewerCL
                     key={idx}
@@ -191,7 +185,7 @@ const WriterComments = ({
                     // 대댓글 작성자가 글작성자 이다
                     if (y.author.memberId === userId) {
                       return (
-                        <>
+                        <div key={id}>
                           <div className="flex flex-row items-center mb-2">
                             <Recomment />
                             <div className="flex flex-col justify-center">
@@ -207,13 +201,13 @@ const WriterComments = ({
                               />
                             </div>
                           </div>
-                        </>
+                        </div>
                       );
                     }
                     // 대댓글 작성자가 글작성자가 아니다
                     if (y.author.memberId !== userId) {
                       return (
-                        <>
+                        <div key={id}>
                           <div className="flex flex-row items-center mb-2">
                             <Recomment />
                             <div className="flex flex-col justify-center">
@@ -227,15 +221,15 @@ const WriterComments = ({
                               />
                             </div>
                           </div>
-                        </>
+                        </div>
                       );
                     }
                     return <></>;
                   })}
-              </>
+              </div>
             ) : (
               // 댓글 쓰기를 누르지 않았다
-              <>
+              <div key={idx}>
                 <div className="mb-2">
                   <ViewerCL
                     key={idx}
@@ -251,7 +245,7 @@ const WriterComments = ({
                     // 대댓글 작성자가 글작성자 이다
                     if (y.author.memberId === userId) {
                       return (
-                        <>
+                        <div key={id}>
                           <div className="flex flex-row items-center mb-2">
                             <Recomment />
                             <div className="flex flex-col justify-center">
@@ -267,13 +261,13 @@ const WriterComments = ({
                               />
                             </div>
                           </div>
-                        </>
+                        </div>
                       );
                     }
                     // 대댓글 작성자가 글작성자가 아니다
                     if (y.author.memberId !== userId) {
                       return (
-                        <>
+                        <div key={id}>
                           <div className="flex flex-row items-center mb-2">
                             <Recomment />
                             <div className="flex flex-col justify-center">
@@ -287,12 +281,12 @@ const WriterComments = ({
                               />
                             </div>
                           </div>
-                        </>
+                        </div>
                       );
                     }
                     return <></>;
                   })}
-              </>
+              </div>
             );
           }
           return <></>;

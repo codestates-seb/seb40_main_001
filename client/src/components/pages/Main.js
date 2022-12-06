@@ -36,7 +36,7 @@ const Main = () => {
 
   const getUserData = async () => {
     const response = await client.get(
-      `/exercises?address-id=${address}&category=${category}&gender-type=${gender}&cursorId=100&size=${
+      `/exercises?address-id=${address}&category=${category}&gender-type=${gender}&cursorId=2000000000&size=${
         count * SIZE
       }`,
     );

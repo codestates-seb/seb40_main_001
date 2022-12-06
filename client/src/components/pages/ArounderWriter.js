@@ -16,6 +16,7 @@ const ArounderWriter = () => {
   const [loading, setLoading] = useState(false);
   const [writeComments, setWriteComments] = useState('');
   const userId = +localStorage.getItem('memberId');
+  const [replyComments, setReplyComments] = useState('');
 
   // 글 내용 관련 데이터 가져오기
   const getContentsData = async () => {
@@ -40,6 +41,11 @@ const ArounderWriter = () => {
   // input value 저장
   const commentsHandler = e => {
     setWriteComments(e.target.value);
+  };
+
+  // reply input value 저장
+  const recommentsHandler = e => {
+    setReplyComments(e.target.value);
   };
 
   // 게시글 수정하기
@@ -73,12 +79,12 @@ const ArounderWriter = () => {
 
   // 대댓글 달기
   const writeSubReplies = idx => {
-    if (writeComments === '') {
+    if (replyComments === '') {
       alert('내용을 입력해주세요.');
       return;
     }
     const body = {
-      content: writeComments,
+      content: replyComments,
     };
     client
       .post(`/comments/${commentsData[idx].commentId}/replies`, body)
@@ -159,8 +165,8 @@ const ArounderWriter = () => {
             mainReplyDeleteHandler={mainReplyDeleteHandler}
             nonMainReplyDeleteHandler={nonMainReplyDeleteHandler}
             handler={writeSubReplies}
-            onChange={commentsHandler}
-            Value={writeComments}
+            onChange={recommentsHandler}
+            value={replyComments}
           />
         </div>
       )}
