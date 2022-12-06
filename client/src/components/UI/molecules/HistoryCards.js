@@ -87,8 +87,8 @@ const HistoryCL = ({ data, openModal }) => {
         <div className="flex items-center">
           <HNM target={partner && partner.image} />
         </div>
-        <div className="flex flex-col ml-[10px] text-300">
-          <div className="flex flex-row items-center">
+        <div className="flex flex-col w-full ml-[10px] text-300 mr-3">
+          <div className="flex flex-row items-center w-full justify-between">
             <div className="text-300 text-default mr-[10px] max-w-[70px] truncate">{`${
               partner && partner.nickname
             }`}</div>
@@ -99,14 +99,19 @@ const HistoryCL = ({ data, openModal }) => {
                 .replace(/\s/g, '')
             }`}</div>
           </div>
-          <div className="flex flex-row items-center justify-between">
-            <div className="flex flex-row items-center">
+          <div className="flex flex-row items-center w-full  justify-between">
+            <div className="flex flex-row items-center justify-between">
               <div>{icon}</div>
               <div className="ml-1 text-200 font-bold text-exercise">{`${
                 data && isExercise
               }`}</div>
             </div>
-            <div className="ml-1 text-100 text-low">종료: 20:40</div>
+            <div className="ml-1 text-100 text-low">
+              종료:{' '}
+              {data &&
+                `${new Date(data.exerciseAt).getHours()}:
+              ${new Date(data.exerciseAt).getMinutes()}`}
+            </div>
           </div>
         </div>
       </div>

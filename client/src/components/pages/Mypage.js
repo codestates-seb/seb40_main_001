@@ -15,6 +15,9 @@ const Mypage = () => {
   const [userId, setUserId] = useState(localStorage.getItem('memberId'));
 
   const closeModal = () => {
+    if (!score) {
+      return;
+    }
     const payload = {
       destMemberId: destId,
       publicEvaluation: score[0],

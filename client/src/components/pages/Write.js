@@ -33,7 +33,10 @@ const Write = () => {
 
   const fileHandler = e => {
     if (imgList.length === 3) {
-      alert('이미지는 최대 3개까지 첨부 가능합니다.');
+      alert(
+        '이미지는 최대 3개까지 첨부 가능합니다. 이미지 리스트가 리셋됩니다.',
+      );
+      setImgList([]);
       return;
     }
     setImgList(prev => [...prev, e.target.files[0]]);
@@ -66,6 +69,14 @@ const Write = () => {
     if (!data.exercise || !data.title || !data.content || !data.gender) {
       return;
     }
+
+    const now = new Date();
+    const isFast = new Date(data.startTime) < now;
+    if (isFast < now) {
+      alert('운동 시작 시간이 현재 시간보다 빠릅니다.');
+      return;
+    }
+
     if (img) {
       // 이미지 생성
       const imgUp = new FormData();
@@ -151,6 +162,14 @@ const Write = () => {
     if (!data.exercise || !data.title || !data.content || !data.gender) {
       return;
     }
+
+    const now = new Date();
+    const isFast = new Date(data.startTime) < now;
+    if (isFast < now) {
+      alert('운동 시작 시간이 현재 시간보다 빠릅니다.');
+      return;
+    }
+
     const newImgArr = imgList.filter(el => el.name);
     const originImgArr = imgList.filter(el => el.originImgArr);
     if (newImgArr.length > 0) {
