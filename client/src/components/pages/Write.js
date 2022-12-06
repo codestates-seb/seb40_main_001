@@ -32,7 +32,10 @@ const Write = () => {
   };
 
   const fileHandler = e => {
-    if (imgList.length > 3) return;
+    if (imgList.length === 3) {
+      alert('이미지는 최대 3개까지 첨부 가능합니다.');
+      return;
+    }
     setImgList(prev => [...prev, e.target.files[0]]);
   };
 
