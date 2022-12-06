@@ -84,6 +84,7 @@ const Mypage = () => {
       .patch(`/members/${userId}`, payload)
       .then(() => {
         alert('닉네임이 변경되었습니다.');
+        window.location.reload();
       })
       .catch(e => {
         if (e.response.data.message === 'Member exists') {
