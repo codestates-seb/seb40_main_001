@@ -24,8 +24,7 @@ const Main = () => {
   const [infoData, setInfoData] = useState({});
   const [count, setCount] = useState(1);
   const [hasNext, setHasNext] = useState(true);
-  const [cursorId, setCurosrId] = useState(2000000000);
-  const SIZE = 5;
+  const SIZE = 10;
   const [isDrawer, setIsDrawer] = useState(false);
   const observerRef = useRef();
   const preventRef = useRef(true);
@@ -34,13 +33,15 @@ const Main = () => {
   const menuHandler = () => {
     setIsDrawer(!isDrawer);
   };
+
   const getUserData = async () => {
     const response = await client.get(
-      `/exercises?address-id=${address}&category=${category}&gender-type=${gender}&cursorId=${cursorId}&size=${SIZE}`,
+      `/exercises?address-id=${address}&category=${category}&gender-type=${gender}&cursorId=2000000000&size=${
+        count * SIZE
+      }`,
     );
     setHasNext(response.data.hasNext);
-    setUserData([...userData, ...response.data.data]);
-    setCurosrId(response.data.nextCursorId);
+    setUserData(response.data.data);
     preventRef.current = true;
     visited.current = true;
   };
