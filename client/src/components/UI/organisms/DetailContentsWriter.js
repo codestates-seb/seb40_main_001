@@ -45,7 +45,7 @@ const DetailContentsWriter = ({
       <div className="mt-[25px] mb-[10px]">
         <Carousel img={img} />
       </div>
-      <div className="text-default text-300 w-[351px] mt-[15px] ">
+      <div className="text-default whitespace-pre-line text-300 w-[351px] mt-[15px] ">
         {contentsData.content}
       </div>
       <div className="mt-[13px] mb-[17px] border-b border-main w-[351px]"></div>
