@@ -70,10 +70,16 @@ const Write = () => {
       return;
     }
 
-    const now = new Date();
-    const isFast = new Date(data.startTime) < now;
-    if (isFast < now) {
+    const isFast = new Date(data.startTime) < new Date();
+    const isEnd = new Date(data.endTime) < new Date();
+    if (isFast) {
       alert('운동 시작 시간이 현재 시간보다 빠릅니다.');
+      setImgList([]);
+      return;
+    }
+    if (isEnd) {
+      alert('종료 시작이 시작 시간보다 빠릅니다.');
+      setImgList([]);
       return;
     }
 
@@ -116,10 +122,15 @@ const Write = () => {
                 'Start time is earlier than current time'
               ) {
                 alert('시작 시간이 현재 시간보다 빠릅니다.');
+                setImgList([]);
               } else if (
                 e.response.data.message === 'Start time is later than end time'
               ) {
                 alert('종료 시작이 시작 시간보다 빠릅니다.');
+                setImgList([]);
+              } else {
+                alert(e.response.data.message);
+                setImgList([]);
               }
             }
           }
@@ -146,10 +157,15 @@ const Write = () => {
                 'Start time is earlier than current time'
               ) {
                 alert('시작 시간이 현재 시간보다 빠릅니다.');
+                setImgList([]);
               } else if (
                 e.response.data.message === 'Start time is later than end time'
               ) {
                 alert('종료 시작이 시작 시간보다 빠릅니다.');
+                setImgList([]);
+              } else {
+                alert(e.response.data.message);
+                setImgList([]);
               }
             }
           }
@@ -163,10 +179,16 @@ const Write = () => {
       return;
     }
 
-    const now = new Date();
-    const isFast = new Date(data.startTime) < now;
-    if (isFast < now) {
+    const isFast = new Date(data.startTime) < new Date();
+    const isEnd = new Date(data.endTime) < new Date();
+    if (isFast) {
       alert('운동 시작 시간이 현재 시간보다 빠릅니다.');
+      setImgList([]);
+      return;
+    }
+    if (isEnd) {
+      alert('종료 시작이 시작 시간보다 빠릅니다.');
+      setImgList([]);
       return;
     }
 
@@ -230,10 +252,15 @@ const Write = () => {
                 'Start time is earlier than current time'
               ) {
                 alert('시작 시간이 현재 시간보다 빠릅니다.');
+                setImgList([]);
               } else if (
                 e.response.data.message === 'Start time is later than end time'
               ) {
                 alert('종료 시작이 시작 시간보다 빠릅니다.');
+                setImgList([]);
+              } else {
+                alert(e.response.data.message);
+                setImgList([]);
               }
             }
           }
