@@ -24,6 +24,7 @@ const Mypage = () => {
       .post(`/exercises/${exerciseId}/reviews`, payload)
       .then(() => {
         setIsModal(false);
+        window.location.reload();
       })
       .catch(e => {
         if (e.response) {
@@ -33,6 +34,7 @@ const Mypage = () => {
             window.location.reload();
           } else {
             alert(e.response.data.message);
+            window.location.reload();
           }
         }
       });
