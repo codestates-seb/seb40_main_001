@@ -67,7 +67,7 @@ public class Member extends AuditingEntity {
     @Builder.Default
     private int publicEvaluation = 20;
 
-    @OneToOne(mappedBy = "profiledMember", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "profiledMember", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Image image;
 
     @Builder.Default

@@ -13,4 +13,7 @@
   .root {
     @apply w-[390px] h-full;
   }
+  #App {
+    @apply w-[390px];
+  }
 }

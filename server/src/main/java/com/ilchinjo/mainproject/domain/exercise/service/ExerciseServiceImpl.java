@@ -84,6 +84,7 @@ public class ExerciseServiceImpl implements ExerciseService {
                 });
 
         findExercise.update(patchExercise, findMember.getAddress());
+        checkExerciseValid(findExercise);
 
         return exerciseMapper.entityToResponseDto(findExercise);
     }

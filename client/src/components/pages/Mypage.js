@@ -20,9 +20,24 @@ const Mypage = () => {
       publicEvaluation: score[0],
       privateEvaluation: score[1],
     };
-    client.post(`/exercises/${exerciseId}/reviews`, payload).then(() => {
-      setIsModal(false);
-    });
+    client
+      .post(`/exercises/${exerciseId}/reviews`, payload)
+      .then(() => {
+        setIsModal(false);
+        window.location.reload();
+      })
+      .catch(e => {
+        if (e.response) {
+          if (e.response.data.message === 'End time is not passed') {
+            alert('운동 시간이 아직 종료되지 않았습니다.');
+            setIsModal(false);
+            window.location.reload();
+          } else {
+            alert(e.response.data.message);
+            window.location.reload();
+          }
+        }
+      });
   };
 
   const openModal = (id, dest) => {
@@ -61,8 +76,6 @@ const Mypage = () => {
         };
         editProfile(payload);
       });
-
-    // 제출 후 새로고침을 할 것인가?
   };
 
   const changeName = () => {
@@ -73,6 +86,7 @@ const Mypage = () => {
       .patch(`/members/${userId}`, payload)
       .then(() => {
         alert('닉네임이 변경되었습니다.');
+        window.location.reload();
       })
       .catch(e => {
         if (e.response.data.message === 'Member exists') {
@@ -99,7 +113,6 @@ const Mypage = () => {
         return user;
       })
       .then(response => {
-        console.log(response);
         client.get('/members/info').then(res => {
           setUserData(prev => {
             const newData = prev;
@@ -108,11 +121,19 @@ const Mypage = () => {
             }
             return newData;
           });
-          setInfoData({
-            profile: res.data.image.remotePath || '',
-            nickname: response.nickname,
-            charge: response.charge,
-          });
+          if (res.data.image) {
+            setInfoData({
+              profile: res.data.image.remotePath,
+              nickname: response.nickname,
+              charge: response.charge,
+            });
+          } else {
+            setInfoData({
+              profile: '',
+              nickname: response.nickname,
+              charge: response.charge,
+            });
+          }
         });
       });
   };
@@ -122,13 +143,18 @@ const Mypage = () => {
   }, []);
 
   return (
-    <div className="relative h-screen scrollbar-hide">
+    <div className="relative h-screen w-[390px] scrollbar-hide">
       {isModal ? (
         <div className="w-full h-full absolute bg-black opacity-50 z-10"></div>
       ) : (
         <></>
       )}
-      <HeaderLogo txt="마이페이지" menuHandler={menuHandler} menu={true} />
+      <HeaderLogo
+        txt="마이페이지"
+        menuHandler={menuHandler}
+        menu={true}
+        logo={true}
+      />
 
       <div className="flex justify-center mt-[55px]">
         <MyInfo

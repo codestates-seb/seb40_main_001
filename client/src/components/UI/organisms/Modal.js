@@ -46,7 +46,6 @@ const Modal = ({ handleClose, setScore, setIsModal }) => {
     const reveiw = [rate(first), rate(second)];
     // 상위 컴포넌트에서 내려온 score state에 값 담기
     setScore(reveiw);
-    console.log('score', reveiw);
     handleClose();
   };
 

@@ -40,7 +40,6 @@ const Main = () => {
         count * SIZE
       }`,
     );
-
     setHasNext(response.data.hasNext);
     setUserData(response.data.data);
     preventRef.current = true;
@@ -108,52 +107,60 @@ const Main = () => {
   };
 
   return (
-    // 드로워 위치를 위한 css 추가
-    <div className="relative h-screen scrollbar-hide">
-      <HeaderLogo txt="어라운더 찾기" menuHandler={menuHandler} menu={true}>
-        <div
-          className="tooltip tooltip-bottom"
-          data-tip="어라운더란? 같이 운동할 동네친구"
+    <>
+      <div className="relative h-screen scrollbar-hide">
+        <HeaderLogo
+          txt="어라운더 찾기"
+          menuHandler={menuHandler}
+          menu={true}
+          logo={true}
         >
-          <Info />
+          <div
+            className="tooltip tooltip-bottom"
+            data-tip="어라운더란? 같이 운동할 동네친구"
+          >
+            <Info />
+          </div>
+        </HeaderLogo>
+        <div className="mt-[55px]">
+          <ExerciseCarousel
+            handler={handler}
+            arr={[
+              'ALL',
+              'RUNNING',
+              'YOGA',
+              'FITNESS',
+              'SWIMMING',
+              'BASKETBALL',
+              'BADMINTON',
+            ]}
+          />
         </div>
-      </HeaderLogo>
-      <ExerciseCarousel
-        handler={handler}
-        arr={[
-          'ALL',
-          'RUNNING',
-          'YOGA',
-          'FITNESS',
-          'SWIMMING',
-          'BASKETBALL',
-          'BADMINTON',
-        ]}
-      />
-      <div className="flex justify-between border-t border-main pt-2 mx-5">
-        <MiniDropdown setAddress={setAddress} />
-        <Toggle
-          genderToggleClick={genderToggleClick}
-          gender={infoData.gender}
-        />
-      </div>
-      <div className="flex flex-col pt-3 items-center space-y-3">
-        {userData &&
-          userData.map((data, idx) => (
-            <HomeContents key={idx} data={data} contentClick={contentClick} />
-          ))}
-        <div ref={observerRef}></div>
-      </div>
-      <EditBtn handleClick={handleClick} />
-      {/* 드로워 */}
-      {isDrawer ? (
-        <div className="h-screen w-[390px] fixed z-20 top-[55px]">
-          <Drawer img={infoData.image} name={infoData.nickname} />
+        <div className="flex justify-between border-t border-main pt-2 mx-5">
+          <MiniDropdown setAddress={setAddress} />
+          <Toggle
+            genderToggleClick={genderToggleClick}
+            gender={infoData.gender}
+          />
         </div>
-      ) : (
-        <></>
-      )}
-    </div>
+        <div className="flex flex-col pt-3 items-center space-y-3">
+          {userData &&
+            userData.map((data, idx) => (
+              <HomeContents key={idx} data={data} contentClick={contentClick} />
+            ))}
+          <div ref={observerRef}></div>
+        </div>
+        <EditBtn handleClick={handleClick} />
+        {/* 드로워 */}
+        {isDrawer ? (
+          <div className="h-screen w-[390px] fixed z-20 top-[55px]">
+            <Drawer img={infoData.image} name={infoData.nickname} />
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
+    </>
   );
 };
 

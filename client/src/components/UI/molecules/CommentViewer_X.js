@@ -11,7 +11,6 @@ const ViewerSource = ({
   id,
   mainReply,
 }) => {
-  // console.log('mainReply=', mainReply, 'parentId=', parentId, 'id=', id);
   return mainReply ? (
     <div className="flex flex row justify-between">
       <div className="flex flex-col m-[15px]">

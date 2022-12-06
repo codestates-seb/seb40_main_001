@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DrawerInfo } from '../molecules';
 import { AddPeople, Mypage } from '../../../assets/img';
-import { preClient } from '../../../client/client';
+import { client, preClient } from '../../../client/client';
 
 const Drawer = ({ img, name }) => {
   const navigate = useNavigate();
@@ -10,6 +10,7 @@ const Drawer = ({ img, name }) => {
   const logoutHandler = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('memberId');
+    client.defaults.headers.Authorization = '';
     preClient.post('/auth/logout');
     alert('로그아웃이 완료되었습니다.');
     navigate('/login');
