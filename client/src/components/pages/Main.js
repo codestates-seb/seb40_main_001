@@ -70,7 +70,6 @@ const Main = () => {
   };
 
   const observerSet = () => {
-    console.log('작동');
     const observer = new IntersectionObserver(obsHandler, { threshold: 1 });
     if (observerRef.current) observer.observe(observerRef.current);
     return () => {
