@@ -24,7 +24,8 @@ const Main = () => {
   const [infoData, setInfoData] = useState({});
   const [count, setCount] = useState(1);
   const [hasNext, setHasNext] = useState(true);
-  const SIZE = 10;
+  const [cursorId, setCurosrId] = useState(2000000000);
+  const SIZE = 5;
   const [isDrawer, setIsDrawer] = useState(false);
   const observerRef = useRef();
   const preventRef = useRef(true);
@@ -33,19 +34,16 @@ const Main = () => {
   const menuHandler = () => {
     setIsDrawer(!isDrawer);
   };
-
   const getUserData = async () => {
     const response = await client.get(
-      `/exercises?address-id=${address}&category=${category}&gender-type=${gender}&cursorId=2000000000&size=${
-        count * SIZE
-      }`,
+      `/exercises?address-id=${address}&category=${category}&gender-type=${gender}&cursorId=${cursorId}&size=${SIZE}`,
     );
     setHasNext(response.data.hasNext);
-    setUserData(response.data.data);
+    setUserData([...userData, ...response.data.data]);
+    setCurosrId(response.data.nextCursorId);
     preventRef.current = true;
     visited.current = true;
   };
-
   const getUserInfoData = async () => {
     await client.get('/members/info').then(res => {
       localStorage.setItem('memberId', res.data.memberId);
@@ -79,11 +77,25 @@ const Main = () => {
     };
   };
 
+  const resetData = () => {
+    setCount(5);
+    setUserData([]);
+    setCurosrId(2000000000);
+  };
+
   useEffect(() => {
     getUserData();
-    getUserInfoData();
     observerSet();
-  }, [address, category, gender, count]);
+  }, [count]);
+
+  useEffect(() => {
+    getUserInfoData();
+  }, []);
+
+  useEffect(() => {
+    resetData();
+    getUserData();
+  }, [address, category, gender]);
 
   const genderToggleClick = () => {
     if (gender === 'ALL') {
