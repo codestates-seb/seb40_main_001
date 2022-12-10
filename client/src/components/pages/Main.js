@@ -70,6 +70,7 @@ const Main = () => {
   };
 
   const observerSet = () => {
+    console.log('작동');
     const observer = new IntersectionObserver(obsHandler, { threshold: 1 });
     if (observerRef.current) observer.observe(observerRef.current);
     return () => {
@@ -78,6 +79,7 @@ const Main = () => {
   };
 
   const resetData = () => {
+    setHasNext(true);
     setCount(5);
     setUserData([]);
     setCurosrId(2000000000);
@@ -94,7 +96,6 @@ const Main = () => {
 
   useEffect(() => {
     resetData();
-    getUserData();
   }, [address, category, gender]);
 
   const genderToggleClick = () => {
