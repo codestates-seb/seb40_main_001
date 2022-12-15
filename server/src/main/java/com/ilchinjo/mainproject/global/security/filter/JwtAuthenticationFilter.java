@@ -9,6 +9,7 @@ import com.ilchinjo.mainproject.global.security.jwt.JwtTokenizer;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.web.server.Cookie;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -58,11 +59,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setHeader("Authorization", "Bearer " + accessToken);
 
         ResponseCookie cookie = ResponseCookie.from("Refresh", refreshToken)
-                .domain("aroundexercise.com")
                 .maxAge(17 * 24 * 60 * 60)
-                .path("/")
+                .path("/auth/")
                 .secure(true)
-                .sameSite("None")
+                .sameSite(Cookie.SameSite.STRICT.attributeValue())
                 .httpOnly(true)
                 .build();
         response.setHeader("Set-Cookie", cookie.toString());
