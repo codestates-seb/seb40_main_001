@@ -1,5 +1,7 @@
 package com.ilchinjo.mainproject.global.security.jwt;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ilchinjo.mainproject.global.security.userdetails.MemberDetailsService;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -16,9 +18,7 @@ import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 @Component
@@ -111,6 +111,23 @@ public class JwtTokenizer {
                 .getBody();
 
         return claims.get("memberId", Long.class);
+    }
+
+    public String parseEmailFromPayload(String jwt) {
+
+        HashMap<String, String> payloadMap;
+
+        try {
+            String[] splitJwt = jwt.split("\\.");
+            String payload = new String(Base64.getDecoder().decode(splitJwt[1].getBytes()));
+
+            payloadMap = new ObjectMapper().readValue(payload, HashMap.class);
+        } catch (JsonProcessingException e) {
+            log.error(e.getMessage());
+            return null;
+        }
+
+        return String.valueOf(payloadMap.get("sub"));
     }
 
     public JwtStatus validateToken(String token) {
