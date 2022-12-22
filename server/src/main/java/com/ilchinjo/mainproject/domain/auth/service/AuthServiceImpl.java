@@ -39,8 +39,8 @@ public class AuthServiceImpl implements AuthService {
 
         log.info("Reissue Access Token");
 
-        Authentication authentication = jwtTokenizer.getAuthentication(refreshToken);
-        Member member = memberService.findVerifiedMember(authentication.getName());
+        String memberEmail = jwtTokenizer.parseEmailFromPayload(refreshToken);
+        Member member = memberService.findVerifiedMember(memberEmail);
 
         Map<String, Object> claims = new HashMap<>();
         claims.put("memberId", member.getMemberId());
