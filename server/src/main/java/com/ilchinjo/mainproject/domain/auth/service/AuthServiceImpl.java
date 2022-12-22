@@ -8,7 +8,6 @@ import com.ilchinjo.mainproject.global.security.jwt.JwtStatus;
 import com.ilchinjo.mainproject.global.security.jwt.JwtTokenizer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -57,8 +56,8 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public void deleteToken(String refreshToken) {
 
-        Authentication authentication = jwtTokenizer.getAuthentication(refreshToken);
-        Member member = memberService.findVerifiedMember(authentication.getName());
+        String memberEmail = jwtTokenizer.parseEmailFromPayload(refreshToken);
+        Member member = memberService.findVerifiedMember(memberEmail);
 
         RefreshToken findRefreshToken = findVerifiedRefreshToken(member.getEmail());
 
