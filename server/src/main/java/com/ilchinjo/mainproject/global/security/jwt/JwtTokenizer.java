@@ -1,5 +1,7 @@
 package com.ilchinjo.mainproject.global.security.jwt;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ilchinjo.mainproject.global.security.userdetails.MemberDetailsService;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -9,16 +11,11 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 @Component
@@ -113,6 +110,23 @@ public class JwtTokenizer {
         return claims.get("memberId", Long.class);
     }
 
+    public String parseEmailFromPayload(String jwt) {
+
+        HashMap<String, String> payloadMap;
+
+        try {
+            String[] splitJwt = jwt.split("\\.");
+            String payload = new String(Base64.getDecoder().decode(splitJwt[1].getBytes()));
+
+            payloadMap = new ObjectMapper().readValue(payload, HashMap.class);
+        } catch (JsonProcessingException e) {
+            log.error(e.getMessage());
+            return null;
+        }
+
+        return String.valueOf(payloadMap.get("sub"));
+    }
+
     public JwtStatus validateToken(String token) {
 
         String base64EncodedSecretKey = encodeBase64SecretKey(secretKey);
@@ -128,21 +142,5 @@ public class JwtTokenizer {
         }
 
         return JwtStatus.DENIED;
-    }
-
-    public Authentication getAuthentication(String token) {
-
-        String base64EncodedSecretKey = encodeBase64SecretKey(secretKey);
-        Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
-
-        Claims claims = Jwts.parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-
-        UserDetails userDetails = memberDetailsService.loadUserByUsername(claims.getSubject());
-
-        return new UsernamePasswordAuthenticationToken(userDetails, token, userDetails.getAuthorities());
     }
 }
