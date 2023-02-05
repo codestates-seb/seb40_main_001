@@ -6,7 +6,66 @@
 
 ### 배포 주소: [Around 바로가기](https://aroundexercise.com)
 
+## 소개
+<img src=https://user-images.githubusercontent.com/54241806/216851930-6b90e776-2ae8-44dd-a772-5cc17e5c171e.png width=60%>
+ 최근 여러 조사에 따르면 코로나19 팬데믹의 영향으로 건강 관리 및 운동에 대한 관심이 꾸준히 증가하고 있습니다.<br>
+ 개인 헬스를 비롯해 필라테스, 테니스 등 다양한 운동의 수요가 증가할 뿐 아니라 “헬린이”와 같은 용어가 생겨나며 기존 운동에 관심이 없던 사람들도 운동을 시작하는 추세를 보였습니다.<br>
+ 개인 건강이 중요해진 만큼 다양한 운동을 통해 **즐겁게 건강을 관리하는 ‘헬시 플래저’를 추구하는 MZ 세대**가 늘고 있습니다.<br>
+ 저희 팀은 이러한 MZ 세대를 위해 **즐겁게 같이 운동할 수 있는 동네 친구 찾기 플랫폼 Around**를 기획하게 되었습니다.<br>
+
 *어라운드는 모바일 온리를 지원합니다.
+
+<details>
+    <summary>데모</summary>
+<h3> 회원 가입 및 로그인</h3>
+성별, 지역구를 포함하여 회원가입 진행해요!<br>
+비밀번호는 대소문자, 특수기호, 숫자를 모두 포함한 8자리 이상이어야 해요!<br>
+닉네임과 이메일(아이디)은 중복될 수 없어요!<br>
+<img src=https://user-images.githubusercontent.com/54241806/216851484-0dd4e124-115c-4f73-ae1a-7fa1781fb43e.gif width=40%>
+
+<h3> 원하는 운동모집글 찾기 </h3>
+총 3개의 필터(성별, 지역, 운동 카테고리)로 
+원하는 운동 모집글을 찾을 수 있어요!<br>
+운동 모집글은 무한 스크롤 방식으로 구현되어 있어요!<br>
+로고를 누르면 게시물의 최상단으로 이동할 수 있어요!<br>
+<img src=https://user-images.githubusercontent.com/54241806/216851587-4a66eef8-9460-48e1-b279-03cd72bd9b4c.gif width=40%>
+
+<h3> 운동 친구 찾기 </h3>
+운동 친구 모집글(성별, 운동 종류, 운동 일시)을 작성하여 친구를 찾을 수 있어요!<br>
+이미지는 최대 3개까지 업로드 가능해요!<br>
+운동 일시는 현재 시간보다 늦게 설정해주셔야 해요!<br>
+<img src=https://user-images.githubusercontent.com/54241806/216851637-f4468d03-97b7-43b6-af41-886975c931d8.gif width=40%>
+
+<h3> 운동 친구 신청하기 </h3>
+원하는 모집글을 찾으셨다면 신청해보세요!<br>
+신청이 완료되면 신청 버튼이 완료 버튼으로 바뀌어요!<br>
+해당 모집글의 신청자의 리스트를 확인할 수 있어요!<br>
+<img src=https://user-images.githubusercontent.com/54241806/216851701-703fccca-f57c-49ef-8cce-ef9c10502b24.gif width=40%>
+
+<h3> 댓글과 답글 작성하기 </h3>
+원하는 모집글에 댓글과 답글을 작성할 수 있어요!<br>
+모집글 작성자의 댓글은 빨간색으로, 그 외 사용자의 댓글은 초록색으로 표시되어요!<br>
+만약 본인이 작성한 댓글과 답글이 마음에 들지 않는다면 삭제할 수 있어요!<br>
+<img src=https://user-images.githubusercontent.com/54241806/216851748-54a2fc56-eea9-4cfe-8a29-224aad361a50.gif width=40%>
+
+<h3> 운동 친구 수락하기 </h3>
+운동 친구 신청이 있나요? 그렇다면 수락을 하고 함께 운동을 해보아요!<br>
+<img src=https://user-images.githubusercontent.com/54241806/216851804-aa9f94e8-af2e-4146-887d-67413bd3322e.gif width=40%>
+
+<h3> 마이페이지 </h3>
+프로필 이미지를 설정할 수 있고, 닉네임을 변경할 수 있어요!<br>
+나의 운동기록을 마이페이지에서 확인할 수 있어요!<br>
+운동을 함께했던 친구의 리뷰가 반영된 나의 매너 점수를 확인할 수 있어요!<br>
+<img src=https://user-images.githubusercontent.com/54241806/216851848-055055ec-f149-41cf-9187-b289907b5144.gif width=40%>
+
+<h3> 리뷰하기 </h3>
+운동을 함께 했던 친구에게 리뷰를 할 수 있어요!<br>
+리뷰는 운동 시간이 종료된 이후에 작성할 수 있어요!<br>
+<img src=https://user-images.githubusercontent.com/54241806/216851894-1db3ff9f-6e11-4731-a2e7-83bd20bedb55.gif width=40%>
+
+
+</details>
+<br>
 
 ---
 
@@ -56,3 +115,14 @@
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 📖 commit(main) | 💪🏻 PR | 📝 Issue
+
+---
+
+## ERD
+[링크](https://www.erdcloud.com/d/Nyo5CFC7NF23QE8Nc
+![image](https://user-images.githubusercontent.com/54241806/216851099-cefc4c8d-9a14-4342-b552-046927216964.png)
+
+---
+
+## 아키텍쳐
+![image](https://user-images.githubusercontent.com/54241806/216851175-a0230412-766f-4bdf-95e4-92aa1a3a584b.png)
